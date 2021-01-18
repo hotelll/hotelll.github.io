@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.svg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hotelll.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="这是 Leetcode 842 将数组拆分成斐波那契序列，难度中等。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Leetcode842 将数组拆分成斐波那契序列">
+<meta property="og:url" content="http://hotelll.github.io/2020/12/08/Leetcode842-SplitArrayToFib/index.html">
+<meta property="og:site_name" content="Hotel&#39;s Blog">
+<meta property="og:description" content="这是 Leetcode 842 将数组拆分成斐波那契序列，难度中等。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-12-08T02:26:07.000Z">
+<meta property="article:modified_time" content="2021-01-18T13:50:16.355Z">
+<meta property="article:author" content="Hotel">
+<meta property="article:tag" content="回溯">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://hotelll.github.io/2020/12/08/Leetcode842-SplitArrayToFib/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Leetcode842 将数组拆分成斐波那契序列 | Hotel's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hotel's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Knowledge, Tech and Life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">16</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">4</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">26</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://hotelll.github.io/2020/12/08/Leetcode842-SplitArrayToFib/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portrait.jpg">
+      <meta itemprop="name" content="Hotel">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hotel's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Leetcode842 将数组拆分成斐波那契序列
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-12-08 10:26:07" itemprop="dateCreated datePublished" datetime="2020-12-08T10:26:07+08:00">2020-12-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-01-18 21:50:16" itemprop="dateModified" datetime="2021-01-18T21:50:16+08:00">2021-01-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+              <span>2.6k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+              <span>2 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>这是 Leetcode 842 将数组拆分成斐波那契序列，难度中等。</p>
+<a id="more"></a>
+<h2><span id="题目">题目</span></h2><p>给定一个数字字符串 S，比如 S = “123456579”，我们可以将它分成斐波那契式的序列 [123, 456, 579]。</p>
+<p>形式上，斐波那契式序列是一个非负整数列表 F，且满足：</p>
+<ul>
+<li>$0 \leq F[i] \leq 2^{31} - 1$，（也就是说，每个整数都符合 32 位有符号整数类型）；</li>
+<li>$F.length \geq 3$；</li>
+<li>对于所有的 $0 \leq i &lt; F.length - 2$，都有 $F[i] + F[i+1] = F[i+2]$ 成立。</li>
+</ul>
+<p>另外，请注意，将字符串拆分成小块时，每个块的数字一定不要以零开头，除非这个块是数字 0 本身。</p>
+<p>返回从 S 拆分出来的任意一组斐波那契式的序列块，如果不能拆分则返回 []。</p>
+<h3><span id="示例1">示例1：</span></h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：<span class="string">&quot;123456579&quot;</span></span><br><span class="line">输出：[<span class="number">123</span>,<span class="number">456</span>,<span class="number">579</span>]</span><br></pre></td></tr></table></figure>
+<h3><span id="示例2">示例2：</span></h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: <span class="string">&quot;11235813&quot;</span></span><br><span class="line">输出: [<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">8</span>,<span class="number">13</span>]</span><br></pre></td></tr></table></figure>
+<h3><span id="示例3">示例3：</span></h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: <span class="string">&quot;112358130&quot;</span></span><br><span class="line">输出: []</span><br><span class="line">解释: 这项任务无法完成。</span><br></pre></td></tr></table></figure>
+<h3><span id="示例4">示例4：</span></h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：<span class="string">&quot;0123&quot;</span></span><br><span class="line">输出：[]</span><br><span class="line">解释：每个块的数字不能以零开头，因此 <span class="string">&quot;01&quot;</span>，<span class="string">&quot;2&quot;</span>，<span class="string">&quot;3&quot;</span> 不是有效答案。</span><br></pre></td></tr></table></figure>
+<h3><span id="示例5">示例5：</span></h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: <span class="string">&quot;1101111&quot;</span></span><br><span class="line">输出: [<span class="number">110</span>, <span class="number">1</span>, <span class="number">111</span>]</span><br><span class="line">解释: 输出 [<span class="number">11</span>,<span class="number">0</span>,<span class="number">11</span>,<span class="number">11</span>] 也同样被接受。</span><br></pre></td></tr></table></figure>
+<h3><span id="提示">提示：</span></h3><ol>
+<li>$1\leq S.length \leq 200$</li>
+<li>字符串 $S$ 中只有含有数字</li>
+</ol>
+<h2><span id="题解回溯剪枝">题解：回溯+剪枝</span></h2><h3><span id="原理">原理</span></h3><p>将给定的字符串分成斐波那契序列，可以通过<strong>回溯</strong>的方法实现。</p>
+<p>使用列表存储拆分出的数，回溯过程中维护该列表的元素，列表初始为空。遍历字符串的所有可能的前缀，作为当前被拆分出的数，然后对剩余部分继续拆分，直到整个字符串拆分完毕。</p>
+<p>根据斐波那契序列的要求，从第三个数开始，每个数都等于前 2 个数的和。因此，从第 3 个数开始，需要判断拆分出的数是否等于前 2 个数的和，只有满足要求时才进行拆分，否则不进行拆分。</p>
+<p>回溯过程中，还有三处可以进行剪枝操作。</p>
+<ul>
+<li>如果字符串剩下的部分以 0 开头，就不需要考虑拆分出长度大于 1 的数，因为长度大于 1 的数以 0 开头不符合要求；</li>
+<li>拆分出的数必须符合 32 位有符号整数类型，即每个数必须在 $[0,2^{31}-1]$ 的范围内，如果拆分出的数大于 $2^{31}-1$，则不符合要求，长度更大的数的数值也一定更大，一定也大于 $2^{31}-1$，因此不可能继续拆分得到斐波那契序列；</li>
+<li>如果列表中至少有 2 个数，并且拆分出的数已经大于最后 2 个数的和，就不需要继续尝试拆分了。</li>
+</ul>
+<p>当整个字符串拆分完毕时，如果列表中至少有 3 个数，则得到一个符合要求的斐波那契序列，返回列表。如果没有找到符合要求的斐波那契序列，则返回空列表。</p>
+<p>实现方面，回溯需要带返回值，表示是否存在符合要求的斐波那契序列。</p>
+<h3><span id="代码实现">代码实现</span></h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">splitIntoFibonacci</span><span class="params">(<span class="built_in">string</span> S)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="built_in">list</span>;</span><br><span class="line">        backtrack(<span class="built_in">list</span>, S, S.length(), <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">list</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">backtrack</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; <span class="built_in">list</span>, <span class="built_in">string</span> S, <span class="keyword">int</span> length, </span></span></span><br><span class="line"><span class="function"><span class="params">          			 <span class="keyword">int</span> index, <span class="keyword">long</span> <span class="keyword">long</span> sum, <span class="keyword">int</span> prev)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (index == length) &#123; <span class="comment">// backtrack to the end</span></span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">list</span>.size() &gt;= <span class="number">3</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> curr = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = index; i &lt; length; i++) &#123;</span><br><span class="line">            <span class="comment">// pruning 1</span></span><br><span class="line">            <span class="keyword">if</span> (i &gt; index &amp;&amp; S[index] == <span class="string">&#x27;0&#x27;</span>) &#123; <span class="comment">// started with 0</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            curr = curr * <span class="number">10</span> + S[i] - <span class="string">&#x27;0&#x27;</span>; <span class="comment">// accumulate the number</span></span><br><span class="line">            <span class="comment">// pruning 2</span></span><br><span class="line">            <span class="keyword">if</span> (curr &gt; INT_MAX) &#123; <span class="comment">// exceed the limit</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// pruning 3</span></span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">list</span>.size() &gt;= <span class="number">2</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (curr &lt; sum) &#123; <span class="comment">// we can continue to accumulate curr</span></span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (curr &gt; sum) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">list</span>.push_back(curr); <span class="comment">// only when curr = sum</span></span><br><span class="line">            <span class="keyword">if</span> (backtrack(<span class="built_in">list</span>, S, length, i + <span class="number">1</span>, prev + curr, curr)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// backtrack approach</span></span><br><span class="line">            <span class="built_in">list</span>.pop_back();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3><span id="复杂度分析">复杂度分析</span></h3><ul>
+<li>时间复杂度：$O(n\log^2 C)$</li>
+<li>空间复杂度：$O(n)$</li>
+</ul>
+<h2><span id="总结">总结</span></h2><p>回溯算法不是很直观，要多练习，学习模板，灵活运用。剪枝可以有效减少时间消耗，需要我们仔细地思考。这里附一个回溯算法的模板。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">backtrack</span><span class="params">(<span class="string">&quot;原始参数&quot;</span>)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//终止条件(递归必须要有终止条件)</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="string">&quot;终止条件&quot;</span>) &#123;</span><br><span class="line">        <span class="comment">//一些逻辑操作（可有可无，视情况而定）</span></span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="string">&quot;for循环开始的参数&quot;</span>; i &lt; <span class="string">&quot;for循环结束的参数&quot;</span>; i++) &#123;</span><br><span class="line">        <span class="comment">//一些逻辑操作（可有可无，视情况而定）</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//做出选择</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//递归</span></span><br><span class="line">        backtrack(<span class="string">&quot;新的参数&quot;</span>);</span><br><span class="line">        <span class="comment">//一些逻辑操作（可有可无，视情况而定）</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">//撤销选择</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%9B%9E%E6%BA%AF/" rel="tag"># 回溯</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/06/OS6-Synchronization-Tools/" rel="prev" title="OS6 Synchronization Tools">
+      <i class="fa fa-chevron-left"></i> OS6 Synchronization Tools
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/12/09/Leetcode-62-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84/" rel="next" title="Leetcode62 不同路径">
+      Leetcode62 不同路径 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.1.</span> <span class="nav-text">示例1：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.2.</span> <span class="nav-text">示例2：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.3.</span> <span class="nav-text">示例3：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.4.</span> <span class="nav-text">示例4：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.5.</span> <span class="nav-text">示例5：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.6.</span> <span class="nav-text">提示：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">题解：回溯+剪枝</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.2.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.3.</span> <span class="nav-text">复杂度分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hotel"
+      src="/images/portrait.jpg">
+  <p class="site-author-name" itemprop="name">Hotel</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hotel</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="Symbols count total">147k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">2:14</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

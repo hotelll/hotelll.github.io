@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.svg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hotelll.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="这是网络流的第二部分。在网络流 I 中我们讨论了最大流最小割的定义、求解方法以及定理证明。在第二部分中，我们将讨论一种优化 Ford-Fulkerson 算法时间复杂度的方法——Capacity-scaling 算法。Capacity-scaling 算法通过不断搜寻残存网络子图中瓶颈容量最大的增广路径，将算法时间复杂度从 $O(mnC)$ 优化到 $O(mn\log C)$。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络流II：Capacity-scaling 算法">
+<meta property="og:url" content="http://hotelll.github.io/2020/10/29/%E7%BD%91%E7%BB%9C%E6%B5%81II/index.html">
+<meta property="og:site_name" content="Hotel&#39;s Blog">
+<meta property="og:description" content="这是网络流的第二部分。在网络流 I 中我们讨论了最大流最小割的定义、求解方法以及定理证明。在第二部分中，我们将讨论一种优化 Ford-Fulkerson 算法时间复杂度的方法——Capacity-scaling 算法。Capacity-scaling 算法通过不断搜寻残存网络子图中瓶颈容量最大的增广路径，将算法时间复杂度从 $O(mnC)$ 优化到 $O(mn\log C)$。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://hotelll.github.io/2020/10/29/%E7%BD%91%E7%BB%9C%E6%B5%81II/CSalgorithm.png">
+<meta property="og:image" content="http://hotelll.github.io/2020/10/29/%E7%BD%91%E7%BB%9C%E6%B5%81II/image-20201110233648500.png">
+<meta property="article:published_time" content="2020-10-29T06:12:47.000Z">
+<meta property="article:modified_time" content="2020-11-18T15:22:18.535Z">
+<meta property="article:author" content="Hotel">
+<meta property="article:tag" content="网络流">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://hotelll.github.io/2020/10/29/%E7%BD%91%E7%BB%9C%E6%B5%81II/CSalgorithm.png">
+
+<link rel="canonical" href="http://hotelll.github.io/2020/10/29/%E7%BD%91%E7%BB%9C%E6%B5%81II/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>网络流II：Capacity-scaling 算法 | Hotel's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hotel's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Knowledge, Tech and Life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">16</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">4</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">26</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://hotelll.github.io/2020/10/29/%E7%BD%91%E7%BB%9C%E6%B5%81II/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portrait.jpg">
+      <meta itemprop="name" content="Hotel">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hotel's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          网络流II：Capacity-scaling 算法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-10-29 14:12:47" itemprop="dateCreated datePublished" datetime="2020-10-29T14:12:47+08:00">2020-10-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-11-18 23:22:18" itemprop="dateModified" datetime="2020-11-18T23:22:18+08:00">2020-11-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+              <span>2.5k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+              <span>2 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>这是网络流的第二部分。在网络流 I 中我们讨论了最大流最小割的定义、求解方法以及定理证明。在第二部分中，我们将讨论一种优化 Ford-Fulkerson 算法时间复杂度的方法——Capacity-scaling 算法。Capacity-scaling 算法通过不断搜寻残存网络子图中瓶颈容量最大的增广路径，将算法时间复杂度从 $O(mnC)$ 优化到 $O(mn\log C)$。</p>
+<a id="more"></a>
+<h2><span id="ford-fulkerson-算法缺陷">Ford-Fulkerson 算法缺陷</span></h2><h3><span id="回顾-ford-fulkerson-算法">回顾 Ford-Fulkerson 算法</span></h3><p>我们这里再次写一下 FF 算法的流程：</p>
+<ul>
+<li>初始化：对于网络 $G$ 上所有边 $e$，令 $f(e)=0$。</li>
+<li>在残存网络 $G_f$ 中任意寻找一条增广路径 $P$。</li>
+<li>在路径 $P$ 上添加流。</li>
+<li>重复直到找不到增广路径。</li>
+</ul>
+<p>首先，我们来分析一下为什么需要 Capacity-scaling 算法，直接用 Ford-Fulkerson 算法的缺陷是什么？</p>
+<h3><span id="ford-fulkerson-算法分析">Ford-Fulkerson 算法分析</span></h3><p><strong>假设：</strong>网络中边的容量均为 $1$ 到 $C$ 之间的整数。</p>
+<p><strong>整数不变性</strong>（Integrality invariant）：通过 Ford-Fulkerson 算法，网络中流的值 $f(e)$ 以及残存容量 $c_f(e)$ 同样是整数。</p>
+<p><strong>定理：</strong>算法最多在 $val(f^*)\leq nC$ 次迭代后终止。</p>
+<ul>
+<li>证明：Ford-Fulkerson 算法每一次迭代至少给流的值增加1，且根据定义，流的值上限为 $nC$。</li>
+</ul>
+<p><strong>推论：</strong>Ford-Fulkerson 算法的时间复杂度是 $O(mnC)$。</p>
+<p><strong>整数定理</strong>（Integrality theorem）：存在一个最大流 $f^<em>$ ，它的所有边的流值 $f^</em>(e)$ 均为整数。</p>
+<ul>
+<li>证明：因为 Ford-Fulkerson 算法会终止，由 Integrality invariant 可以直接推得。</li>
+</ul>
+<h3><span id="ford-fulkerson-算法的-bad-case">Ford-Fulkerson 算法的 Bad case</span></h3><p>我们可以发现，Ford-Fulkerson 算法的时间复杂度不仅基于输入规模 $(m,n)$ 的多项式时间，还与网络最大容量 $C$ 有关。如果网络的最大容量为 $C$，那么算法一定会进行 $\geq C$ 次迭代。因此，即便输入规模很小，如果输入网络边的最大容量 $C$ 很大，那么 FF 算法的时间复杂度依然会很大。</p>
+<h3><span id="选择好的增广路径">选择好的增广路径</span></h3><p>避免这个问题的方法就是在算法过程中<strong>选择更好的增广路径</strong>。那么我们该如何高效地找到增广路径并且使 FF 算法的迭代更少呢？</p>
+<p>记得在上一节我们将瓶颈容量的时候提到，如果 $f$ 是原来的流，且找到一条增广路径 $P$，那么更新的流 $f’$ 满足 $val(f’)=val(f)+bottleneck(G_f, P)$。所以如果能够每次挑选<strong>瓶颈容量最大</strong>的增广路径，我们就可以保证每次迭代中 $val(f)$ 增加的量最大，从而减少迭代次数。</p>
+<p>直接搜索瓶颈容量最大的路径计算量较大，因此我们采用 Capacity-scaling 算法进行寻找。</p>
+<h2><span id="capacity-scaling-算法">Capacity-scaling 算法</span></h2><p>在 Capacity-Scaling 算法中，我们记录一个缩放参数 $\Delta$，在每次迭代中，我们不关注整个 $G_f$，只关注 $G_f(\Delta)$。$G_f(\Delta)$ 是 $G_f$ 的子图，只包括 $G_f$ 中残存容量 $\geq\Delta$ 的边。我们初始化 $\Delta$ 为不大于最大容量 $C$ 的最大2次幂，且在每轮迭代中缩小 $\Delta$ 为 $\Delta /2$。</p>
+<h3><span id="算法伪代码">算法伪代码</span></h3><div align="center"><img src="/2020/10/29/%E7%BD%91%E7%BB%9C%E6%B5%81II/CSalgorithm.png" style="zoom:70%;"></div>
+
+<h3><span id="算法正确性与复杂性分析">算法正确性与复杂性分析</span></h3><p>假设：所有边的容量是 $1$ 到 $C$ 的整数。</p>
+<p><strong>整数不变性：</strong>所有流和残存容量都是整数。</p>
+<p><strong>定理：如果 Capacity-scaling 算法终止，那么 $f$ 是一个最大流。</strong></p>
+<p>证明：</p>
+<ul>
+<li>根据整数不变性，当 $\Delta=1$时，$G_f(\Delta)=G_f$。</li>
+<li>根据伪代码，算法在 $\Delta=1$ 阶段终止时，图上将不再有增广路径。 </li>
+</ul>
+<h5><span id="引理1外层-while-循环重复-1lceil-log_2-crceil-次">引理1：外层 While 循环重复 $1+\lceil \log_2 C\rceil$ 次。</span></h5><p>证明：算法初始化 $C/2&lt;\Delta\leq C$，且 $\Delta$ 每次迭代减少 $1/2$，由此可得结果。</p>
+<h5><span id="引理2令-f-是某个-delta-scaling-阶段后的流则最大流的值-valfleq-valfmdeltam-为边数">引理2：令 $f$ 是某个 $\Delta$-scaling 阶段后的流，则最大流的值 $val(f^*)\leq val(f)+m\Delta$（$m$ 为边数）。</span></h5><p>证明：（类比最大流最小割 $3\to 1$ 的证明方法）</p>
+<ul>
+<li>假设存在割 $(A,B)$ 满足 $cap(A,B)\leq val(f)+m\Delta$。</li>
+<li>$A$ 为源点 $s$ 在 $G_f(\Delta)$ 中可达的所有点的集合。</li>
+<li>根据割 $A$ 的定义，$s\in A$。</li>
+<li><p>根据流 $f$ 的定义，因为是迭代后的结果，所以一定没有增广路径，所以 $t\notin A$。</p>
+</li>
+<li><p>由上述条件可得（证明类比最大流最小割定理 $3\to 1$，在残存网络中用反证法）：</p>
+<ul>
+<li>对于任意边 $e=(v,w)$，$v\in B$ 且 $w\in A$，有 $f(e)&lt;\Delta$。</li>
+<li>对于任意边 $e=(v,w)$，$v\in A$ 且 $w\in B$，有 $f(e)&gt;c(e)-\Delta$。</li>
+</ul>
+</li>
+</ul>
+<div align="center"><img src="/2020/10/29/%E7%BD%91%E7%BB%9C%E6%B5%81II/image-20201110233648500.png" style="zoom:90%;"></div>
+
+
+
+<h5><span id="引理3流的值在每个-scaling-阶段最多增加-2m-次">引理3：流的值在每个 Scaling 阶段最多增加 $2m$ 次。</span></h5><p>证明：</p>
+<ul>
+<li>令 $f’$ 是上个阶段（$\Delta’$-$scaling$）得到的流。</li>
+<li>令 $f$ 是当前阶段（$\Delta$-$scaling$）得到的流，其中 $\Delta=\Delta’/2$。</li>
+<li>根据引理2，可得 $val(f^*)\leq val(f’)+m\Delta’$。</li>
+<li>也就是说，$val(f^*)\leq val(f’)+2m\Delta$。</li>
+<li>所以说，在 $\Delta$-$scaling$ 阶段，流的值最多增加 $2m\Delta$。</li>
+<li>根据算法，在 $\Delta$-$scaling$ 阶段，每次流值的增量至少为 $\Delta$。</li>
+<li>所以，流值最多的增加次数为 $2m$。</li>
+</ul>
+<h5><span id="定理capacity-scaling-算法需要在-omlog-c-次增加中找到最大流每一次增加所需要的时间为-om包括建立网络以及寻找路径-因此-capacity-scaling-算法总体时间复杂度为-om2log-c">定理：Capacity-scaling 算法需要在 $O(m\log C)$ 次增加中找到最大流，每一次增加所需要的时间为 $O(m)$，包括建立网络以及寻找路径。因此 Capacity-scaling 算法总体时间复杂度为 $O(m^2\log C)$。</span></h5><p>证明：由引理1和引理3可得。</p>
+<p>又学会了一个算法，激不激动233。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/" rel="tag"># 网络流</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/" rel="prev" title="网络流I：详解最大流最小割">
+      <i class="fa fa-chevron-left"></i> 网络流I：详解最大流最小割
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/11/10/Ubuntu%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/" rel="next" title="Ubuntu Unable to locate package 问题解决">
+      Ubuntu Unable to locate package 问题解决 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">Ford-Fulkerson 算法缺陷</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.1.</span> <span class="nav-text">回顾 Ford-Fulkerson 算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.2.</span> <span class="nav-text">Ford-Fulkerson 算法分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.3.</span> <span class="nav-text">Ford-Fulkerson 算法的 Bad case</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.4.</span> <span class="nav-text">选择好的增广路径</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">Capacity-scaling 算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.1.</span> <span class="nav-text">算法伪代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.2.</span> <span class="nav-text">算法正确性与复杂性分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link"><span class="nav-number">2.2.0.1.</span> <span class="nav-text">引理1：外层 While 循环重复 $1+\lceil \log_2 C\rceil$ 次。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link"><span class="nav-number">2.2.0.2.</span> <span class="nav-text">引理2：令 $f$ 是某个 $\Delta$-scaling 阶段后的流，则最大流的值 $val(f^*)\leq val(f)+m\Delta$（$m$ 为边数）。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link"><span class="nav-number">2.2.0.3.</span> <span class="nav-text">引理3：流的值在每个 Scaling 阶段最多增加 $2m$ 次。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link"><span class="nav-number">2.2.0.4.</span> <span class="nav-text">定理：Capacity-scaling 算法需要在 $O(m\log C)$ 次增加中找到最大流，每一次增加所需要的时间为 $O(m)$，包括建立网络以及寻找路径。因此 Capacity-scaling 算法总体时间复杂度为 $O(m^2\log C)$。</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hotel"
+      src="/images/portrait.jpg">
+  <p class="site-author-name" itemprop="name">Hotel</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hotel</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="Symbols count total">147k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">2:14</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
