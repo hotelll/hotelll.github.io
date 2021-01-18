@@ -28,7 +28,7 @@
 <meta property="og:description" content="项目地址：https:&#x2F;&#x2F;github.com&#x2F;openai&#x2F;jukebox  OpenAI 的项目 Jukebox 所实现的功能是：输入艺术家、曲风以及歌词，生成一首歌曲。在本周，笔者成功跑通了 Sample 部分的代码来生成音乐。写下这篇博文主要是大致记录整个过程，以及踩过的坑，希望能够帮助到有相同需求的朋友。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-01-17T15:52:51.000Z">
-<meta property="article:modified_time" content="2021-01-17T15:54:24.521Z">
+<meta property="article:modified_time" content="2021-01-18T06:15:16.205Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="生成模型">
 <meta property="article:tag" content="MIR">
@@ -176,10 +176,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-01-17 23:52:51 / Modified: 23:54:24" itemprop="dateCreated datePublished" datetime="2021-01-17T23:52:51+08:00">2021-01-17</time>
+              <time title="Created: 2021-01-17 23:52:51" itemprop="dateCreated datePublished" datetime="2021-01-17T23:52:51+08:00">2021-01-17</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-01-18 14:15:16" itemprop="dateModified" datetime="2021-01-18T14:15:16+08:00">2021-01-18</time>
+              </span>
 
           
 
@@ -300,12 +306,12 @@
 <h2><span id="运行结果">运行结果</span></h2><p>运行结果会保存在 jukebox/{name} 文件夹下，用浏览器打开 index.html 就可以浏览生成的结果。下面展示一些笔者本人用 1b_lyrics 生成的样例。</p>
 <p><strong>艺术家</strong>：Alan Jackson    <strong>曲风</strong>：Country</p>
 
-        <div id="aplayer-KFzmQKmB" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+        <div id="aplayer-iglQRqNB" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
             <pre class="aplayer-lrc-content"></pre>
         </div>
         <script>
           var ap = new APlayer({
-            element: document.getElementById("aplayer-KFzmQKmB"),
+            element: document.getElementById("aplayer-iglQRqNB"),
             narrow: false,
             autoplay: false,
             showlrc: false,
@@ -328,12 +334,12 @@
 <p>And wrinkled lip, and sneer of cold command</p>
 <p><strong>艺术家</strong>：Joe Bonamassa    <strong>曲风</strong>：Blues Rock</p>
 
-        <div id="aplayer-LFndcLbR" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+        <div id="aplayer-faQEQMhd" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
             <pre class="aplayer-lrc-content"></pre>
         </div>
         <script>
           var ap = new APlayer({
-            element: document.getElementById("aplayer-LFndcLbR"),
+            element: document.getElementById("aplayer-faQEQMhd"),
             narrow: false,
             autoplay: false,
             showlrc: false,
@@ -355,12 +361,12 @@
 <p>Ohh, it’s hot tub time!</p>
 <p><strong>艺术家</strong>：Céline Dion    <strong>曲风</strong>：Pop</p>
 
-        <div id="aplayer-mcLdRKFE" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+        <div id="aplayer-KaXjpWen" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
             <pre class="aplayer-lrc-content"></pre>
         </div>
         <script>
           var ap = new APlayer({
-            element: document.getElementById("aplayer-mcLdRKFE"),
+            element: document.getElementById("aplayer-KaXjpWen"),
             narrow: false,
             autoplay: false,
             showlrc: false,
@@ -383,8 +389,8 @@
 <p>Just as long as I am there</p>
 <p>I’ll be there in your night</p>
 <p>I’ll be there when the condition’s right</p>
-<h2><span id="避坑指南">避坑指南</span></h2><h4><span id="选择空闲的gpu">选择空闲的GPU</span></h4><p>在实验室使用共享的服务器时，提前在命令行输入 nvidia-smi 来观察一下服务器的使用情况，选择空闲的 GPU；</p>
-<h4><span id="应对-cuda-out-of-memory-报错">应对 CUDA out of memory 报错</span></h4><ul>
+<h2><span id="避坑指南">避坑指南</span></h2><h3><span id="选择空闲的gpu">选择空闲的GPU</span></h3><p>在实验室使用共享的服务器时，提前在命令行输入 nvidia-smi 来观察一下服务器的使用情况，选择空闲的 GPU；</p>
+<h3><span id="应对-cuda-out-of-memory-报错">应对 CUDA out of memory 报错</span></h3><ul>
 <li><p>如果使用的是共享的服务器，首先查看当前 GPU 是否有人正在使用；</p>
 </li>
 <li><p>在 sample.py 中降低 max_batch_size 的大小，最低为1;</p>
@@ -392,7 +398,7 @@
 <li><p>在运行命令的参数中，—model 选择 1b_lyrics，降低 —n_samples 的大小。</p>
 </li>
 </ul>
-<h4><span id="在-windows-端运行">在 Windows 端运行</span></h4><p>在 Windows 端运行会报错 FileNotFoundError，原因可能是一条 Download 指令在 Linux 端是可用的，但是在 Windows 端是错误的，因此在 Windows 端没有将模型下载到 .cache 文件夹中。我的解决办法就是自己手动地去下载所需要的模型文件（参考jukebox:issue）。步骤如下：</p>
+<h3><span id="在-windows-端运行">在 Windows 端运行</span></h3><p>在 Windows 端运行会报错 FileNotFoundError，原因可能是一条 Download 指令在 Linux 端是可用的，但是在 Windows 端是错误的，因此在 Windows 端没有将模型下载到 .cache 文件夹中。我的解决办法就是自己手动地去下载所需要的模型文件（参考jukebox:issue）。步骤如下：</p>
 <ul>
 <li><p>安装 wget，教程此处不再赘述；</p>
 </li>
@@ -480,7 +486,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">基本要求</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.1.</span> <span class="nav-text">Linux 系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.2.</span> <span class="nav-text">GPU</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">环境搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">运行 Sampling</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.1.</span> <span class="nav-text">初次采样</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.1.1.</span> <span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.2.</span> <span class="nav-text">继续采样</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">运行结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">避坑指南</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">5.0.1.</span> <span class="nav-text">选择空闲的GPU</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">5.0.2.</span> <span class="nav-text">应对 CUDA out of memory 报错</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">5.0.3.</span> <span class="nav-text">在 Windows 端运行</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">基本要求</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.1.</span> <span class="nav-text">Linux 系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.2.</span> <span class="nav-text">GPU</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">环境搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">运行 Sampling</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.1.</span> <span class="nav-text">初次采样</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.1.1.</span> <span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.2.</span> <span class="nav-text">继续采样</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">运行结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">避坑指南</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">5.1.</span> <span class="nav-text">选择空闲的GPU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">5.2.</span> <span class="nav-text">应对 CUDA out of memory 报错</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">5.3.</span> <span class="nav-text">在 Windows 端运行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
