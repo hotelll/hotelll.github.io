@@ -20,15 +20,20 @@
     var CONFIG = {"hostname":"hotelll.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hotel&#39;s Blog">
-<meta property="og:url" content="http://hotelll.github.io/archives/2020/page/3/index.html">
+  <meta name="description" content="A research accepted by TOMCCAP, 202 and carried out by Yi Yu and Simon Canales.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="论文学习 Conditional LSTM-GAN for Melody Generation from Lyrics">
+<meta property="og:url" content="http://hotelll.github.io/2021/02/09/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0-Conditional-LSTM-GAN-for-Melody-Generation-from-Lyrics/index.html">
 <meta property="og:site_name" content="Hotel&#39;s Blog">
+<meta property="og:description" content="A research accepted by TOMCCAP, 202 and carried out by Yi Yu and Simon Canales.">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-02-09T15:14:27.000Z">
+<meta property="article:modified_time" content="2021-02-09T15:37:27.149Z">
 <meta property="article:author" content="Hotel">
+<meta property="article:tag" content="论文学习">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://hotelll.github.io/archives/2020/page/3/">
+<link rel="canonical" href="http://hotelll.github.io/2021/02/09/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0-Conditional-LSTM-GAN-for-Melody-Generation-from-Lyrics/">
 
 
 <script id="page-configurations">
@@ -36,12 +41,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Archive | Hotel's Blog</title>
+  <title>论文学习 Conditional LSTM-GAN for Melody Generation from Lyrics | Hotel's Blog</title>
   
 
 
@@ -151,134 +156,112 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">Um..! 28 posts in total. Keep on posting.</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://hotelll.github.io/2021/02/09/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0-Conditional-LSTM-GAN-for-Melody-Generation-from-Lyrics/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portrait.jpg">
+      <meta itemprop="name" content="Hotel">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hotel's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          论文学习 Conditional LSTM-GAN for Melody Generation from Lyrics
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-02-09 23:14:27 / Modified: 23:37:27" itemprop="dateCreated datePublished" datetime="2021-02-09T23:14:27+08:00">2021-02-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" itemprop="url" rel="index"><span itemprop="name">人工智能</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+              <span>705</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+              <span>1 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-08-05T14:58:05+08:00"
-              content="2020-08-05">
-          08-05
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/08/05/Learning-Calibratable-Policies-using-Programmatic-Style-Consistency/" itemprop="url">
-            <span itemprop="name">论文学习2020-08-05</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-07-29T22:11:34+08:00"
-              content="2020-07-29">
-          07-29
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/07/29/%E5%A6%82%E4%BD%95%E9%98%85%E8%AF%BB%E8%AE%BA%E6%96%87/" itemprop="url">
-            <span itemprop="name">如何阅读论文</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-07-24T23:52:51+08:00"
-              content="2020-07-24">
-          07-24
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/07/24/Google-Jukebox-%E9%A1%B9%E7%9B%AE%E5%A4%8D%E7%8E%B0/" itemprop="url">
-            <span itemprop="name">Google Jukebox 项目复现</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-07-08T15:10:56+08:00"
-              content="2020-07-08">
-          07-08
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/07/08/From-NN-to-VQ-VAE/" itemprop="url">
-            <span itemprop="name">从神经网络到VQ-VAE模型</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-07-04T22:25:48+08:00"
-              content="2020-07-04">
-          07-04
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/07/04/An-introduction-to-the-generative-model/" itemprop="url">
-            <span itemprop="name">生成模型简介</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
+        <p>A research accepted by TOMCCAP, 202 and carried out by Yi Yu and Simon Canales.</p>
+<a id="more"></a>
+<h2><span id="whats-the-topic">What’s the topic?</span></h2><p><strong>Melody generation from lyrics</strong> in the field of artificial intelligence and music, which enables to learn and discover latent relationship between interesting lyrics and accompanying melody.</p>
+<h2><span id="whats-the-challenge">What’s the challenge?</span></h2><p>Limited availability of paired lyrics-melody dataset with alignment information.</p>
+<h2><span id="whats-the-goal">What’s the goal?</span></h2><ol>
+<li>Create a large dataset consisting of 12,197 MIDI songs, each with paired lyrics and melody alignment through leveraging different music sources where alignment relationship between syllables and music attributes is extracted.</li>
+<li>Propose a novel deep generative model, conditional LSTM-GAN for melody generation from lyrics, which contains a deep LSTM generator and a deep LSTM discriminator both conditioned on lyrics.</li>
+</ol>
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0/" rel="tag"># 论文学习</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/09/Leetcode327-%E5%8C%BA%E9%97%B4%E5%92%8C%E7%9A%84%E4%B8%AA%E6%95%B0/" rel="prev" title="Leetcode327 区间和的个数">
+      <i class="fa fa-chevron-left"></i> Leetcode327 区间和的个数
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/02/10/%E8%AE%A4%E8%AE%A4%E7%9C%9F%E7%9C%9F%E5%86%99%E4%B8%80%E7%AF%87LSTM/" rel="next" title="认认真真写一篇LSTM">
+      认认真真写一篇LSTM <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
   
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/2020/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/archives/2020/">1</a><a class="page-number" href="/archives/2020/page/2/">2</a><span class="page-number current">3</span>
-  </nav>
+  
+  
 
 
 
@@ -330,6 +313,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">What’s the topic?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">What’s the challenge?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">What’s the goal?</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

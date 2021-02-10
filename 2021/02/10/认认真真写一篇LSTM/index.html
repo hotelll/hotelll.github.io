@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.svg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hotelll.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="想爬上树就得从底下开始。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="认认真真写一篇LSTM">
+<meta property="og:url" content="http://hotelll.github.io/2021/02/10/%E8%AE%A4%E8%AE%A4%E7%9C%9F%E7%9C%9F%E5%86%99%E4%B8%80%E7%AF%87LSTM/index.html">
+<meta property="og:site_name" content="Hotel&#39;s Blog">
+<meta property="og:description" content="想爬上树就得从底下开始。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/RNN-unrolled.png">
+<meta property="og:image" content="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/RNN-shorttermdepdencies.png">
+<meta property="og:image" content="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/RNN-longtermdependencies.png">
+<meta property="og:image" content="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-SimpleRNN.png">
+<meta property="og:image" content="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-chain.png">
+<meta property="og:image" content="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-C-line.png">
+<meta property="og:image" content="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-gate.png">
+<meta property="og:image" content="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-focus-f.png">
+<meta property="og:image" content="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-focus-i.png">
+<meta property="og:image" content="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-focus-C.png">
+<meta property="og:image" content="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-focus-o.png">
+<meta property="og:image" content="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-var-peepholes.png">
+<meta property="og:image" content="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-var-tied.png">
+<meta property="og:image" content="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-var-GRU.png">
+<meta property="article:published_time" content="2021-02-10T04:26:40.000Z">
+<meta property="article:modified_time" content="2021-02-10T09:17:58.049Z">
+<meta property="article:author" content="Hotel">
+<meta property="article:tag" content="神经网络">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/RNN-unrolled.png">
+
+<link rel="canonical" href="http://hotelll.github.io/2021/02/10/%E8%AE%A4%E8%AE%A4%E7%9C%9F%E7%9C%9F%E5%86%99%E4%B8%80%E7%AF%87LSTM/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>认认真真写一篇LSTM | Hotel's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hotel's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Knowledge, Tech and Life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">18</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">4</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">28</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://hotelll.github.io/2021/02/10/%E8%AE%A4%E8%AE%A4%E7%9C%9F%E7%9C%9F%E5%86%99%E4%B8%80%E7%AF%87LSTM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portrait.jpg">
+      <meta itemprop="name" content="Hotel">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hotel's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          认认真真写一篇LSTM
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-02-10 12:26:40 / Modified: 17:17:58" itemprop="dateCreated datePublished" datetime="2021-02-10T12:26:40+08:00">2021-02-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" itemprop="url" rel="index"><span itemprop="name">人工智能</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+              <span>2.5k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+              <span>2 mins.</span>
+            </span>
+            <div class="post-description">想爬上树就得从底下开始。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>长短期记忆（Long Short-Term Memory, LSTM）是一种事件循环神经网络，适合于处理和预测时间序列中间隔和延迟非常长的重要事件。</p>
+<blockquote>
+<p>参考博客：<a target="_blank" rel="noopener" href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/">http://colah.github.io/posts/2015-08-Understanding-LSTMs/</a></p>
+</blockquote>
+<h2><span id="循环神经网络">循环神经网络</span></h2><p>神经网络尽力用一种模仿人脑的算法操作，来得到大量数据之中隐含的关系。传统的神经网络通过模拟神经元来实现。然而我们发现，人脑的思维过程并不仅仅基于当下的信息，而是具有持续性，受先前数据和结果影响的，这一特征却无法由传统神经网络实现。</p>
+<p>由此，循环神经网络（Recurrent Neural Network, RNN）诞生了。它通过在网络中加入循环结构，实现不同 step 之间的信息传递，示意图如下：</p>
+<p><img src="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/RNN-unrolled.png" alt="An unrolled recurrent neural network." style="zoom: 33%;"></p>
+<p>从上图，我们发现循环神经网络展开后与普通的神经网络是相同的。循环神经网络相当于将原始网络复制好几份，每一份将信息传递给下一份。循环神经网络在语音识别、语言建模、翻译、图像标注等领域大放异彩。</p>
+<h2><span id="长期相关性的局限性">长期相关性的局限性</span></h2><p>循环神经网络的优势就在于它试图能够将先前的信息与当前任务连接在一起，那样之前的信息可能可以指导当前的任务。然而，循环神经网络是否能够真正实现这一优势，要视情况而定。</p>
+<p>一些情况下，任务可能只需要之前短期的信息就能很好完成。我们设想一个预测词语的语言模型想要完成如下任务：</p>
+<blockquote>
+<p>The clouds are in the <u>sky</u>.</p>
+</blockquote>
+<p>我们只需要<strong>短期</strong>的信息（cloud）即可进行预测，信息的间隔很小，因此 RNN 可以学习过去的信息。</p>
+<p><img src="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/RNN-shorttermdepdencies.png" alt="img" style="zoom: 33%;"></p>
+<p>但是，如果我们需要使用<strong>长期</strong>的信息作为依据，RNN 可能力不从心，如下例：</p>
+<blockquote>
+<p>I grew up in <strong>France</strong> and I lived there for about ten years during my childhood. Therefore, I am very familiar to the culture there and I speak  fluent <u>French</u>.</p>
+</blockquote>
+<p>这个例子中，我们作为人类可以从 France 推断出 French，但是对于模型来说这个信息的间隔太大（这个例子中体现为两个单词间距太大）。在实际实践中，随着间隔的增大，RNN 将无法再连接这个长期信息到当前任务，这也就是 RNN 在处理长期信息相关性中的局限性。</p>
+<p><img src="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/RNN-longtermdependencies.png" alt="Neural networks struggle with long term dependencies." style="zoom: 33%;"></p>
+<p>然而，LSTMs 并没有这个局限性！</p>
+<h2><span id="lstm-网络">LSTM 网络</span></h2><p>长短期记忆网络，简称 LSTMs，是一种独特的循环神经网络。它由 Hochreiter &amp; Schmidhuber 提出并经过无数人的优化改进。LSTM 对于很多问题能够很好解决，并被广泛使用。</p>
+<p>LSTMs 的设计直指<strong>长期信息相关性</strong>的问题。标准的 RNN 中重复的模块只有一个简单结构，例如 tanh 层：</p>
+<p><img src="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-SimpleRNN.png" alt="img" style="zoom: 33%;"></p>
+<p>LSTM 将重复模块改成了一个特殊的四层结构：</p>
+<p><img src="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-chain.png" alt="A LSTM neural network." style="zoom: 33%;"></p>
+<p>LSTMs 的关键就是<strong>细胞状态</strong>（cell state），也就是图中顶部水平穿过的这条线。</p>
+<p><img src="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-C-line.png" alt="img" style="zoom: 50%;"></p>
+<p>cell state 就像是一个传送带，径直穿过整个链式结构，过程中只会经过几个线性操作。LSTM 通过<strong>门</strong>（gates）对 cell state 的信息进行增减。例如图中 sigmoid 层和点乘 gate 组合能够选择信息通过的量。sigmoid 输出 0-1 的值，0 即禁止通过，1 即全部通过。</p>
+<p><img src="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-gate.png" alt="img" style="zoom: 80%;"></p>
+<p>一个 LSTM 中有三个这样的 gates 来控制和保护 cell state。下面我们来一步步走一下 LSTM 的整个流程。</p>
+<p>LSTM 中第一步是决定 cell state 中要丢弃的信息。这个决定是由一个叫做 “<strong>遗忘门</strong>” 的 sigmoid 层完成的。其位置如下图所示：</p>
+<p><img src="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-focus-f.png" alt="img" style="zoom: 40%;"></p>
+<p>它接受 $h_{t-1}$ 和 $x_t$ 后，对应 $C_{t-1}$ 中的每个数字输出一个 0-1 之间的数字，这个数字就代表了接收信息的比例（0为全拒绝，1为全接受）。</p>
+<p>下一步，LSTM 需要决定在 cell state 中加入什么新信息，这包括两个步骤。第一步由 sigmoid 实现的 “<strong>输入门</strong>”，决定我们要更新的值，第二步由一个 tanh 层创造一个包含候选值的新向量 $\tilde{C}_{t}$，也可以被加入 cell state 来代替原来被我们选择遗忘的数值。具体结构如下：</p>
+<p><img src="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-focus-i.png" alt="img" style="zoom: 40%;"></p>
+<p>要更新 $C_{t-1}$ 为 $C_t$，我们只需要将之前步骤付诸实践即可。</p>
+<p><img src="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-focus-C.png" alt="img" style="zoom:40%;"></p>
+<p>最后，我们需要决定我们的输出。我们的输出是将 cell state 过滤后的版本。首先，我们使用一个 sigmoid 层来选择 cell state 中要输出的部分。接着，我们让 cell state 通过一个 tanh 层并且将结果与之前的 sigmoid 门，从而实现只输出我们想要的部分。</p>
+<p><img src="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-focus-o.png" alt="img" style="zoom: 40%;"></p>
+<h2><span id="长短期记忆的变体">长短期记忆的变体</span></h2><p>之前所介绍的是普通的 LSTM。但是 LSTM 有很多变体，这里我们接受几种种最常用的变体。</p>
+<h3><span id="peephole-connections">Peephole Connections</span></h3><p>这种变体由 Gers &amp; Schimidhuber 提出，在其中加入了 “窥视孔连接”（peephole connections），使得门能够看到 cell state，结构如下所示：</p>
+<p><img src="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-var-peepholes.png" alt="img" style="zoom:40%;"></p>
+<p>我们可以给所有门加上窥视孔，也可以选择其中的几个添加。</p>
+<h3><span id="coupled-forget-and-input-gates">Coupled forget and input gates</span></h3><p>在这个变体中，我们不再分别决定删除和增加信息，而是一起进行决策，也就是说，我们只在该位置添加信息时才选择遗忘该信息，或者只在遗忘老信息之后才输入新信息。也就是说，遗忘和添加信息是同时考虑，联动发生的。</p>
+<p><img src="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-var-tied.png" alt="img" style="zoom:40%;"></p>
+<h2><span id="gate-recurrent-unit">Gate Recurrent Unit</span></h2><p>这是一个由 Cho 提出的变体，它将遗忘门和输入门组合成一个门，称为 “更新门”（update gate）。它也合并了 cell state 和 hidden state，以及一些其他的改变。这个变体比标准 LSTM 模型更简明，也在科研中越来越流行。</p>
+<p><img src="http://colah.github.io/posts/2015-08-Understanding-LSTMs/img/LSTM3-var-GRU.png" alt="A gated recurrent unit neural network." style="zoom:40%;"></p>
+<p>LSTM 还有很多别的变体，例如 Depth Gated RNNs by Yao，以及别的用于处理长期相关性的模型，如 Clockwork RNNs by Koutnik。虽然总体上大致相似，但它们在特定任务下表现不同的性能。</p>
+<h2><span id="总结">总结</span></h2><p>LSTMs 是 RNNs 的一种很棒的突破与实现方式，对于很多任务都展现出其强大的能力。与此同时，Grid LSTMs by Kalchbrenner 也具有远大前景，RNNs 在生成模型中的应用也十分有趣，例如：<a target="_blank" rel="noopener" href="http://arxiv.org/pdf/1502.04623.pdf">Gregor, <em>et al.</em> (2015)</a>, <a target="_blank" rel="noopener" href="http://arxiv.org/pdf/1506.02216v3.pdf">Chung, <em>et al.</em> (2015)</a>, or <a target="_blank" rel="noopener" href="http://arxiv.org/pdf/1411.7610v3.pdf">Bayer &amp; Osendorfer (2015)</a>。可以说，RNNs 将会在未来保持它的前景和生命力。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag"># 神经网络</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/02/09/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0-Conditional-LSTM-GAN-for-Melody-Generation-from-Lyrics/" rel="prev" title="论文学习 Conditional LSTM-GAN for Melody Generation from Lyrics">
+      <i class="fa fa-chevron-left"></i> 论文学习 Conditional LSTM-GAN for Melody Generation from Lyrics
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">循环神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">长期相关性的局限性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">LSTM 网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">长短期记忆的变体</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">4.1.</span> <span class="nav-text">Peephole Connections</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">4.2.</span> <span class="nav-text">Coupled forget and input gates</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">Gate Recurrent Unit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hotel"
+      src="/images/portrait.jpg">
+  <p class="site-author-name" itemprop="name">Hotel</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hotel</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="Symbols count total">151k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">2:17</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
