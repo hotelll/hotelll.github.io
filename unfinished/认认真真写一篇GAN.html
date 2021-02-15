@@ -20,23 +20,24 @@
     var CONFIG = {"hostname":"hotelll.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="在 CS236 课程中，我们将会学习生成模型，这种模型从概率的角度看待我们的世界。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="生成模型简介">
-<meta property="og:url" content="http://hotelll.github.io/2020/07/04/An-introduction-to-the-generative-model/index.html">
+  <meta name="description" content="Yann LeCun &quot;Adversarial training is the coolest thing since sliced bread.&quot;">
+<meta property="og:type" content="website">
+<meta property="og:title" content="认认真真写一篇GAN">
+<meta property="og:url" content="http://hotelll.github.io/unfinished/%E8%AE%A4%E8%AE%A4%E7%9C%9F%E7%9C%9F%E5%86%99%E4%B8%80%E7%AF%87GAN.html">
 <meta property="og:site_name" content="Hotel&#39;s Blog">
-<meta property="og:description" content="在 CS236 课程中，我们将会学习生成模型，这种模型从概率的角度看待我们的世界。">
+<meta property="og:description" content="Yann LeCun &quot;Adversarial training is the coolest thing since sliced bread.&quot;">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://hotelll.github.io/2020/07/04/An-introduction-to-the-generative-model/distance.png">
-<meta property="article:published_time" content="2020-07-04T14:25:48.000Z">
-<meta property="article:modified_time" content="2020-12-02T07:06:56.425Z">
+<meta property="og:image" content="http://hotelll.github.io/unfinished/image-20210212234010782.png">
+<meta property="og:image" content="http://hotelll.github.io/unfinished/image-20210212234506427.png">
+<meta property="og:image" content="http://hotelll.github.io/unfinished/image-20210212235321100.png">
+<meta property="article:published_time" content="2021-02-12T13:54:17.000Z">
+<meta property="article:modified_time" content="2021-02-15T15:29:25.792Z">
 <meta property="article:author" content="Hotel">
-<meta property="article:tag" content="生成模型">
-<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="神经网络">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://hotelll.github.io/2020/07/04/An-introduction-to-the-generative-model/distance.png">
+<meta name="twitter:image" content="http://hotelll.github.io/unfinished/image-20210212234010782.png">
 
-<link rel="canonical" href="http://hotelll.github.io/2020/07/04/An-introduction-to-the-generative-model/">
+<link rel="canonical" href="http://hotelll.github.io/unfinished/%E8%AE%A4%E8%AE%A4%E7%9C%9F%E7%9C%9F%E5%86%99%E4%B8%80%E7%AF%87GAN">
 
 
 <script id="page-configurations">
@@ -44,12 +45,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : true,
+    isPost : false,
     lang   : 'en'
   };
 </script>
 
-  <title>生成模型简介 | Hotel's Blog</title>
+  <title>认认真真写一篇GAN | Hotel's Blog
+</title>
   
 
 
@@ -158,142 +160,65 @@
       <div class="main-inner">
         <div class="content-wrap">
           
+  
+  
 
-          <div class="content post posts-expand">
+          <div class="content page posts-expand">
             
 
     
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://hotelll.github.io/2020/07/04/An-introduction-to-the-generative-model/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/portrait.jpg">
-      <meta itemprop="name" content="Hotel">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hotel's Blog">
-    </span>
+    
+    
+    <div class="post-block" lang="en">
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          生成模型简介
-        </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+<h1 class="post-title" itemprop="name headline">认认真真写一篇GAN
+</h1>
 
-              <time title="Created: 2020-07-04 22:25:48" itemprop="dateCreated datePublished" datetime="2020-07-04T22:25:48+08:00">2020-07-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-02 15:06:56" itemprop="dateModified" datetime="2020-12-02T15:06:56+08:00">2020-12-02</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" itemprop="url" rel="index"><span itemprop="name">人工智能</span></a>
-                </span>
-            </span>
+<div class="post-meta">
+    <div class="post-description">Yann LeCun "Adversarial training is the coolest thing since sliced bread."</div>
+  
 
-          
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-              <span>994</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-              <span>1 mins.</span>
-            </span>
+</div>
 
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+</header>
 
       
-        <p>在 CS236 课程中，我们将会学习生成模型，这种模型从概率的角度看待我们的世界。</p>
+      
+      
+      <div class="post-body">
+          <p>生成对抗网络（Generative Adversarial Network, GAN） 介绍。</p>
 <a id="more"></a>
-<p>在此世界中，我们可以将任何观测到的数据，记为数据集 $\mathcal{D}$，视为一个在概率分布$p_{\mathrm{data}}$上的有限采样集。所有生成模型的最终目标就是：给到生成模型观测的数据 $\mathcal{D}$，能够估计概率分布 $p_{\mathrm{data}}$。</p>
-<h2><span id="学习">学习</span></h2><p>我们主要对<strong>参数估计</strong>的方法感兴趣，它总结了关于数据集 $\mathcal{D}$ 的有限集合中的参数。与非参数估计相比，参数估计对于大数据集有更高的效率，但能够代表的分布情况是有限的。</p>
-<p>在参数设置中，我们可以将学习一个生成模型想象成最小化模型分布和数据分布的一种距离。</p>
-<p><img src="/2020/07/04/An-introduction-to-the-generative-model/distance.png" alt="The distance between two distributions"></p>
-<p>在数学上，我们也可以将我们的目标表示为一个优化问题。</p>
-<script type="math/tex; mode=display">
-\min_{\theta\in\mathcal{M}}\ d(p_{\mathrm{data}},p_{\theta})</script><p>其中 $p_{\mathrm{data}}$ 通过 $\mathcal{D}$ 得到，$d(·)$ 表示概率分布之间的距离。</p>
-<p>现实世界是高度结构化的，而能否自动地寻找底层的结构，就是学习生成模型的关键。我们希望我们的模型不仅仅是把认知组合在一起，而是直接能够从数据学习到那底层的结构。</p>
-<p>一个成功的生成模型学习需要我们合适地实例化之前的优化问题。在课程中，我们主要探讨以下三个问题：</p>
-<ol>
-<li>模型集合 $\mathcal{M}$ 的表示方法是什么？</li>
-<li>$d(·)$ 的目标函数是什么？</li>
-<li>最小化 $d(·)$ 的优化步骤是什么？</li>
-</ol>
-<h2><span id="推论">推论</span></h2><p>对于一个识别模型，例如逻辑回归，基本任务是对于每一个给定的数据点预测一个标签。生成模型始学习在所有数据的基础上学习一个联合分布。</p>
-<p>如今生成模型的应用广泛，我们可以用三条推论问题来评价一个生成模型：</p>
-<ol>
-<li><p>密度估计：给定一个数据点 $x$，这个模型给它分配的概率是多少？i.e. $p_{\theta}(x)$ = ？</p>
+<h2><span id="基本原理">基本原理</span></h2><p>在 GAN 的设计中，我们需要同时训练一个<strong>生成器</strong>（generator）和一个<strong>鉴别器</strong>（discriminator），最终的目标是训练出一个生成器，足以使得鉴别器失效。</p>
+<h3><span id="生成器">生成器</span></h3><p>通俗来讲，生成器就是输入一个向量后，输出一个要求的对象。如下图是一个图片生成器。</p>
+<p><img src="/unfinished/image-20210212234010782.png" alt="image-20210212234010782" style="zoom:80%;"></p>
+<p>生成器是一个神经网络或一个函数，从数学的角度而言，它接受一个向量并输出一个高维的向量。其中，输入向量中的每个维度实际上对应着输出的高维向量中的一些特征。例如在动漫人物生成器中，输入向量的不同维度对应着头发长度，颜色，眼睛大小等特征。</p>
+<p><img src="/unfinished/image-20210212234506427.png" alt="image-20210212234506427" style="zoom:80%;"></p>
+<h3><span id="鉴别器">鉴别器</span></h3><p>对于鉴别器，我们输入一个对象（例如：图片），它将输出一个数值，数值的大小代表着这个对象的真实程度（1 代表鉴别器认为该对象是真实的，0 代表鉴别器认为该对象是生成出来的，是虚假的）。</p>
+<p><img src="/unfinished/image-20210212235321100.png" alt="image-20210212235321100" style="zoom:80%;"></p>
+<h3><span id="对抗">对抗</span></h3><p>生成器不断地改进自己，来生成更加逼真的对象，目标是使得鉴别器无法分辨出生成的对象，而鉴别器也同时不断地改进自己来分辨出生成的假对象。在这样一个对抗的过程中，生成器不断地完善进步。</p>
+<h2><span id="算法">算法</span></h2><ul>
+<li>初始化生成器和鉴别器</li>
+<li>在每个训练迭代过程中：<ul>
+<li>固定生成器 $G$ 的参数，更新鉴别器 $D$ 的参数<ul>
+<li>同时将真实对象和生成的对象给鉴别器，鉴别器学习着给真实对象高分，并给生成的对象低分。</li>
+</ul>
 </li>
-<li><p>采样：我们如何从模型分布中生成新的数据？i.e. $x_i{\mathrm{new}}\sim p_{\theta}(x)$?</p>
+<li>接着，固定鉴别器 $D$ 的参数，更新生成器 $G$ 的参数<br>-</li>
+</ul>
 </li>
-<li><p>无监督表示学习（征学习）：我们如何学习关于一个数据点 $x$ 的有意义的特征代表？</p>
-</li>
-</ol>
-<p>在学习狗的图片生成模型的例子中，一个好的生成模型应当如下运作：</p>
-<ol>
-<li>对于狗的图片有高的密度估计，别的图片应当较低；</li>
-<li>采样包括生成新的狗的图片（不在原数据集中）；</li>
-<li>表示学习可以帮助找到数据中更高层次的结构，如狗的种类。</li>
-</ol>
+</ul>
 
+      </div>
+      
+      
+      
     </div>
+    
 
     
     
     
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" rel="tag"># 生成模型</a>
-              <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag"># 机器学习</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item"></div>
-      <div class="post-nav-item">
-    <a href="/2020/07/08/From-NN-to-VQ-VAE/" rel="next" title="从神经网络到VQ-VAE模型">
-      从神经网络到VQ-VAE模型 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
 
 
           </div>
@@ -344,7 +269,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">推论</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.1.</span> <span class="nav-text">生成器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.2.</span> <span class="nav-text">鉴别器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.3.</span> <span class="nav-text">对抗</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">算法</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -413,12 +338,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="Symbols count total">151k</span>
+    <span title="Symbols count total">154k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">2:17</span>
+    <span title="Reading time total">2:20</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
   </div>

@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.svg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hotelll.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="生成模型的解释与实现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="生成模型">
+<meta property="og:url" content="http://hotelll.github.io/2021/02/15/An-introduction-to-the-generative-model/index.html">
+<meta property="og:site_name" content="Hotel&#39;s Blog">
+<meta property="og:description" content="生成模型的解释与实现">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://hotelll.github.io/2021/02/15/An-introduction-to-the-generative-model/image-20210214103930426.png">
+<meta property="og:image" content="http://hotelll.github.io/2021/02/15/An-introduction-to-the-generative-model/image-20210214121828557.png">
+<meta property="og:image" content="http://hotelll.github.io/2021/02/15/An-introduction-to-the-generative-model/image-20210214123705267.png">
+<meta property="og:image" content="http://hotelll.github.io/2021/02/15/An-introduction-to-the-generative-model/image-20210214144717012.png">
+<meta property="og:image" content="http://hotelll.github.io/2021/02/15/An-introduction-to-the-generative-model/image-20210214151551531.png">
+<meta property="og:image" content="http://hotelll.github.io/2021/02/15/An-introduction-to-the-generative-model/image-20210215200457439.png">
+<meta property="og:image" content="http://hotelll.github.io/2021/02/15/An-introduction-to-the-generative-model/image-20210215204226890.png">
+<meta property="og:image" content="http://hotelll.github.io/2021/02/15/An-introduction-to-the-generative-model/image-20210215222432940.png">
+<meta property="article:published_time" content="2021-02-15T14:25:48.000Z">
+<meta property="article:modified_time" content="2021-02-15T15:09:44.414Z">
+<meta property="article:author" content="Hotel">
+<meta property="article:tag" content="生成模型">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://hotelll.github.io/2021/02/15/An-introduction-to-the-generative-model/image-20210214103930426.png">
+
+<link rel="canonical" href="http://hotelll.github.io/2021/02/15/An-introduction-to-the-generative-model/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>生成模型 | Hotel's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hotel's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Knowledge, Tech and Life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">18</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">4</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">28</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://hotelll.github.io/2021/02/15/An-introduction-to-the-generative-model/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portrait.jpg">
+      <meta itemprop="name" content="Hotel">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hotel's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          生成模型
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-02-15 22:25:48 / Modified: 23:09:44" itemprop="dateCreated datePublished" datetime="2021-02-15T22:25:48+08:00">2021-02-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" itemprop="url" rel="index"><span itemprop="name">人工智能</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+              <span>4.4k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+              <span>4 mins.</span>
+            </span>
+            <div class="post-description">生成模型的解释与实现</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>无监督学习即训练数据无标签，也就是说生成模型解决的是无监督学习中密度估计的问题。在生成模型的世界中，我们可以将任何观测到的数据，记为数据集 $\mathcal{D}$，视为一个在概率 $p_{\mathrm{data}}$ 上的有限采样集。所有生成模型的最终目标就是：给到生成模型观测的数据 $\mathcal{D}$，能够估计概率分布 $p_{\mathrm{data}}$。</p>
+<p>换句话说，我们从分布 $p_{data}(x)$ 中采样一个数据集 $D$，生成模型会学习到一个模拟这一分布的概率分布 $p_{model}(x)$，生成模型的目标是使得 $p_{data}(x)$ 和 $p_{model}(x)$ 尽可能相似。</p>
+<h2><span id="生成模型分类">生成模型分类</span></h2><p><img src="/2021/02/15/An-introduction-to-the-generative-model/image-20210214103930426.png" alt="image-20210214103930426" style="zoom:80%;"></p>
+<h3><span id="pixel">Pixel</span></h3><h4><span id="全可见置信网络">全可见置信网络</span></h4><p>显式密度模型：我们可以用链式法则来将完整图片的概率分解成一维的分布：</p>
+<script type="math/tex; mode=display">
+p(x)=\prod_{i=1}^{n}p(x_i|x_1,\cdots,x_{i-1})</script><p>其中 $p(x)$ 是整个图片的概率，$p(x_i|x_1,\cdots,x_{i-1})$ 在给定所有其他像素时，第 $i$ 个像素值的概率。因此，我们需要将图片的像素排序 $i,\cdots,i$。不同的先序依赖关系就得到了不同的实现方式。</p>
+<h4><span id="pixelrnn">PixelRNN</span></h4><p>在 PixelRNN 中，我们从左上角开始生成图片像素，使用 RNN（LSTM）来决定和前序像素的依赖关系。像素的生成循序如下所示：</p>
+<p><img src="/2021/02/15/An-introduction-to-the-generative-model/image-20210214121828557.png" alt="image-20210214121828557" style="zoom:80%;"></p>
+<h4><span id="pixelcnn">PixelCNN</span></h4><p>在 PixelCNN 中，我们同样从左上角像素开始生成，当前像素依赖于前序一块区域内的所有像素，并通过 CNN 进行实现，如图：</p>
+<p><img src="/2021/02/15/An-introduction-to-the-generative-model/image-20210214123705267.png" alt="image-20210214123705267" style="zoom:80%;"></p>
+<p>以上两者的训练目标都是最大化训练图像的概率。</p>
+<p>PixelRNN/CNN 的优势在于：</p>
+<ul>
+<li>可以显式地计算图片 $p(x)$</li>
+<li>这种显式的训练数据概率给出了很好的评估度测度</li>
+<li>可以很好地采样</li>
+</ul>
+<p>他们的劣势就是必须串行地生成，这是十分低效的。</p>
+<h3><span id="变分自编码器">变分自编码器</span></h3><p>变分自编码器（Variational Autoencoder, VAE）中，我们定义一个关于隐变量 $z$ 的可解密度方程：</p>
+<script type="math/tex; mode=display">
+p_{\theta}(x)=\int p_{\theta}(z)p_{\theta}(x|z) \mathrm{d} z</script><h4><span id="自编码器">自编码器</span></h4><p>自编码器（Autoencoder，AE）可以理解为用一种无监督的方法，从无标签训练数据中，学习一个低维的特征表示。假设输入数据为 $x$，自编码器将它编码为一个更低维度的特征向量 $z$。$z$ 中旺旺包括了 $x$ 中最重要的特征维度。通过解码器，我们可以从 $z$ 恢复出一个输出向量 $\hat{x}$。</p>
+<p><img src="/2021/02/15/An-introduction-to-the-generative-model/image-20210214144717012.png" alt="image-20210214144717012" style="zoom:80%;"></p>
+<p>在训练自编码器的过程中，我们希望解码得到的 $\hat{x}$ 和原来的 $x$ 尽可能相似，因此我们设置损失函数为 L2 损失函数：</p>
+<script type="math/tex; mode=display">
+\mathcal{L}=||x-\hat{x}||^2</script><h4><span id="变分自编码器">变分自编码器</span></h4><p>对于数据概率：</p>
+<script type="math/tex; mode=display">
+p_{\theta}(x)=\int p_{\theta}(z)p_{\theta}(x|z)\mathrm{d}z</script><p>其中 $p_{\theta}(z)$ 可以视为简单的高斯先验分布，同时 $p_{\theta}(x|z)$ 也可以从解码器的神经网络中得到的，但是积分这个操作是难以优化 的。</p>
+<p>对于后验密度：</p>
+<script type="math/tex; mode=display">
+p_{\theta}(z|x)=p_{\theta}(x|z)p_{\theta}(z)/p_{\theta}(x)</script><p>其中 $p_{\theta}(x)$ 同样难以得到，因此我们无法直接优化概率公式。</p>
+<p>一个解决方法是：定义一个额外的编码器 $q_{\phi}(z|x)$ 来近似 $p_{\theta}(z|x)$ 。这样，我们可以得到关于数据概率的一个下界，并且它是可解、可优化的。</p>
+<p>因为生成器中，编码器和解码器都是有概率性质的，而任何一个概率都有均值和协方差。因此，我们可以根据编码器和解码器的均值和协方差，创造一个 $p\sim \mathcal{N}(\mu, \sum)$ 的高斯分布进行采样。</p>
+<p><img src="/2021/02/15/An-introduction-to-the-generative-model/image-20210214151551531.png" alt="image-20210214151551531" style="zoom:80%;"></p>
+<p>有了上述编码和解码网络，我们可以计算出数据概率：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+    \log p_{\theta}(x^{(j)})
+    &=E_{z\sim q_{\phi}} \left[\log p_{\theta}(x^{(i)})\right]\\
+    &=E_{z}\left[\log \frac{p_{\theta}(x^{(i)}|z)p_{\theta}(z)}{p_{\theta}(z|x^{(i)})}\right]\\
+    &=E_{z}\left[\log \frac{p_{\theta}(x^{(i)}|z)p_{\theta}(z)}{p_{\theta}(z|x^{(i)})}\frac{q_{\phi}(z|x^{(i)})}{q_{\phi}(z|x^{(i)})} \right]\\
+    &=E_{z}\left[\log p_{\theta}(x^{(i)}|z)\right]-E_{z}\left[\log\frac{q_{\phi}(z|x^{(i)})}{p_{\theta}(z)}\right]+E_{z}\left[\log\frac{q_{\phi}(z|x^{(i)})}{p_{\theta}(z|x^{(i)})}\right]\\
+    &=E_z\left[\log p_{\theta}(x^{(i)}|z)\right]-D_{KL}(q_{\phi}(z|x^{(i})||p_{\theta}(z))+D_{KL}(q_{\phi}(z|x^{(i)})||p_{\theta}(z|x^{(i)}))
+    \end{aligned}</script><p>第一项可以通过采样近似得到，第二项（KL散度）有很好的闭式解。第三项虽然难解，但是可以肯定它是非负的，因此第一第二项可以组成一个目标函数的下界，并且它是可优化的。我们定义如下新损失函数：</p>
+<script type="math/tex; mode=display">
+\mathcal{L}(x^{(i)},\theta,\phi)=E_z\left[\log p_{\theta}(x^{(i)}|z)\right]-D_{KL}(q_{\phi}(z|x^{(i})||p_{\theta}(z))</script><p>我们有下界关系：</p>
+<script type="math/tex; mode=display">
+\log p_{\theta}(x^{(i)})\geq \mathcal{L}(x^{(i)},\theta,\phi)</script><p>我们的优化过程就是最大化下界：</p>
+<script type="math/tex; mode=display">
+\theta^*,\phi^*=\arg\max_{\theta,\phi}\sum_{i=1}^{N}\mathcal{L}(x^{(i)},\theta,\phi)</script><p>VAE 的优势在于</p>
+<ul>
+<li>是生成模型的一种有原则的实现方法</li>
+<li>允许来自 $q(z|x)$ 的干扰，是一种有用的特征表示方法。</li>
+</ul>
+<p>VAE 的劣势在于</p>
+<ul>
+<li>最大化概率的下界是一种间接的评价方法，没有 PixelRNN/CNN 的评价来得直接</li>
+<li>和 GAN 相比，VAE 的采样质量更加模糊低劣</li>
+</ul>
+<h3><span id="生成对抗网络">生成对抗网络</span></h3><p>生成对抗网络（Generative Adversarial Networks，GAN）不再使用一个显式的密度函数，而是使用博弈论中一种双方对抗的方式，学习生成。生成模型的问题在于，我们无法直接从复杂高维的训练分布中进行采样。GAN 提供的方法是从简单分布（如随机噪声）中进行采样，然后学习一种将采样变成训练分布的转换器。这个转换器会比较复杂，因此我们使用神经网络来表示它。</p>
+<h4><span id="训练双人游戏">训练：双人游戏</span></h4><p><strong>生成网络：</strong>生成逼真的图片来愚弄鉴别网络</p>
+<p><strong>鉴别网络：</strong>分辨真实的图片和虚假生成的图片</p>
+<p><img src="/2021/02/15/An-introduction-to-the-generative-model/image-20210215200457439.png" alt="image-20210215200457439" style="zoom:80%;"></p>
+<p>该训练过程的目标函数为：</p>
+<script type="math/tex; mode=display">
+\min_{\theta_g}\max_{\theta_d}\left[E_{x\sim p_{data}}\log D_{\theta_d}(x)+E_{z\sim p(z)}\log(1-D_{\theta_d}(G_{\theta_g}(z)))\right]</script><p>鉴别网络的输出值为 0~1，代表图片的真实程度。其中 $D_{\theta_d}(x)$ 是鉴别网络对真实图片的输出值，$D_{\theta_d}(G_{\theta_g}(z))$ 是鉴别网络对生成图片的输出值。 </p>
+<p>我们也可以分别写成两个式子：</p>
+<ol>
+<li><p>鉴别器梯度上升：</p>
+<script type="math/tex; mode=display">
+\max_{\theta_d}\left[E_{x\sim p_{data}}\log D_{\theta_d}(x)+E_{z\sim p(z)}\log(1-D_{\theta_d}(G_{\theta_g}(z)))\right]</script></li>
+<li><p>生成器梯度下降：</p>
+<script type="math/tex; mode=display">
+\min_{\theta_g}E_{z\sim p(z)}\log(1-D_{\theta_d}(G_{\theta_g}(z)))</script><p>但是，$\log(1-D_{\theta_d}(G_{\theta_g}(z)))$ 的函数图像，在采样初期（大部分采样为假）时梯度很小，不利于生成器更新，而在采样后期（大部分采样为真）的时候反而梯度很大，这使得整体性能不佳。因此，我们将生成器的目标函数稍加改动：</p>
+<script type="math/tex; mode=display">
+\max_{\theta_g}E_{z\sim p(z)}\log(D_{\theta_d}(G_{\theta_g}(z)))</script><p>也就是将 “使鉴别器鉴定正确的概率最小化” 变成 “使鉴别器鉴定错误的概率最大化”，这个改动没有改变整体的优化目标，却使得目标函数的梯度由大到小变化，但是在实践中性能大大增强。</p>
+</li>
+</ol>
+<h4><span id="伪代码">伪代码</span></h4><p><img src="/2021/02/15/An-introduction-to-the-generative-model/image-20210215204226890.png" alt="image-20210215204226890" style="zoom:80%;"></p>
+<h4><span id="可解释向量操作">可解释向量操作</span></h4><p>事实上，噪音向量 $z$ 的数学操作在一定程度上是可解释的。例如一个人像生成网络可以有如下操作：</p>
+<p><img src="/2021/02/15/An-introduction-to-the-generative-model/image-20210215222432940.png" alt="image-20210215222432940" style="zoom:80%;"></p>
+<p>解释一下，如果我们通过噪音向量 A 组生成的都是“微笑女性”的图片，噪音向量 B 组生成的都是“中性女性”的图片，噪音向量 C 组生成的都是“中性男性”的图片，那么我们可以通过 D=A-B+C 获得生成“微笑男性”的噪音向量组 D。这也正是因为噪音向量 $z$ 中不同维度和生成图片特征相对应导致的。</p>
+<p>GAN 不用显式的密度函数，而是用博弈论方法在双方博弈中训练分布，有很好的采样结果。</p>
+<p>GAN的劣势在于：</p>
+<ul>
+<li>充满技巧性，训练更加不稳定</li>
+<li>不能处理推断查询（inference queries），例如 $p(x)$ 和 $p(z|x)$</li>
+</ul>
+<p>GAN 的热点研究方向有：</p>
+<ul>
+<li>更好的损失函数设计，更稳定的训练（Wasserstein GAN, LSGAN…）</li>
+<li>Conditional GANs, GANs 的各种应用</li>
+</ul>
+<p>以下是一些相关的资源。</p>
+<blockquote>
+<p>Pix2pix: <a target="_blank" rel="noopener" href="https://phillipi.github.io/pix2pix/">https://phillipi.github.io/pix2pix/</a></p>
+<p>Gan Zoo: <a target="_blank" rel="noopener" href="https://github.com/hindupuravinash/the-gan-zoo">https://github.com/hindupuravinash/the-gan-zoo</a></p>
+<p>tips &amp; tricks for training GANs: <a target="_blank" rel="noopener" href="https://github.com/soumith/ganhacks">https://github.com/soumith/ganhacks</a></p>
+</blockquote>
+<h2><span id="总结">总结</span></h2><p>以上是生成模型介绍以及三种最流行的生成模型的简介，图片信息来源于斯坦福大学公开课：</p>
+<blockquote>
+<p>课程链接：<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=5WoItGTWV54">https://www.youtube.com/watch?v=5WoItGTWV54</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" rel="tag"># 生成模型</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/02/10/%E8%AE%A4%E8%AE%A4%E7%9C%9F%E7%9C%9F%E5%86%99%E4%B8%80%E7%AF%87LSTM/" rel="prev" title="认认真真写一篇LSTM">
+      <i class="fa fa-chevron-left"></i> 认认真真写一篇LSTM
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">生成模型分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.1.</span> <span class="nav-text">Pixel</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.1.1.</span> <span class="nav-text">全可见置信网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.1.2.</span> <span class="nav-text">PixelRNN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.1.3.</span> <span class="nav-text">PixelCNN</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.2.</span> <span class="nav-text">变分自编码器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.2.1.</span> <span class="nav-text">自编码器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.2.2.</span> <span class="nav-text">变分自编码器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.3.</span> <span class="nav-text">生成对抗网络</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.3.1.</span> <span class="nav-text">训练：双人游戏</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.3.2.</span> <span class="nav-text">伪代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">1.3.3.</span> <span class="nav-text">可解释向量操作</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hotel"
+      src="/images/portrait.jpg">
+  <p class="site-author-name" itemprop="name">Hotel</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hotel</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="Symbols count total">154k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">2:20</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
