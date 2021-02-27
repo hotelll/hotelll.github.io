@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.svg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hotelll.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="如何处理序列型数据？RNN！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="今天学习 RNN">
+<meta property="og:url" content="http://hotelll.github.io/2021/02/01/%E4%BB%8A%E5%A4%A9%E5%AD%A6%E4%B9%A0-RNN/index.html">
+<meta property="og:site_name" content="Hotel&#39;s Blog">
+<meta property="og:description" content="如何处理序列型数据？RNN！">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-a5f8bc30bcc2d9eba7470810cb362850_720w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-74d7ac80ca83165092579932920d0ffe_720w.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-9f3a921d0d5c1313afa58bd3ef53af48_720w.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-6caa75392fe47801e605d5e8f2d3a100_720w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-87ebd6a82e32e81657682ffa0ba084ee_720w.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-16e626b6e99fb1d23c8a54536f7d28dc_720w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-03aaa7754bb9992858a05bb9668631a9_720w.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-77e8a977fc3d43bec8b05633dc52ff9f_720w.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-e0fbb46d897400a384873fc100c442db_720w.jpg">
+<meta property="article:published_time" content="2021-02-01T04:13:07.000Z">
+<meta property="article:modified_time" content="2021-02-27T07:04:00.087Z">
+<meta property="article:author" content="Hotel">
+<meta property="article:tag" content="神经网络">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic1.zhimg.com/80/v2-a5f8bc30bcc2d9eba7470810cb362850_720w.jpg">
+
+<link rel="canonical" href="http://hotelll.github.io/2021/02/01/%E4%BB%8A%E5%A4%A9%E5%AD%A6%E4%B9%A0-RNN/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>今天学习 RNN | Hotel's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hotel's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Knowledge, Tech and Life</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">19</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">32</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://hotelll.github.io/2021/02/01/%E4%BB%8A%E5%A4%A9%E5%AD%A6%E4%B9%A0-RNN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/portrait.jpg">
+      <meta itemprop="name" content="Hotel">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hotel's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          今天学习 RNN
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-02-01 12:13:07" itemprop="dateCreated datePublished" datetime="2021-02-01T12:13:07+08:00">2021-02-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-02-27 15:04:00" itemprop="dateModified" datetime="2021-02-27T15:04:00+08:00">2021-02-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" itemprop="url" rel="index"><span itemprop="name">人工智能</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+              <span>1 mins.</span>
+            </span>
+            <div class="post-description">如何处理序列型数据？RNN！</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2><span id="循环神经网络">循环神经网络</span></h2><p>我在实际应用中，我们会遇到很多序列型的数据：</p>
+<script type="math/tex; mode=display">
+x_1,x_2,x_3\cdots</script><ul>
+<li>自然语言处理中：$x_1$ 可以看作第一个单词，$x_2$ 可以看作第二个单词，以此类推。</li>
+<li>语音处理：$x_1,x_2,x_3,\cdots$ 是每帧的声音信号。</li>
+<li>时间序列问题：每天的股票价格、每天的商品价格等。</li>
+</ul>
+<p>对于序列型数据，原始的神经网络无法处理，因此我们引入 RNN 对序列问题进行建模。RNN 引入了隐状态 $h$ （hidden state）的概念， $h$ 可以对序列型数据提取特征后再转换为输出，如下图从 $h_1$ 开始。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-a5f8bc30bcc2d9eba7470810cb362850_720w.jpg" alt="img" style="zoom:70%;"></p>
+<p>接着向前一步到 $h_2$。注意每一步中的参数 $U$，$W$，$b$ 是共享的，这是 RNN 的重要特点。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-74d7ac80ca83165092579932920d0ffe_720w.jpg" alt="img" style="zoom:80%;"></p>
+<p>不断地向前移步，我们可以处理整个序列。之后我们需要输出，输出的方法就是直接通过 $h$ 进行计算：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-9f3a921d0d5c1313afa58bd3ef53af48_720w.jpg" alt="img" style="zoom: 65%;"></p>
+<h2><span id="rnn-变体结构">RNN 变体结构</span></h2><h3><span id="经典-rnnnto-n">经典 RNN：$N\to N$</span></h3><p>经典 RNN 对于序列的每一个值 $x_i$ 都输出一个 $y_i$，这意味着输入和输出序列必须等长。这种经典 RNN 可以利用在：</p>
+<ul>
+<li>计算视频每一帧的分类标签。</li>
+<li>输入字符，输出为下一个字符的概率。详见 <a href="https://link.zhihu.com/?target=http%3A//karpathy.github.io/2015/05/21/rnn-effectiveness/">Char RNN</a></li>
+</ul>
+<p>但是输入输出等长（N$\to$N）这一限制很大程度局限了 RNN 的作用，因此 RNN 出现了很多变体。</p>
+<h3><span id="n-to-1">$N \to 1$</span></h3><p>有时候，我们需要处理的问题是输入一个序列，输出一个单独的值。这种情况下，我们可以只在最后一个 $h$ 上进行输出变换即可。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-6caa75392fe47801e605d5e8f2d3a100_720w.jpg" alt="img" style="zoom: 18%;"></p>
+<p>这种结构常用于处理序列分类的问题，例如：</p>
+<ul>
+<li>输入一段文字，判断其文学类别</li>
+<li>输入一段音乐，判断其艺术风格</li>
+<li>输入一段语音，判断其情感倾向</li>
+</ul>
+<h3><span id="1-to-n">$1 \to N$</span></h3><p>如果我们需要输入一个值，然后输出一串序列，我们有两种实现结构：</p>
+<h4><span id="只在序列开始进行输入计算">只在序列开始进行输入计算</span></h4><p><img src="https://pic3.zhimg.com/80/v2-87ebd6a82e32e81657682ffa0ba084ee_720w.jpg" alt="img" style="zoom: 60%;"></p>
+<h4><span id="把输入信息作为每个阶段的输入">把输入信息作为每个阶段的输入</span></h4><p><img src="https://pic1.zhimg.com/80/v2-16e626b6e99fb1d23c8a54536f7d28dc_720w.jpg" alt="img" style="zoom: 60%;"></p>
+<p>这种 1 $\to$ N 的结构可以处理的任务有：</p>
+<ul>
+<li>从图像生成文字（image caption）</li>
+<li>从类别生成语音或者音乐</li>
+</ul>
+<h3><span id="nto-m">$N\to M$</span></h3><p>$N\to M$ 是 RNN 最重要的一个变种。这种结构又被称为<strong>编码器-解码器</strong>（Encoder-Decoder）模型，或者称为 <strong>Seq2Seq</strong> 模型。</p>
+<p>Encoder-Decoder 结构将 RNN 拆解为编码器和解码器两个部分。编码器部分将输入数据编码成一个上下文向量 $c$：</p>
+<p><img src="https://pic2.zhimg.com/80/v2-03aaa7754bb9992858a05bb9668631a9_720w.jpg" alt="img" style="zoom:80%;"></p>
+<p>得到 $c$ 的方式很多，上图展示的是最简单的方法：将编码器的最后一个隐状态赋值给 $c$。还可以对左后的隐状态做一个变换得到 $c$，也可以对所有隐状态做变换。</p>
+<p>得到编码 $c$ 后，我们用另一个 RNN 进行解码，这个 RNN 称为解码器。具体做法是将 $c$ 作为初始状态 $h_0$ 输入到解码器中：</p>
+<p><img src="https://pic4.zhimg.com/80/v2-77e8a977fc3d43bec8b05633dc52ff9f_720w.jpg" alt="img" style="zoom:90%;"></p>
+<p>或者我们也可以将 $c$ 作为每一步的输入：</p>
+<p><img src="https://pic4.zhimg.com/80/v2-e0fbb46d897400a384873fc100c442db_720w.jpg" alt="img" style="zoom:90%;"></p>
+<p>编码器-解码器结构不限制输入和输出的序列长度，因此应用的范围非常广泛，比如：</p>
+<ul>
+<li>机器翻译：编码器-解码器最经典的应用，事实上这一结构就是在机器翻译领域率先提出的。</li>
+<li>文本摘要：输入一段文本序列，输出这段文本序列的摘要序列。</li>
+<li>阅读理解：将输入的文章和问题分别编码，再对其进行解码得到问题的答案。</li>
+<li>语音识别：输入是语音信号序列，输出是文字序列。</li>
+</ul>
+<h2><span id="总结">总结</span></h2><p>本文大致讲解了 RNN 的原理、变体以及对应的应用领域。RNN 充分考虑了序列型数据中每个数据之间的相关性，而不是独立地考虑数据，从而能够更好的处理序列信息。</p>
+<blockquote>
+<p>参考博客：</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/28054589">https://zhuanlan.zhihu.com/p/28054589</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/30844905">https://zhuanlan.zhihu.com/p/30844905</a></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="tag"># 神经网络</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/09/Leetcode327-%E5%8C%BA%E9%97%B4%E5%92%8C%E7%9A%84%E4%B8%AA%E6%95%B0/" rel="prev" title="Leetcode327 区间和的个数">
+      <i class="fa fa-chevron-left"></i> Leetcode327 区间和的个数
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/02/09/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0-Conditional-LSTM-GAN-for-Melody-Generation-from-Lyrics/" rel="next" title="论文学习 Conditional LSTM-GAN for Melody Generation from Lyrics">
+      论文学习 Conditional LSTM-GAN for Melody Generation from Lyrics <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">循环神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">RNN 变体结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.1.</span> <span class="nav-text">经典 RNN：$N\to N$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.2.</span> <span class="nav-text">$N \to 1$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.3.</span> <span class="nav-text">$1 \to N$</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.3.1.</span> <span class="nav-text">只在序列开始进行输入计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.3.2.</span> <span class="nav-text">把输入信息作为每个阶段的输入</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.4.</span> <span class="nav-text">$N\to M$</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hotel"
+      src="/images/portrait.jpg">
+  <p class="site-author-name" itemprop="name">Hotel</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hotel</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="Symbols count total">157k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">2:23</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
