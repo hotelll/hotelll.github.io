@@ -1,248 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.svg">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.svg">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.svg">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"hotelll.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="This is the note of Chapter I for Operating System Concepts.">
-<meta property="og:type" content="article">
-<meta property="og:title" content="OS1 Introduction">
-<meta property="og:url" content="http://hotelll.github.io/2020/11/27/OS-Chapter-I-Introduction/index.html">
-<meta property="og:site_name" content="Hotel&#39;s Blog">
-<meta property="og:description" content="This is the note of Chapter I for Operating System Concepts.">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://hotelll.github.io/2020/11/27/OS-Chapter-I-Introduction/image-20201127194306700.png">
-<meta property="og:image" content="http://hotelll.github.io/2020/11/27/OS-Chapter-I-Introduction/image-20201127195232741.png">
-<meta property="og:image" content="http://hotelll.github.io/2020/11/27/OS-Chapter-I-Introduction/image-20201127201648448.png">
-<meta property="og:image" content="http://hotelll.github.io/2020/11/27/OS-Chapter-I-Introduction/image-20201127204804922.png">
-<meta property="og:image" content="http://hotelll.github.io/2020/11/27/OS-Chapter-I-Introduction/image-20201127210547735.png">
-<meta property="og:image" content="http://hotelll.github.io/2020/11/27/OS-Chapter-I-Introduction/image-20201127210706156.png">
-<meta property="og:image" content="http://hotelll.github.io/2020/11/27/OS-Chapter-I-Introduction/image-20201127214014968.png">
-<meta property="og:image" content="http://hotelll.github.io/2020/11/27/OS-Chapter-I-Introduction/image-20201129114418026.png">
-<meta property="og:image" content="http://hotelll.github.io/2020/11/27/OS-Chapter-I-Introduction/image-20201129121357542.png">
-<meta property="og:image" content="http://hotelll.github.io/2020/11/27/OS-Chapter-I-Introduction/image-20201129121951440.png">
-<meta property="og:image" content="http://hotelll.github.io/2020/11/27/OS-Chapter-I-Introduction/image-20201129122015520.png">
-<meta property="og:image" content="http://hotelll.github.io/2020/11/27/OS-Chapter-I-Introduction/image-20201129122054805.png">
-<meta property="og:image" content="http://hotelll.github.io/2020/11/27/OS-Chapter-I-Introduction/image-20201129205926452.png">
-<meta property="article:published_time" content="2020-11-27T11:30:27.000Z">
-<meta property="article:modified_time" content="2021-01-18T13:52:34.141Z">
-<meta property="article:author" content="Hotel">
-<meta property="article:tag" content="操作系统">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://hotelll.github.io/2020/11/27/OS-Chapter-I-Introduction/image-20201127194306700.png">
-
-<link rel="canonical" href="http://hotelll.github.io/2020/11/27/OS-Chapter-I-Introduction/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'en'
-  };
-</script>
-
-  <title>OS1 Introduction | Hotel's Blog</title>
-  
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Hotel's Blog</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">Knowledge, Tech and Life</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">19</span></a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">5</span></a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">32</span></a>
-
-  </li>
-  </ul>
-</nav>
-
-
-
-
-</div>
-    </header>
-
-    
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://hotelll.github.io/2020/11/27/OS-Chapter-I-Introduction/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/portrait.jpg">
-      <meta itemprop="name" content="Hotel">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hotel's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          OS1 Introduction
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-11-27 19:30:27" itemprop="dateCreated datePublished" datetime="2020-11-27T19:30:27+08:00">2020-11-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-18 21:52:34" itemprop="dateModified" datetime="2021-01-18T21:52:34+08:00">2021-01-18</time>
-              </span>
-
-          
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-              <span>17k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-              <span>15 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <p>This is the note of Chapter I for Operating System Concepts.</p>
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>OS1 Introduction | Hotel's Blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/normalize.css/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 5.3.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">OS1 Introduction</h1><a id="logo" href="/.">Hotel's Blog</a><p class="description">Knowledge, Tech and Life</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">OS1 Introduction</h1><div class="post-meta">2020-11-27</div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">Contents</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Objectives"><span class="toc-number">1.</span> <span class="toc-text">Objectives</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Computer-System-Structure"><span class="toc-number">2.</span> <span class="toc-text">Computer System Structure</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What-Operating-Systems-Do"><span class="toc-number">3.</span> <span class="toc-text">What Operating Systems Do</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Computer-System-Organization"><span class="toc-number">4.</span> <span class="toc-text">Computer System Organization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Computer-System-Operation"><span class="toc-number">5.</span> <span class="toc-text">Computer-System Operation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Common-Functions-of-Interrupts"><span class="toc-number">6.</span> <span class="toc-text">Common Functions of Interrupts</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Computer-Startup"><span class="toc-number">7.</span> <span class="toc-text">Computer Startup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Interrupt-Handling"><span class="toc-number">8.</span> <span class="toc-text">Interrupt Handling</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Interrupt-driven-I-O-Cycle"><span class="toc-number">9.</span> <span class="toc-text">Interrupt-driven I&#x2F;O Cycle</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#I-O-Structure"><span class="toc-number">10.</span> <span class="toc-text">I&#x2F;O Structure</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Storage-Structure"><span class="toc-number">11.</span> <span class="toc-text">Storage Structure</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Storage-Hierarchy"><span class="toc-number">12.</span> <span class="toc-text">Storage Hierarchy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Direct-Memory-Access-Structure-DMA"><span class="toc-number">13.</span> <span class="toc-text">Direct Memory Access Structure (DMA)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Computer-System-Architecture"><span class="toc-number">14.</span> <span class="toc-text">Computer-System Architecture</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Clustered-Systems"><span class="toc-number">15.</span> <span class="toc-text">Clustered Systems</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Operating-System-Operations"><span class="toc-number">16.</span> <span class="toc-text">Operating-System Operations</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Multiprogramming-and-Multitasking"><span class="toc-number">17.</span> <span class="toc-text">Multiprogramming and Multitasking</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dual-mode-and-Multimode-Operation"><span class="toc-number">18.</span> <span class="toc-text">Dual-mode and Multimode Operation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Transition-from-User-to-Kernel-Mode"><span class="toc-number">19.</span> <span class="toc-text">Transition from User  to Kernel Mode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Process-Management"><span class="toc-number">20.</span> <span class="toc-text">Process  Management</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Process-Management-Activities"><span class="toc-number">21.</span> <span class="toc-text">Process Management Activities</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Memory-Management"><span class="toc-number">22.</span> <span class="toc-text">Memory Management</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#File-system-Management"><span class="toc-number">23.</span> <span class="toc-text">File-system Management</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mass-Storage-Management"><span class="toc-number">24.</span> <span class="toc-text">Mass-Storage Management</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Caching"><span class="toc-number">25.</span> <span class="toc-text">Caching</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Migration-of-data-%E2%80%9CA%E2%80%9D-from-Disk-to-Register"><span class="toc-number">26.</span> <span class="toc-text">Migration of data “A” from Disk to Register</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#I-O-Subsystem"><span class="toc-number">27.</span> <span class="toc-text">I&#x2F;O Subsystem</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Protection-and-Security"><span class="toc-number">28.</span> <span class="toc-text">Protection and Security</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Virtualization"><span class="toc-number">29.</span> <span class="toc-text">Virtualization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Distributed-Systems"><span class="toc-number">30.</span> <span class="toc-text">Distributed Systems</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kernel-Data-Structures"><span class="toc-number">31.</span> <span class="toc-text">Kernel Data Structures</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Computing-Environments-Traditional"><span class="toc-number">32.</span> <span class="toc-text">Computing Environments - Traditional</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Computing-Environments-Mobile"><span class="toc-number">33.</span> <span class="toc-text">Computing Environments - Mobile</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Computing-Environments-Client-Server"><span class="toc-number">34.</span> <span class="toc-text">Computing Environments - Client-Server</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Computing-Environments-Peer-to-Peer"><span class="toc-number">35.</span> <span class="toc-text">Computing Environments - Peer-to-Peer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Computing-Environments-Cloud-Computing"><span class="toc-number">36.</span> <span class="toc-text">Computing Environments - Cloud Computing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Computing-Environments-Real-time-Embedded-Systems"><span class="toc-number">37.</span> <span class="toc-text">Computing Environments - Real-time Embedded Systems</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Free-and-Open-Source-Operating-Systems"><span class="toc-number">38.</span> <span class="toc-text">Free and Open-Source Operating Systems</span></a></li></ol></div></div><div class="post-content"><p>This is the note of Chapter I for Operating System Concepts.</p>
 <a id="more"></a>
-<h2><span id="objectives">Objectives</span></h2><ul>
+<h2 id="Objectives"><a href="#Objectives" class="headerlink" title="Objectives"></a>Objectives</h2><ul>
 <li>Describe the general organization of a computer system and the role of interrupts.</li>
 <li>Describe the components in a modern, multiprocessor computer system.</li>
 <li>Illustrate the transition from user mode to kernel mode.</li>
 <li>Discuss how operating systems are used in various computing environment.</li>
 <li>Provide examples of free and open-source operating systems.</li>
 </ul>
-<h2><span id="computer-system-structure">Computer System Structure</span></h2><p>Computer system can be divided into four components:</p>
+<h2 id="Computer-System-Structure"><a href="#Computer-System-Structure" class="headerlink" title="Computer System Structure"></a>Computer System Structure</h2><p>Computer system can be divided into four components:</p>
 <ul>
 <li><p>Hardware - provides basic computing resources</p>
 <ul>
@@ -268,15 +33,15 @@
 <p>The abstract view of components of computer.</p>
 <div align="center"><img src="/2020/11/27/OS-Chapter-I-Introduction/image-20201127194306700.png" alt="1" style="zoom:80%;"></div>
 
-<h2><span id="what-operating-systems-do">What Operating Systems Do</span></h2><p>Operating system is a resource allocator and control program making efficient use of HW and managing execution of user programs.</p>
-<h2><span id="computer-system-organization">Computer System Organization</span></h2><p>Computer-system operation is</p>
+<h2 id="What-Operating-Systems-Do"><a href="#What-Operating-Systems-Do" class="headerlink" title="What Operating Systems Do"></a>What Operating Systems Do</h2><p>Operating system is a resource allocator and control program making efficient use of HW and managing execution of user programs.</p>
+<h2 id="Computer-System-Organization"><a href="#Computer-System-Organization" class="headerlink" title="Computer System Organization"></a>Computer System Organization</h2><p>Computer-system operation is</p>
 <ul>
 <li>One or more CPUs, device controllers connect through common bus providing access to shared memory.</li>
 <li>Concurrent execution of CPUs and devices competing for memory cycles.</li>
 </ul>
 <div align="center"><img src="/2020/11/27/OS-Chapter-I-Introduction/image-20201127195232741.png" alt="1" style="zoom:80%;"></div>
 
-<h2><span id="computer-system-operation">Computer-System Operation</span></h2><ul>
+<h2 id="Computer-System-Operation"><a href="#Computer-System-Operation" class="headerlink" title="Computer-System Operation"></a>Computer-System Operation</h2><ul>
 <li>I/O devices and the CPU can execute concurrently.</li>
 <li>Each device controller is in charge of a particular device type.</li>
 <li>Each device controller has a local buffer.</li>
@@ -285,19 +50,19 @@
 <li>I/O is from the device to local buffer of controller.</li>
 <li>Device controller informs CPU that it has finished its operation by causing an interrupt.</li>
 </ul>
-<h2><span id="common-functions-of-interrupts">Common Functions of Interrupts</span></h2><ul>
+<h2 id="Common-Functions-of-Interrupts"><a href="#Common-Functions-of-Interrupts" class="headerlink" title="Common Functions of Interrupts"></a>Common Functions of Interrupts</h2><ul>
 <li>Interrupt transfers control to the interrupt service routine generally, through the interrupt vector, which contains the addresses of all the service routines.</li>
 <li>Interrupt architecture must save the address of the interrupted instruction.</li>
 <li>A trap or exception is a software-generated interrupt caused either by an error or a user request.</li>
 <li>An operating system is interrupt driven.</li>
 </ul>
-<h2><span id="computer-startup">Computer Startup</span></h2><p><strong>Bootstrap program</strong> is loaded at power-up or reboot.</p>
+<h2 id="Computer-Startup"><a href="#Computer-Startup" class="headerlink" title="Computer Startup"></a>Computer Startup</h2><p><strong>Bootstrap program</strong> is loaded at power-up or reboot.</p>
 <ul>
 <li>Typically stored in ROM or EPROM, generally known as firmware.</li>
 <li>Initializes all aspects of system.</li>
 <li>Loads operating system kernel and starts execution.</li>
 </ul>
-<h2><span id="interrupt-handling">Interrupt Handling</span></h2><ul>
+<h2 id="Interrupt-Handling"><a href="#Interrupt-Handling" class="headerlink" title="Interrupt Handling"></a>Interrupt Handling</h2><ul>
 <li><p>The operating system preserves the state of the CPU by storing registers and the program counter</p>
 </li>
 <li><p>Determines which type of interrupt has occurred:</p>
@@ -309,9 +74,9 @@
 <li><p>Separate segments of code determine what action should be taken for each type of interrupt.</p>
 </li>
 </ul>
-<h2><span id="interrupt-driven-io-cycle">Interrupt-driven I/O Cycle</span></h2><div align="center"><img src="/2020/11/27/OS-Chapter-I-Introduction/image-20201127201648448.png" alt="1" style="zoom:80%;"></div>
+<h2 id="Interrupt-driven-I-O-Cycle"><a href="#Interrupt-driven-I-O-Cycle" class="headerlink" title="Interrupt-driven I/O Cycle"></a>Interrupt-driven I/O Cycle</h2><div align="center"><img src="/2020/11/27/OS-Chapter-I-Introduction/image-20201127201648448.png" alt="1" style="zoom:80%;"></div>
 
-<h2><span id="io-structure">I/O Structure</span></h2><p>After I/O starts, control returns to user program only upon I/O completion</p>
+<h2 id="I-O-Structure"><a href="#I-O-Structure" class="headerlink" title="I/O Structure"></a>I/O Structure</h2><p>After I/O starts, control returns to user program only upon I/O completion</p>
 <ul>
 <li>Wait instruction idles the CPU until the next interrupt</li>
 <li>Wait loop (contention for memory access)</li>
@@ -323,7 +88,7 @@
 <li><strong>Device-status table</strong> - contains entry for each I/O device indicating its type, address and state</li>
 <li>OS indexes into I/O device table to determine device status and to modify table entry to include interrupt</li>
 </ul>
-<h2><span id="storage-structure">Storage Structure</span></h2><ul>
+<h2 id="Storage-Structure"><a href="#Storage-Structure" class="headerlink" title="Storage Structure"></a>Storage Structure</h2><ul>
 <li><p>Main memory - only large storage media that the CPU can access directly</p>
 <ul>
 <li>Random access</li>
@@ -346,7 +111,7 @@
 </ul>
 </li>
 </ul>
-<h2><span id="storage-hierarchy">Storage Hierarchy</span></h2><ul>
+<h2 id="Storage-Hierarchy"><a href="#Storage-Hierarchy" class="headerlink" title="Storage Hierarchy"></a>Storage Hierarchy</h2><ul>
 <li><p>Storage systems organized in hierarchy</p>
 <ul>
 <li>Speed</li>
@@ -363,12 +128,12 @@
 </ul>
 <div align="center"><img src="/2020/11/27/OS-Chapter-I-Introduction/image-20201127204804922.png" alt="1" style="zoom:80%;"></div>
 
-<h2><span id="direct-memory-access-structure-dma">Direct Memory Access Structure (DMA)</span></h2><ul>
+<h2 id="Direct-Memory-Access-Structure-DMA"><a href="#Direct-Memory-Access-Structure-DMA" class="headerlink" title="Direct Memory Access Structure (DMA)"></a>Direct Memory Access Structure (DMA)</h2><ul>
 <li>Used for high-speed I/O devices able to transmit information at close to memory speeds</li>
 <li>Device controller transfers blocks of data from buffer storage directly to main memory without CPU intervention</li>
 <li>Only one interrupt is generated per block, rather than the one interrupt per byte</li>
 </ul>
-<h2><span id="computer-system-architecture">Computer-System Architecture</span></h2><ul>
+<h2 id="Computer-System-Architecture"><a href="#Computer-System-Architecture" class="headerlink" title="Computer-System Architecture"></a>Computer-System Architecture</h2><ul>
 <li><p>Most systems use a single general-purpose processor</p>
 <ul>
 <li>Most systems have special-purpose processors as well</li>
@@ -430,7 +195,7 @@
 </tbody>
 </table>
 </div>
-<h2><span id="clustered-systems">Clustered Systems</span></h2><ul>
+<h2 id="Clustered-Systems"><a href="#Clustered-Systems" class="headerlink" title="Clustered Systems"></a>Clustered Systems</h2><ul>
 <li><p>Like multiprocessor systems, but multiple systems working together</p>
 <ul>
 <li>Usually sharing storage via a storage-area network (SAN)</li>
@@ -449,7 +214,7 @@
 </ul>
 </li>
 </ul>
-<h2><span id="operating-system-operations">Operating-System Operations</span></h2><ul>
+<h2 id="Operating-System-Operations"><a href="#Operating-System-Operations" class="headerlink" title="Operating-System Operations"></a>Operating-System Operations</h2><ul>
 <li><p>Bootstrap program - simple code to initialize the system, load the kernel</p>
 </li>
 <li><p>Kernel loads</p>
@@ -466,7 +231,7 @@
 </ul>
 </li>
 </ul>
-<h2><span id="multiprogramming-and-multitasking">Multiprogramming and Multitasking</span></h2><ul>
+<h2 id="Multiprogramming-and-Multitasking"><a href="#Multiprogramming-and-Multitasking" class="headerlink" title="Multiprogramming and Multitasking"></a>Multiprogramming and Multitasking</h2><ul>
 <li><p>Multiprogramming (Batch system) needed for efficiency</p>
 <ul>
 <li>Single user cannot keep CPU and I/O devices busy at all times</li>
@@ -486,7 +251,7 @@
 </ul>
 </li>
 </ul>
-<h2><span id="dual-mode-and-multimode-operation">Dual-mode and Multimode Operation</span></h2><ul>
+<h2 id="Dual-mode-and-Multimode-Operation"><a href="#Dual-mode-and-Multimode-Operation" class="headerlink" title="Dual-mode and Multimode Operation"></a>Dual-mode and Multimode Operation</h2><ul>
 <li><p><strong>Dual-mode</strong> operation allows OS to protect itself and other system components</p>
 <ul>
 <li><strong>User mode</strong> and <strong>kernel mode</strong></li>
@@ -504,7 +269,7 @@
 </ul>
 </li>
 </ul>
-<h2><span id="transition-from-user-to-kernel-mode">Transition from User  to Kernel Mode</span></h2><ul>
+<h2 id="Transition-from-User-to-Kernel-Mode"><a href="#Transition-from-User-to-Kernel-Mode" class="headerlink" title="Transition from User  to Kernel Mode"></a>Transition from User  to Kernel Mode</h2><ul>
 <li>Timer to prevent infinite loop/process hogging resources<ul>
 <li>Timer is set to interrupt the computer after some time period</li>
 <li>Keep a counter that is decremented by the physical clock</li>
@@ -516,7 +281,7 @@
 </ul>
 <div align="center"><img src="/2020/11/27/OS-Chapter-I-Introduction/image-20201127214014968.png" alt="1" style="zoom:80%;"></div>
 
-<h2><span id="process-management">Process  Management</span></h2><ul>
+<h2 id="Process-Management"><a href="#Process-Management" class="headerlink" title="Process  Management"></a>Process  Management</h2><ul>
 <li>A process is a program in execution. It  is a unit of work within the system. Program is a passive entity; process is an active entity.</li>
 <li><p>Process needs resources to accomplish its task</p>
 <ul>
@@ -538,7 +303,7 @@
 </ul>
 </li>
 </ul>
-<h2><span id="process-management-activities">Process Management Activities</span></h2><p>The operating system is responsible for the following activities in connection with process management:</p>
+<h2 id="Process-Management-Activities"><a href="#Process-Management-Activities" class="headerlink" title="Process Management Activities"></a>Process Management Activities</h2><p>The operating system is responsible for the following activities in connection with process management:</p>
 <ul>
 <li>Creating and deleting both user and system processes</li>
 <li>Suspending and resuming processes</li>
@@ -546,7 +311,7 @@
 <li>Providing mechanisms for <strong>process communication</strong></li>
 <li>Providing mechanisms for <strong>deadlock handling</strong></li>
 </ul>
-<h2><span id="memory-management">Memory Management</span></h2><ul>
+<h2 id="Memory-Management"><a href="#Memory-Management" class="headerlink" title="Memory Management"></a>Memory Management</h2><ul>
 <li>To execute a program all (or part) of the instructions must be in memory</li>
 <li>All (or part) of the data that is needed by the program must be in memory</li>
 <li><p>Memory management determines what is in memory and when</p>
@@ -562,7 +327,7 @@
 </ul>
 </li>
 </ul>
-<h2><span id="file-system-management">File-system Management</span></h2><ul>
+<h2 id="File-system-Management"><a href="#File-system-Management" class="headerlink" title="File-system Management"></a>File-system Management</h2><ul>
 <li><p>OS provides uniform, logical view o information storage</p>
 <ul>
 <li>Abstracts physical properties to logical storage unit - file</li>
@@ -586,7 +351,7 @@
 </ul>
 </li>
 </ul>
-<h2><span id="mass-storage-management">Mass-Storage Management</span></h2><ul>
+<h2 id="Mass-Storage-Management"><a href="#Mass-Storage-Management" class="headerlink" title="Mass-Storage Management"></a>Mass-Storage Management</h2><ul>
 <li>Usually disks used to store data that does not fit in main memory or data that must be kept for a “long” period of time</li>
 <li>Proper management is of central importance</li>
 <li>Entire speed of computer operation hinges on disk subsystem and its algorithms</li>
@@ -607,7 +372,7 @@
 </ul>
 </li>
 </ul>
-<h2><span id="caching">Caching</span></h2><ul>
+<h2 id="Caching"><a href="#Caching" class="headerlink" title="Caching"></a>Caching</h2><ul>
 <li>Important principle, performed at many levels in a computer (in hardware, operating system, software)</li>
 <li>Information in use copied from slower to faster storage temporarily</li>
 <li><p>Faster storage (cache) checked first to determine if information is there</p>
@@ -624,7 +389,7 @@
 </li>
 </ul>
 <p><img src="/2020/11/27/OS-Chapter-I-Introduction/image-20201129114418026.png" alt="1" style="zoom:80%;"></p>
-<h2><span id="migration-of-data-a-from-disk-to-register">Migration of data “A” from Disk to Register</span></h2><ul>
+<h2 id="Migration-of-data-“A”-from-Disk-to-Register"><a href="#Migration-of-data-“A”-from-Disk-to-Register" class="headerlink" title="Migration of data “A” from Disk to Register"></a>Migration of data “A” from Disk to Register</h2><ul>
 <li>Multitasking environments must be careful to use most recent value, no matter where it is stored in the storage hierarchy</li>
 <li>Multiprocessor environment must provide cache coherency in hardware such that all CPUs have the most recent value in their cache</li>
 <li>Distributed environment situation even more complex<ul>
@@ -642,7 +407,7 @@
 </ul>
 </li>
 </ul>
-<h2><span id="io-subsystem">I/O Subsystem</span></h2><ul>
+<h2 id="I-O-Subsystem"><a href="#I-O-Subsystem" class="headerlink" title="I/O Subsystem"></a>I/O Subsystem</h2><ul>
 <li>One purpose of OS is to hide peculiarities of hardware devices from the user</li>
 <li>I/ subsystem responsible for<ul>
 <li>Memory management of I/O including buffering (storing data temporarily while it is being transferred), caching (storing parts of data in faster storage for performance), spooling (the overlapping of output of one job with input of other jobs)</li>
@@ -651,7 +416,7 @@
 </ul>
 </li>
 </ul>
-<h2><span id="protection-and-security">Protection and Security</span></h2><ul>
+<h2 id="Protection-and-Security"><a href="#Protection-and-Security" class="headerlink" title="Protection and Security"></a>Protection and Security</h2><ul>
 <li><strong>Protection</strong> - any mechanism for controlling access of processes or users to resources defined by the OS</li>
 <li><p><strong>Security</strong> - defense of the system against internal and external attacks</p>
 <ul>
@@ -667,7 +432,7 @@
 </ul>
 </li>
 </ul>
-<h2><span id="virtualization">Virtualization</span></h2><ul>
+<h2 id="Virtualization"><a href="#Virtualization" class="headerlink" title="Virtualization"></a>Virtualization</h2><ul>
 <li><p>Allows operating systems to run applications within other OSes</p>
 <ul>
 <li>Vast and growing industry</li>
@@ -700,7 +465,7 @@
 </li>
 </ul>
 <p><img src="/2020/11/27/OS-Chapter-I-Introduction/image-20201129121357542.png" alt="1" style="zoom:80%;"></p>
-<h2><span id="distributed-systems">Distributed Systems</span></h2><ul>
+<h2 id="Distributed-Systems"><a href="#Distributed-Systems" class="headerlink" title="Distributed Systems"></a>Distributed Systems</h2><ul>
 <li>Distributed computing<ul>
 <li>Collection of separate, possibly heterogenous, systems networked together<ul>
 <li>Network is a communication path, TCP/IP most common<ul>
@@ -720,7 +485,7 @@
 </ul>
 </li>
 </ul>
-<h2><span id="kernel-data-structures">Kernel Data Structures</span></h2><ul>
+<h2 id="Kernel-Data-Structures"><a href="#Kernel-Data-Structures" class="headerlink" title="Kernel Data Structures"></a>Kernel Data Structures</h2><ul>
 <li><p>Many like standard programming data structures</p>
 </li>
 <li><p><strong>Single linked list</strong></p>
@@ -748,7 +513,7 @@
 </ul>
 </li>
 </ul>
-<h2><span id="computing-environments-traditional">Computing Environments - Traditional</span></h2><ul>
+<h2 id="Computing-Environments-Traditional"><a href="#Computing-Environments-Traditional" class="headerlink" title="Computing Environments - Traditional"></a>Computing Environments - Traditional</h2><ul>
 <li>Stand-alone general-purpose machines</li>
 <li>But blurred as most systems interconnect with others (i.e. the Internet)</li>
 <li><strong>Portals</strong> provide web access to internal systems</li>
@@ -756,14 +521,14 @@
 <li>Mobile computers interconnect via <strong>wireless networks</strong></li>
 <li>Networking becoming ubiquitous - even home systems use <strong>firewalls</strong> to protect home computers from Internet attacks</li>
 </ul>
-<h2><span id="computing-environments-mobile">Computing Environments - Mobile</span></h2><ul>
+<h2 id="Computing-Environments-Mobile"><a href="#Computing-Environments-Mobile" class="headerlink" title="Computing Environments - Mobile"></a>Computing Environments - Mobile</h2><ul>
 <li>Handheld smartphones, tablets, etc</li>
 <li>Extra feature - more OS features (GPS, gyroscope, payment, texting)</li>
 <li>Allows new types of apps like <strong>augmented reality</strong></li>
 <li>Use IEEE 802.11 wireless, or cellular data networks for connectivity</li>
 <li>Leaders are <strong>Apple iOS</strong> and <strong>Google Android</strong></li>
 </ul>
-<h2><span id="computing-environments-client-server">Computing Environments - Client-Server</span></h2><ul>
+<h2 id="Computing-Environments-Client-Server"><a href="#Computing-Environments-Client-Server" class="headerlink" title="Computing Environments - Client-Server"></a>Computing Environments - Client-Server</h2><ul>
 <li>Client-Server Computing<ul>
 <li>Dumb terminals supplanted by smart PCs</li>
 <li>Many systems now <strong>servers</strong>, responding to requests generated by <strong>clients</strong><ul>
@@ -774,7 +539,7 @@
 </ul>
 </li>
 </ul>
-<h2><span id="computing-environments-peer-to-peer">Computing Environments - Peer-to-Peer</span></h2><ul>
+<h2 id="Computing-Environments-Peer-to-Peer"><a href="#Computing-Environments-Peer-to-Peer" class="headerlink" title="Computing Environments - Peer-to-Peer"></a>Computing Environments - Peer-to-Peer</h2><ul>
 <li>Another model of distributed system</li>
 <li>P2P does not distinguish clients and servers<ul>
 <li>Instead all nodes are considered peers</li>
@@ -788,7 +553,7 @@
 </ul>
 </li>
 </ul>
-<h2><span id="computing-environments-cloud-computing">Computing Environments - Cloud Computing</span></h2><ul>
+<h2 id="Computing-Environments-Cloud-Computing"><a href="#Computing-Environments-Cloud-Computing" class="headerlink" title="Computing Environments - Cloud Computing"></a>Computing Environments - Cloud Computing</h2><ul>
 <li>Delivers computing, storage, even apps as a service across a network</li>
 <li><p>Logical extension of virtualization because it uses virtualization as the base for its functionality</p>
 <ul>
@@ -813,7 +578,7 @@
 </li>
 </ul>
 <p><img src="/2020/11/27/OS-Chapter-I-Introduction/image-20201129205926452.png" alt="1" style="zoom:80%;"></p>
-<h2><span id="computing-environments-real-time-embedded-systems">Computing Environments - Real-time Embedded Systems</span></h2><ul>
+<h2 id="Computing-Environments-Real-time-Embedded-Systems"><a href="#Computing-Environments-Real-time-Embedded-Systems" class="headerlink" title="Computing Environments - Real-time Embedded Systems"></a>Computing Environments - Real-time Embedded Systems</h2><ul>
 <li><p>Real-time embedded systems most prevalent form of computers</p>
 <ul>
 <li>Vary considerable, special purpose, limited purpose OS, real-time OS</li>
@@ -832,7 +597,7 @@
 </ul>
 </li>
 </ul>
-<h2><span id="free-and-open-source-operating-systems">Free and Open-Source Operating Systems</span></h2><ul>
+<h2 id="Free-and-Open-Source-Operating-Systems"><a href="#Free-and-Open-Source-Operating-Systems" class="headerlink" title="Free and Open-Source Operating Systems"></a>Free and Open-Source Operating Systems</h2><ul>
 <li>Operating systems made available in source-code format rather than just binary closed-source and proprietary</li>
 <li>Counter to the copy protection and Digital Rights Management (DRM) movement</li>
 <li><p>Started by Free Software Foundation (FSF), which has “copyright” GNU Public License (GPL)</p>
@@ -847,273 +612,20 @@
 </ul>
 </li>
 </ul>
-
-    </div>
-
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag"># 操作系统</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2020/11/22/%E6%B5%B7/" rel="prev" title="海">
-      <i class="fa fa-chevron-left"></i> 海
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/12/01/OS-II-Operating-System-Structures/" rel="next" title="OS2 Operating-System Structures">
-      OS2 Operating-System Structures <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
+</div><div class="tags"><a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><i class="fa fa-tag"></i>操作系统</a></div><div class="post-nav"><a class="pre" href="/2020/12/01/OS-II-Operating-System-Structures/">OS2 Operating-System Structures</a><a class="next" href="/2020/11/22/%E6%B5%B7/">海</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://hotelll.github.io"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%88%B7%E9%A2%98/">刷题</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/">计算机科学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">软件工程</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" style="font-size: 15px;">生成模型</a> <a href="/tags/%E8%B4%AA%E5%BF%83/" style="font-size: 15px;">贪心</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 15px;">动态规划</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">机器学习</a> <a href="/tags/MIR/" style="font-size: 15px;">MIR</a> <a href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" style="font-size: 15px;">论文阅读</a> <a href="/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/" style="font-size: 15px;">排列组合</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 15px;">分治</a> <a href="/tags/%E5%9B%9E%E6%BA%AF/" style="font-size: 15px;">回溯</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 15px;">操作系统</a> <a href="/tags/%E6%8A%A5%E9%94%99/" style="font-size: 15px;">报错</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 15px;">神经网络</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 15px;">随笔</a> <a href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" style="font-size: 15px;">目标检测</a> <a href="/tags/%E5%8C%B9%E9%85%8D/" style="font-size: 15px;">匹配</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/" style="font-size: 15px;">网络流</a> <a href="/tags/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">论文学习</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 15px;">计算机网络</a> <a href="/tags/%E8%81%8C%E4%B8%9A%E8%A7%84%E5%88%92/" style="font-size: 15px;">职业规划</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">学习</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/03/27/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E5%85%A5%E9%97%A8%E2%80%94%E2%80%94%E6%9C%AF%E8%AF%AD%E7%AF%87/">行为检测入门——术语篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/26/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0-SongMASS/">论文学习: SongMASS</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/25/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0%EF%BC%9AThe-Capacity-of-Wireless-Networks/">论文学习：The Capacity of Wireless Networks</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/17/Conditional-GAN/">Conditional GAN</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/15/An-introduction-to-the-generative-model/">生成模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/10/%E8%AE%A4%E8%AE%A4%E7%9C%9F%E7%9C%9F%E5%86%99%E4%B8%80%E7%AF%87LSTM/">认认真真写一篇LSTM</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/09/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0-Conditional-LSTM-GAN-for-Melody-Generation-from-Lyrics/">论文学习 Conditional LSTM-GAN for Melody Generation from Lyrics</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/01/%E4%BB%8A%E5%A4%A9%E5%AD%A6%E4%B9%A0-RNN/">今天学习 RNN</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/01/09/Leetcode327-%E5%8C%BA%E9%97%B4%E5%92%8C%E7%9A%84%E4%B8%AA%E6%95%B0/">Leetcode327 区间和的个数</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/23/OS9-Main-Memory/">OS9 Main Memory</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Links</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">Hotel's Blog | </a><a rel="nofollow" target="_blank" href="http://beian.miit.gov.cn"> 鄂ICP备 19017407号-1 </a> | &nbsp;<img class="nofancybox" src="//cdn.foreversfj.com/image/blog/20190728/N0BTF6mJ1Ilb.png" style="margin-bottom: -4px;"/><a rel="nofollow" target="_blank" href="http://www.beian.gov.cn">&nbsp;鄂公网安备 42011102003450号</a><br/><span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>var now = new Date();
+function createtime() {
+var grt= new Date("07/09/2018 12:49:00");
+now.setTime(now.getTime()+250);
+days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+document.getElementById("timeDate").innerHTML = "运行 "+dnum+" 天 ";
+document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);</script><br/><div><div class="github-badge" style="margin-right: 3px;"><a href="https://hexo.io" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hexo</span></a></div><div class="github-badge"><a href="https://github.com/tufu9441/maupassant-hexo" target="_black" rel="nofollow"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a></div></div></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.0.0" async></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.css"><script type="text/javascript" src="/js/copycode.js" successtext="Copy Successed!"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css"><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
   });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">Objectives</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">Computer System Structure</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">What Operating Systems Do</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">Computer System Organization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">Computer-System Operation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">Common Functions of Interrupts</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">7.</span> <span class="nav-text">Computer Startup</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">8.</span> <span class="nav-text">Interrupt Handling</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">9.</span> <span class="nav-text">Interrupt-driven I&#x2F;O Cycle</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">10.</span> <span class="nav-text">I&#x2F;O Structure</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">11.</span> <span class="nav-text">Storage Structure</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">12.</span> <span class="nav-text">Storage Hierarchy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">13.</span> <span class="nav-text">Direct Memory Access Structure (DMA)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">14.</span> <span class="nav-text">Computer-System Architecture</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">15.</span> <span class="nav-text">Clustered Systems</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">16.</span> <span class="nav-text">Operating-System Operations</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">17.</span> <span class="nav-text">Multiprogramming and Multitasking</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">18.</span> <span class="nav-text">Dual-mode and Multimode Operation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">19.</span> <span class="nav-text">Transition from User  to Kernel Mode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">20.</span> <span class="nav-text">Process  Management</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">21.</span> <span class="nav-text">Process Management Activities</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">22.</span> <span class="nav-text">Memory Management</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">23.</span> <span class="nav-text">File-system Management</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">24.</span> <span class="nav-text">Mass-Storage Management</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">25.</span> <span class="nav-text">Caching</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">26.</span> <span class="nav-text">Migration of data “A” from Disk to Register</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">27.</span> <span class="nav-text">I&#x2F;O Subsystem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">28.</span> <span class="nav-text">Protection and Security</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">29.</span> <span class="nav-text">Virtualization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">30.</span> <span class="nav-text">Distributed Systems</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">31.</span> <span class="nav-text">Kernel Data Structures</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">32.</span> <span class="nav-text">Computing Environments - Traditional</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">33.</span> <span class="nav-text">Computing Environments - Mobile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">34.</span> <span class="nav-text">Computing Environments - Client-Server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">35.</span> <span class="nav-text">Computing Environments - Peer-to-Peer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">36.</span> <span class="nav-text">Computing Environments - Cloud Computing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">37.</span> <span class="nav-text">Computing Environments - Real-time Embedded Systems</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">38.</span> <span class="nav-text">Free and Open-Source Operating Systems</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="Hotel"
-      src="/images/portrait.jpg">
-  <p class="site-author-name" itemprop="name">Hotel</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">32</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">5</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">19</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-        <div class="back-to-top motion-element">
-          <i class="fa fa-arrow-up"></i>
-          <span>0%</span>
-        </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2021</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Hotel</span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-chart-area"></i>
-    </span>
-    <span title="Symbols count total">157k</span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-coffee"></i>
-    </span>
-    <span title="Reading time total">2:23</span>
-</div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
-  </div>
-
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-      
-
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
-
-  
-
-</body>
-</html>
+</script><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=1.0.0"></script></div></body></html>

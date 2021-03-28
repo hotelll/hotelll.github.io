@@ -1,269 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.svg">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.svg">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.svg">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"hotelll.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="问题起源在1962年，经济学家 David Gale 和 Lloyd Shapley 提出：能否设计一个高校录取过程，能够自我执行（self-enforcing）形成一个最佳的匹配效果。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="稳定匹配">
-<meta property="og:url" content="http://hotelll.github.io/2020/09/07/%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A12020-09-07/index.html">
-<meta property="og:site_name" content="Hotel&#39;s Blog">
-<meta property="og:description" content="问题起源在1962年，经济学家 David Gale 和 Lloyd Shapley 提出：能否设计一个高校录取过程，能够自我执行（self-enforcing）形成一个最佳的匹配效果。">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://hotelll.github.io/2020/09/07/%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A12020-09-07/GS_algorithm.png">
-<meta property="article:published_time" content="2020-09-07T10:59:57.000Z">
-<meta property="article:modified_time" content="2020-11-18T15:14:22.762Z">
-<meta property="article:author" content="Hotel">
-<meta property="article:tag" content="匹配">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://hotelll.github.io/2020/09/07/%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A12020-09-07/GS_algorithm.png">
-
-<link rel="canonical" href="http://hotelll.github.io/2020/09/07/%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A12020-09-07/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'en'
-  };
-</script>
-
-  <title>稳定匹配 | Hotel's Blog</title>
-  
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Hotel's Blog</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">Knowledge, Tech and Life</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">19</span></a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">5</span></a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">32</span></a>
-
-  </li>
-  </ul>
-</nav>
-
-
-
-
-</div>
-    </header>
-
-    
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://hotelll.github.io/2020/09/07/%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A12020-09-07/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/portrait.jpg">
-      <meta itemprop="name" content="Hotel">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hotel's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          稳定匹配
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-09-07 18:59:57" itemprop="dateCreated datePublished" datetime="2020-09-07T18:59:57+08:00">2020-09-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-18 23:14:22" itemprop="dateModified" datetime="2020-11-18T23:14:22+08:00">2020-11-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-              <span>1.7k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-              <span>2 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <h2><span id="问题起源">问题起源</span></h2><p>在1962年，经济学家 David Gale 和 Lloyd Shapley 提出：能否设计一个高校录取过程，能够<strong>自我执行</strong>（self-enforcing）形成一个最佳的匹配效果。</p>
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>稳定匹配 | Hotel's Blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/normalize.css/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 5.3.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">稳定匹配</h1><a id="logo" href="/.">Hotel's Blog</a><p class="description">Knowledge, Tech and Life</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">稳定匹配</h1><div class="post-meta">2020-09-07<span> | </span><span class="category"><a href="/categories/%E7%AE%97%E6%B3%95/">算法</a></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">Contents</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E8%B5%B7%E6%BA%90"><span class="toc-number">1.</span> <span class="toc-text">问题起源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E6%98%93%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">简易问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="toc-number">2.1.</span> <span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E7%BE%8E%E5%8C%B9%E9%85%8D"><span class="toc-number">2.2.</span> <span class="toc-text">完美匹配</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8C%B9%E9%85%8D"><span class="toc-number">2.2.1.</span> <span class="toc-text">匹配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%8C%E7%BE%8E%E5%8C%B9%E9%85%8D-1"><span class="toc-number">2.2.2.</span> <span class="toc-text">完美匹配</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E7%A8%B3%E5%AE%9A%E5%AF%B9"><span class="toc-number">2.3.</span> <span class="toc-text">不稳定对</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A8%B3%E5%AE%9A%E5%8C%B9%E9%85%8D"><span class="toc-number">2.4.</span> <span class="toc-text">稳定匹配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A8%B3%E5%AE%9A%E5%8C%B9%E9%85%8D%E9%97%AE%E9%A2%98"><span class="toc-number">2.5.</span> <span class="toc-text">稳定匹配问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">2.6.</span> <span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gale-Shapley-%E7%AE%97%E6%B3%95"><span class="toc-number">2.7.</span> <span class="toc-text">Gale-Shapley 算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-number">2.8.</span> <span class="toc-text">算法分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E7%89%B9%E5%BE%81"><span class="toc-number">2.8.1.</span> <span class="toc-text">算法特征</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%89%E7%A9%B7%E6%80%A7%EF%BC%9A%E7%AE%97%E6%B3%95%E6%9C%80%E5%A4%9A%E5%9C%A8-n-2-%E6%AC%A1-while-%E8%BF%AD%E4%BB%A3%E5%90%8E%E4%B8%80%E5%AE%9A%E4%BC%9A%E7%BB%93%E6%9D%9F%E3%80%82"><span class="toc-number">2.8.2.</span> <span class="toc-text">有穷性：算法最多在 $n^2$ 次 while 迭代后一定会结束。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%8C%E7%BE%8E%E6%80%A7%EF%BC%9A%E7%AE%97%E6%B3%95%E4%B8%AD%E6%89%80%E6%9C%89%E7%94%B7%E6%80%A7%E5%92%8C%E5%A5%B3%E6%80%A7%E9%83%BD%E5%8C%B9%E9%85%8D%E5%AE%8C%E6%AF%95%E3%80%82"><span class="toc-number">2.8.3.</span> <span class="toc-text">完美性：算法中所有男性和女性都匹配完毕。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A8%B3%E5%AE%9A%E6%80%A7%EF%BC%9A%E7%AE%97%E6%B3%95%E4%BA%A7%E7%94%9F%E7%9A%84%E5%8C%B9%E9%85%8D%E4%B8%AD%EF%BC%8C%E4%B8%8D%E4%BC%9A%E6%9C%89%E4%B8%8D%E7%A8%B3%E5%AE%9A%E5%AF%B9"><span class="toc-number">2.8.4.</span> <span class="toc-text">稳定性：算法产生的匹配中，不会有不稳定对</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A3%E5%BD%93%E9%85%8D%E5%81%B6-Valid-Partner"><span class="toc-number">2.8.5.</span> <span class="toc-text">正当配偶 Valid Partner</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%B7%E6%80%A7%E6%9C%80%E4%BD%B3%E5%88%86%E9%85%8D-Man-optimal-Assignment"><span class="toc-number">2.8.6.</span> <span class="toc-text">男性最佳分配 Man-optimal Assignment</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A5%B3%E6%80%A7%E6%9C%80%E5%8A%A3%E5%88%86%E9%85%8D"><span class="toc-number">2.8.7.</span> <span class="toc-text">女性最劣分配</span></a></li></ol></li></ol></li></ol></div></div><div class="post-content"><h2 id="问题起源"><a href="#问题起源" class="headerlink" title="问题起源"></a>问题起源</h2><p>在1962年，经济学家 David Gale 和 Lloyd Shapley 提出：能否设计一个高校录取过程，能够<strong>自我执行</strong>（self-enforcing）形成一个最佳的匹配效果。</p>
 <a id="more"></a>
 <blockquote>
 <p>算法的 C++ 实现代码请移步 Github：<a target="_blank" rel="noopener" href="https://github.com/hotelll/CS222Note/tree/master/StableMatching">https://github.com/hotelll/CS222Note/tree/master/StableMatching</a></p>
 </blockquote>
-<h2><span id="简易问题">简易问题</span></h2><h3><span id="问题描述">问题描述</span></h3><p>给出一个 $n$ 个男性的集合 $M$ 和 $n$ 个女性的集合 $W$，找到一个“稳定”匹配。</p>
+<h2 id="简易问题"><a href="#简易问题" class="headerlink" title="简易问题"></a>简易问题</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>给出一个 $n$ 个男性的集合 $M$ 和 $n$ 个女性的集合 $W$，找到一个“稳定”匹配。</p>
 <ul>
 <li>每位男性根据对女性的心仪程度从高至低进行排名；</li>
 <li>每位女性根据对男性的心仪程度从高至低进行排名。</li>
 </ul>
-<h3><span id="完美匹配">完美匹配</span></h3><h4><span id="匹配">匹配</span></h4><p>匹配 $S$ 是一个包含有序数对 $m-w$ 的集合，其中 $m\in M$ 且 $w\in W$，其中：</p>
+<h3 id="完美匹配"><a href="#完美匹配" class="headerlink" title="完美匹配"></a>完美匹配</h3><h4 id="匹配"><a href="#匹配" class="headerlink" title="匹配"></a>匹配</h4><p>匹配 $S$ 是一个包含有序数对 $m-w$ 的集合，其中 $m\in M$ 且 $w\in W$，其中：</p>
 <ul>
 <li>每个男性最多出现在一个数对中；</li>
 <li>每个女性最多出现在一个数对中。</li>
 </ul>
-<h4><span id="完美匹配">完美匹配</span></h4><p>如果$|S|=|M|=|W|=n$，则匹配 $S$ 是完美匹配。</p>
-<h3><span id="不稳定对">不稳定对</span></h3><p>给出一个完美匹配 $S$，男性 $m$ 和女性 $w$ 是不稳定的，如果同时满足下列条件：</p>
+<h4 id="完美匹配-1"><a href="#完美匹配-1" class="headerlink" title="完美匹配"></a>完美匹配</h4><p>如果$|S|=|M|=|W|=n$，则匹配 $S$ 是完美匹配。</p>
+<h3 id="不稳定对"><a href="#不稳定对" class="headerlink" title="不稳定对"></a>不稳定对</h3><p>给出一个完美匹配 $S$，男性 $m$ 和女性 $w$ 是不稳定的，如果同时满足下列条件：</p>
 <ul>
 <li>$m$ 相比起当前配偶，更喜欢 $w$;</li>
 <li>$w$ 相比起当前配偶，更喜欢 $m$。</li>
 </ul>
-<h3><span id="稳定匹配">稳定匹配</span></h3><p>一个不包含不稳定对的完美匹配。</p>
-<h3><span id="稳定匹配问题">稳定匹配问题</span></h3><p>给出 $n$ 个男性和 $n$ 个女性的喜好列表，寻找一个稳定匹配。</p>
-<h3><span id="注意事项">注意事项</span></h3><p>稳定匹配不一定存在，同时也不一定是唯一的。</p>
-<h3><span id="gale-shapley-算法">Gale-Shapley 算法</span></h3><p><img src="/2020/09/07/%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A12020-09-07/GS_algorithm.png" alt="G-S"></p>
-<h3><span id="算法分析">算法分析</span></h3><h4><span id="算法特征">算法特征</span></h4><ul>
+<h3 id="稳定匹配"><a href="#稳定匹配" class="headerlink" title="稳定匹配"></a>稳定匹配</h3><p>一个不包含不稳定对的完美匹配。</p>
+<h3 id="稳定匹配问题"><a href="#稳定匹配问题" class="headerlink" title="稳定匹配问题"></a>稳定匹配问题</h3><p>给出 $n$ 个男性和 $n$ 个女性的喜好列表，寻找一个稳定匹配。</p>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>稳定匹配不一定存在，同时也不一定是唯一的。</p>
+<h3 id="Gale-Shapley-算法"><a href="#Gale-Shapley-算法" class="headerlink" title="Gale-Shapley 算法"></a>Gale-Shapley 算法</h3><p><img src="/2020/09/07/%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A12020-09-07/GS_algorithm.png" alt="G-S"></p>
+<h3 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h3><h4 id="算法特征"><a href="#算法特征" class="headerlink" title="算法特征"></a>算法特征</h4><ul>
 <li><p>男性根据喜好降序向女性求婚；</p>
 </li>
 <li><p>一旦一位女性找到配偶，她将不会再单身，只会替换成更好的。</p>
 </li>
 </ul>
-<h4><span id="有穷性算法最多在-n2-次-while-迭代后一定会结束">有穷性：算法最多在 $n^2$ 次 while 迭代后一定会结束。</span></h4><p><strong>证明</strong></p>
+<h4 id="有穷性：算法最多在-n-2-次-while-迭代后一定会结束。"><a href="#有穷性：算法最多在-n-2-次-while-迭代后一定会结束。" class="headerlink" title="有穷性：算法最多在 $n^2$ 次 while 迭代后一定会结束。"></a>有穷性：算法最多在 $n^2$ 次 while 迭代后一定会结束。</h4><p><strong>证明</strong></p>
 <p>while 循环中每次男性向一位女性求婚，最多只有 $n^2$ 次求婚。</p>
-<h4><span id="完美性算法中所有男性和女性都匹配完毕">完美性：算法中所有男性和女性都匹配完毕。</span></h4><p><strong>证明（反证法）</strong></p>
+<h4 id="完美性：算法中所有男性和女性都匹配完毕。"><a href="#完美性：算法中所有男性和女性都匹配完毕。" class="headerlink" title="完美性：算法中所有男性和女性都匹配完毕。"></a>完美性：算法中所有男性和女性都匹配完毕。</h4><p><strong>证明（反证法）</strong></p>
 <ul>
 <li><p>假设：存在男性 Z 在算法终止后仍然未匹配到女性</p>
 </li>
@@ -278,7 +46,7 @@
 <li><p>3与5产生矛盾，假设不成立，证明完毕</p>
 </li>
 </ul>
-<h4><span id="稳定性算法产生的匹配中不会有不稳定对">稳定性：算法产生的匹配中，不会有不稳定对</span></h4><p><strong>证明</strong></p>
+<h4 id="稳定性：算法产生的匹配中，不会有不稳定对"><a href="#稳定性：算法产生的匹配中，不会有不稳定对" class="headerlink" title="稳定性：算法产生的匹配中，不会有不稳定对"></a>稳定性：算法产生的匹配中，不会有不稳定对</h4><p><strong>证明</strong></p>
 <ul>
 <li><p>假设：GS 匹配 $S^*$ 不包含数对 A-Z</p>
 </li>
@@ -298,8 +66,8 @@
 <li><p>因此 GS 匹配中不包含的对一定是稳定的，即GS匹配中没有不稳定对</p>
 </li>
 </ul>
-<h4><span id="正当配偶-valid-partner">正当配偶 Valid Partner</span></h4><p>定义：如果存在一个稳定匹配中男性 $m$ 和女性 $w$ 匹配在一起，则称女性 $w$ 是男性 $m$ 的正当配偶。</p>
-<h4><span id="男性最佳分配-man-optimal-assignment">男性最佳分配 Man-optimal Assignment</span></h4><p>GS 算法中每个男性都能分配到最佳的正当配偶，所以 GS 算法得到的分配一定是男性最佳分配。</p>
+<h4 id="正当配偶-Valid-Partner"><a href="#正当配偶-Valid-Partner" class="headerlink" title="正当配偶 Valid Partner"></a>正当配偶 Valid Partner</h4><p>定义：如果存在一个稳定匹配中男性 $m$ 和女性 $w$ 匹配在一起，则称女性 $w$ 是男性 $m$ 的正当配偶。</p>
+<h4 id="男性最佳分配-Man-optimal-Assignment"><a href="#男性最佳分配-Man-optimal-Assignment" class="headerlink" title="男性最佳分配 Man-optimal Assignment"></a>男性最佳分配 Man-optimal Assignment</h4><p>GS 算法中每个男性都能分配到最佳的正当配偶，所以 GS 算法得到的分配一定是男性最佳分配。</p>
 <p><strong>证明</strong></p>
 <ul>
 <li>假设：一位男性与一位女性匹配，该女性不是最佳正当配偶</li>
@@ -324,7 +92,7 @@
 <li>因此，A-Z 在 $S$ 中是不稳定的。</li>
 <li>因此假设不成立，GS 算法是男性最佳策略</li>
 </ul>
-<h4><span id="女性最劣分配">女性最劣分配</span></h4><p>GS 算法中女性一定分配到的是最差的正当配偶。</p>
+<h4 id="女性最劣分配"><a href="#女性最劣分配" class="headerlink" title="女性最劣分配"></a>女性最劣分配</h4><p>GS 算法中女性一定分配到的是最差的正当配偶。</p>
 <p><strong>证明</strong></p>
 <ul>
 <li>假设： A-Z 在稳定匹配 $S^*$ 中匹配，但是 Z 不是 A 的最差正当配偶</li>
@@ -335,273 +103,20 @@
 <li>因此，A-Z 在 $S$ 中是不稳定对，存在矛盾</li>
 </ul>
 <p><strong>关键：主动发起求婚的一方总是获得优势。</strong></p>
-
-    </div>
-
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/%E5%8C%B9%E9%85%8D/" rel="tag"># 匹配</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2020/08/05/Learning-Calibratable-Policies-using-Programmatic-Style-Consistency/" rel="prev" title="论文学习2020-08-05">
-      <i class="fa fa-chevron-left"></i> 论文学习2020-08-05
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/" rel="next" title="网络流I：详解最大流最小割">
-      网络流I：详解最大流最小割 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
+</div><div class="tags"><a href="/tags/%E5%8C%B9%E9%85%8D/"><i class="fa fa-tag"></i>匹配</a></div><div class="post-nav"><a class="pre" href="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/">网络流I：详解最大流最小割</a><a class="next" href="/2020/08/05/Learning-Calibratable-Policies-using-Programmatic-Style-Consistency/">论文学习2020-08-05</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://hotelll.github.io"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%88%B7%E9%A2%98/">刷题</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/">计算机科学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">软件工程</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" style="font-size: 15px;">生成模型</a> <a href="/tags/%E8%B4%AA%E5%BF%83/" style="font-size: 15px;">贪心</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 15px;">动态规划</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">机器学习</a> <a href="/tags/MIR/" style="font-size: 15px;">MIR</a> <a href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" style="font-size: 15px;">论文阅读</a> <a href="/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/" style="font-size: 15px;">排列组合</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 15px;">分治</a> <a href="/tags/%E5%9B%9E%E6%BA%AF/" style="font-size: 15px;">回溯</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 15px;">操作系统</a> <a href="/tags/%E6%8A%A5%E9%94%99/" style="font-size: 15px;">报错</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 15px;">神经网络</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 15px;">随笔</a> <a href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" style="font-size: 15px;">目标检测</a> <a href="/tags/%E5%8C%B9%E9%85%8D/" style="font-size: 15px;">匹配</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/" style="font-size: 15px;">网络流</a> <a href="/tags/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">论文学习</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 15px;">计算机网络</a> <a href="/tags/%E8%81%8C%E4%B8%9A%E8%A7%84%E5%88%92/" style="font-size: 15px;">职业规划</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">学习</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/03/27/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E5%85%A5%E9%97%A8%E2%80%94%E2%80%94%E6%9C%AF%E8%AF%AD%E7%AF%87/">行为检测入门——术语篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/26/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0-SongMASS/">论文学习: SongMASS</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/25/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0%EF%BC%9AThe-Capacity-of-Wireless-Networks/">论文学习：The Capacity of Wireless Networks</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/17/Conditional-GAN/">Conditional GAN</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/15/An-introduction-to-the-generative-model/">生成模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/10/%E8%AE%A4%E8%AE%A4%E7%9C%9F%E7%9C%9F%E5%86%99%E4%B8%80%E7%AF%87LSTM/">认认真真写一篇LSTM</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/09/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0-Conditional-LSTM-GAN-for-Melody-Generation-from-Lyrics/">论文学习 Conditional LSTM-GAN for Melody Generation from Lyrics</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/01/%E4%BB%8A%E5%A4%A9%E5%AD%A6%E4%B9%A0-RNN/">今天学习 RNN</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/01/09/Leetcode327-%E5%8C%BA%E9%97%B4%E5%92%8C%E7%9A%84%E4%B8%AA%E6%95%B0/">Leetcode327 区间和的个数</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/23/OS9-Main-Memory/">OS9 Main Memory</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Links</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">Hotel's Blog | </a><a rel="nofollow" target="_blank" href="http://beian.miit.gov.cn"> 鄂ICP备 19017407号-1 </a> | &nbsp;<img class="nofancybox" src="//cdn.foreversfj.com/image/blog/20190728/N0BTF6mJ1Ilb.png" style="margin-bottom: -4px;"/><a rel="nofollow" target="_blank" href="http://www.beian.gov.cn">&nbsp;鄂公网安备 42011102003450号</a><br/><span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>var now = new Date();
+function createtime() {
+var grt= new Date("07/09/2018 12:49:00");
+now.setTime(now.getTime()+250);
+days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+document.getElementById("timeDate").innerHTML = "运行 "+dnum+" 天 ";
+document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);</script><br/><div><div class="github-badge" style="margin-right: 3px;"><a href="https://hexo.io" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hexo</span></a></div><div class="github-badge"><a href="https://github.com/tufu9441/maupassant-hexo" target="_black" rel="nofollow"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a></div></div></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.0.0" async></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.css"><script type="text/javascript" src="/js/copycode.js" successtext="Copy Successed!"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css"><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
   });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">问题起源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">简易问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.2.</span> <span class="nav-text">完美匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.2.1.</span> <span class="nav-text">匹配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.2.2.</span> <span class="nav-text">完美匹配</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.3.</span> <span class="nav-text">不稳定对</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.4.</span> <span class="nav-text">稳定匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.5.</span> <span class="nav-text">稳定匹配问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.6.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.7.</span> <span class="nav-text">Gale-Shapley 算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.8.</span> <span class="nav-text">算法分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.8.1.</span> <span class="nav-text">算法特征</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.8.2.</span> <span class="nav-text">有穷性：算法最多在 $n^2$ 次 while 迭代后一定会结束。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.8.3.</span> <span class="nav-text">完美性：算法中所有男性和女性都匹配完毕。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.8.4.</span> <span class="nav-text">稳定性：算法产生的匹配中，不会有不稳定对</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.8.5.</span> <span class="nav-text">正当配偶 Valid Partner</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.8.6.</span> <span class="nav-text">男性最佳分配 Man-optimal Assignment</span></a></li><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">2.8.7.</span> <span class="nav-text">女性最劣分配</span></a></li></ol></li></ol></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="Hotel"
-      src="/images/portrait.jpg">
-  <p class="site-author-name" itemprop="name">Hotel</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">32</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">5</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">19</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-        <div class="back-to-top motion-element">
-          <i class="fa fa-arrow-up"></i>
-          <span>0%</span>
-        </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2021</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Hotel</span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-chart-area"></i>
-    </span>
-    <span title="Symbols count total">157k</span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-coffee"></i>
-    </span>
-    <span title="Reading time total">2:23</span>
-</div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
-  </div>
-
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-      
-
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
-
-  
-
-</body>
-</html>
+</script><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=1.0.0"></script></div></body></html>

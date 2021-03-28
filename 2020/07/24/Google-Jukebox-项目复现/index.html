@@ -1,234 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.svg">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.svg">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.svg">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"hotelll.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="项目地址：https:&#x2F;&#x2F;github.com&#x2F;openai&#x2F;jukebox  OpenAI 的项目 Jukebox 所实现的功能是：输入艺术家、曲风以及歌词，生成一首歌曲。在本周，笔者成功跑通了 Sample 部分的代码来生成音乐。写下这篇博文主要是大致记录整个过程，以及踩过的坑，希望能够帮助到有相同需求的朋友。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Google Jukebox 项目复现">
-<meta property="og:url" content="http://hotelll.github.io/2020/07/24/Google-Jukebox-%E9%A1%B9%E7%9B%AE%E5%A4%8D%E7%8E%B0/index.html">
-<meta property="og:site_name" content="Hotel&#39;s Blog">
-<meta property="og:description" content="项目地址：https:&#x2F;&#x2F;github.com&#x2F;openai&#x2F;jukebox  OpenAI 的项目 Jukebox 所实现的功能是：输入艺术家、曲风以及歌词，生成一首歌曲。在本周，笔者成功跑通了 Sample 部分的代码来生成音乐。写下这篇博文主要是大致记录整个过程，以及踩过的坑，希望能够帮助到有相同需求的朋友。">
-<meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-07-24T15:52:51.000Z">
-<meta property="article:modified_time" content="2021-01-18T13:45:38.681Z">
-<meta property="article:author" content="Hotel">
-<meta property="article:tag" content="生成模型">
-<meta property="article:tag" content="MIR">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="http://hotelll.github.io/2020/07/24/Google-Jukebox-%E9%A1%B9%E7%9B%AE%E5%A4%8D%E7%8E%B0/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'en'
-  };
-</script>
-
-  <title>Google Jukebox 项目复现 | Hotel's Blog</title>
-  
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-<link rel="stylesheet" href="\assets\css\APlayer.min.css" class="aplayer-style-marker">
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>Google Jukebox 项目复现 | Hotel's Blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/normalize.css/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 5.3.0"><link rel="stylesheet" href="\assets\css\APlayer.min.css" class="aplayer-style-marker">
 <script src="\assets\js\APlayer.min.js" class="aplayer-script-marker"></script>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Hotel's Blog</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">Knowledge, Tech and Life</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">19</span></a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">5</span></a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">32</span></a>
-
-  </li>
-  </ul>
-</nav>
-
-
-
-
-</div>
-    </header>
-
-    
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://hotelll.github.io/2020/07/24/Google-Jukebox-%E9%A1%B9%E7%9B%AE%E5%A4%8D%E7%8E%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/portrait.jpg">
-      <meta itemprop="name" content="Hotel">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hotel's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          Google Jukebox 项目复现
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-07-24 23:52:51" itemprop="dateCreated datePublished" datetime="2020-07-24T23:52:51+08:00">2020-07-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-18 21:45:38" itemprop="dateModified" datetime="2021-01-18T21:45:38+08:00">2021-01-18</time>
-              </span>
-
-          
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-              <span>4.8k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-              <span>4 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <blockquote>
+</head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Google Jukebox 项目复现</h1><a id="logo" href="/.">Hotel's Blog</a><p class="description">Knowledge, Tech and Life</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Google Jukebox 项目复现</h1><div class="post-meta">2020-07-24</div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">Contents</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E8%A6%81%E6%B1%82"><span class="toc-number">1.</span> <span class="toc-text">基本要求</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux-%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.1.</span> <span class="toc-text">Linux 系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GPU"><span class="toc-number">1.2.</span> <span class="toc-text">GPU</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-number">2.</span> <span class="toc-text">环境搭建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C-Sampling"><span class="toc-number">3.</span> <span class="toc-text">运行 Sampling</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E6%AC%A1%E9%87%87%E6%A0%B7"><span class="toc-number">3.1.</span> <span class="toc-text">初次采样</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">3.1.1.</span> <span class="toc-text">注意事项</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%A7%E7%BB%AD%E9%87%87%E6%A0%B7"><span class="toc-number">3.2.</span> <span class="toc-text">继续采样</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C"><span class="toc-number">4.</span> <span class="toc-text">运行结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97"><span class="toc-number">5.</span> <span class="toc-text">避坑指南</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E7%A9%BA%E9%97%B2%E7%9A%84GPU"><span class="toc-number">5.1.</span> <span class="toc-text">选择空闲的GPU</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E5%AF%B9-CUDA-out-of-memory-%E6%8A%A5%E9%94%99"><span class="toc-number">5.2.</span> <span class="toc-text">应对 CUDA out of memory 报错</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8-Windows-%E7%AB%AF%E8%BF%90%E8%A1%8C"><span class="toc-number">5.3.</span> <span class="toc-text">在 Windows 端运行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="post-content"><blockquote>
 <p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/openai/jukebox">https://github.com/openai/jukebox</a></p>
 </blockquote>
 <p>OpenAI 的项目 Jukebox 所实现的功能是：输入艺术家、曲风以及歌词，生成一首歌曲。在本周，笔者成功跑通了 Sample 部分的代码来生成音乐。写下这篇博文主要是大致记录整个过程，以及踩过的坑，希望能够帮助到有相同需求的朋友。</p>
 <a id="more"></a>
-<h2><span id="基本要求">基本要求</span></h2><h3><span id="linux-系统">Linux 系统</span></h3><p>GitHub上的 sample.py 代码在 Linux 系统可以成功跑通，而在 Windows 系统则会报错（Windows 报错的原因和解决办法我们在最后会提到，感兴趣的朋友可以参考）。因此更加推荐使用 Linux 系统。此外，使用 Linux 虚拟机也无法跑通，因为虚拟机无法使用 GPU，而代码中使用了 GPU。因此使用 Linux 系统的电脑或者服务器是最佳选择。</p>
-<h3><span id="gpu">GPU</span></h3><p>笔者使用的是 2080Ti。Jukebox 项目本身使用的GPU 是V100。在项目的 README 中提到了所采用的三个模型对 GPU 显存的需求如下：</p>
+<h2 id="基本要求"><a href="#基本要求" class="headerlink" title="基本要求"></a>基本要求</h2><h3 id="Linux-系统"><a href="#Linux-系统" class="headerlink" title="Linux 系统"></a>Linux 系统</h3><p>GitHub上的 sample.py 代码在 Linux 系统可以成功跑通，而在 Windows 系统则会报错（Windows 报错的原因和解决办法我们在最后会提到，感兴趣的朋友可以参考）。因此更加推荐使用 Linux 系统。此外，使用 Linux 虚拟机也无法跑通，因为虚拟机无法使用 GPU，而代码中使用了 GPU。因此使用 Linux 系统的电脑或者服务器是最佳选择。</p>
+<h3 id="GPU"><a href="#GPU" class="headerlink" title="GPU"></a>GPU</h3><p>笔者使用的是 2080Ti。Jukebox 项目本身使用的GPU 是V100。在项目的 README 中提到了所采用的三个模型对 GPU 显存的需求如下：</p>
 <div class="table-container">
 <table>
 <thead>
@@ -254,7 +32,7 @@
 </table>
 </div>
 <p>根据我的个人经验，使用 2080Ti 进行 Sample 时，虽然显存有 11GB（&gt;10.3GB），但是用 5b 跑代码还是会报错 CUDA out of memory，因此最后还是选择了 1b_lyrics 模型。所以一个更加宽裕的显存大小还是有必要的，如 V100 具有 16GB 显存，可以很好的满足所有模型的需求。</p>
-<h2><span id="环境搭建">环境搭建</span></h2><p>这部分按照 Jukebox 项目的 README 就可以完成。为了完整性，这里笔者复述一遍。</p>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>这部分按照 Jukebox 项目的 README 就可以完成。为了完整性，这里笔者复述一遍。</p>
 <p>首先，我们需要安装 conda 包管理工具，相关教程这里不再赘述。</p>
 <p>下面，在命令行运行下列代码进行环境搭建。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">conda create --name jukebox python=3.7.5</span><br><span class="line">conda activate jukebox</span><br><span class="line">conda install mpi4py=3.0.3 # if this fails, try: pip install mpi4py==3.0.3</span><br><span class="line">conda install pytorch=1.4 torchvision=0.5 cudatoolkit=10.0 -c pytorch</span><br><span class="line">git clone https://github.com/openai/jukebox.git</span><br><span class="line">cd jukebox</span><br><span class="line">pip install -r requirements.txt</span><br><span class="line">pip install -e .</span><br></pre></td></tr></table></figure>
@@ -268,7 +46,7 @@
 <blockquote>
 <p><a target="_blank" rel="noopener" href="https://mirrors.bfsu.edu.cn/help/anaconda/">https://mirrors.bfsu.edu.cn/help/anaconda/</a></p>
 </blockquote>
-<h2><span id="运行-sampling">运行 Sampling</span></h2><h3><span id="初次采样">初次采样</span></h3><p>如果是初次采样，在命令行运行以下代码：</p>
+<h2 id="运行-Sampling"><a href="#运行-Sampling" class="headerlink" title="运行 Sampling"></a>运行 Sampling</h2><h3 id="初次采样"><a href="#初次采样" class="headerlink" title="初次采样"></a>初次采样</h3><p>如果是初次采样，在命令行运行以下代码：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python jukebox/sample.py --model=5b_lyrics --name=sample_5b --levels=3 --sample_length_in_seconds=20 --total_sample_length_in_seconds=180 --sr=44100 --n_samples=6 --hop_fraction=0.5,0.5,0.125</span><br></pre></td></tr></table></figure>
 <p>我们这里讲一下几个相对重要的参数含义：</p>
 <div class="table-container">
@@ -299,13 +77,13 @@
 </tbody>
 </table>
 </div>
-<h4><span id="注意事项">注意事项</span></h4><ul>
+<h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><ul>
 <li><p>生成的结果中 level_0 是最终结果，从音质上也可以听得出 level_0 比 level_1 和 level_2 更佳；</p>
 </li>
 <li><p>在运行 sample.py 的过程中，会下载对应的模型到项目同级的 .cache 文件夹中，文件在 13~14GB 左右，需要保证网络通畅与充足的空间。下载这一步也是导致 Windows 端运行报错的原因，下文会提到。</p>
 </li>
 </ul>
-<h3><span id="继续采样">继续采样</span></h3><p>如果想基于之前的采样结果继续采样，来延长歌曲的长度，在命令行运行下列代码：</p>
+<h3 id="继续采样"><a href="#继续采样" class="headerlink" title="继续采样"></a>继续采样</h3><p>如果想基于之前的采样结果继续采样，来延长歌曲的长度，在命令行运行下列代码：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python jukebox/sample.py --model=5b_lyrics --name=sample_5b --levels=3 --mode=continue --codes_file=sample_5b/level_0/data.pth.tar --sample_length_in_seconds=40 --total_sample_length_in_seconds=180 --sr=44100 --n_samples=6 --hop_fraction=0.5,0.5,0.125</span><br></pre></td></tr></table></figure>
 <div class="table-container">
 <table>
@@ -327,15 +105,15 @@
 </tbody>
 </table>
 </div>
-<h2><span id="运行结果">运行结果</span></h2><p>运行结果会保存在 jukebox/{name} 文件夹下，用浏览器打开 index.html 就可以浏览生成的结果。下面展示一些笔者本人用 1b_lyrics 生成的样例。</p>
+<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><p>运行结果会保存在 jukebox/{name} 文件夹下，用浏览器打开 index.html 就可以浏览生成的结果。下面展示一些笔者本人用 1b_lyrics 生成的样例。</p>
 <p><strong>艺术家</strong>：Alan Jackson    <strong>曲风</strong>：Country</p>
 
-        <div id="aplayer-ZXucHKRW" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+        <div id="aplayer-qvHOQvNV" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
             <pre class="aplayer-lrc-content"></pre>
         </div>
         <script>
           var ap = new APlayer({
-            element: document.getElementById("aplayer-ZXucHKRW"),
+            element: document.getElementById("aplayer-qvHOQvNV"),
             narrow: false,
             autoplay: false,
             showlrc: false,
@@ -358,12 +136,12 @@
 <p>And wrinkled lip, and sneer of cold command</p>
 <p><strong>艺术家</strong>：Joe Bonamassa    <strong>曲风</strong>：Blues Rock</p>
 
-        <div id="aplayer-TZICgtYn" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+        <div id="aplayer-aIvVEbLN" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
             <pre class="aplayer-lrc-content"></pre>
         </div>
         <script>
           var ap = new APlayer({
-            element: document.getElementById("aplayer-TZICgtYn"),
+            element: document.getElementById("aplayer-aIvVEbLN"),
             narrow: false,
             autoplay: false,
             showlrc: false,
@@ -385,12 +163,12 @@
 <p>Ohh, it’s hot tub time!</p>
 <p><strong>艺术家</strong>：Céline Dion    <strong>曲风</strong>：Pop</p>
 
-        <div id="aplayer-kruHqIaV" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+        <div id="aplayer-yFAUCgmT" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
             <pre class="aplayer-lrc-content"></pre>
         </div>
         <script>
           var ap = new APlayer({
-            element: document.getElementById("aplayer-kruHqIaV"),
+            element: document.getElementById("aplayer-yFAUCgmT"),
             narrow: false,
             autoplay: false,
             showlrc: false,
@@ -413,8 +191,8 @@
 <p>Just as long as I am there</p>
 <p>I’ll be there in your night</p>
 <p>I’ll be there when the condition’s right</p>
-<h2><span id="避坑指南">避坑指南</span></h2><h3><span id="选择空闲的gpu">选择空闲的GPU</span></h3><p>在实验室使用共享的服务器时，提前在命令行输入 nvidia-smi 来观察一下服务器的使用情况，选择空闲的 GPU；</p>
-<h3><span id="应对-cuda-out-of-memory-报错">应对 CUDA out of memory 报错</span></h3><ul>
+<h2 id="避坑指南"><a href="#避坑指南" class="headerlink" title="避坑指南"></a>避坑指南</h2><h3 id="选择空闲的GPU"><a href="#选择空闲的GPU" class="headerlink" title="选择空闲的GPU"></a>选择空闲的GPU</h3><p>在实验室使用共享的服务器时，提前在命令行输入 nvidia-smi 来观察一下服务器的使用情况，选择空闲的 GPU；</p>
+<h3 id="应对-CUDA-out-of-memory-报错"><a href="#应对-CUDA-out-of-memory-报错" class="headerlink" title="应对 CUDA out of memory 报错"></a>应对 CUDA out of memory 报错</h3><ul>
 <li><p>如果使用的是共享的服务器，首先查看当前 GPU 是否有人正在使用；</p>
 </li>
 <li><p>在 sample.py 中降低 max_batch_size 的大小，最低为1;</p>
@@ -422,7 +200,7 @@
 <li><p>在运行命令的参数中，—model 选择 1b_lyrics，降低 —n_samples 的大小。</p>
 </li>
 </ul>
-<h3><span id="在-windows-端运行">在 Windows 端运行</span></h3><p>在 Windows 端运行会报错 FileNotFoundError，原因可能是一条 Download 指令在 Linux 端是可用的，但是在 Windows 端是错误的，因此在 Windows 端没有将模型下载到 .cache 文件夹中。我的解决办法就是自己手动地去下载所需要的模型文件（参考jukebox:issue）。步骤如下：</p>
+<h3 id="在-Windows-端运行"><a href="#在-Windows-端运行" class="headerlink" title="在 Windows 端运行"></a>在 Windows 端运行</h3><p>在 Windows 端运行会报错 FileNotFoundError，原因可能是一条 Download 指令在 Linux 端是可用的，但是在 Windows 端是错误的，因此在 Windows 端没有将模型下载到 .cache 文件夹中。我的解决办法就是自己手动地去下载所需要的模型文件（参考jukebox:issue）。步骤如下：</p>
 <ul>
 <li><p>安装 wget，教程此处不再赘述；</p>
 </li>
@@ -435,275 +213,21 @@
 <p>如果你想要使用 1b_lyrics 模型，运行：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://storage.googleapis.com/jukebox-assets/models/1b/prior_level_2.pth.tar --no-check-certificate -O C:/Users/&lt;you&gt;/.cache/jukebox-assets/models/1b/prior_level_2.pth.tar</span><br></pre></td></tr></table></figure>
 <p>这样应该就可以跑通 sample.py 的代码了，笔者没有进行完整的验证，因为文件实在太大了 QAQ。</p>
-<h2><span id="总结">总结</span></h2><p>以上就是笔者跑通 Jukebox 的Sampling 部分代码的经验，希望能够帮助到各位朋友们。</p>
-
-    </div>
-
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" rel="tag"># 生成模型</a>
-              <a href="/tags/MIR/" rel="tag"># MIR</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2020/07/08/From-NN-to-VQ-VAE/" rel="prev" title="从神经网络到VQ-VAE模型">
-      <i class="fa fa-chevron-left"></i> 从神经网络到VQ-VAE模型
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/07/29/%E5%A6%82%E4%BD%95%E9%98%85%E8%AF%BB%E8%AE%BA%E6%96%87/" rel="next" title="如何阅读论文">
-      如何阅读论文 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>以上就是笔者跑通 Jukebox 的Sampling 部分代码的经验，希望能够帮助到各位朋友们。</p>
+</div><div class="tags"><a href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/"><i class="fa fa-tag"></i>生成模型</a><a href="/tags/MIR/"><i class="fa fa-tag"></i>MIR</a></div><div class="post-nav"><a class="pre" href="/2020/07/29/%E5%A6%82%E4%BD%95%E9%98%85%E8%AF%BB%E8%AE%BA%E6%96%87/">如何阅读论文</a><a class="next" href="/2020/07/08/From-NN-to-VQ-VAE/">从神经网络到VQ-VAE模型</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://hotelll.github.io"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%88%B7%E9%A2%98/">刷题</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/">计算机科学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">软件工程</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" style="font-size: 15px;">生成模型</a> <a href="/tags/%E8%B4%AA%E5%BF%83/" style="font-size: 15px;">贪心</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 15px;">动态规划</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">机器学习</a> <a href="/tags/MIR/" style="font-size: 15px;">MIR</a> <a href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" style="font-size: 15px;">论文阅读</a> <a href="/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/" style="font-size: 15px;">排列组合</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 15px;">分治</a> <a href="/tags/%E5%9B%9E%E6%BA%AF/" style="font-size: 15px;">回溯</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 15px;">操作系统</a> <a href="/tags/%E6%8A%A5%E9%94%99/" style="font-size: 15px;">报错</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 15px;">神经网络</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 15px;">随笔</a> <a href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" style="font-size: 15px;">目标检测</a> <a href="/tags/%E5%8C%B9%E9%85%8D/" style="font-size: 15px;">匹配</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/" style="font-size: 15px;">网络流</a> <a href="/tags/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">论文学习</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 15px;">计算机网络</a> <a href="/tags/%E8%81%8C%E4%B8%9A%E8%A7%84%E5%88%92/" style="font-size: 15px;">职业规划</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">学习</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/03/27/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E5%85%A5%E9%97%A8%E2%80%94%E2%80%94%E6%9C%AF%E8%AF%AD%E7%AF%87/">行为检测入门——术语篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/26/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0-SongMASS/">论文学习: SongMASS</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/25/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0%EF%BC%9AThe-Capacity-of-Wireless-Networks/">论文学习：The Capacity of Wireless Networks</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/17/Conditional-GAN/">Conditional GAN</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/15/An-introduction-to-the-generative-model/">生成模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/10/%E8%AE%A4%E8%AE%A4%E7%9C%9F%E7%9C%9F%E5%86%99%E4%B8%80%E7%AF%87LSTM/">认认真真写一篇LSTM</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/09/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0-Conditional-LSTM-GAN-for-Melody-Generation-from-Lyrics/">论文学习 Conditional LSTM-GAN for Melody Generation from Lyrics</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/01/%E4%BB%8A%E5%A4%A9%E5%AD%A6%E4%B9%A0-RNN/">今天学习 RNN</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/01/09/Leetcode327-%E5%8C%BA%E9%97%B4%E5%92%8C%E7%9A%84%E4%B8%AA%E6%95%B0/">Leetcode327 区间和的个数</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/23/OS9-Main-Memory/">OS9 Main Memory</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Links</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">Hotel's Blog | </a><a rel="nofollow" target="_blank" href="http://beian.miit.gov.cn"> 鄂ICP备 19017407号-1 </a> | &nbsp;<img class="nofancybox" src="//cdn.foreversfj.com/image/blog/20190728/N0BTF6mJ1Ilb.png" style="margin-bottom: -4px;"/><a rel="nofollow" target="_blank" href="http://www.beian.gov.cn">&nbsp;鄂公网安备 42011102003450号</a><br/><span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>var now = new Date();
+function createtime() {
+var grt= new Date("07/09/2018 12:49:00");
+now.setTime(now.getTime()+250);
+days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+document.getElementById("timeDate").innerHTML = "运行 "+dnum+" 天 ";
+document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);</script><br/><div><div class="github-badge" style="margin-right: 3px;"><a href="https://hexo.io" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hexo</span></a></div><div class="github-badge"><a href="https://github.com/tufu9441/maupassant-hexo" target="_black" rel="nofollow"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a></div></div></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.0.0" async></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.css"><script type="text/javascript" src="/js/copycode.js" successtext="Copy Successed!"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css"><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
   });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">基本要求</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.1.</span> <span class="nav-text">Linux 系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.2.</span> <span class="nav-text">GPU</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">环境搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">运行 Sampling</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.1.</span> <span class="nav-text">初次采样</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">3.1.1.</span> <span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">3.2.</span> <span class="nav-text">继续采样</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">运行结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">避坑指南</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">5.1.</span> <span class="nav-text">选择空闲的GPU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">5.2.</span> <span class="nav-text">应对 CUDA out of memory 报错</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">5.3.</span> <span class="nav-text">在 Windows 端运行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="Hotel"
-      src="/images/portrait.jpg">
-  <p class="site-author-name" itemprop="name">Hotel</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">32</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">5</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">19</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-        <div class="back-to-top motion-element">
-          <i class="fa fa-arrow-up"></i>
-          <span>0%</span>
-        </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2021</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Hotel</span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-chart-area"></i>
-    </span>
-    <span title="Symbols count total">157k</span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-coffee"></i>
-    </span>
-    <span title="Reading time total">2:23</span>
-</div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
-  </div>
-
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-      
-
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
-
-    
-
-  
-
-</body>
-</html>
+</script><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=1.0.0"></script></div></body></html>

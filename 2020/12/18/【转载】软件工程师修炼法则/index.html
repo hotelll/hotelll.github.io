@@ -1,237 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.svg">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.svg">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.svg">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"hotelll.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="本文转载自：https:&#x2F;&#x2F;github.com&#x2F;jwasham&#x2F;coding-interview-university  原先我为了成为一个软件工程师而建立这份简单的学习主题清单， 但这份清单随着时间而膨胀成今天这样。在做完这份清单上的每个目标后，我成为了 Amazon 的软件开发工程师! 你或许不需要像我一样学习这么多。但是，让你成为一位称职工程师所需要的知识都在这里了。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="【转载】软件工程师修炼法则">
-<meta property="og:url" content="http://hotelll.github.io/2020/12/18/%E3%80%90%E8%BD%AC%E8%BD%BD%E3%80%91%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%B8%88%E4%BF%AE%E7%82%BC%E6%B3%95%E5%88%99/index.html">
-<meta property="og:site_name" content="Hotel&#39;s Blog">
-<meta property="og:description" content="本文转载自：https:&#x2F;&#x2F;github.com&#x2F;jwasham&#x2F;coding-interview-university  原先我为了成为一个软件工程师而建立这份简单的学习主题清单， 但这份清单随着时间而膨胀成今天这样。在做完这份清单上的每个目标后，我成为了 Amazon 的软件开发工程师! 你或许不需要像我一样学习这么多。但是，让你成为一位称职工程师所需要的知识都在这里了。">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://d3j2pkmjtin6ou.cloudfront.net/coding-at-the-whiteboard-silicon-valley.png">
-<meta property="og:image" content="https://d3j2pkmjtin6ou.cloudfront.net/art_board_sm_2.jpg">
-<meta property="article:published_time" content="2020-12-18T11:49:54.000Z">
-<meta property="article:modified_time" content="2021-01-18T13:45:16.185Z">
-<meta property="article:author" content="Hotel">
-<meta property="article:tag" content="学习">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://d3j2pkmjtin6ou.cloudfront.net/coding-at-the-whiteboard-silicon-valley.png">
-
-<link rel="canonical" href="http://hotelll.github.io/2020/12/18/%E3%80%90%E8%BD%AC%E8%BD%BD%E3%80%91%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%B8%88%E4%BF%AE%E7%82%BC%E6%B3%95%E5%88%99/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'en'
-  };
-</script>
-
-  <title>【转载】软件工程师修炼法则 | Hotel's Blog</title>
-  
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Hotel's Blog</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">Knowledge, Tech and Life</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">19</span></a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories<span class="badge">5</span></a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">32</span></a>
-
-  </li>
-  </ul>
-</nav>
-
-
-
-
-</div>
-    </header>
-
-    
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://hotelll.github.io/2020/12/18/%E3%80%90%E8%BD%AC%E8%BD%BD%E3%80%91%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E5%B8%88%E4%BF%AE%E7%82%BC%E6%B3%95%E5%88%99/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/portrait.jpg">
-      <meta itemprop="name" content="Hotel">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hotel's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          【转载】软件工程师修炼法则
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-12-18 19:49:54" itemprop="dateCreated datePublished" datetime="2020-12-18T19:49:54+08:00">2020-12-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-18 21:45:16" itemprop="dateModified" datetime="2021-01-18T21:45:16+08:00">2021-01-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">软件工程</span></a>
-                </span>
-            </span>
-
-          
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-              <span>29k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-              <span>26 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-        <blockquote>
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>【转载】软件工程师修炼法则 | Hotel's Blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/normalize.css/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 5.3.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">【转载】软件工程师修炼法则</h1><a id="logo" href="/.">Hotel's Blog</a><p class="description">Knowledge, Tech and Life</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">【转载】软件工程师修炼法则</h1><div class="post-meta">2020-12-18<span> | </span><span class="category"><a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">软件工程</a></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">Contents</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%99%E6%98%AF%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">这是？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95"><span class="toc-number">2.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BD%95%E8%A6%81%E7%94%A8%E5%88%B0%E5%AE%83%EF%BC%9F"><span class="toc-number">3.</span> <span class="toc-text">为何要用到它？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E8%A6%81%E8%A7%89%E5%BE%97%E8%87%AA%E5%B7%B1%E4%B8%8D%E5%A4%9F%E8%81%AA%E6%98%8E"><span class="toc-number">4.</span> <span class="toc-text">不要觉得自己不够聪明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E8%A7%86%E9%A2%91%E8%B5%84%E6%BA%90"><span class="toc-number">5.</span> <span class="toc-text">相关视频资源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%A2%E8%AF%95%E8%BF%87%E7%A8%8B-amp-%E9%80%9A%E7%94%A8%E7%9A%84%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87"><span class="toc-number">6.</span> <span class="toc-text">面试过程 &amp; 通用的面试准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BD%A0%E7%9A%84%E9%9D%A2%E8%AF%95%E9%80%89%E6%8B%A9%E4%B8%80%E7%A7%8D%E8%AF%AD%E8%A8%80"><span class="toc-number">7.</span> <span class="toc-text">为你的面试选择一种语言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%A6%E5%8D%95"><span class="toc-number">8.</span> <span class="toc-text">书单</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87"><span class="toc-number">8.1.</span> <span class="toc-text">面试准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E4%BD%A0%E6%9C%89%E9%A2%9D%E5%A4%96%E7%9A%84%E6%97%B6%E9%97%B4%EF%BC%9A"><span class="toc-number">8.2.</span> <span class="toc-text">如果你有额外的时间：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E7%B2%BE%E9%80%89"><span class="toc-number">8.3.</span> <span class="toc-text">编程语言精选</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C"><span class="toc-number">8.4.</span> <span class="toc-text">C++</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java"><span class="toc-number">8.5.</span> <span class="toc-text">Java</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Python"><span class="toc-number">8.6.</span> <span class="toc-text">Python</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E4%BD%A0%E5%BC%80%E5%A7%8B%E4%B9%8B%E5%89%8D"><span class="toc-number">9.</span> <span class="toc-text">在你开始之前</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BD%A0%E4%B8%8D%E5%8F%AF%E8%83%BD%E6%8A%8A%E6%89%80%E6%9C%89%E7%9A%84%E4%B8%9C%E8%A5%BF%E9%83%BD%E8%AE%B0%E4%BD%8F"><span class="toc-number">9.1.</span> <span class="toc-text">1. 你不可能把所有的东西都记住</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BD%BF%E7%94%A8%E6%8A%BD%E8%AE%A4%E5%8D%A1"><span class="toc-number">9.2.</span> <span class="toc-text">2. 使用抽认卡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%A4%8D%E4%B9%A0%EF%BC%8C%E5%A4%8D%E4%B9%A0%EF%BC%8C%E5%86%8D%E5%A4%8D%E4%B9%A0"><span class="toc-number">9.3.</span> <span class="toc-text">3. 复习，复习，再复习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%B8%93%E6%B3%A8"><span class="toc-number">9.4.</span> <span class="toc-text">4. 专注</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B2%A1%E6%9C%89%E5%8C%85%E5%90%AB%E7%9A%84%E5%86%85%E5%AE%B9"><span class="toc-number">10.</span> <span class="toc-text">没有包含的内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A5%E5%B8%B8%E8%AE%A1%E5%88%92"><span class="toc-number">11.</span> <span class="toc-text">日常计划</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%85%E5%A4%87%E7%9F%A5%E8%AF%86"><span class="toc-number">12.</span> <span class="toc-text">必备知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%A4%8D%E6%9D%82%E5%BA%A6-Big-O-%E6%B8%90%E8%BF%9B%E5%88%86%E6%9E%90%E6%B3%95"><span class="toc-number">13.</span> <span class="toc-text">算法复杂度 &#x2F; Big-O &#x2F; 渐进分析法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">14.</span> <span class="toc-text">数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%EF%BC%88Arrays%EF%BC%89"><span class="toc-number">14.1.</span> <span class="toc-text">数组（Arrays）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%93%BE%E8%A1%A8%EF%BC%88Linked-Lists%EF%BC%89"><span class="toc-number">14.2.</span> <span class="toc-text">链表（Linked Lists）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A0%86%E6%A0%88%EF%BC%88Stack%EF%BC%89"><span class="toc-number">14.3.</span> <span class="toc-text">堆栈（Stack）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%9F%E5%88%97%EF%BC%88Queue%EF%BC%89"><span class="toc-number">14.4.</span> <span class="toc-text">队列（Queue）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%88%E5%B8%8C%E8%A1%A8%EF%BC%88Hash-table%EF%BC%89"><span class="toc-number">14.5.</span> <span class="toc-text">哈希表（Hash table）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E5%A4%9A%E7%9A%84%E7%9F%A5%E8%AF%86"><span class="toc-number">15.</span> <span class="toc-text">更多的知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%EF%BC%88Binary-search%EF%BC%89"><span class="toc-number">15.1.</span> <span class="toc-text">二分查找（Binary search）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%89%E4%BD%8D%E8%BF%90%E7%AE%97%EF%BC%88Bitwise-operations%EF%BC%89"><span class="toc-number">15.2.</span> <span class="toc-text">按位运算（Bitwise operations）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%91%EF%BC%88Trees%EF%BC%89"><span class="toc-number">16.</span> <span class="toc-text">树（Trees）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%91-%E2%80%94%E2%80%94-%E7%AC%94%E8%AE%B0-amp-%E8%83%8C%E6%99%AF"><span class="toc-number">16.1.</span> <span class="toc-text">树 —— 笔记 &amp; 背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91%EF%BC%88Binary-search-trees%EF%BC%89%EF%BC%9ABSTs"><span class="toc-number">16.2.</span> <span class="toc-text">二叉查找树（Binary search trees）：BSTs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A0%86%EF%BC%88Heap%EF%BC%89-%E4%BC%98%E5%85%88%E7%BA%A7%E9%98%9F%E5%88%97%EF%BC%88Priority-Queue%EF%BC%89-%E4%BA%8C%E5%8F%89%E5%A0%86%EF%BC%88Binary-Heap%EF%BC%89"><span class="toc-number">16.3.</span> <span class="toc-text">堆（Heap） &#x2F; 优先级队列（Priority Queue） &#x2F; 二叉堆（Binary Heap）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%EF%BC%88Sorting%EF%BC%89"><span class="toc-number">17.</span> <span class="toc-text">排序（Sorting）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%EF%BC%88Graphs%EF%BC%89"><span class="toc-number">18.</span> <span class="toc-text">图（Graphs）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E5%A4%9A%E7%9F%A5%E8%AF%86"><span class="toc-number">19.</span> <span class="toc-text">更多知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%92%E5%BD%92%EF%BC%88Recursion%EF%BC%89"><span class="toc-number">19.1.</span> <span class="toc-text">递归（Recursion）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88Dynamic-Programming%EF%BC%89"><span class="toc-number">19.2.</span> <span class="toc-text">动态规划（Dynamic Programming）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B"><span class="toc-number">19.3.</span> <span class="toc-text">面向对象编程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="toc-number">19.4.</span> <span class="toc-text">设计模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E5%90%88%EF%BC%88Combinatorics%EF%BC%89-n-%E4%B8%AD%E9%80%89-k-%E4%B8%AA-amp-%E6%A6%82%E7%8E%87%EF%BC%88Probability%EF%BC%89"><span class="toc-number">19.5.</span> <span class="toc-text">组合（Combinatorics） (n 中选 k 个) &amp; 概率（Probability）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NP-NP-%E5%AE%8C%E5%85%A8%E5%92%8C%E8%BF%91%E4%BC%BC%E7%AE%97%E6%B3%95"><span class="toc-number">19.6.</span> <span class="toc-text">NP, NP-完全和近似算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%EF%BC%88Cache%EF%BC%89"><span class="toc-number">19.7.</span> <span class="toc-text">缓存（Cache）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%EF%BC%88Processe%EF%BC%89%E5%92%8C%E7%BA%BF%E7%A8%8B%EF%BC%88Thread%EF%BC%89"><span class="toc-number">19.8.</span> <span class="toc-text">进程（Processe）和线程（Thread）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95"><span class="toc-number">19.9.</span> <span class="toc-text">测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E5%BA%A6"><span class="toc-number">19.10.</span> <span class="toc-text">调度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%90%9C%E7%B4%A2%E5%92%8C%E6%93%8D%E4%BD%9C"><span class="toc-number">19.11.</span> <span class="toc-text">字符串搜索和操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E5%85%B8%E6%A0%91%EF%BC%88Tries%EF%BC%89"><span class="toc-number">19.12.</span> <span class="toc-text">字典树（Tries）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0"><span class="toc-number">19.13.</span> <span class="toc-text">浮点数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unicode"><span class="toc-number">19.14.</span> <span class="toc-text">Unicode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E8%8A%82%E5%BA%8F%EF%BC%88Endianness%EF%BC%89"><span class="toc-number">19.15.</span> <span class="toc-text">字节序（Endianness）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%EF%BC%88%E8%A7%86%E9%A2%91%EF%BC%89"><span class="toc-number">19.16.</span> <span class="toc-text">网络（视频）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E3%80%81%E5%8F%AF%E4%BC%B8%E7%BC%A9%E6%80%A7%E3%80%81%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86"><span class="toc-number">20.</span> <span class="toc-text">系统设计、可伸缩性、数据处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%88%E9%9D%A2"><span class="toc-number">21.</span> <span class="toc-text">终面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E7%A8%8B%E9%97%AE%E9%A2%98%E7%BB%83%E4%B9%A0"><span class="toc-number">22.</span> <span class="toc-text">编程问题练习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E7%A8%8B%E7%BB%83%E4%B9%A0%E5%92%8C%E6%8C%91%E6%88%98"><span class="toc-number">23.</span> <span class="toc-text">编程练习和挑战</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BD%93%E4%BD%A0%E4%B8%B4%E8%BF%91%E9%9D%A2%E8%AF%95%E6%97%B6"><span class="toc-number">24.</span> <span class="toc-text">当你临近面试时</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%A0%E7%9A%84%E7%AE%80%E5%8E%86"><span class="toc-number">25.</span> <span class="toc-text">你的简历</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BD%93%E9%9D%A2%E8%AF%95%E6%9D%A5%E4%B8%B4%E7%9A%84%E6%97%B6%E5%80%99"><span class="toc-number">26.</span> <span class="toc-text">当面试来临的时候</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%9D%A2%E8%AF%95%E5%AE%98%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">27.</span> <span class="toc-text">问面试官的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BD%93%E4%BD%A0%E8%8E%B7%E5%BE%97%E4%BA%86%E6%A2%A6%E6%83%B3%E7%9A%84%E8%81%8C%E4%BD%8D"><span class="toc-number">28.</span> <span class="toc-text">当你获得了梦想的职位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%9D%E5%A4%96%E4%B9%A6%E7%B1%8D"><span class="toc-number">29.</span> <span class="toc-text">额外书籍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%84%E5%8A%A0%E5%AD%A6%E4%B9%A0"><span class="toc-number">30.</span> <span class="toc-text">附加学习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E5%99%A8"><span class="toc-number">30.1.</span> <span class="toc-text">编译器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Emacs-and-vi-m"><span class="toc-number">30.2.</span> <span class="toc-text">Emacs and vi(m)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unix-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7"><span class="toc-number">30.3.</span> <span class="toc-text">Unix 命令行工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E8%AE%BA-%E8%A7%86%E9%A2%91"><span class="toc-number">30.4.</span> <span class="toc-text">信息论 (视频)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A5%87%E5%81%B6%E6%A0%A1%E9%AA%8C%E4%BD%8D-amp-%E6%B1%89%E6%98%8E%E7%A0%81-%E8%A7%86%E9%A2%91"><span class="toc-number">30.5.</span> <span class="toc-text">奇偶校验位 &amp; 汉明码 (视频)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E7%86%B5%E5%80%BC%EF%BC%88Entropy%EF%BC%89"><span class="toc-number">30.6.</span> <span class="toc-text">系统熵值（Entropy）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%86%E7%A0%81%E5%AD%A6"><span class="toc-number">30.7.</span> <span class="toc-text">密码学</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%8B%E7%BC%A9"><span class="toc-number">30.8.</span> <span class="toc-text">压缩</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AE%89%E5%85%A8"><span class="toc-number">30.9.</span> <span class="toc-text">计算机安全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="toc-number">30.10.</span> <span class="toc-text">垃圾回收</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B6%E8%A1%8C%E7%BC%96%E7%A8%8B"><span class="toc-number">30.11.</span> <span class="toc-text">并行编程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E4%BC%A0%E9%80%92%EF%BC%8C%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E9%98%9F%E5%88%97%E7%B3%BB%E7%BB%9F"><span class="toc-number">30.12.</span> <span class="toc-text">消息传递，序列化和队列系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#A-%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95"><span class="toc-number">30.13.</span> <span class="toc-text">A*搜索算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2"><span class="toc-number">30.14.</span> <span class="toc-text">快速傅里叶变换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="toc-number">30.15.</span> <span class="toc-text">布隆过滤器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HyperLogLog"><span class="toc-number">30.16.</span> <span class="toc-text">HyperLogLog</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%80%E9%83%A8%E6%95%8F%E6%84%9F%E5%93%88%E5%B8%8C"><span class="toc-number">30.17.</span> <span class="toc-text">局部敏感哈希</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#van-Emde-Boas-%E6%A0%91"><span class="toc-number">30.18.</span> <span class="toc-text">van Emde Boas 树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A2%9E%E5%BC%BA%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">30.19.</span> <span class="toc-text">增强数据结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B3%E8%A1%A1%E6%9F%A5%E6%89%BE%E6%A0%91%EF%BC%88Balanced-search-trees%EF%BC%89"><span class="toc-number">30.20.</span> <span class="toc-text">平衡查找树（Balanced search trees）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#k-D%E6%A0%91"><span class="toc-number">30.21.</span> <span class="toc-text">k-D树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%B3%E8%A1%A8"><span class="toc-number">30.22.</span> <span class="toc-text">跳表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E6%B5%81"><span class="toc-number">30.23.</span> <span class="toc-text">网络流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E7%9B%B8%E4%BA%A4%E9%9B%86-amp-%E8%81%94%E5%90%88%E6%9F%A5%E6%89%BE"><span class="toc-number">30.24.</span> <span class="toc-text">不相交集 &amp; 联合查找</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E5%A4%84%E7%90%86%E7%9A%84%E6%95%B0%E5%AD%A6"><span class="toc-number">30.25.</span> <span class="toc-text">快速处理的数学</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%91%E5%A0%86-Treap"><span class="toc-number">30.26.</span> <span class="toc-text">树堆 (Treap)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92%EF%BC%88Linear-Programming%EF%BC%89%EF%BC%88%E8%A7%86%E9%A2%91%EF%BC%89"><span class="toc-number">30.27.</span> <span class="toc-text">线性规划（Linear Programming）（视频）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%A0%E4%BD%95%EF%BC%9A%E5%87%B8%E5%8C%85%EF%BC%88Geometry-Convex-hull%EF%BC%89%EF%BC%88%E8%A7%86%E9%A2%91%EF%BC%89"><span class="toc-number">30.28.</span> <span class="toc-text">几何：凸包（Geometry, Convex hull）（视频）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A6%BB%E6%95%A3%E6%95%B0%E5%AD%A6"><span class="toc-number">30.29.</span> <span class="toc-text">离散数学</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%EF%BC%88Machine-Learning%EF%BC%89"><span class="toc-number">30.30.</span> <span class="toc-text">机器学习（Machine Learning）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E4%B8%BB%E9%A2%98%E7%9A%84%E9%A2%9D%E5%A4%96%E5%86%85%E5%AE%B9"><span class="toc-number">31.</span> <span class="toc-text">一些主题的额外内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%86%E9%A2%91%E7%B3%BB%E5%88%97"><span class="toc-number">32.</span> <span class="toc-text">视频系列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E8%AF%BE%E7%A8%8B"><span class="toc-number">33.</span> <span class="toc-text">计算机科学课程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BA%E6%96%87"><span class="toc-number">34.</span> <span class="toc-text">论文</span></a></li></ol></div></div><div class="post-content"><blockquote>
 <p>本文转载自：<a target="_blank" rel="noopener" href="https://github.com/jwasham/coding-interview-university">https://github.com/jwasham/coding-interview-university</a></p>
 </blockquote>
 <p>原先我为了成为一个软件工程师而建立这份简单的学习主题清单， 但这份清单随着时间而膨胀成今天这样。在做完这份清单上的每个目标后，<a target="_blank" rel="noopener" href="https://startupnextdoor.com/ive-been-acquired-by-amazon/?src=ciu">我成为了 Amazon 的软件开发工程师</a>! 你或许不需要像我一样学习这么多。但是，让你成为一位称职工程师所需要的知识都在这里了。</p>
@@ -239,13 +6,13 @@
 <p>我每天自学8~12小时，这样持续了好几个月。这是我的故事：<a target="_blank" rel="noopener" href="https://medium.freecodecamp.org/why-i-studied-full-time-for-8-months-for-a-google-interview-cc662ce9bb13">为什么我为了 Google 面试而自学了8个月</a>。</p>
 <p>在这份清单内的主题会让你拥有足够的知识去面对几乎每家软件公司的技术面试，包括科技巨头：Amazon、Facebook、Google，以及 Microsoft。</p>
 <p>祝你好运!</p>
-<h2><span id="这是">这是？</span></h2><p>这是我为了从 web 开发者（自学、非计算机科学学位）蜕变至 Google 软件工程师所制定的计划，其内容历时数月。</p>
+<h2 id="这是？"><a href="#这是？" class="headerlink" title="这是？"></a>这是？</h2><p>这是我为了从 web 开发者（自学、非计算机科学学位）蜕变至 Google 软件工程师所制定的计划，其内容历时数月。</p>
 <p><img src="https://d3j2pkmjtin6ou.cloudfront.net/coding-at-the-whiteboard-silicon-valley.png" alt="白板上编程 ———— 来自 HBO 频道的剧集，“硅谷”"></p>
 <p>这份清单适用于 <strong>新手软件工程师</strong>，或者想从软件/网站开发转向软件工程（需要计算机科学知识）的人员。如果你有多年的经验，并且声称拥有多年的软件工程经验，并且期待一次更艰难的面试。</p>
 <p>如果你具有多年的软件/网页开发经验，请注意，大型软件公司（例如 Google，Amazon，Facebook 和 Microsoft）将软件工程视为不同于软件/网页开发，并且它们需要计算机科学知识。</p>
 <p>如果你想成为可靠性工程师或运维工程师，请从可选列表（网络，安全）中学习更多。</p>
 <hr>
-<h2><span id="目录">目录</span></h2><ul>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
 <li><a href="#这是">这是？</a></li>
 <li><a href="#为何要用到它">为何要用到它？</a></li>
 <li><a href="#如何使用它">如何使用它</a></li>
@@ -376,17 +143,17 @@
 <li><a href="#论文">论文</a></li>
 </ul>
 <hr>
-<h2><span id="为何要用到它">为何要用到它？</span></h2><p>当我开始这个项目时，我不知道堆和栈的区别，不了解时间复杂度（Big-O）、树，或如何去遍历一个图。如果非要我去编写一个排序算法的话，我只能说我所写的肯定是很糟糕。一直以来，我所用的任何数据结构都是内建于编程语言当中。至于它们在背后是如何运作，对此我一概不清楚。此外，以前的我并不需要对内存进行管理，最多就只是在一个正在执行的进程抛出了“内存不足”的错误后，才会去找解决方法。在我的编程生涯中，虽然我有用过多维数组，也用过关联数组成千上万次，但我从来没有自己实现过数据结构。</p>
+<h2 id="为何要用到它？"><a href="#为何要用到它？" class="headerlink" title="为何要用到它？"></a>为何要用到它？</h2><p>当我开始这个项目时，我不知道堆和栈的区别，不了解时间复杂度（Big-O）、树，或如何去遍历一个图。如果非要我去编写一个排序算法的话，我只能说我所写的肯定是很糟糕。一直以来，我所用的任何数据结构都是内建于编程语言当中。至于它们在背后是如何运作，对此我一概不清楚。此外，以前的我并不需要对内存进行管理，最多就只是在一个正在执行的进程抛出了“内存不足”的错误后，才会去找解决方法。在我的编程生涯中，虽然我有用过多维数组，也用过关联数组成千上万次，但我从来没有自己实现过数据结构。</p>
 <p>这是一个漫长的计划，以至于花费了我数月的时间。若你早已熟悉大部分的知识，那么也许能节省大量的时间。</p>
 <p><a target="_blank" rel="noopener" href="https://guides.github.com/features/mastering-markdown/#GitHub-flavored-markdown">https://guides.github.com/features/mastering-markdown/#GitHub-flavored-markdown</a>)</p>
-<h2><span id="不要觉得自己不够聪明">不要觉得自己不够聪明</span></h2><ul>
+<h2 id="不要觉得自己不够聪明"><a href="#不要觉得自己不够聪明" class="headerlink" title="不要觉得自己不够聪明"></a>不要觉得自己不够聪明</h2><ul>
 <li>大多数成功的软件工程师都非常聪明，但他们都有一种觉得自己不够聪明的不安全感。</li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=0SARbwvhupQ">天才程序员的神话</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=1i8ylq4j_EY">不要单打独斗：面对技术中的隐形怪物</a></li>
 </ul>
-<h2><span id="相关视频资源">相关视频资源</span></h2><p>部分视频只能通过在 Coursera 或者 Edx 课程上注册登录才能观看。这些视频被称为网络公开课程（MOOC）。有时候某些课程需要等待好几个月才能获取，这期间你无法观看这些课程的影片。</p>
+<h2 id="相关视频资源"><a href="#相关视频资源" class="headerlink" title="相关视频资源"></a>相关视频资源</h2><p>部分视频只能通过在 Coursera 或者 Edx 课程上注册登录才能观看。这些视频被称为网络公开课程（MOOC）。有时候某些课程需要等待好几个月才能获取，这期间你无法观看这些课程的影片。</p>
 <pre><code>很感谢你能帮我把网络公开课程的视频链接转换成公开的，可持续访问的视频源，比如 YouTube 视频，以代替那些在线课程的视频。此外，一些大学的讲座视频也是我所青睐的。
-</code></pre><h2><span id="面试过程-amp-通用的面试准备">面试过程 &amp; 通用的面试准备</span></h2><ul>
+</code></pre><h2 id="面试过程-amp-通用的面试准备"><a href="#面试过程-amp-通用的面试准备" class="headerlink" title="面试过程 &amp; 通用的面试准备"></a>面试过程 &amp; 通用的面试准备</h2><ul>
 <li>[ ] <a target="_blank" rel="noopener" href="https://medium.com/always-be-coding/abc-always-be-coding-d5f8051afce2#.4heg8zvm4">ABC：不要停止编程（Always Be Coding）</a></li>
 <li>[ ] <a target="_blank" rel="noopener" href="https://medium.com/@dpup/whiteboarding-4df873dbba2e#.hf6jn45g1">白板编程（Whiteboarding）</a></li>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=N233T0epWTs">揭秘技术招聘</a></li>
@@ -428,7 +195,7 @@
 </ul>
 </li>
 </ul>
-<h2><span id="为你的面试选择一种语言">为你的面试选择一种语言</span></h2><p>你可以在编程这一环节，使用一种自己用起来较为舒适的语言去完成编程，但对于大公司，你只有三种固定的选择：</p>
+<h2 id="为你的面试选择一种语言"><a href="#为你的面试选择一种语言" class="headerlink" title="为你的面试选择一种语言"></a>为你的面试选择一种语言</h2><p>你可以在编程这一环节，使用一种自己用起来较为舒适的语言去完成编程，但对于大公司，你只有三种固定的选择：</p>
 <ul>
 <li>C++</li>
 <li>Java</li>
@@ -448,8 +215,8 @@
 </ul>
 <p><a href="../programming-language-resources.md">在此查看相关语言的资源</a></p>
 <p>由于我正在学习C、C++ 和 Python，因此在下面你会看到部分关于它们的学习资料。相关书籍请看文章的底部。</p>
-<h2><span id="书单">书单</span></h2><p>为了节省你的时间，以下是比我使用过的更缩减的书单。</p>
-<h3><span id="面试准备">面试准备</span></h3><ul>
+<h2 id="书单"><a href="#书单" class="headerlink" title="书单"></a>书单</h2><p>为了节省你的时间，以下是比我使用过的更缩减的书单。</p>
+<h3 id="面试准备"><a href="#面试准备" class="headerlink" title="面试准备"></a>面试准备</h3><ul>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.amazon.com/Programming-Interviews-Exposed-Through-Interview/dp/111941847X/">Programming Interviews Exposed: Coding Your Way Through the Interview, 4th Edition</a><ul>
 <li>附有 C++ 和 Java 解答</li>
 <li>这是在练习 Cracking the Coding Interview 之前一个很好的热身</li>
@@ -461,7 +228,7 @@
 </ul>
 </li>
 </ul>
-<h3><span id="如果你有额外的时间">如果你有额外的时间：</span></h3><p>选择以下之一：</p>
+<h3 id="如果你有额外的时间："><a href="#如果你有额外的时间：" class="headerlink" title="如果你有额外的时间："></a>如果你有额外的时间：</h3><p>选择以下之一：</p>
 <ul>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.amazon.com/Elements-Programming-Interviews-Insiders-Guide/dp/1479274836">Elements of Programming Interviews (C++ version)</a></li>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.amazon.com/Elements-Programming-Interviews-Python-Insiders/dp/1537713949/">Elements of Programming Interviews in Python</a></li>
@@ -471,11 +238,11 @@
 </ul>
 </li>
 </ul>
-<h3><span id="编程语言精选">编程语言精选</span></h3><p><strong>你需要选择面试语言（请参见上文）。</strong></p>
+<h3 id="编程语言精选"><a href="#编程语言精选" class="headerlink" title="编程语言精选"></a>编程语言精选</h3><p><strong>你需要选择面试语言（请参见上文）。</strong></p>
 <p>这是我按语言给出的建议。我没有所有语言的资源，欢迎贡献。</p>
 <p>如果你通读其中之一，你应该具备了开始解决编程问题所需的所有数据结构和算法知识。除非你需要复习，否则<strong>你可以跳过此项目中的所有视频讲座</strong>。</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/jwasham/coding-interview-university/blob/master/programming-language-resources.md">额外编程语言的精选资源</a></p>
-<h3><span id="c">C++</span></h3><p>我没有读过这两本书，但是它们颇受好评，作者是 Sedgewick，他非常厉害。</p>
+<h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><p>我没有读过这两本书，但是它们颇受好评，作者是 Sedgewick，他非常厉害。</p>
 <ul>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.amazon.com/Algorithms-Parts-1-4-Fundamentals-Structure/dp/0201350882/">Algorithms in C++, Parts 1-4: Fundamentals, Data Structure, Sorting, Searching</a></li>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.amazon.com/Algorithms-Part-Graph-3rd-Pt-5/dp/0201361183/">Algorithms in C++ Part 5: Graph Algorithms</a></li>
@@ -486,7 +253,7 @@
 </li>
 </ul>
 <p>如果你有更好的 C++ 书籍，请告诉我。我正在搜集全面的资源。</p>
-<h3><span id="java">Java</span></h3><ul>
+<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><ul>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.amazon.com/Algorithms-4th-Robert-Sedgewick/dp/032157351X/">算法（Sedgewick 和 Wayne）</a><ul>
 <li>包含课程内容（和Sedgewick！）的视频<ul>
 <li><a target="_blank" rel="noopener" href="https://www.coursera.org/learn/algorithms-part1">第一部分</a></li>
@@ -505,7 +272,7 @@
 </ul>
 </li>
 </ul>
-<h3><span id="python">Python</span></h3><ul>
+<h3 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h3><ul>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.amazon.com/Structures-Algorithms-Python-Michael-Goodrich/dp/1118290275/">Python数据结构和算法</a><ul>
 <li>作者：Goodrich、Tamassia、Goldwasser</li>
 <li>我非常喜爱这本书，它包含了所有东西</li>
@@ -515,13 +282,13 @@
 </li>
 <li>[ ] <a target="_blank" rel="noopener" href="https://opendatastructures.org/ods-python.pdf">Open Data Structures in Python</a></li>
 </ul>
-<h2><span id="在你开始之前">在你开始之前</span></h2><p>该列表已经持续更新了很长的一段时间，所以，我们的确很容易会对其失去控制。</p>
+<h2 id="在你开始之前"><a href="#在你开始之前" class="headerlink" title="在你开始之前"></a>在你开始之前</h2><p>该列表已经持续更新了很长的一段时间，所以，我们的确很容易会对其失去控制。</p>
 <p>这里列出了一些我所犯过的错误，希望你不要重滔覆辙。</p>
-<h3><span id="1-你不可能把所有的东西都记住">1. 你不可能把所有的东西都记住</span></h3><p>就算我观看了数小时的视频，并记录了大量的笔记，几个月后的我，仍然会忘却其中大部分的东西。所以，我花了3天翻阅我的笔记，并制作成抽认卡（flashcard）帮助我复习：</p>
+<h3 id="1-你不可能把所有的东西都记住"><a href="#1-你不可能把所有的东西都记住" class="headerlink" title="1. 你不可能把所有的东西都记住"></a>1. 你不可能把所有的东西都记住</h3><p>就算我观看了数小时的视频，并记录了大量的笔记，几个月后的我，仍然会忘却其中大部分的东西。所以，我花了3天翻阅我的笔记，并制作成抽认卡（flashcard）帮助我复习：</p>
 <p>请阅读以下的文章以免重蹈覆辙:</p>
 <p><a target="_blank" rel="noopener" href="https://startupnextdoor.com/retaining-computer-science-knowledge/">记住计算机科学知识</a>。</p>
 <p>有人推荐给我的课程（但我还沒看过）：<a target="_blank" rel="noopener" href="https://www.coursera.org/learn/learning-how-to-learn">学习如何学习</a>。</p>
-<h3><span id="2-使用抽认卡">2. 使用抽认卡</span></h3><p>为了解决善忘的问题，我制作了一个抽认卡的网页，用于添加两种抽认卡：一般的及带有代码的。每种卡都会有不同的格式设计。</p>
+<h3 id="2-使用抽认卡"><a href="#2-使用抽认卡" class="headerlink" title="2. 使用抽认卡"></a>2. 使用抽认卡</h3><p>为了解决善忘的问题，我制作了一个抽认卡的网页，用于添加两种抽认卡：一般的及带有代码的。每种卡都会有不同的格式设计。</p>
 <p>而且，我还以移动设备为先去设计这些网页，以使得在任何地方，我都能通过我的手机及平板去回顾知识。</p>
 <p>你也可以免费制作属于你自己的抽认卡网站：</p>
 <ul>
@@ -533,16 +300,16 @@
 <p><strong>在抽认卡上做笔记：</strong> 若你第一次发现你知道问题的答案时，先不要急着把其标注成“已知”。反复复习这张抽认卡，直到每次都能答对后才是真正学会了这个问题。反复地问答可帮助你深刻记住该知识点。</p>
 <p>这里有个替代我抽认卡的网站 <a target="_blank" rel="noopener" href="http://ankisrs.net/">Anki</a>，很多人向我推荐过它。这个网站用同一个字卡重复出现的方式让你牢牢地记住知识。这个网站非常容易使用，支持多平台，并且有云端同步功能。在 iOS 平台上收费25美金，其他平台免费。</p>
 <p>这是我用 Anki 这个网站里的格式所储存的抽认卡资料库: ankiweb.net/shared/info/25173560 （感谢 <a target="_blank" rel="noopener" href="https://github.com/xiewenya">@xiewenya</a>）</p>
-<h3><span id="3-复习复习再复习">3. 复习，复习，再复习</span></h3><p>我留有一组 ASCII 码表、OSI 堆栈、Big-O 记号及更多的抽认卡，以便在空余的时候可以学习。</p>
+<h3 id="3-复习，复习，再复习"><a href="#3-复习，复习，再复习" class="headerlink" title="3. 复习，复习，再复习"></a>3. 复习，复习，再复习</h3><p>我留有一组 ASCII 码表、OSI 堆栈、Big-O 记号及更多的抽认卡，以便在空余的时候可以学习。</p>
 <p>编程累了就休息半个小时，并去复习你的抽认卡。</p>
-<h3><span id="4-专注">4. 专注</span></h3><p>在学习的过程中，往往会有许多令人分心的事占据着我们宝贵的时间。因此，专注和集中注意力是非常困难的。放点纯音乐能帮上一些忙。</p>
-<h2><span id="没有包含的内容">没有包含的内容</span></h2><p>有一些熟悉且普遍的技术在此未被谈及到：</p>
+<h3 id="4-专注"><a href="#4-专注" class="headerlink" title="4. 专注"></a>4. 专注</h3><p>在学习的过程中，往往会有许多令人分心的事占据着我们宝贵的时间。因此，专注和集中注意力是非常困难的。放点纯音乐能帮上一些忙。</p>
+<h2 id="没有包含的内容"><a href="#没有包含的内容" class="headerlink" title="没有包含的内容"></a>没有包含的内容</h2><p>有一些熟悉且普遍的技术在此未被谈及到：</p>
 <ul>
 <li>SQL</li>
 <li>Javascript</li>
 <li>HTML、CSS 和其他前端技术</li>
 </ul>
-<h2><span id="日常计划">日常计划</span></h2><p>部分问题可能会花费一天的时间去学习，而有些则会花费多天。当然，有些学习并不需要我们懂得如何实现。</p>
+<h2 id="日常计划"><a href="#日常计划" class="headerlink" title="日常计划"></a>日常计划</h2><p>部分问题可能会花费一天的时间去学习，而有些则会花费多天。当然，有些学习并不需要我们懂得如何实现。</p>
 <p>因此，每一天我都会在下面所列出的列表中选择一项，并观看相关的视频。然后，使用以下的一种语言去实现：</p>
 <ul>
 <li>C —— 使用结构体和函数，该函数会接受一个结构体指针 * 及其他数据作为参数。</li>
@@ -567,7 +334,7 @@
 </ul>
 <p>你不需要记住每一个算法的内部原理。</p>
 <p>在一个白板上写代码，而不要直接在计算机上编写。在测试完部分简单的输入后，到计算机上再测试一遍。</p>
-<h2><span id="必备知识">必备知识</span></h2><ul>
+<h2 id="必备知识"><a href="#必备知识" class="headerlink" title="必备知识"></a>必备知识</h2><ul>
 <li><p>[ ] <strong>学习C语言</strong></p>
 <ul>
 <li>C 语言无处不在。在学习的过程中，你会在书籍，讲座，视频等任何地方看到它的身影</li>
@@ -588,7 +355,7 @@
 </ul>
 </li>
 </ul>
-<h2><span id="算法复杂度-big-o-渐进分析法">算法复杂度 / Big-O / 渐进分析法</span></h2><ul>
+<h2 id="算法复杂度-Big-O-渐进分析法"><a href="#算法复杂度-Big-O-渐进分析法" class="headerlink" title="算法复杂度 / Big-O / 渐进分析法"></a>算法复杂度 / Big-O / 渐进分析法</h2><ul>
 <li>并不需要实现</li>
 <li>这里有很多视频，看到你真正了解它为止。你随时可以回来复习。</li>
 <li>如果这些课程太过数学的话，你可以去看看最下面离散数学的视频，它能让你更了解这些数学背后的来源以及原理。</li>
@@ -614,8 +381,8 @@
 </li>
 <li>[ ] <a target="_blank" rel="noopener" href="http://bigocheatsheet.com/">速查表（Cheat sheet）</a></li>
 </ul>
-<h2><span id="数据结构">数据结构</span></h2><ul>
-<li><h3><span id="数组arrays">数组（Arrays）</span></h3><ul>
+<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><ul>
+<li><h3 id="数组（Arrays）"><a href="#数组（Arrays）" class="headerlink" title="数组（Arrays）"></a>数组（Arrays）</h3><ul>
 <li>实现一个可自动调整大小的动态数组。</li>
 <li>[ ] 介绍：<ul>
 <li><a target="_blank" rel="noopener" href="https://www.coursera.org/learn/data-structures/lecture/OsBSF/arrays">数组（视频）</a></li>
@@ -665,7 +432,7 @@
 </li>
 </ul>
 </li>
-<li><h3><span id="链表linked-lists">链表（Linked Lists）</span></h3><ul>
+<li><h3 id="链表（Linked-Lists）"><a href="#链表（Linked-Lists）" class="headerlink" title="链表（Linked Lists）"></a>链表（Linked Lists）</h3><ul>
 <li>[ ] 介绍：<ul>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.coursera.org/learn/data-structures/lecture/kHhgK/singly-linked-lists">单向链表（视频）</a></li>
 <li>[ ] <a target="_blank" rel="noopener" href="https://archive.org/details/ucberkeley_webcast_htzJdKoEmO0">CS 61B —— 链表（一）（视频）</a></li>
@@ -707,13 +474,13 @@
 </li>
 </ul>
 </li>
-<li><h3><span id="堆栈stack">堆栈（Stack）</span></h3><ul>
+<li><h3 id="堆栈（Stack）"><a href="#堆栈（Stack）" class="headerlink" title="堆栈（Stack）"></a>堆栈（Stack）</h3><ul>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.coursera.org/learn/data-structures/lecture/UdKzQ/stacks">堆栈（视频）</a></li>
 <li>[ ] <a target="_blank" rel="noopener" href="https://archive.org/details/0102WhatYouShouldKnow/05_01-usingStacksForLast-inFirst-out.mp4">使用堆栈 —— 后进先出（视频）</a></li>
 <li>[ ] 可以不实现，因为使用数组来实现并不重要</li>
 </ul>
 </li>
-<li><h3><span id="队列queue">队列（Queue）</span></h3><ul>
+<li><h3 id="队列（Queue）"><a href="#队列（Queue）" class="headerlink" title="队列（Queue）"></a>队列（Queue）</h3><ul>
 <li>[ ] <a target="_blank" rel="noopener" href="https://archive.org/details/0102WhatYouShouldKnow/05_03-usingQueuesForFirst-inFirst-out.mp4">使用队列 —— 先进先出（视频）</a></li>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.coursera.org/learn/data-structures/lecture/EShpq/queue">队列（视频）</a></li>
 <li>[ ] <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Circular_buffer">原型队列/先进先出（FIFO）</a></li>
@@ -740,7 +507,7 @@
 </li>
 </ul>
 </li>
-<li><h3><span id="哈希表hash-table">哈希表（Hash table）</span></h3><ul>
+<li><h3 id="哈希表（Hash-table）"><a href="#哈希表（Hash-table）" class="headerlink" title="哈希表（Hash table）"></a>哈希表（Hash table）</h3><ul>
 <li><p>[ ] 视频：</p>
 <ul>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=0M_kIqhwbFo&amp;list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb&amp;index=8">链式哈希表（视频）</a></li>
@@ -779,8 +546,8 @@
 </ul>
 </li>
 </ul>
-<h2><span id="更多的知识">更多的知识</span></h2><ul>
-<li><h3><span id="二分查找binary-search">二分查找（Binary search）</span></h3><ul>
+<h2 id="更多的知识"><a href="#更多的知识" class="headerlink" title="更多的知识"></a>更多的知识</h2><ul>
+<li><h3 id="二分查找（Binary-search）"><a href="#二分查找（Binary-search）" class="headerlink" title="二分查找（Binary search）"></a>二分查找（Binary search）</h3><ul>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=D5SrAga1pno">二分查找（视频）</a></li>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.khanacademy.org/computing/computer-science/algorithms/binary-search/a/binary-search">二分查找（视频）</a></li>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.topcoder.com/community/data-science/data-science-tutorials/binary-search/">详情</a></li>
@@ -791,7 +558,7 @@
 </li>
 </ul>
 </li>
-<li><h3><span id="按位运算bitwise-operations">按位运算（Bitwise operations）</span></h3><ul>
+<li><h3 id="按位运算（Bitwise-operations）"><a href="#按位运算（Bitwise-operations）" class="headerlink" title="按位运算（Bitwise operations）"></a>按位运算（Bitwise operations）</h3><ul>
 <li>[ ] <a target="_blank" rel="noopener" href="https://github.com/jwasham/coding-interview-university/blob/master/extras/cheat%20sheets/bits-cheat-sheet.pdf">Bits 速查表</a> ── 你需要知道大量2的幂数值（从2^1 到 2^16 及 2^32）</li>
 <li>[ ] 好好理解位操作符的含义：&amp;、|、^、~、&gt;&gt;、&lt;&lt;<ul>
 <li>[ ] <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Word_(computer_architecture">字码（words）</a>)</li>
@@ -829,8 +596,8 @@
 </ul>
 </li>
 </ul>
-<h2><span id="树trees">树（Trees）</span></h2><ul>
-<li><h3><span id="树-笔记-amp-背景">树 —— 笔记 &amp; 背景</span></h3><ul>
+<h2 id="树（Trees）"><a href="#树（Trees）" class="headerlink" title="树（Trees）"></a>树（Trees）</h2><ul>
+<li><h3 id="树-——-笔记-amp-背景"><a href="#树-——-笔记-amp-背景" class="headerlink" title="树 —— 笔记 &amp; 背景"></a>树 —— 笔记 &amp; 背景</h3><ul>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.coursera.org/learn/data-structures/lecture/95qda/trees">系列：树（视频）</a></li>
 <li>基本的树形结构</li>
 <li>遍历</li>
@@ -862,7 +629,7 @@
 </li>
 </ul>
 </li>
-<li><h3><span id="二叉查找树binary-search-treesbsts">二叉查找树（Binary search trees）：BSTs</span></h3><ul>
+<li><h3 id="二叉查找树（Binary-search-trees）：BSTs"><a href="#二叉查找树（Binary-search-trees）：BSTs" class="headerlink" title="二叉查找树（Binary search trees）：BSTs"></a>二叉查找树（Binary search trees）：BSTs</h3><ul>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=x6At0nzX92o&amp;index=1&amp;list=PLA5Lqm4uh9Bbq-E0ZnqTIa8LRaL77ica6">二叉查找树概览（视频）</a></li>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.coursera.org/learn/data-structures-optimizing-performance/lecture/p82sw/core-introduction-to-binary-search-trees">系列（视频）</a><ul>
 <li>从符号表开始到 BST 程序</li>
@@ -899,7 +666,7 @@
 </li>
 </ul>
 </li>
-<li><h3><span id="堆heap-优先级队列priority-queue-二叉堆binary-heap">堆（Heap） / 优先级队列（Priority Queue） / 二叉堆（Binary Heap）</span></h3><ul>
+<li><h3 id="堆（Heap）-优先级队列（Priority-Queue）-二叉堆（Binary-Heap）"><a href="#堆（Heap）-优先级队列（Priority-Queue）-二叉堆（Binary-Heap）" class="headerlink" title="堆（Heap） / 优先级队列（Priority Queue） / 二叉堆（Binary Heap）"></a>堆（Heap） / 优先级队列（Priority Queue） / 二叉堆（Binary Heap）</h3><ul>
 <li>可视化是一棵树，但通常是以线性的形式存储（数组、链表）</li>
 <li>[ ] <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Heap_(data_structure">堆</a>)</li>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.coursera.org/learn/data-structures/lecture/2OpTs/introduction">介绍（视频）</a></li>
@@ -931,7 +698,7 @@
 </ul>
 </li>
 </ul>
-<h2><span id="排序sorting">排序（Sorting）</span></h2><ul>
+<h2 id="排序（Sorting）"><a href="#排序（Sorting）" class="headerlink" title="排序（Sorting）"></a>排序（Sorting）</h2><ul>
 <li><p>[ ] 笔记:</p>
 <ul>
 <li>实现各种排序，知道每种排序的最坏、最好和平均的复杂度分别是什么场景:<ul>
@@ -1019,7 +786,7 @@
 </li>
 </ul>
 <p>总结一下，这是<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=kPRA0W1kECg">15种排序算法</a>的可视化表示。如果你需要有关此主题的更多详细信息，请参阅“<a href="#一些主题的额外内容">一些主题的额外内容</a>”中的“排序”部分。</p>
-<h2><span id="图graphs">图（Graphs）</span></h2><p>图论能解决计算机科学里的很多问题，所以这一节会比较长，像树和排序的部分一样。</p>
+<h2 id="图（Graphs）"><a href="#图（Graphs）" class="headerlink" title="图（Graphs）"></a>图（Graphs）</h2><p>图论能解决计算机科学里的很多问题，所以这一节会比较长，像树和排序的部分一样。</p>
 <ul>
 <li><p>笔记:</p>
 <ul>
@@ -1094,8 +861,8 @@
 </li>
 </ul>
 <p>可以从 Skiena 的书（参考下面的书推荐小节）和面试书籍中学习更多关于图的实践。</p>
-<h2><span id="更多知识">更多知识</span></h2><ul>
-<li><h3><span id="递归recursion">递归（Recursion）</span></h3><ul>
+<h2 id="更多知识"><a href="#更多知识" class="headerlink" title="更多知识"></a>更多知识</h2><ul>
+<li><h3 id="递归（Recursion）"><a href="#递归（Recursion）" class="headerlink" title="递归（Recursion）"></a>递归（Recursion）</h3><ul>
 <li>[ ] Stanford 大学关于递归 &amp; 回溯的课程:<ul>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=gl3emqCuueQ&amp;list=PLFE6E58F856038C69&amp;index=8">课程 8 | 抽象编程（视频）</a></li>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=uFJhEPrbycQ&amp;list=PLFE6E58F856038C69&amp;index=9">课程 9 | 抽象编程（视频）</a></li>
@@ -1111,7 +878,7 @@
 </li>
 </ul>
 </li>
-<li><h3><span id="动态规划dynamic-programming">动态规划（Dynamic Programming）</span></h3><ul>
+<li><h3 id="动态规划（Dynamic-Programming）"><a href="#动态规划（Dynamic-Programming）" class="headerlink" title="动态规划（Dynamic Programming）"></a>动态规划（Dynamic Programming）</h3><ul>
 <li>在你的面试中或许没有任何动态规划的问题，但能够知道一个题目可以使用动态规划来解决是很重要的。</li>
 <li>这一部分会有点困难，每个可以用动态规划解决的问题都必须先定义出递推关系，要推导出来可能会有点棘手。</li>
 <li>我建议先阅读和学习足够多的动态规划的例子，以便对解决 DP 问题的一般模式有个扎实的理解。</li>
@@ -1143,12 +910,12 @@
 </li>
 </ul>
 </li>
-<li><h3><span id="面向对象编程">面向对象编程</span></h3><ul>
+<li><h3 id="面向对象编程"><a href="#面向对象编程" class="headerlink" title="面向对象编程"></a>面向对象编程</h3><ul>
 <li>可选：<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=OkC7HKtiZC0&amp;list=PLGLfVvz_LVvQ5G-LdJ8RLqe-ndo7QITYc">UML 2.0系列（视频）</a></li>
 <li>SOLID 面向对象编程原则：<a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PL4CE9F710017EA77A">SOLID 原则（视频）</a></li>
 </ul>
 </li>
-<li><h3><span id="设计模式">设计模式</span></h3><ul>
+<li><h3 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h3><ul>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=3cmzqZzwNDM&amp;list=PLGLfVvz_LVvQ5G-LdJ8RLqe-ndo7QITYc&amp;index=3">UML 统一建模语言概览 (视频)</a></li>
 <li>[ ] 主要有如下的设计模式:<ul>
 <li>[ ] 策略模式（strategy）</li>
@@ -1182,7 +949,7 @@
 <li>[ ] <a target="_blank" rel="noopener" href="https://github.com/kamranahmedse/design-patterns-for-humans#structural-design-patterns">Design patterns for humans</a></li>
 </ul>
 </li>
-<li><h3><span id="组合combinatorics-n-中选-k-个-amp-概率probability">组合（Combinatorics） (n 中选 k 个) &amp; 概率（Probability）</span></h3><ul>
+<li><h3 id="组合（Combinatorics）-n-中选-k-个-amp-概率（Probability）"><a href="#组合（Combinatorics）-n-中选-k-个-amp-概率（Probability）" class="headerlink" title="组合（Combinatorics） (n 中选 k 个) &amp; 概率（Probability）"></a>组合（Combinatorics） (n 中选 k 个) &amp; 概率（Probability）</h3><ul>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=8RRo6Ti9d0U">数据技巧: 如何找出阶乘、排列和组合(选择)（视频）</a></li>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=sZkAAk9Wwa4">来点学校的东西: 概率（视频）</a></li>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=dNaJg-mLobQ">来点学校的东西: 概率和马尔可夫链（视频）</a></li>
@@ -1199,7 +966,7 @@
 </li>
 </ul>
 </li>
-<li><h3><span id="np-np-完全和近似算法">NP, NP-完全和近似算法</span></h3><ul>
+<li><h3 id="NP-NP-完全和近似算法"><a href="#NP-NP-完全和近似算法" class="headerlink" title="NP, NP-完全和近似算法"></a>NP, NP-完全和近似算法</h3><ul>
 <li>知道最经典的一些 NP 完全问题，比如旅行商问题和背包问题，而且能在面试官试图忽悠你的时候识别出他们。</li>
 <li>知道 NP 完全是什么意思.</li>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=moPtwq_cVH8&amp;list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb&amp;index=23">计算复杂度（视频）</a></li>
@@ -1226,7 +993,7 @@
 <li>《算法导论》（CLRS）的第 1048 - 1140 页。</li>
 </ul>
 </li>
-<li><h3><span id="缓存cache">缓存（Cache）</span></h3><ul>
+<li><h3 id="缓存（Cache）"><a href="#缓存（Cache）" class="headerlink" title="缓存（Cache）"></a>缓存（Cache）</h3><ul>
 <li>[ ] LRU 缓存:<ul>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=R5ON3iwx78M">LRU 的魔力 (100 Days of Google Dev)（视频）</a></li>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=bq6N7Ym81iI">实现 LRU（视频）</a></li>
@@ -1240,7 +1007,7 @@
 </li>
 </ul>
 </li>
-<li><h3><span id="进程processe和线程thread">进程（Processe）和线程（Thread）</span></h3><ul>
+<li><h3 id="进程（Processe）和线程（Thread）"><a href="#进程（Processe）和线程（Thread）" class="headerlink" title="进程（Processe）和线程（Thread）"></a>进程（Processe）和线程（Thread）</h3><ul>
 <li>[ ] 计算机科学 162 - 操作系统 (25 个视频):<ul>
 <li>视频 1-11 是关于进程和线程</li>
 <li><a target="_blank" rel="noopener" href="https://archive.org/details/ucberkeley-webcast-PL-XXv-cvA_iBDyz-ba4yDskqMDY6A1w_c">操作系统和系统编程（视频）</a></li>
@@ -1289,7 +1056,7 @@
 </li>
 </ul>
 </li>
-<li><h3><span id="测试">测试</span></h3><ul>
+<li><h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><ul>
 <li>涵盖了:<ul>
 <li>单元测试是如何工作的</li>
 <li>什么是模拟对象</li>
@@ -1312,12 +1079,12 @@
 <li>[ ] <a target="_blank" rel="noopener" href="http://jasonpolites.github.io/tao-of-testing/ch4-1.1.html">如何编写测试</a></li>
 </ul>
 </li>
-<li><h3><span id="调度">调度</span></h3><ul>
+<li><h3 id="调度"><a href="#调度" class="headerlink" title="调度"></a>调度</h3><ul>
 <li>在操作系统中是如何运作的</li>
 <li>在操作系统部分的视频里有很多资料</li>
 </ul>
 </li>
-<li><h3><span id="字符串搜索和操作">字符串搜索和操作</span></h3><ul>
+<li><h3 id="字符串搜索和操作"><a href="#字符串搜索和操作" class="headerlink" title="字符串搜索和操作"></a>字符串搜索和操作</h3><ul>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.coursera.org/learn/algorithms-part2/lecture/TH18W/suffix-arrays">Sedgewick──后缀数组（Suffix Arrays）（视频）</a></li>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.coursera.org/learn/algorithms-part2/home/week/4">Sedgewick──子字符串搜寻（视频）</a><ul>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.coursera.org/learn/algorithms-part2/lecture/n3ZpG/introduction-to-substring-search">1. 子字符串搜寻导论</a></li>
@@ -1333,7 +1100,7 @@
 </ul>
 <p>如果你需要有关此主题的更多详细信息，请参阅“<a href="#一些主题的额外内容">一些主题的额外内容</a>”中的“字符串匹配”部分。</p>
 <ul>
-<li><h3><span id="字典树tries">字典树（Tries）</span></h3><ul>
+<li><h3 id="字典树（Tries）"><a href="#字典树（Tries）" class="headerlink" title="字典树（Tries）"></a>字典树（Tries）</h3><ul>
 <li>需要注意的是，字典树各式各样。有些有前缀，而有些则没有。有些使用字符串而不使用比特位来追踪路径。</li>
 <li>阅读代码，但不实现。</li>
 <li><a target="_blank" rel="noopener" href="https://www.coursera.org/learn/algorithms-part2/home/week/4">Sedgewick──字典树（3个视频）</a><ul>
@@ -1355,17 +1122,17 @@
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=NinWEPPrkDQ&amp;index=16&amp;list=PLUl4u3cNGP61hsJNdULdudlRL493b-XZf">MIT，高阶数据结构，字符串（视频中间有点困难）（视频）</a></li>
 </ul>
 </li>
-<li><h3><span id="浮点数">浮点数</span></h3><ul>
+<li><h3 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h3><ul>
 <li>[ ] 简单8位：<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=ji3SfClm8TU">浮点数的表示形式-1（视频──计算中存在错误，请参见视频说明）</a></li>
 <li>[ ] 32位：<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=50ZYcZebIec">IEEE754 32位浮点二进制（视频）</a></li>
 </ul>
 </li>
-<li><h3><span id="unicode">Unicode</span></h3><ul>
+<li><h3 id="Unicode"><a href="#Unicode" class="headerlink" title="Unicode"></a>Unicode</h3><ul>
 <li>[ ] <a target="_blank" rel="noopener" href="http://www.joelonsoftware.com/articles/Unicode.html">每一个软件开发者的绝对最低限度，必须要知道的关于 Unicode 和字符集知识</a></li>
 <li>[ ] <a target="_blank" rel="noopener" href="http://kunststube.net/encoding/">关于处理文本需要的编码和字符集，每个程序员绝对需要知道的知识</a></li>
 </ul>
 </li>
-<li><h3><span id="字节序endianness">字节序（Endianness）</span></h3><ul>
+<li><h3 id="字节序（Endianness）"><a href="#字节序（Endianness）" class="headerlink" title="字节序（Endianness）"></a>字节序（Endianness）</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://web.archive.org/web/20180107141940/http://www.cs.umd.edu:80/class/sum2003/cmsc311/Notes/Data/endian.html">大/小端序</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=JrNF0KRAlyo">大端序 Vs 小端序（视频）</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=oBSuXP-1Tc0">由里入内的大端序与小端序（视频）</a><ul>
@@ -1375,7 +1142,7 @@
 </li>
 </ul>
 </li>
-<li><h3><span id="网络视频">网络（视频）</span></h3><ul>
+<li><h3 id="网络（视频）"><a href="#网络（视频）" class="headerlink" title="网络（视频）"></a>网络（视频）</h3><ul>
 <li><strong>如果你具有网络经验或想成为可靠性工程师或运维工程师，期待你的问题</strong></li>
 <li>知道这些有益无害，多多益善!</li>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.khanacademy.org/computing/computer-science/computers-and-internet-code-org">可汗学院</a></li>
@@ -1396,7 +1163,7 @@
 </ul>
 </li>
 </ul>
-<h2><span id="系统设计-可伸缩性-数据处理">系统设计、可伸缩性、数据处理</span></h2><p><strong>如果你已经拥有了4年以上的编程经验，那你可以来看看有关系统设计的问题</strong></p>
+<h2 id="系统设计、可伸缩性、数据处理"><a href="#系统设计、可伸缩性、数据处理" class="headerlink" title="系统设计、可伸缩性、数据处理"></a>系统设计、可伸缩性、数据处理</h2><p><strong>如果你已经拥有了4年以上的编程经验，那你可以来看看有关系统设计的问题</strong></p>
 <ul>
 <li>系统设计以及可伸缩性，要把软硬件的伸缩性设计的足够好有很多的东西要考虑，所以这是个包含非常多内容和资源的大主题。要花费相当多的时间在这个主题上。</li>
 <li>考量：<ul>
@@ -1553,7 +1320,7 @@
 </li>
 </ul>
 <hr>
-<h2><span id="终面">终面</span></h2><pre><code>这一部分有一些短视频，你可以快速的观看和复习大多数重要概念。
+<h2 id="终面"><a href="#终面" class="headerlink" title="终面"></a>终面</h2><pre><code>这一部分有一些短视频，你可以快速的观看和复习大多数重要概念。
 这对经常性的巩固很有帮助。
 </code></pre><ul>
 <li>[ ] 2-3分钟的简短主题视频系列（23个视频）<ul>
@@ -1567,7 +1334,7 @@
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.coursera.org/learn/algorithms-part1">Sedgewick 视频 ── 算法I</a></li>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.coursera.org/learn/algorithms-part2">Sedgewick 视频 ── 算法II</a></li>
 </ul>
-<h2><span id="编程问题练习">编程问题练习</span></h2><p>现在你已经了解了上面所有的计算机科学主题，是时候练习回答编程问题了。</p>
+<h2 id="编程问题练习"><a href="#编程问题练习" class="headerlink" title="编程问题练习"></a>编程问题练习</h2><p>现在你已经了解了上面所有的计算机科学主题，是时候练习回答编程问题了。</p>
 <p><strong>编程问题的实践并不是要记住编程问题的答案</strong>。</p>
 <p>为什么需要练习编程问题：</p>
 <ul>
@@ -1600,7 +1367,7 @@
 </li>
 </ul>
 <p>请参阅上方的<a href="#书单">书单</a>。</p>
-<h2><span id="编程练习和挑战">编程练习和挑战</span></h2><p>一旦你学会了理论基础，就应该把它们拿出来练练。<br>尽量坚持每天做编码练习，越多越好。</p>
+<h2 id="编程练习和挑战"><a href="#编程练习和挑战" class="headerlink" title="编程练习和挑战"></a>编程练习和挑战</h2><p>一旦你学会了理论基础，就应该把它们拿出来练练。<br>尽量坚持每天做编码练习，越多越好。</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.topcoder.com/community/competitive-programming/tutorials/how-to-find-a-solution/">如何找到解决方案</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.topcoder.com/community/competitive-programming/tutorials/how-to-dissect-a-topcoder-problem-statement/">如何剖析 Topcoder 题目描述</a></li>
@@ -1654,17 +1421,17 @@
 <li><a target="_blank" rel="noopener" href="https://refdash.com/">Refdash：模拟面试和加急面试</a>──跳过与科技公司的多次面试，帮助求职者快速追踪</li>
 <li><a target="_blank" rel="noopener" href="https://interviewing.io/">interviewing.io：与高级工程师进行模拟面试</a>──与来自 FAANG（译者注：Facebook, Amazon, Apple, Netflix and Google） 的高级工程师进行匿名算法/系统设计面试。</li>
 </ul>
-<h2><span id="当你临近面试时">当你临近面试时</span></h2><ul>
+<h2 id="当你临近面试时"><a href="#当你临近面试时" class="headerlink" title="当你临近面试时"></a>当你临近面试时</h2><ul>
 <li>搞定代码面试──第二集 (视频):<ul>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=4NIb9l3imAo">Cracking The Code Interview</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Eg5-tdAwclo">Cracking the Coding Interview - 全栈系列</a></li>
 </ul>
 </li>
 </ul>
-<h2><span id="你的简历">你的简历</span></h2><ul>
+<h2 id="你的简历"><a href="#你的简历" class="headerlink" title="你的简历"></a>你的简历</h2><ul>
 <li>请参阅“破解编码面试”和“编程面试的背面”中的建立准备项。</li>
 </ul>
-<h2><span id="当面试来临的时候">当面试来临的时候</span></h2><p>随着下面列举的问题思考下你可能会遇到的 20 个面试问题，每个问题准备 2-3 种回答。准备点故事，不要只是摆一些你完成的事情的数据，相信我，人人都喜欢听故事。</p>
+<h2 id="当面试来临的时候"><a href="#当面试来临的时候" class="headerlink" title="当面试来临的时候"></a>当面试来临的时候</h2><p>随着下面列举的问题思考下你可能会遇到的 20 个面试问题，每个问题准备 2-3 种回答。准备点故事，不要只是摆一些你完成的事情的数据，相信我，人人都喜欢听故事。</p>
 <ul>
 <li>你为什么想得到这份工作？</li>
 <li>你解决过的最有难度的问题是什么？</li>
@@ -1679,7 +1446,7 @@
 <li>你在某份工作或某个项目中学到了什么？</li>
 <li>你在某份工作或某个项目中哪些地方还可以做的更好？</li>
 </ul>
-<h2><span id="问面试官的问题">问面试官的问题</span></h2><pre><code>我会问的一些：(可能我已经知道了答案但我想听听面试官的看法或者了解团队的前景):
+<h2 id="问面试官的问题"><a href="#问面试官的问题" class="headerlink" title="问面试官的问题"></a>问面试官的问题</h2><pre><code>我会问的一些：(可能我已经知道了答案但我想听听面试官的看法或者了解团队的前景):
 </code></pre><ul>
 <li>团队多大规模?</li>
 <li>开发周期是怎样的? 会使用瀑布流/极限编程/敏捷开发么?</li>
@@ -1692,7 +1459,7 @@
 <li>工作期限是怎么样的?</li>
 <li>工作生活怎么平衡?</li>
 </ul>
-<h2><span id="当你获得了梦想的职位">当你获得了梦想的职位</span></h2><p>恭喜你！</p>
+<h2 id="当你获得了梦想的职位"><a href="#当你获得了梦想的职位" class="headerlink" title="当你获得了梦想的职位"></a>当你获得了梦想的职位</h2><p>恭喜你！</p>
 <p>继续学习。</p>
 <p>活到老，学到老。</p>
 <hr>
@@ -1705,7 +1472,7 @@
 *****************************************************************************************************
 *****************************************************************************************************
 </code></pre><hr>
-<h2><span id="额外书籍">额外书籍</span></h2><pre><code>你可以从以下的书单挑选你有兴趣的主题来研读。
+<h2 id="额外书籍"><a href="#额外书籍" class="headerlink" title="额外书籍"></a>额外书籍</h2><pre><code>你可以从以下的书单挑选你有兴趣的主题来研读。
 </code></pre><ul>
 <li><a target="_blank" rel="noopener" href="https://www.amazon.com/dp/013937681X">UNIX环境高级编程</a><ul>
 <li>老，但却很棒</li>
@@ -1796,16 +1563,16 @@
 </ul>
 </li>
 </ul>
-<h2><span id="附加学习">附加学习</span></h2><pre><code>我把它们加进来是为了让你成为更全方位的软件工程师，并且留意一些技术以及算法，让你拥有更大的工具箱。
+<h2 id="附加学习"><a href="#附加学习" class="headerlink" title="附加学习"></a>附加学习</h2><pre><code>我把它们加进来是为了让你成为更全方位的软件工程师，并且留意一些技术以及算法，让你拥有更大的工具箱。
 </code></pre><ul>
-<li><h3><span id="编译器">编译器</span></h3><ul>
+<li><h3 id="编译器"><a href="#编译器" class="headerlink" title="编译器"></a>编译器</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=IhC7sdYe-Jg">编译器的工作方式，约1分钟（视频）</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=CSZLNYF4Klo">Harvard CS50-编译器（视频）</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=twodd1KFfGk">C ++（视频）</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=FnGCDLhaxKU">了解编译器优化（C ++）（视频）</a></li>
 </ul>
 </li>
-<li><h3><span id="emacs-and-vim">Emacs and vi(m)</span></h3><ul>
+<li><h3 id="Emacs-and-vi-m"><a href="#Emacs-and-vi-m" class="headerlink" title="Emacs and vi(m)"></a>Emacs and vi(m)</h3><ul>
 <li>熟悉基于 unix 的代码编辑器</li>
 <li>vi(m):<ul>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=5givLEMcINQ&amp;index=1&amp;list=PL13bz4SHGmRxlZVmWQ9DvXo1fEg4UdGkr">使用 vim 进行编辑 01 - 安装, 设置和模式 (视频)</a></li>
@@ -1835,7 +1602,7 @@
 </li>
 </ul>
 </li>
-<li><h3><span id="unix-命令行工具">Unix 命令行工具</span></h3><ul>
+<li><h3 id="Unix-命令行工具"><a href="#Unix-命令行工具" class="headerlink" title="Unix 命令行工具"></a>Unix 命令行工具</h3><ul>
 <li>下列内容包含优秀工具</li>
 <li>bash</li>
 <li>cat</li>
@@ -1850,7 +1617,7 @@
 <li><a target="_blank" rel="noopener" href="https://danielmiessler.com/study/tcpdump/">tcpdump</a></li>
 </ul>
 </li>
-<li><h3><span id="信息论-视频">信息论 (视频)</span></h3><ul>
+<li><h3 id="信息论-视频"><a href="#信息论-视频" class="headerlink" title="信息论 (视频)"></a>信息论 (视频)</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://www.khanacademy.org/computing/computer-science/informationtheory">Khan Academy 可汗学院</a></li>
 <li>更多有关马尔可夫的内容:<ul>
 <li><a target="_blank" rel="noopener" href="https://www.coursera.org/learn/data-structures-optimizing-performance/lecture/waxgx/core-markov-text-generation">马尔可夫内容生成（Core Markov Text Generation）</a></li>
@@ -1861,7 +1628,7 @@
 <li>关于更多信息，请参照下方 MIT 6.050J 信息和系统复杂度的内容。</li>
 </ul>
 </li>
-<li><h3><span id="奇偶校验位-amp-汉明码-视频">奇偶校验位 &amp; 汉明码 (视频)</span></h3><ul>
+<li><h3 id="奇偶校验位-amp-汉明码-视频"><a href="#奇偶校验位-amp-汉明码-视频" class="headerlink" title="奇偶校验位 &amp; 汉明码 (视频)"></a>奇偶校验位 &amp; 汉明码 (视频)</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=q-3BctoUpHE">入门</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=DdMcAUlxh1M">奇偶校验位</a></li>
 <li>汉明码(Hamming Code):<ul>
@@ -1872,13 +1639,13 @@
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=wbH2VxzmoZk">检查错误</a></li>
 </ul>
 </li>
-<li><h3><span id="系统熵值entropy">系统熵值（Entropy）</span></h3><ul>
+<li><h3 id="系统熵值（Entropy）"><a href="#系统熵值（Entropy）" class="headerlink" title="系统熵值（Entropy）"></a>系统熵值（Entropy）</h3><ul>
 <li>请参考下方视频</li>
 <li>观看之前，请先确定观看了信息论的视频</li>
 <li><a target="_blank" rel="noopener" href="https://youtu.be/JnJq3Py0dyM?t=176">信息理论, 克劳德·香农, 熵值, 系统冗余, 数据比特压缩 (视频)</a></li>
 </ul>
 </li>
-<li><h3><span id="密码学">密码学</span></h3><ul>
+<li><h3 id="密码学"><a href="#密码学" class="headerlink" title="密码学"></a>密码学</h3><ul>
 <li>请参考下方视频</li>
 <li>观看之前，请先确定观看了信息论的视频</li>
 <li><a target="_blank" rel="noopener" href="https://www.khanacademy.org/computing/computer-science/密码学">可汗学院</a></li>
@@ -1886,7 +1653,7 @@
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=9TNI2wHmaeI&amp;index=31&amp;list=PLUl4u3cNGP6317WaSNfmCvGym2ucw3oGp">密码学: 加密</a></li>
 </ul>
 </li>
-<li><h3><span id="压缩">压缩</span></h3><ul>
+<li><h3 id="压缩"><a href="#压缩" class="headerlink" title="压缩"></a>压缩</h3><ul>
 <li>观看之前，请先确定观看了信息论的视频</li>
 <li>Computerphile (视频)：<ul>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Lto-ajuqW3w">压缩</a></li>
@@ -1901,7 +1668,7 @@
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=whGwm0Lky2s">(可选) 谷歌开发者：GZIP 还差远了呢!</a></li>
 </ul>
 </li>
-<li><h3><span id="计算机安全">计算机安全</span></h3><ul>
+<li><h3 id="计算机安全"><a href="#计算机安全" class="headerlink" title="计算机安全"></a>计算机安全</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PLUl4u3cNGP62K2DjQLRxDNRi0z2IRWnNh">MIT（23个视频）</a><ul>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=GqmQg-cszw4&amp;index=1&amp;list=PLUl4u3cNGP62K2DjQLRxDNRi0z2IRWnNh">威胁模型：入门</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=6bwzNg5qQ0o&amp;list=PLUl4u3cNGP62K2DjQLRxDNRi0z2IRWnNh&amp;index=2">控制劫持攻击</a></li>
@@ -1919,18 +1686,18 @@
 </li>
 </ul>
 </li>
-<li><h3><span id="垃圾回收">垃圾回收</span></h3><ul>
+<li><h3 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h3><ul>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=iHVs_HkjdmI">Python 中的垃圾回收 (视频)</a></li>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.infoq.com/presentations/garbage-collection-benefits">深度解析：论垃圾回收在 JAVA 中的重要性</a></li>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=P-8Z0-MhdQs&amp;list=PLdzf4Clw0VbOEWOS_sLhT_9zaiQDrS5AR&amp;index=3">深度解析：论垃圾回收在 Python 中的重要性(视频)</a></li>
 </ul>
 </li>
-<li><h3><span id="并行编程">并行编程</span></h3><ul>
+<li><h3 id="并行编程"><a href="#并行编程" class="headerlink" title="并行编程"></a>并行编程</h3><ul>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.coursera.org/learn/parprog1/home/week/1">Coursera (Scala)</a></li>
 <li>[ ] <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=uY85GkaYzBk">用于高性能并行计算的高效Python（视频）</a></li>
 </ul>
 </li>
-<li><h3><span id="消息传递序列化和队列系统">消息传递，序列化和队列系统</span></h3><ul>
+<li><h3 id="消息传递，序列化和队列系统"><a href="#消息传递，序列化和队列系统" class="headerlink" title="消息传递，序列化和队列系统"></a>消息传递，序列化和队列系统</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://thrift.apache.org/">Thrift</a><ul>
 <li><a target="_blank" rel="noopener" href="http://thrift-tutorial.readthedocs.io/en/latest/intro.html">教程</a></li>
 </ul>
@@ -1967,13 +1734,13 @@
 <li><a target="_blank" rel="noopener" href="https://avro.apache.org/">Avro</a></li>
 </ul>
 </li>
-<li><h3><span id="a搜索算法">A*搜索算法</span></h3><ul>
+<li><h3 id="A-搜索算法"><a href="#A-搜索算法" class="headerlink" title="A*搜索算法"></a>A*搜索算法</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/A*_search_algorithm">A 搜索算法</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=KNXfSOx4eEE">A* 路径搜索教程（教程）</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=-L-WgKMFuhE">A* 路径搜索（E01：算法解释）（视频）</a></li>
 </ul>
 </li>
-<li><h3><span id="快速傅里叶变换">快速傅里叶变换</span></h3><ul>
+<li><h3 id="快速傅里叶变换"><a href="#快速傅里叶变换" class="headerlink" title="快速傅里叶变换"></a>快速傅里叶变换</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://betterexplained.com/articles/an-interactive-guide-to-the-fourier-transform/">傅立叶变换的交互式指南</a></li>
 <li><a target="_blank" rel="noopener" href="http://www.askamathematician.com/2012/09/q-what-is-a-fourier-transform-what-is-it-used-for/">什么是傅立叶变换？论傅立叶变换的用途</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Xxut2PN-V8Q">什么是傅立叶变换？ (视频)</a></li>
@@ -1981,7 +1748,7 @@
 <li><a target="_blank" rel="noopener" href="http://jakevdp.github.io/blog/2013/08/28/understanding-the-fft/">FTT 是什么</a></li>
 </ul>
 </li>
-<li><h3><span id="布隆过滤器">布隆过滤器</span></h3><ul>
+<li><h3 id="布隆过滤器"><a href="#布隆过滤器" class="headerlink" title="布隆过滤器"></a>布隆过滤器</h3><ul>
 <li>给定布隆过滤器m比特位和k个哈希函数，插入和成员检测都会是 O(k)。</li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=-SuTGoFYjZs">布隆过滤器（视频）</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=qBTdukbzc78">布隆过滤器 | 数据挖掘 | Stanford University（视频）</a></li>
@@ -1989,26 +1756,26 @@
 <li><a target="_blank" rel="noopener" href="http://blog.michaelschmatz.com/2016/04/11/how-to-write-a-bloom-filter-cpp/">如何写一个布隆过滤器应用</a></li>
 </ul>
 </li>
-<li><h3><span id="hyperloglog">HyperLogLog</span></h3><ul>
+<li><h3 id="HyperLogLog"><a href="#HyperLogLog" class="headerlink" title="HyperLogLog"></a>HyperLogLog</h3><ul>
 <li><a target="_blank" rel="noopener" href="http://highscalability.com/blog/2012/4/5/big-data-counting-how-to-count-a-billion-distinct-objects-us.html">如何仅使用1.5KB内存计算十亿个不同的对象</a></li>
 </ul>
 </li>
-<li><h3><span id="局部敏感哈希">局部敏感哈希</span></h3><ul>
+<li><h3 id="局部敏感哈希"><a href="#局部敏感哈希" class="headerlink" title="局部敏感哈希"></a>局部敏感哈希</h3><ul>
 <li>用于确定文件的相似性</li>
 <li>MD5 或 SHA 的反义词，用于确定2个文档/字符串是否完全相同</li>
 <li><a target="_blank" rel="noopener" href="http://ferd.ca/simhashing-hopefully-made-simple.html">Simhashing（希望如此）变得简单</a></li>
 </ul>
 </li>
-<li><h3><span id="van-emde-boas-树">van Emde Boas 树</span></h3><ul>
+<li><h3 id="van-Emde-Boas-树"><a href="#van-Emde-Boas-树" class="headerlink" title="van Emde Boas 树"></a>van Emde Boas 树</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=hmReJCupbNU&amp;list=PLUl4u3cNGP6317WaSNfmCvGym2ucw3oGp&amp;index=6">分而治之：van Emde Boas 树 (视频)</a></li>
 <li><a target="_blank" rel="noopener" href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-046j-design-and-analysis-of-algorithms-spring-2012/lecture-notes/MIT6_046JS12_lec15.pdf">MIT课堂笔记</a></li>
 </ul>
 </li>
-<li><h3><span id="增强数据结构">增强数据结构</span></h3><ul>
+<li><h3 id="增强数据结构"><a href="#增强数据结构" class="headerlink" title="增强数据结构"></a>增强数据结构</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://youtu.be/zksIj9O8_jc?list=PL4BBB74C7D2A1049C&amp;t=950">CS 61B 第 39 课: 增强数据结构</a></li>
 </ul>
 </li>
-<li><h3><span id="平衡查找树balanced-search-trees">平衡查找树（Balanced search trees）</span></h3><ul>
+<li><h3 id="平衡查找树（Balanced-search-trees）"><a href="#平衡查找树（Balanced-search-trees）" class="headerlink" title="平衡查找树（Balanced search trees）"></a>平衡查找树（Balanced search trees）</h3><ul>
 <li>掌握至少一种平衡查找树（并懂得如何实现）：</li>
 <li>“在各种平衡查找树当中，AVL 树和2-3树已经成为了过去，而红黑树（red-black trees）看似变得越来越受人青睐。这种令人特别感兴趣的数据结构，亦称伸展树（splay tree）。它可以自我管理，且会使用轮换来移除任何访问过根节点的键。” —— Skiena</li>
 <li>因此，在各种各样的平衡查找树当中，我选择了伸展树来实现。虽然，通过我的阅读，我发现在面试中并不会被要求实现一棵平衡查找树。但是，为了胜人一筹，我们还是应该看看如何去实现。在阅读了大量关于红黑树的代码后，我才发现伸展树的实现确实会使得各方面更为高效。<ul>
@@ -2092,60 +1859,60 @@
 </li>
 </ul>
 </li>
-<li><h3><span id="k-d树">k-D树</span></h3><ul>
+<li><h3 id="k-D树"><a href="#k-D树" class="headerlink" title="k-D树"></a>k-D树</h3><ul>
 <li>非常适合在矩形或更高维度的对象中查找点数</li>
 <li>最适合k近邻</li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=W94M9D_yXKk">Kd树（视频）</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=Y4ZgLlDfKDg">kNN K-d树算法（视频）</a></li>
 </ul>
 </li>
-<li><h3><span id="跳表">跳表</span></h3><ul>
+<li><h3 id="跳表"><a href="#跳表" class="headerlink" title="跳表"></a>跳表</h3><ul>
 <li>“有一种非常迷幻的数据类型” - Skiena</li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=2g9OSRKJuzM&amp;index=10&amp;list=PLUl4u3cNGP6317WaSNfmCvGym2ucw3oGp">随机化: 跳表 (视频)</a></li>
 <li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Skip_list">更生动详细的解释</a></li>
 </ul>
 </li>
-<li><h3><span id="网络流">网络流</span></h3><ul>
+<li><h3 id="网络流"><a href="#网络流" class="headerlink" title="网络流"></a>网络流</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=v1VgJmkEJW0">5分钟简析 Ford-Fulkerson──一步步示例 (视频)</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=v1VgJmkEJW0">Ford-Fulkerson 算法 (视频)</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=2vhN4Ice5jI">网络流 (视频)</a></li>
 </ul>
 </li>
-<li><h3><span id="不相交集-amp-联合查找">不相交集 &amp; 联合查找</span></h3><ul>
+<li><h3 id="不相交集-amp-联合查找"><a href="#不相交集-amp-联合查找" class="headerlink" title="不相交集 &amp; 联合查找"></a>不相交集 &amp; 联合查找</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=MAEGXTwmUsI&amp;list=PL-XXv-cvA_iAlnI-BQr9hjqADPBtujFJd&amp;index=21">UCB 61B - 不相交集；排序 &amp; 选择(视频)</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.coursera.org/learn/algorithms-part1/home/week/1">Sedgewick算法──Union-Find（6视频）</a></li>
 </ul>
 </li>
-<li><h3><span id="快速处理的数学">快速处理的数学</span></h3><ul>
+<li><h3 id="快速处理的数学"><a href="#快速处理的数学" class="headerlink" title="快速处理的数学"></a>快速处理的数学</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=eCaXlAaN2uE&amp;index=11&amp;list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb">整数运算, Karatsuba 乘法 (视频)</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=ru7mWZJlRQg">中国剩余定理 (在密码学中的使用) (视频)</a></li>
 </ul>
 </li>
-<li><h3><span id="树堆-treap">树堆 (Treap)</span></h3><ul>
+<li><h3 id="树堆-Treap"><a href="#树堆-Treap" class="headerlink" title="树堆 (Treap)"></a>树堆 (Treap)</h3><ul>
 <li>一个二叉搜索树和一个堆的组合</li>
 <li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Treap">树堆</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=6podLUYinH8">数据结构：树堆的讲解（视频）</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.cs.cmu.edu/~scandal/papers/treaps-spaa98.pdf">集合操作的应用(Applications in set operations)</a></li>
 </ul>
 </li>
-<li><h3><span id="线性规划linear-programming视频">线性规划（Linear Programming）（视频）</span></h3><ul>
+<li><h3 id="线性规划（Linear-Programming）（视频）"><a href="#线性规划（Linear-Programming）（视频）" class="headerlink" title="线性规划（Linear Programming）（视频）"></a>线性规划（Linear Programming）（视频）</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=M4K6HYLHREQ">线性规划</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=2ACJ9ewUC6U">寻找最小成本</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=8AA_81xI3ik">寻找最大值</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=44pAWI7v5Zk">用 Python 解决线性方程式──单纯形算法</a></li>
 </ul>
 </li>
-<li><h3><span id="几何凸包geometry-convex-hull视频">几何：凸包（Geometry, Convex hull）（视频）</span></h3><ul>
+<li><h3 id="几何：凸包（Geometry-Convex-hull）（视频）"><a href="#几何：凸包（Geometry-Convex-hull）（视频）" class="headerlink" title="几何：凸包（Geometry, Convex hull）（视频）"></a>几何：凸包（Geometry, Convex hull）（视频）</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://youtu.be/XIAQRlNkJAw?list=PLFDnELG9dpVxQCxuD-9BSy2E7BWY3t5Sm&amp;t=3164">Graph Alg. IV: 几何算法介绍 - 第 9 课</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=J5aJEcOr6Eo&amp;index=10&amp;list=PLFDnELG9dpVxQCxuD-9BSy2E7BWY3t5Sm">Graham &amp; Jarvis: 几何算法 - 第 10 课</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=EzeYI7p9MjU&amp;list=PLUl4u3cNGP6317WaSNfmCvGym2ucw3oGp&amp;index=2">分而治之: 凸包, 中值查找</a></li>
 </ul>
 </li>
-<li><h3><span id="离散数学">离散数学</span></h3><ul>
+<li><h3 id="离散数学"><a href="#离散数学" class="headerlink" title="离散数学"></a>离散数学</h3><ul>
 <li>查看下面的视频</li>
 </ul>
 </li>
-<li><h3><span id="机器学习machine-learning">机器学习（Machine Learning）</span></h3><ul>
+<li><h3 id="机器学习（Machine-Learning）"><a href="#机器学习（Machine-Learning）" class="headerlink" title="机器学习（Machine Learning）"></a>机器学习（Machine Learning）</h3><ul>
 <li>为什么学习机器学习？<ul>
 <li><a target="_blank" rel="noopener" href="https://backchannel.com/how-google-is-remaking-itself-as-a-machine-learning-first-company-ada63defcb70">谷歌如何将自己改造成一家「机器学习优先」公司？</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=QSaZGT4-6EY">智能计算机系统的大规模深度学习 (视频)</a></li>
@@ -2185,7 +1952,7 @@
 </li>
 </ul>
 <p>—</p>
-<h2><span id="一些主题的额外内容">一些主题的额外内容</span></h2><pre><code>我为前面提到的某些主题增加了一些额外的内容，之所以没有直接添加到前面，是因为这样很容易导致某个主题内容过多。毕竟你想在本世纪找到一份工作，对吧？
+<h2 id="一些主题的额外内容"><a href="#一些主题的额外内容" class="headerlink" title="一些主题的额外内容"></a>一些主题的额外内容</h2><pre><code>我为前面提到的某些主题增加了一些额外的内容，之所以没有直接添加到前面，是因为这样很容易导致某个主题内容过多。毕竟你想在本世纪找到一份工作，对吧？
 </code></pre><ul>
 <li><p>SOLID</p>
 <ul>
@@ -2307,7 +2074,7 @@
 </ul>
 </li>
 </ul>
-<h2><span id="视频系列">视频系列</span></h2><p> 坐下来享受一下吧。”netflix 和技能” :P</p>
+<h2 id="视频系列"><a href="#视频系列" class="headerlink" title="视频系列"></a>视频系列</h2><p> 坐下来享受一下吧。”netflix 和技能” :P</p>
 <ul>
 <li><p><a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PLrmLmBdmIlpsHaNTPP_jHHDx_os9ItYXr">个人的动态规划问题列表 (都是短视频)</a></p>
 </li>
@@ -2374,11 +2141,11 @@
 <li><p><a target="_blank" rel="noopener" href="https://www.youtube.com/user/DrSaradaHerke/playlists?shelf_id=5&amp;view=50&amp;sort=dd">图论，Sarada Herke（67个视频）</a></p>
 </li>
 </ul>
-<h2><span id="计算机科学课程">计算机科学课程</span></h2><ul>
+<h2 id="计算机科学课程"><a href="#计算机科学课程" class="headerlink" title="计算机科学课程"></a>计算机科学课程</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/open-source-society/computer-science">在线 CS 课程目录</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/prakhar1989/awesome-courses">CS 课程目录 (一些是在线讲座)</a></li>
 </ul>
-<h2><span id="论文">论文</span></h2><ul>
+<h2 id="论文"><a href="#论文" class="headerlink" title="论文"></a>论文</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://www.cs.cmu.edu/~crary/819-f09/">喜欢经典的论文？</a></li>
 <li><a target="_blank" rel="noopener" href="http://spinroot.com/courses/summer/Papers/hoare_1978.pdf">1978: 通信顺序处理</a><ul>
 <li><a target="_blank" rel="noopener" href="https://godoc.org/github.com/thomas11/csp">Go 实现</a></li>
@@ -2425,220 +2192,17 @@
 <li><a target="_blank" rel="noopener" href="http://static.googleusercontent.com/media/research.google.com/en//pubs/archive/43835.pdf">2015: 开发者应该如何搜索代码：用例学习</a></li>
 <li><a target="_blank" rel="noopener" href="http://static.googleusercontent.com/media/research.google.com/en//pubs/archive/44843.pdf">2016: Borg, Omega, and Kubernetes</a></li>
 </ul>
-
-    </div>
-
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag"># 学习</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2020/12/09/OS8-Deadlocks/" rel="prev" title="OS8 Deadlocks">
-      <i class="fa fa-chevron-left"></i> OS8 Deadlocks
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/12/22/reprint-Career-advice-for-recent-Computer-Science-graduates/" rel="next" title="[reprint]Career advice for recent Computer Science graduates">
-      [reprint]Career advice for recent Computer Science graduates <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">这是？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text">为何要用到它？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">4.</span> <span class="nav-text">不要觉得自己不够聪明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">5.</span> <span class="nav-text">相关视频资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text">面试过程 &amp; 通用的面试准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">7.</span> <span class="nav-text">为你的面试选择一种语言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">8.</span> <span class="nav-text">书单</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">8.1.</span> <span class="nav-text">面试准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">8.2.</span> <span class="nav-text">如果你有额外的时间：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">8.3.</span> <span class="nav-text">编程语言精选</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">8.4.</span> <span class="nav-text">C++</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">8.5.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">8.6.</span> <span class="nav-text">Python</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">9.</span> <span class="nav-text">在你开始之前</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">9.1.</span> <span class="nav-text">1. 你不可能把所有的东西都记住</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">9.2.</span> <span class="nav-text">2. 使用抽认卡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">9.3.</span> <span class="nav-text">3. 复习，复习，再复习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">9.4.</span> <span class="nav-text">4. 专注</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">10.</span> <span class="nav-text">没有包含的内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">11.</span> <span class="nav-text">日常计划</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">12.</span> <span class="nav-text">必备知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">13.</span> <span class="nav-text">算法复杂度 &#x2F; Big-O &#x2F; 渐进分析法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">14.</span> <span class="nav-text">数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">14.1.</span> <span class="nav-text">数组（Arrays）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">14.2.</span> <span class="nav-text">链表（Linked Lists）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">14.3.</span> <span class="nav-text">堆栈（Stack）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">14.4.</span> <span class="nav-text">队列（Queue）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">14.5.</span> <span class="nav-text">哈希表（Hash table）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">15.</span> <span class="nav-text">更多的知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">15.1.</span> <span class="nav-text">二分查找（Binary search）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">15.2.</span> <span class="nav-text">按位运算（Bitwise operations）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">16.</span> <span class="nav-text">树（Trees）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">16.1.</span> <span class="nav-text">树 —— 笔记 &amp; 背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">16.2.</span> <span class="nav-text">二叉查找树（Binary search trees）：BSTs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">16.3.</span> <span class="nav-text">堆（Heap） &#x2F; 优先级队列（Priority Queue） &#x2F; 二叉堆（Binary Heap）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">17.</span> <span class="nav-text">排序（Sorting）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">18.</span> <span class="nav-text">图（Graphs）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">19.</span> <span class="nav-text">更多知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">19.1.</span> <span class="nav-text">递归（Recursion）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">19.2.</span> <span class="nav-text">动态规划（Dynamic Programming）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">19.3.</span> <span class="nav-text">面向对象编程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">19.4.</span> <span class="nav-text">设计模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">19.5.</span> <span class="nav-text">组合（Combinatorics） (n 中选 k 个) &amp; 概率（Probability）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">19.6.</span> <span class="nav-text">NP, NP-完全和近似算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">19.7.</span> <span class="nav-text">缓存（Cache）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">19.8.</span> <span class="nav-text">进程（Processe）和线程（Thread）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">19.9.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">19.10.</span> <span class="nav-text">调度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">19.11.</span> <span class="nav-text">字符串搜索和操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">19.12.</span> <span class="nav-text">字典树（Tries）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">19.13.</span> <span class="nav-text">浮点数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">19.14.</span> <span class="nav-text">Unicode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">19.15.</span> <span class="nav-text">字节序（Endianness）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">19.16.</span> <span class="nav-text">网络（视频）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">20.</span> <span class="nav-text">系统设计、可伸缩性、数据处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">21.</span> <span class="nav-text">终面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">22.</span> <span class="nav-text">编程问题练习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">23.</span> <span class="nav-text">编程练习和挑战</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">24.</span> <span class="nav-text">当你临近面试时</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">25.</span> <span class="nav-text">你的简历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">26.</span> <span class="nav-text">当面试来临的时候</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">27.</span> <span class="nav-text">问面试官的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">28.</span> <span class="nav-text">当你获得了梦想的职位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">29.</span> <span class="nav-text">额外书籍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">30.</span> <span class="nav-text">附加学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">30.1.</span> <span class="nav-text">编译器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">30.2.</span> <span class="nav-text">Emacs and vi(m)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">30.3.</span> <span class="nav-text">Unix 命令行工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">30.4.</span> <span class="nav-text">信息论 (视频)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">30.5.</span> <span class="nav-text">奇偶校验位 &amp; 汉明码 (视频)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">30.6.</span> <span class="nav-text">系统熵值（Entropy）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">30.7.</span> <span class="nav-text">密码学</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">30.8.</span> <span class="nav-text">压缩</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">30.9.</span> <span class="nav-text">计算机安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">30.10.</span> <span class="nav-text">垃圾回收</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">30.11.</span> <span class="nav-text">并行编程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">30.12.</span> <span class="nav-text">消息传递，序列化和队列系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">30.13.</span> <span class="nav-text">A*搜索算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">30.14.</span> <span class="nav-text">快速傅里叶变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">30.15.</span> <span class="nav-text">布隆过滤器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">30.16.</span> <span class="nav-text">HyperLogLog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">30.17.</span> <span class="nav-text">局部敏感哈希</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">30.18.</span> <span class="nav-text">van Emde Boas 树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">30.19.</span> <span class="nav-text">增强数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">30.20.</span> <span class="nav-text">平衡查找树（Balanced search trees）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">30.21.</span> <span class="nav-text">k-D树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">30.22.</span> <span class="nav-text">跳表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">30.23.</span> <span class="nav-text">网络流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">30.24.</span> <span class="nav-text">不相交集 &amp; 联合查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">30.25.</span> <span class="nav-text">快速处理的数学</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">30.26.</span> <span class="nav-text">树堆 (Treap)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">30.27.</span> <span class="nav-text">线性规划（Linear Programming）（视频）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">30.28.</span> <span class="nav-text">几何：凸包（Geometry, Convex hull）（视频）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">30.29.</span> <span class="nav-text">离散数学</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">30.30.</span> <span class="nav-text">机器学习（Machine Learning）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">31.</span> <span class="nav-text">一些主题的额外内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">32.</span> <span class="nav-text">视频系列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">33.</span> <span class="nav-text">计算机科学课程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">34.</span> <span class="nav-text">论文</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="Hotel"
-      src="/images/portrait.jpg">
-  <p class="site-author-name" itemprop="name">Hotel</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">32</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">5</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">19</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-        <div class="back-to-top motion-element">
-          <i class="fa fa-arrow-up"></i>
-          <span>0%</span>
-        </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2021</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Hotel</span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-chart-area"></i>
-    </span>
-    <span title="Symbols count total">157k</span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-coffee"></i>
-    </span>
-    <span title="Reading time total">2:23</span>
-</div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
-  </div>
-
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-
-  
-
-</body>
-</html>
+</div><div class="tags"><a href="/tags/%E5%AD%A6%E4%B9%A0/"><i class="fa fa-tag"></i>学习</a></div><div class="post-nav"><a class="pre" href="/2020/12/22/reprint-Career-advice-for-recent-Computer-Science-graduates/">[reprint]Career advice for recent Computer Science graduates</a><a class="next" href="/2020/12/09/OS8-Deadlocks/">OS8 Deadlocks</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://hotelll.github.io"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%88%B7%E9%A2%98/">刷题</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/">计算机科学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">软件工程</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" style="font-size: 15px;">生成模型</a> <a href="/tags/%E8%B4%AA%E5%BF%83/" style="font-size: 15px;">贪心</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 15px;">动态规划</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">机器学习</a> <a href="/tags/MIR/" style="font-size: 15px;">MIR</a> <a href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/" style="font-size: 15px;">论文阅读</a> <a href="/tags/%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/" style="font-size: 15px;">排列组合</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 15px;">分治</a> <a href="/tags/%E5%9B%9E%E6%BA%AF/" style="font-size: 15px;">回溯</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 15px;">操作系统</a> <a href="/tags/%E6%8A%A5%E9%94%99/" style="font-size: 15px;">报错</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 15px;">神经网络</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 15px;">随笔</a> <a href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" style="font-size: 15px;">目标检测</a> <a href="/tags/%E5%8C%B9%E9%85%8D/" style="font-size: 15px;">匹配</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/" style="font-size: 15px;">网络流</a> <a href="/tags/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">论文学习</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 15px;">计算机网络</a> <a href="/tags/%E8%81%8C%E4%B8%9A%E8%A7%84%E5%88%92/" style="font-size: 15px;">职业规划</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">学习</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/03/27/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E5%85%A5%E9%97%A8%E2%80%94%E2%80%94%E6%9C%AF%E8%AF%AD%E7%AF%87/">行为检测入门——术语篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/26/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0-SongMASS/">论文学习: SongMASS</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/25/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0%EF%BC%9AThe-Capacity-of-Wireless-Networks/">论文学习：The Capacity of Wireless Networks</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/17/Conditional-GAN/">Conditional GAN</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/15/An-introduction-to-the-generative-model/">生成模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/10/%E8%AE%A4%E8%AE%A4%E7%9C%9F%E7%9C%9F%E5%86%99%E4%B8%80%E7%AF%87LSTM/">认认真真写一篇LSTM</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/09/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0-Conditional-LSTM-GAN-for-Melody-Generation-from-Lyrics/">论文学习 Conditional LSTM-GAN for Melody Generation from Lyrics</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/01/%E4%BB%8A%E5%A4%A9%E5%AD%A6%E4%B9%A0-RNN/">今天学习 RNN</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/01/09/Leetcode327-%E5%8C%BA%E9%97%B4%E5%92%8C%E7%9A%84%E4%B8%AA%E6%95%B0/">Leetcode327 区间和的个数</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/23/OS9-Main-Memory/">OS9 Main Memory</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Links</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">Hotel's Blog | </a><a rel="nofollow" target="_blank" href="http://beian.miit.gov.cn"> 鄂ICP备 19017407号-1 </a> | &nbsp;<img class="nofancybox" src="//cdn.foreversfj.com/image/blog/20190728/N0BTF6mJ1Ilb.png" style="margin-bottom: -4px;"/><a rel="nofollow" target="_blank" href="http://www.beian.gov.cn">&nbsp;鄂公网安备 42011102003450号</a><br/><span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>var now = new Date();
+function createtime() {
+var grt= new Date("07/09/2018 12:49:00");
+now.setTime(now.getTime()+250);
+days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+document.getElementById("timeDate").innerHTML = "运行 "+dnum+" 天 ";
+document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);</script><br/><div><div class="github-badge" style="margin-right: 3px;"><a href="https://hexo.io" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hexo</span></a></div><div class="github-badge"><a href="https://github.com/tufu9441/maupassant-hexo" target="_black" rel="nofollow"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a></div></div></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.0.0" async></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.css"><script type="text/javascript" src="/js/copycode.js" successtext="Copy Successed!"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=1.0.0"></script></div></body></html>
