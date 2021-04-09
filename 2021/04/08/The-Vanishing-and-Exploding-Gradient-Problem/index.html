@@ -1,0 +1,93 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>梯度消失和梯度爆炸问题 | Hotel's Blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/normalize.css/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 5.3.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">梯度消失和梯度爆炸问题</h1><a id="logo" href="/.">Hotel's Blog</a><p class="description">Knowledge, Tech and Life</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">梯度消失和梯度爆炸问题</h1><div class="post-meta">2021-04-08<span> | </span><span class="category"><a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></span><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span><span class="post-time"><span class="post-meta-item-text"> | </span><span class="post-meta-item-icon"><i class="fa fa-keyboard-o"></i><span class="post-count"> 1.7k</span><span class="post-meta-item-text"> Words</span></span></span><span class="post-time"> | <span class="post-meta-item-icon"><i class="fa fa-clock-o"></i><span class="post-count"> 6</span><span class="post-meta-item-text"> Minutes</span></span></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">Contents</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%A2%AF%E5%BA%A6%E7%88%86%E7%82%B8%E6%B6%88%E5%A4%B1"><span class="toc-number">2.</span> <span class="toc-text">什么是梯度爆炸&#x2F;消失</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A2%AF%E5%BA%A6%E7%88%86%E7%82%B8%E6%B6%88%E5%A4%B1%E7%9A%84%E5%90%8E%E6%9E%9C"><span class="toc-number">3.</span> <span class="toc-text">梯度爆炸&#x2F;消失的后果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%8F%91%E7%8E%B0%E6%A2%AF%E5%BA%A6%E7%88%86%E7%82%B8%E6%B6%88%E5%A4%B1"><span class="toc-number">4.</span> <span class="toc-text">如何发现梯度爆炸&#x2F;消失</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A2%AF%E5%BA%A6%E7%88%86%E7%82%B8"><span class="toc-number">4.1.</span> <span class="toc-text">梯度爆炸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A2%AF%E5%BA%A6%E6%B6%88%E5%A4%B1"><span class="toc-number">4.2.</span> <span class="toc-text">梯度消失</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E7%BC%93%E8%A7%A3%E6%A2%AF%E5%BA%A6%E7%88%86%E7%82%B8%E6%B6%88%E5%A4%B1"><span class="toc-number">5.</span> <span class="toc-text">如何缓解梯度爆炸&#x2F;消失</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="post-content"><script src="\assets\js\APlayer.min.js"> </script><h2 id="简介">简介</h2>
+<p>在深度学习时代，一个更深层复杂的网络结构在理论上应当得到更好的结果，因为网络层可以什么都不做，也就是说深层网络应当至少比浅层网络有更好的性能。但是，在实际实践中，我们会发现网络的加深有时反而会导致性能的下降。导致问题的原因很就是梯度消失/爆炸。</p>
+<h2 id="什么是梯度爆炸消失">什么是梯度爆炸/消失</h2>
+<p>在训练深度神经网络的时候，我们会使用梯度下降和反向传播的算法。具体来说，我们通过从最后一层向第一层遍历网络，计算偏导。利用链式法则，更加深层的梯度值会经过更加多次的矩阵乘法。</p>
+<p>例如，在一个有 <span class="math inline">\(n\)</span> 个隐藏层的网络，<span class="math inline">\(n\)</span> 个导数会乘在一起。如果导数较大，那么梯度在层层反向传播的过程中就会指数级上升，最终导致梯度过大，也就是我们所说的<strong>梯度爆炸</strong>。反之，如果导数较小，那么在反向传播的过程中，梯度就会指数级减少，最终导致<strong>梯度消失</strong>。</p>
+<h2 id="梯度爆炸消失的后果">梯度爆炸/消失的后果</h2>
+<p>梯度爆炸会导致模型权重参数变化很大，导致整个网络十分不稳定，最坏情况会直接导致权重值溢出（NaN）。梯度消失会导致模型失去学习的能力，无法有效地更新权重，最坏情况会直接导致梯度归零，模型停滞。</p>
+<h2 id="如何发现梯度爆炸消失">如何发现梯度爆炸/消失</h2>
+<p>我们可以通过观察如下<strong>现象</strong>来判断模型是否面临梯度爆炸/消失的问题：</p>
+<h3 id="梯度爆炸">梯度爆炸</h3>
+<ul>
+<li><p>模型没有从训练数据学到很多，导致 loss 没有很好下降</p></li>
+<li><p>模型的 loss 值在每次更新中剧烈变化，很不稳定</p></li>
+<li><p>模型的 loss 值在训练过程中变成 NaN</p></li>
+<li><p>模型权重在训练过程中指数上升</p></li>
+<li><p>模型权重在训练阶段变为 NaN</p></li>
+</ul>
+<h3 id="梯度消失">梯度消失</h3>
+<ul>
+<li>模型提升很慢，甚至早早停止了训练，更多的训练也不会再改进模型</li>
+<li>离 输出层 近的层权重改变更多，离 输入层 近的层权重改变更小</li>
+<li>模型权重指数下降，变得很小</li>
+<li>模型权重变为零</li>
+</ul>
+<h2 id="如何缓解梯度爆炸消失"><strong>如何缓解梯度爆炸/消失</strong></h2>
+<p><strong>减少层数</strong></p>
+<p>减少层数是一个很直观的解决方法，但是同时也会导致模型更简单，从而没有能力用更复杂的映射解决更复杂的问题。</p>
+<p><strong>梯度裁剪（Gradient Clipping）</strong></p>
+<p>用于解决梯度爆炸，有如下两种：</p>
+<ul>
+<li><p>确定一个范围，如果参数的梯度超过该范围，就裁剪为范围上限。例如，若 clip_value 为 1，这一轮计算的权重为 120，那么我们直接裁剪为 1。</p></li>
+<li><p>根据若干参数的梯度组成向量的 L2 范数进行裁剪。具体来说，如果在某一次反向传播中，假设各个参数的向量为： <span class="math display">\[
+v = (w_1,w_2,\dots,w_n)
+\]</span> 我们计算它的 L2 范数 <code>LNorm</code>： <span class="math display">\[
+\mathrm{LNorm}=\lVert v\rVert_2
+\]</span> 再设置 <code>clip_norm</code>，如果 <span class="math inline">\(\mathrm{LNorm&gt; clip\_norm}\)</span>，则对权重向量 <span class="math inline">\(v\)</span> 乘上缩放因子 scaling： <span class="math display">\[
+v\gets \mathrm{\frac{clip\_norm}{LNorm}}v
+\]</span> 那么梯度消失能不能用这种 scaling 的方法来解决呢？</p>
+<ol type="1">
+<li>有人说可以，只是现实中往往用更好用的自适应学习率、LSTM/GRU 等方法；</li>
+<li>也有人说不行，因为无法区分梯度小是因为梯度消失，还是因为接近局部最小值；</li>
+<li>也有反对者提出，在梯度很小的时候，它的方向就不像梯度爆炸时那么明确，那么 scaling 并不一定能够让模型在正确的方向改进。</li>
+</ol>
+<blockquote>
+<p>具体参考知乎问答：https://www.zhihu.com/question/275856902</p>
+</blockquote>
+<p>笔者觉得都说得有道理。。。还希望有大神能够指点。</p></li>
+</ul>
+<p><strong>初始化权重（Weight Initialization）</strong></p>
+<blockquote>
+<p>相关博客：https://towardsdatascience.com/weight-initialization-in-neural-networks-a-journey-from-the-basics-to-kaiming-954fb9b47c79</p>
+</blockquote>
+<p>从该博客中可知，权重初始化过大（过小）很可能导致梯度爆炸（消失）。在反向传播过程的矩阵乘法中，每层的方差不断累积导致最终方差过大（过小），导致梯度爆炸（消失）。因此，利用 Xavier 初始化或者 Kaiming 初始化等方法来解决这一问题。</p>
+<blockquote>
+<p>Xavier &amp; Kaiming Initialization 日后补齐...</p>
+</blockquote>
+<p><strong>更换激活函数</strong></p>
+<p>例如，常用的激活函数 sigmoid 为： <span class="math display">\[
+\sigma(x) = \frac{1}{1+e^{-x}}
+\]</span> 在反向传播中对其求导可得： <span class="math display">\[
+\sigma&#39;(x)=\frac{e^{-x}}{(1+e^{-x})^2}=\sigma(x)(1-\sigma(x))
+\]</span> 我们绘制 <span class="math inline">\(\sigma&#39;(x)\)</span> 的图像在区间 <span class="math inline">\([0,1]\)</span> 的情况：</p>
+<p><img src="https://img-blog.csdnimg.cn/20190325214340492.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM3NjY3MzY0,size_16,color_FFFFFF,t_70" alt="img" style="zoom:50%;"></p>
+<p>我们发现 <span class="math inline">\(\sigma&#39;(x)\)</span> 的取值大概在 <span class="math inline">\([0.2,0.25]\)</span> 之间，也就是说，在反向传播的过程中，梯度值会不断缩小 4 倍到 5 倍，最终使得接近输入层的网络层参数几乎不被更新，无法进行后续训练。将 sigmoid 更换为 ReLU 等可能可以缓解这一问题。</p>
+<p><strong>权重正则化</strong></p>
+<p>目标函数 = 损失函数 + 正则化项，通过在目标函数中加入正则化项，来惩罚更大的权重，从而使得权重不会过大，达到缓解梯度爆炸的效果。</p>
+<p><strong>批标准化（Batch Normalization）</strong></p>
+<blockquote>
+<p>参考：https://zhuanlan.zhihu.com/p/24810318</p>
+</blockquote>
+<p>我们看如下激活函数（sigmoid &amp; tanh）:</p>
+<p><img src="https://image.jiqizhixin.com/uploads/editor/7a3ad607-29e2-482b-8c31-9e852c15ed90/1527883834432.jpeg" alt="img" style="zoom:50%;"><img src="https://image.jiqizhixin.com/uploads/editor/d7c0c0e1-0436-4c23-ae0a-8a06867c0a64/1527883834234.jpeg" alt="img" style="zoom: 50%;"></p>
+<p>我们发现在输入（绝对值）偏大的时候，激活函数对输入的敏感度很低（可能输入10和100没什么差别），而对输入区间在靠近零的值更为敏感。因此，批标准化（BN 层）通过标准化输入的模值，使其更靠近中间的区间，这样可以使激活函数效果更明显。这种对输入模值的控制，也很好地解决了梯度消失/梯度爆炸的情况。</p>
+<p>上述解决方法其实每一个都值得用一整篇文章来深入讨论，奈何笔者精力有限，这里只能粗浅地讨论这些问题，期待自己笔耕不辍，在未来慢慢填补这些空白。</p>
+<h2 id="总结">总结</h2>
+<p>梯度爆炸和梯度消失的问题曾困扰着深度学习的推进，但如今已经有很多的解决方法，也不再是一个棘手的问题。与此同时，深度学习效果不佳的原因有很多，梯度爆炸和消失并不是所有原因的罪魁祸首，还有诸如调参、网络结构和退化层面的问题……因此，要有足够的经验和牢固的知识体系，才能够更高效地发现问题和解决问题。</p>
+</div><div class="tags"><a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"><i class="fa fa-tag"></i>神经网络</a></div><div class="post-nav"><a class="next" href="/2021/03/27/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E5%85%A5%E9%97%A8%E2%80%94%E2%80%94%E6%9C%AF%E8%AF%AD%E7%AF%87/">目标检测入门——术语篇</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%A5%E9%94%99/">报错</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%80%9A%E4%BF%A1/">通信</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" style="font-size: 15px;">生成模型</a> <a href="/tags/%E8%B4%AA%E5%BF%83/" style="font-size: 15px;">贪心</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 15px;">动态规划</a> <a href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" style="font-size: 15px;">目标检测</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 15px;">神经网络</a> <a href="/tags/MIR/" style="font-size: 15px;">MIR</a> <a href="/tags/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">论文学习</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 15px;">分治</a> <a href="/tags/%E5%9B%9E%E6%BA%AF/" style="font-size: 15px;">回溯</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" style="font-size: 15px;">计算机视觉</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/" style="font-size: 15px;">网络流</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91/" style="font-size: 15px;">无线网</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/04/08/The-Vanishing-and-Exploding-Gradient-Problem/">梯度消失和梯度爆炸问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/03/27/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E5%85%A5%E9%97%A8%E2%80%94%E2%80%94%E6%9C%AF%E8%AF%AD%E7%AF%87/">目标检测入门——术语篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/26/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0-SongMASS/">论文学习: SongMASS</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/25/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0%EF%BC%9AThe-Capacity-of-Wireless-Networks/">论文学习：The Capacity of Wireless Networks</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/17/Conditional-GAN/">Conditional GAN</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/15/An-introduction-to-the-generative-model/">生成模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/10/%E8%AE%A4%E8%AE%A4%E7%9C%9F%E7%9C%9F%E5%86%99%E4%B8%80%E7%AF%87LSTM/">认认真真写一篇LSTM</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/09/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0-Conditional-LSTM-GAN-for-Melody-Generation-from-Lyrics/">论文学习 Conditional LSTM-GAN for Melody Generation from Lyrics</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/01/%E4%BB%8A%E5%A4%A9%E5%AD%A6%E4%B9%A0-RNN/">今天学习 RNN</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/01/09/Leetcode327-%E5%8C%BA%E9%97%B4%E5%92%8C%E7%9A%84%E4%B8%AA%E6%95%B0/">Leetcode327 区间和的个数</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Links</i></div><ul></ul><a href="https://github.com/hotelll/" title="gitHub" target="_blank">gitHub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">Hotel's Blog | </a><a rel="nofollow" target="_blank" href="http://beian.miit.gov.cn"> 鄂ICP备 19017407号-1 </a> | &nbsp;<img class="nofancybox" src="//cdn.foreversfj.com/image/blog/20190728/N0BTF6mJ1Ilb.png" style="margin-bottom: -4px;"/><a rel="nofollow" target="_blank" href="http://www.beian.gov.cn">&nbsp;鄂公网安备 42011102003450号</a><br/><span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>var now = new Date();
+function createtime() {
+var grt= new Date("07/09/2018 12:49:00");
+now.setTime(now.getTime()+250);
+days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+document.getElementById("timeDate").innerHTML = "运行 "+dnum+" 天 ";
+document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);</script><br/><div><div class="github-badge" style="margin-right: 3px;"><a href="https://hexo.io" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hexo</span></a></div><div class="github-badge"><a href="https://github.com/tufu9441/maupassant-hexo" target="_black" rel="nofollow"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a></div></div></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.0.0" async></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.css"><script type="text/javascript" src="/js/copycode.js" successtext="Copy Successed!"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css"><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=1.0.0"></script></div></body></html>

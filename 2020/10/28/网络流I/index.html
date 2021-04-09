@@ -1,168 +1,195 @@
-<!DOCTYPE html><html lang="en"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>网络流I：详解最大流最小割 | Hotel's Blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/normalize.css/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 5.3.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">网络流I：详解最大流最小割</h1><a id="logo" href="/.">Hotel's Blog</a><p class="description">Knowledge, Tech and Life</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">网络流I：详解最大流最小割</h1><div class="post-meta">2020-10-28<span> | </span><span class="category"><a href="/categories/%E7%AE%97%E6%B3%95/">算法</a></span><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span><span class="post-time"><span class="post-meta-item-text"> | </span><span class="post-meta-item-icon"><i class="fa fa-keyboard-o"></i><span class="post-count"> 1.8k</span><span class="post-meta-item-text"> Words</span></span></span><span class="post-time"> | <span class="post-meta-item-icon"><i class="fa fa-clock-o"></i><span class="post-count"> 7</span><span class="post-meta-item-text"> Minutes</span></span></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">Contents</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%A4%A7%E6%B5%81%E5%92%8C%E6%9C%80%E5%B0%8F%E5%89%B2"><span class="toc-number">1.</span> <span class="toc-text">最大流和最小割</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E6%B5%81%E5%9B%BE%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.</span> <span class="toc-text">网络流图的概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%B0%8F%E5%89%B2%E9%97%AE%E9%A2%98"><span class="toc-number">1.2.</span> <span class="toc-text">最小割问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%A4%A7%E6%B5%81%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.</span> <span class="toc-text">最大流问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%A4%A7%E6%B5%81%E9%97%AE%E9%A2%98%EF%BC%9AFord-Fulkerson-%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">最大流问题：Ford-Fulkerson 方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E6%80%9D%E6%83%B3%EF%BC%9A%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95"><span class="toc-number">2.1.</span> <span class="toc-text">错误思想：贪心算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AE%8B%E5%AD%98%E7%BD%91%E7%BB%9C-Residual-graph"><span class="toc-number">2.2.</span> <span class="toc-text">残存网络 Residual graph</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A2%9E%E5%B9%BF%E8%B7%AF%E5%BE%84-Augmenting-path"><span class="toc-number">2.3.</span> <span class="toc-text">增广路径 Augmenting path</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ford-Fulkerson-%E7%AE%97%E6%B3%95"><span class="toc-number">2.4.</span> <span class="toc-text">Ford-Fulkerson 算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E5%AE%9A%E7%90%86"><span class="toc-number">3.</span> <span class="toc-text">相关定理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E5%80%BC%E5%BC%95%E7%90%86"><span class="toc-number">3.1.</span> <span class="toc-text">流值引理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%B1%E5%AF%B9%E5%81%B6%E6%80%A7"><span class="toc-number">3.2.</span> <span class="toc-text">弱对偶性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%A4%A7%E6%B5%81%E6%9C%80%E5%B0%8F%E5%89%B2%E5%AE%9A%E7%90%86"><span class="toc-number">3.3.</span> <span class="toc-text">最大流最小割定理</span></a></li></ol></li></ol></div></div><div class="post-content"><p>网络流(Network-Flows)是一种类比水流的解决问题方法，是图论中的热门问题。网络流部分充满复杂的概念、算法以及奇妙的证明，对于初学者很不友好。因此本博客的目标是总结和梳理网络流的基础知识。网络流的知识将分为多个部分，在这一部分中我们主要讨论最大流最小割的定义，最大流问题的算法以及最大流最小割定理的证明。</p>
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>网络流I：详解最大流最小割 | Hotel's Blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/normalize.css/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 5.3.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">网络流I：详解最大流最小割</h1><a id="logo" href="/.">Hotel's Blog</a><p class="description">Knowledge, Tech and Life</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">网络流I：详解最大流最小割</h1><div class="post-meta">2020-10-28<span> | </span><span class="category"><a href="/categories/%E7%AE%97%E6%B3%95/">算法</a></span><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span><span class="post-time"><span class="post-meta-item-text"> | </span><span class="post-meta-item-icon"><i class="fa fa-keyboard-o"></i><span class="post-count"> 1.8k</span><span class="post-meta-item-text"> Words</span></span></span><span class="post-time"> | <span class="post-meta-item-icon"><i class="fa fa-clock-o"></i><span class="post-count"> 7</span><span class="post-meta-item-text"> Minutes</span></span></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">Contents</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%A4%A7%E6%B5%81%E5%92%8C%E6%9C%80%E5%B0%8F%E5%89%B2"><span class="toc-number">1.</span> <span class="toc-text">最大流和最小割</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E6%B5%81%E5%9B%BE%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.</span> <span class="toc-text">网络流图的概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%B0%8F%E5%89%B2%E9%97%AE%E9%A2%98"><span class="toc-number">1.2.</span> <span class="toc-text">最小割问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%A4%A7%E6%B5%81%E9%97%AE%E9%A2%98"><span class="toc-number">1.3.</span> <span class="toc-text">最大流问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%A4%A7%E6%B5%81%E9%97%AE%E9%A2%98ford-fulkerson-%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">最大流问题：Ford-Fulkerson 方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E6%80%9D%E6%83%B3%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95"><span class="toc-number">2.1.</span> <span class="toc-text">错误思想：贪心算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AE%8B%E5%AD%98%E7%BD%91%E7%BB%9C-residual-graph"><span class="toc-number">2.2.</span> <span class="toc-text">残存网络 Residual graph</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A2%9E%E5%B9%BF%E8%B7%AF%E5%BE%84-augmenting-path"><span class="toc-number">2.3.</span> <span class="toc-text">增广路径 Augmenting path</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ford-fulkerson-%E7%AE%97%E6%B3%95"><span class="toc-number">2.4.</span> <span class="toc-text">Ford-Fulkerson 算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E5%AE%9A%E7%90%86"><span class="toc-number">3.</span> <span class="toc-text">相关定理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E5%80%BC%E5%BC%95%E7%90%86"><span class="toc-number">3.1.</span> <span class="toc-text">流值引理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%B1%E5%AF%B9%E5%81%B6%E6%80%A7"><span class="toc-number">3.2.</span> <span class="toc-text">弱对偶性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%A4%A7%E6%B5%81%E6%9C%80%E5%B0%8F%E5%89%B2%E5%AE%9A%E7%90%86"><span class="toc-number">3.3.</span> <span class="toc-text">最大流最小割定理</span></a></li></ol></li></ol></div></div><div class="post-content"><script src="\assets\js\APlayer.min.js"> </script><p>网络流(Network-Flows)是一种类比水流的解决问题方法，是图论中的热门问题。网络流部分充满复杂的概念、算法以及奇妙的证明，对于初学者很不友好。因此本博客的目标是总结和梳理网络流的基础知识。网络流的知识将分为多个部分，在这一部分中我们主要讨论最大流最小割的定义，最大流问题的算法以及最大流最小割定理的证明。</p>
 <a id="more"></a>
-<h2 id="最大流和最小割"><a href="#最大流和最小割" class="headerlink" title="最大流和最小割"></a>最大流和最小割</h2><h3 id="网络流图的概念"><a href="#网络流图的概念" class="headerlink" title="网络流图的概念"></a>网络流图的概念</h3><div align="center"><img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/1.png" alt="1" style="zoom: 80%;"></div>
-
+<h2 id="最大流和最小割">最大流和最小割</h2>
+<h3 id="网络流图的概念">网络流图的概念</h3>
+<div data-align="center">
+<img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/1.png" alt="1" style="zoom: 80%;">
+</div>
 <p>网络流图（Flow Network）是对于物质流动的一种抽象。它的定义如下：</p>
 <ul>
-<li>是一张有向图 $G=(V,E)$，它包含源点 $s\in V$ 和汇点 $t\in V$。</li>
-<li>对于图上每条边 $e$，都有非负整数容量 $c(e)$，容量是指同一时间能够流过边的最大的量。</li>
+<li>是一张有向图 <span class="math inline">\(G=(V,E)\)</span>，它包含源点 <span class="math inline">\(s\in V\)</span> 和汇点 <span class="math inline">\(t\in V\)</span>。</li>
+<li>对于图上每条边 <span class="math inline">\(e\)</span>，都有非负整数容量 <span class="math inline">\(c(e)\)</span>，容量是指同一时间能够流过边的最大的量。</li>
 </ul>
-<h3 id="最小割问题"><a href="#最小割问题" class="headerlink" title="最小割问题"></a>最小割问题</h3><div align="center"><img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/2.png" alt="2" style="zoom: 80%;"></div>
-
-<p><strong>割：</strong>割（Cut）是对图上节点的分割 $(A,B)$，其中 $s\in A$ 且 $t\in B$。</p>
-<p><strong>割的流量：</strong>所有从点集 $A$ 到点集 $B$ 的边的流量之和（注意一定从 $A$ 指向 $B$）。</p>
-<script type="math/tex; mode=display">
-cap(A,B)=\sum_{\mathrm{e\ out\ of\ A}} c(e)</script><p><strong>最小割问题：</strong>找到一个流量最小的割。</p>
-<h3 id="最大流问题"><a href="#最大流问题" class="headerlink" title="最大流问题"></a>最大流问题</h3><p><strong>流(Flow)：</strong>流是一个满足下列条件的函数：</p>
+<h3 id="最小割问题">最小割问题</h3>
+<div data-align="center">
+<img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/2.png" alt="2" style="zoom: 80%;">
+</div>
+<p><strong>割：</strong>割（Cut）是对图上节点的分割 <span class="math inline">\((A,B)\)</span>，其中 <span class="math inline">\(s\in A\)</span> 且 <span class="math inline">\(t\in B\)</span>。</p>
+<p><strong>割的流量：</strong>所有从点集 <span class="math inline">\(A\)</span> 到点集 <span class="math inline">\(B\)</span> 的边的流量之和（注意一定从 <span class="math inline">\(A\)</span> 指向 <span class="math inline">\(B\)</span>）。 <span class="math display">\[
+cap(A,B)=\sum_{\mathrm{e\ out\ of\ A}} c(e)
+\]</span> <strong>最小割问题：</strong>找到一个流量最小的割。</p>
+<h3 id="最大流问题">最大流问题</h3>
+<p><strong>流(Flow)：</strong>流是一个满足下列条件的函数：</p>
 <ul>
 <li><p>【流量限制】每条边的流小于该边容量</p>
-<p>对于每一条边 $e\in E$，有 $0\leq f(e)\leq c(e)$。</p>
-</li>
+<p>对于每一条边 <span class="math inline">\(e\in E\)</span>，有 <span class="math inline">\(0\leq f(e)\leq c(e)\)</span>。</p></li>
 <li><p>【流量守恒】除了源点与汇点，每个点流入量等于流出量</p>
-<p>对于每一个点 $v\in V-\{s,t\}$，有</p>
-</li>
+<p>对于每一个点 <span class="math inline">\(v\in V-\{s,t\}\)</span>，有</p></li>
 </ul>
-<script type="math/tex; mode=display">
-\sum_{e\ \mathrm{into}\ v}f(e)=\sum_{e\ \mathrm{out\ of}\ v}f(e)​</script><div align="center"><img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/3.png" alt="3" style="zoom: 80%;"></div>
-
-<p><strong>流的值：</strong>从源点流出的流量总和。</p>
-<script type="math/tex; mode=display">
-val(f)=\sum_{e\ \mathrm{out\ of}\ s}f(e)</script><div align="center"><img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/4.png" alt="4" style="zoom: 80%;"></div>
-
+<p><span class="math display">\[
+\sum_{e\ \mathrm{into}\ v}f(e)=\sum_{e\ \mathrm{out\ of}\ v}f(e)​
+\]</span></p>
+<div data-align="center">
+<img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/3.png" alt="3" style="zoom: 80%;">
+</div>
+<strong>流的值：</strong>从源点流出的流量总和。 <span class="math display">\[
+val(f)=\sum_{e\ \mathrm{out\ of}\ s}f(e)
+\]</span>
+<div data-align="center">
+<img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/4.png" alt="4" style="zoom: 80%;">
+</div>
 <p><strong>最大流问题：</strong>找到<strong>值最大</strong>的流函数。</p>
-<h2 id="最大流问题：Ford-Fulkerson-方法"><a href="#最大流问题：Ford-Fulkerson-方法" class="headerlink" title="最大流问题：Ford-Fulkerson 方法"></a>最大流问题：Ford-Fulkerson 方法</h2><h3 id="错误思想：贪心算法"><a href="#错误思想：贪心算法" class="headerlink" title="错误思想：贪心算法"></a>错误思想：贪心算法</h3><p>首先提一种错误的算法来抛砖引玉，那就是贪心算法，它的流程如下所示。</p>
+<h2 id="最大流问题ford-fulkerson-方法">最大流问题：Ford-Fulkerson 方法</h2>
+<h3 id="错误思想贪心算法">错误思想：贪心算法</h3>
+<p>首先提一种错误的算法来抛砖引玉，那就是贪心算法，它的流程如下所示。</p>
 <ul>
-<li>初始化：对于所有边 $e\in E$，$f(e)=0$。 </li>
-<li>找到任意一条 $s\to t$ 的路径 $P$，路径上的边满足 $f(e)&lt;c(e)$。</li>
-<li>沿着路径 $P$ 在每条边上添加流。</li>
-<li>重复此过程直到找不到满足条件的路径 $P$。</li>
+<li>初始化：对于所有边 <span class="math inline">\(e\in E\)</span>，<span class="math inline">\(f(e)=0\)</span>。</li>
+<li>找到任意一条 <span class="math inline">\(s\to t\)</span> 的路径 <span class="math inline">\(P\)</span>，路径上的边满足 <span class="math inline">\(f(e)&lt;c(e)\)</span>。</li>
+<li>沿着路径 <span class="math inline">\(P\)</span> 在每条边上添加流。</li>
+<li>重复此过程直到找不到满足条件的路径 <span class="math inline">\(P\)</span>。</li>
 </ul>
-<div align="center"><img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/greedyDemo1.png" alt="greedyDemo1" style="zoom: 80%;"></div>
-
-<div align="center"><img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/greedyDemo2.png" alt="greedyDemo2" style="zoom: 80%;"></div>
-
-<div align="center"><img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/greedyDemo3.png" alt="greedyDemo3.png" style="zoom: 80%;"></div>
-
-<div align="center"><img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/greedyDemo4.png" alt="greedyDemo4" style="zoom: 80%;"></div>
-
-<div align="center"><img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/greedyDemo5.png" alt="greedyDemo5" style="zoom: 88%;"></div>
-
+<div data-align="center">
+<img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/greedyDemo1.png" alt="greedyDemo1" style="zoom: 80%;">
+</div>
+<div data-align="center">
+<img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/greedyDemo2.png" alt="greedyDemo2" style="zoom: 80%;">
+</div>
+<div data-align="center">
+<img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/greedyDemo3.png" alt="greedyDemo3.png" style="zoom: 80%;">
+</div>
+<div data-align="center">
+<img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/greedyDemo4.png" alt="greedyDemo4" style="zoom: 80%;">
+</div>
+<div data-align="center">
+<img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/greedyDemo5.png" alt="greedyDemo5" style="zoom: 88%;">
+</div>
 <p>通过贪心算法得到的最大流的值为16，但是我们发现最大流的值可以达到19，如下图所示。</p>
-<div align="center"><img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/answer.png" alt="answer" style="zoom: 70%;"></div>
-
+<div data-align="center">
+<img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/answer.png" alt="answer" style="zoom: 70%;">
+</div>
 <p>事实上，单纯的贪心算法无法解决最大流问题，因为贪心算法中的每一个选择是无法回退的，很可能使算法达不到最优解。</p>
-<h3 id="残存网络-Residual-graph"><a href="#残存网络-Residual-graph" class="headerlink" title="残存网络 Residual graph"></a>残存网络 Residual graph</h3><p>既然贪心算法无法回退，那么我们就在图上增加回退的边，构成一张新的网络——残存网络。对于网络中的每条边 $e=(u,v)$，添加一条反向边 $e^R=(v,u)$。残存网络 $G_f$ 中各边的容量称为<strong>残存容量</strong>（Residual capacity），残存容量的大小定义为：</p>
-<div align="center"><img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/residual.png" alt="residual" style="zoom:100%;"></div>
-
+<h3 id="残存网络-residual-graph">残存网络 Residual graph</h3>
+既然贪心算法无法回退，那么我们就在图上增加回退的边，构成一张新的网络——残存网络。对于网络中的每条边 <span class="math inline">\(e=(u,v)\)</span>，添加一条反向边 <span class="math inline">\(e^R=(v,u)\)</span>。残存网络 <span class="math inline">\(G_f\)</span> 中各边的容量称为<strong>残存容量</strong>（Residual capacity），残存容量的大小定义为：
+<div data-align="center">
+<img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/residual.png" alt="residual" style="zoom:100%;">
+</div>
 <p>下图展示了残边的生成过程。</p>
-<div align="center"><img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/residualEdge.png" alt="residualEdge" style="zoom:100%;"></div>
-
-<p><strong>关键性质：</strong>$f’$ 是残存网络 $G_f$ 的流函数$\iff$ $f+f’$ 是原网络 $G$ 的流函数。</p>
-<h3 id="增广路径-Augmenting-path"><a href="#增广路径-Augmenting-path" class="headerlink" title="增广路径 Augmenting path"></a>增广路径 Augmenting path</h3><p><strong>简单路径 Simple path：</strong>路径上经过的结点不重复的路径。</p>
-<p><strong>增广路径 Augmenting path：</strong>残存网络上一条从 $s$ 到 $t$ 的简单路径 $P$。</p>
+<div data-align="center">
+<img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/residualEdge.png" alt="residualEdge" style="zoom:100%;">
+</div>
+<p><strong>关键性质：</strong><span class="math inline">\(f&#39;\)</span> 是残存网络 <span class="math inline">\(G_f\)</span> 的流函数<span class="math inline">\(\iff\)</span> <span class="math inline">\(f+f&#39;\)</span> 是原网络 <span class="math inline">\(G\)</span> 的流函数。</p>
+<h3 id="增广路径-augmenting-path">增广路径 Augmenting path</h3>
+<p><strong>简单路径 Simple path：</strong>路径上经过的结点不重复的路径。</p>
+<p><strong>增广路径 Augmenting path：</strong>残存网络上一条从 <span class="math inline">\(s\)</span> 到 <span class="math inline">\(t\)</span> 的简单路径 <span class="math inline">\(P\)</span>。</p>
 <p><strong>瓶颈容量 Bottleneck capacity：</strong>增广路径上所有边的残存容量的最小值。</p>
-<p><strong>关键性质：</strong>令 $f$ 是流，$P$ 是残存网络 $G_f$ 中的一条增广路径，则存在另一个流 $f’$，满足:</p>
-<script type="math/tex; mode=display">
-val(f')=val(f)+bottleneck(G_f,P)</script><h3 id="Ford-Fulkerson-算法"><a href="#Ford-Fulkerson-算法" class="headerlink" title="Ford-Fulkerson 算法"></a>Ford-Fulkerson 算法</h3><p>准备铺垫完成，正式进入正题。Ford-Fulkerson 算法的流程如下：</p>
+<p><strong>关键性质：</strong>令 <span class="math inline">\(f\)</span> 是流，<span class="math inline">\(P\)</span> 是残存网络 <span class="math inline">\(G_f\)</span> 中的一条增广路径，则存在另一个流 <span class="math inline">\(f&#39;\)</span>，满足: <span class="math display">\[
+val(f&#39;)=val(f)+bottleneck(G_f,P)
+\]</span></p>
+<h3 id="ford-fulkerson-算法">Ford-Fulkerson 算法</h3>
+<p>准备铺垫完成，正式进入正题。Ford-Fulkerson 算法的流程如下：</p>
 <p>算法伪代码：</p>
-<div align="center"><img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/FF.png" style="zoom:120%;"></div>
-
+<div data-align="center">
+<img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/FF.png" style="zoom:120%;">
+</div>
 <p>算法流程：</p>
 <ul>
-<li>初始化：对于网络 $G$ 上所有边 $e$，令 $f(e)=0$。</li>
-<li>在残存网络 $G_f$ 中任意寻找一条增广路径 $P$。</li>
-<li>在路径 $P$ 上添加流。</li>
+<li>初始化：对于网络 <span class="math inline">\(G\)</span> 上所有边 <span class="math inline">\(e\)</span>，令 <span class="math inline">\(f(e)=0\)</span>。</li>
+<li>在残存网络 <span class="math inline">\(G_f\)</span> 中任意寻找一条增广路径 <span class="math inline">\(P\)</span>。</li>
+<li>在路径 <span class="math inline">\(P\)</span> 上添加流。</li>
 <li>重复直到找不到增广路径。</li>
 </ul>
 <p>下面展示一个 Ford-Fulkerson 算法运行的 demo：</p>
-<div align="center"><img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/F12.png" style="zoom:120%;"></div>
-
-<div align="center"><img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/F34.png" style="zoom:120%;"></div>
-
-<div align="center"><img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/F56.png" style="zoom:120%;"></div>
-
-
-
-<h2 id="相关定理"><a href="#相关定理" class="headerlink" title="相关定理"></a>相关定理</h2><h3 id="流值引理"><a href="#流值引理" class="headerlink" title="流值引理"></a>流值引理</h3><p>令 $f$ 是任意流并令 $(A,B)$ 是任意割。则穿过 $(A,B)$ 的净流量等于流 $f$ 的值。</p>
-<script type="math/tex; mode=display">
-\sum_{e\ \mathrm{out\ of}\ A}f(e)-\sum_{e\ \mathrm{in\ to}\ A}f(e)=val(f)</script><p><strong>证明：</strong>首先根据流值的定义：</p>
-<script type="math/tex; mode=display">
-val(f)=\sum_{e\ \mathrm{out\ of}\ s}f(e)\\</script><p>根据<strong>流量守恒</strong>定理，在 $v\neq s$ 时有：</p>
-<script type="math/tex; mode=display">
-\sum_{e\ \mathrm{out\ of}\ v}f(e)-\sum_{e\ \mathrm{in\ to}\ v}f(e)=0</script><p>所以进一步可得：</p>
-<script type="math/tex; mode=display">
-val(f)=\sum_{v\in A}\left(\sum_{e\ \mathrm{out\ of}\ v}f(e)-\sum_{e\ \mathrm{in\ to}\ v}f(e) \right)</script><p>最终证明完毕：</p>
-<script type="math/tex; mode=display">
-val(f)=\sum_{e\ \mathrm{out\ of}\ A}f(e)-\sum_{e\ \mathrm{in\ to}\ A}f(e)</script><h3 id="弱对偶性"><a href="#弱对偶性" class="headerlink" title="弱对偶性"></a>弱对偶性</h3><p>令 $f$ 为任意流且 $(A,B)$ 为任意割，则 $val(f)\leq cap(A,B)$。</p>
+<div data-align="center">
+<img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/F12.png" style="zoom:120%;">
+</div>
+<div data-align="center">
+<img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/F34.png" style="zoom:120%;">
+</div>
+<div data-align="center">
+<img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/F56.png" style="zoom:120%;">
+</div>
+<h2 id="相关定理">相关定理</h2>
+<h3 id="流值引理">流值引理</h3>
+<p>令 <span class="math inline">\(f\)</span> 是任意流并令 <span class="math inline">\((A,B)\)</span> 是任意割。则穿过 <span class="math inline">\((A,B)\)</span> 的净流量等于流 <span class="math inline">\(f\)</span> 的值。 <span class="math display">\[
+\sum_{e\ \mathrm{out\ of}\ A}f(e)-\sum_{e\ \mathrm{in\ to}\ A}f(e)=val(f)
+\]</span> <strong>证明：</strong>首先根据流值的定义： <span class="math display">\[
+val(f)=\sum_{e\ \mathrm{out\ of}\ s}f(e)\\
+\]</span> 根据<strong>流量守恒</strong>定理，在 <span class="math inline">\(v\neq s\)</span> 时有： <span class="math display">\[
+\sum_{e\ \mathrm{out\ of}\ v}f(e)-\sum_{e\ \mathrm{in\ to}\ v}f(e)=0
+\]</span> 所以进一步可得： <span class="math display">\[
+val(f)=\sum_{v\in A}\left(\sum_{e\ \mathrm{out\ of}\ v}f(e)-\sum_{e\ \mathrm{in\ to}\ v}f(e) \right)
+\]</span> 最终证明完毕： <span class="math display">\[
+val(f)=\sum_{e\ \mathrm{out\ of}\ A}f(e)-\sum_{e\ \mathrm{in\ to}\ A}f(e)
+\]</span></p>
+<h3 id="弱对偶性">弱对偶性</h3>
+<p>令 <span class="math inline">\(f\)</span> 为任意流且 <span class="math inline">\((A,B)\)</span> 为任意割，则 <span class="math inline">\(val(f)\leq cap(A,B)\)</span>。</p>
 <p><strong>证明：</strong></p>
-<p>根据流值引理可得：</p>
-<script type="math/tex; mode=display">
+<p>根据流值引理可得： <span class="math display">\[
 \begin{aligned}
     val(f)
-    &=\sum_{e\ \mathrm{out\ of}\ A}f(e)-\sum_{e\ \mathrm{in\ to}\ A}f(e)\\
-    &\leq \sum_{e\ \mathrm{out\ of}\ A}f(e)\\
-    &\leq \sum_{e\ \mathrm{out\ of}\ A}c(e)\\
-    &=cap(A,B)
-\end{aligned}</script><h3 id="最大流最小割定理"><a href="#最大流最小割定理" class="headerlink" title="最大流最小割定理"></a>最大流最小割定理</h3><p>令 $f$ 为流网络 $G=(V,E)$ 中的一个流，该网络的源点为 $s$，汇点为 $t$，则下面条件等价：</p>
+    &amp;=\sum_{e\ \mathrm{out\ of}\ A}f(e)-\sum_{e\ \mathrm{in\ to}\ A}f(e)\\
+    &amp;\leq \sum_{e\ \mathrm{out\ of}\ A}f(e)\\
+    &amp;\leq \sum_{e\ \mathrm{out\ of}\ A}c(e)\\
+    &amp;=cap(A,B)
+\end{aligned}
+\]</span></p>
+<h3 id="最大流最小割定理">最大流最小割定理</h3>
+<p>令 <span class="math inline">\(f\)</span> 为流网络 <span class="math inline">\(G=(V,E)\)</span> 中的一个流，该网络的源点为 <span class="math inline">\(s\)</span>，汇点为 <span class="math inline">\(t\)</span>，则下面条件等价：</p>
 <ul>
-<li><p>存在 $(A,B)$ 是流网络 $G$ 的一个割，使得 $val(f)=cap(A,B)$。</p>
-</li>
-<li><p>$f$ 是 $G$ 的一个最大流。</p>
-</li>
-<li>残存网络 $G_f$ 不包括任何增广路径。</li>
+<li><p>存在 <span class="math inline">\((A,B)\)</span> 是流网络 <span class="math inline">\(G\)</span> 的一个割，使得 <span class="math inline">\(val(f)=cap(A,B)\)</span>。</p></li>
+<li><p><span class="math inline">\(f\)</span> 是 <span class="math inline">\(G\)</span> 的一个最大流。</p></li>
+<li><p>残存网络 <span class="math inline">\(G_f\)</span> 不包括任何增广路径。</p></li>
 </ul>
-<p><strong>证明：1 $\to$ 2</strong></p>
+<p><strong>证明：1 <span class="math inline">\(\to\)</span> 2</strong></p>
 <ul>
-<li><p>假设 $(A,B)$ 是一个割且满足 $cap(A,B)=val(f)$。</p>
-</li>
-<li><p>然后，对于任意流 $f’$，根据弱对偶性，$val(f’)\leq cap(A,B)=val(f)$</p>
-</li>
-<li><p>因此，$f$ 是一个最大流。</p>
-</li>
+<li><p>假设 <span class="math inline">\((A,B)\)</span> 是一个割且满足 <span class="math inline">\(cap(A,B)=val(f)\)</span>。</p></li>
+<li><p>然后，对于任意流 <span class="math inline">\(f&#39;\)</span>，根据弱对偶性，<span class="math inline">\(val(f&#39;)\leq cap(A,B)=val(f)\)</span></p></li>
+<li><p>因此，<span class="math inline">\(f\)</span> 是一个最大流。</p></li>
 </ul>
-<p><strong>证明：2 $\to$ 3（反证法）</strong></p>
+<p><strong>证明：2 <span class="math inline">\(\to\)</span> 3（反证法）</strong></p>
 <ul>
-<li>假设对于流 $f$ 存在一条增广路径。</li>
-<li>那么我们可以通过在这条路径上加流量来增加 $val(f)$。</li>
-<li>因此，$f$ 不是最大流。</li>
+<li>假设对于流 <span class="math inline">\(f\)</span> 存在一条增广路径。</li>
+<li>那么我们可以通过在这条路径上加流量来增加 <span class="math inline">\(val(f)\)</span>。</li>
+<li>因此，<span class="math inline">\(f\)</span> 不是最大流。</li>
 </ul>
-<p><strong>证明：3 $\to$ 1</strong></p>
+<p><strong>证明：3 <span class="math inline">\(\to\)</span> 1</strong></p>
 <ul>
-<li>令 $f$ 是没有增广路径的流。</li>
-<li>令 $A$ 是残存网络 $G_f$ 中源点 $s$ 可达的点的集合。</li>
-<li>根据割 $A$ 的定义，$s\in A$。</li>
-<li>根据流 $f$ 的定义，因为没有增广路径，所以 $t\notin A$。</li>
+<li>令 <span class="math inline">\(f\)</span> 是没有增广路径的流。</li>
+<li>令 <span class="math inline">\(A\)</span> 是残存网络 <span class="math inline">\(G_f\)</span> 中源点 <span class="math inline">\(s\)</span> 可达的点的集合。</li>
+<li>根据割 <span class="math inline">\(A\)</span> 的定义，<span class="math inline">\(s\in A\)</span>。</li>
+<li>根据流 <span class="math inline">\(f\)</span> 的定义，因为没有增广路径，所以 <span class="math inline">\(t\notin A\)</span>。</li>
 </ul>
 <p>根据上述条件，我们可以得到两个有趣的结论：</p>
 <ul>
-<li><p>对于任何从 $B$ 到 $A$ 的边 $e=(v,w)$ 其中 $v\in B,\ w\in A$，有 $f(e)=0$。</p>
+<li>对于任何从 <span class="math inline">\(B\)</span> 到 <span class="math inline">\(A\)</span> 的边 <span class="math inline">\(e=(v,w)\)</span> 其中 <span class="math inline">\(v\in B,\ w\in A\)</span>，有 <span class="math inline">\(f(e)=0\)</span>。
 <ul>
-<li>原因：如果 $f(v,w)\neq 0$，则在残存网络中，残存边 $(w,v)$ 的残存容量 $c_f(w,v)=e(v,w)&gt;0$。这样在残存网络 $G_f$ 中 $w$ 可达 $v$，即 $s$ 可达 $v$，说明 $v$ 应当在 $A$ 中，与条件矛盾。</li>
-</ul>
-</li>
-<li><p>对于任何从 $A$ 到 $B$ 的边 $e=(v,w)$ 其中 $v\in A,\ w\in B$，有 $f(e)=c(e)$。</p>
+<li>原因：如果 <span class="math inline">\(f(v,w)\neq 0\)</span>，则在残存网络中，残存边 <span class="math inline">\((w,v)\)</span> 的残存容量 <span class="math inline">\(c_f(w,v)=e(v,w)&gt;0\)</span>。这样在残存网络 <span class="math inline">\(G_f\)</span> 中 <span class="math inline">\(w\)</span> 可达 <span class="math inline">\(v\)</span>，即 <span class="math inline">\(s\)</span> 可达 <span class="math inline">\(v\)</span>，说明 <span class="math inline">\(v\)</span> 应当在 <span class="math inline">\(A\)</span> 中，与条件矛盾。</li>
+</ul></li>
+<li>对于任何从 <span class="math inline">\(A\)</span> 到 <span class="math inline">\(B\)</span> 的边 <span class="math inline">\(e=(v,w)\)</span> 其中 <span class="math inline">\(v\in A,\ w\in B\)</span>，有 <span class="math inline">\(f(e)=c(e)\)</span>。
 <ul>
-<li>原因：如果 $f(v,w)<c(v,w)$，则在残存网络 $g_f$ 中有 $c_f(v,w)="c(v,w)-f(v,w)">0$，这意味着 $G_f$ 中 $v$ 可达 $w$，即 $s$ 可达 $w$，$w$ 应该在 $A$ 中，与条件矛盾。</c(v,w)$，则在残存网络></li>
-</ul>
-</li>
+<li>原因：如果 <span class="math inline">\(f(v,w)&lt;c(v,w)\)</span>，则在残存网络 <span class="math inline">\(G_f\)</span> 中有 <span class="math inline">\(c_f(v,w)=c(v,w)-f(v,w)&gt;0\)</span>，这意味着 <span class="math inline">\(G_f\)</span> 中 <span class="math inline">\(v\)</span> 可达 <span class="math inline">\(w\)</span>，即 <span class="math inline">\(s\)</span> 可达 <span class="math inline">\(w\)</span>，<span class="math inline">\(w\)</span> 应该在 <span class="math inline">\(A\)</span> 中，与条件矛盾。</li>
+</ul></li>
 </ul>
 <p>结论的示意图如下：</p>
-<div align="center"><img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/proof3to1.png" style="zoom:100%;"></div>
-
-<p>由此进行推导即可证明：</p>
-<script type="math/tex; mode=display">
+<div data-align="center">
+<img src="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/proof3to1.png" style="zoom:100%;">
+</div>
+<p>由此进行推导即可证明： <span class="math display">\[
 \begin{aligned}
     val(f)
-    &=\sum_{e\ \mathrm{out\ of}\ A}f(e)-\sum_{e\ \mathrm{in\ to}\ A}f(e)\\
-    &=\sum_{e\ \mathrm{out\ of}\ A}c(e)\\
-    &=cap(A,B)
-\end{aligned}</script><p>事实上，最大流最小割定理就证明了：<strong>最大流的值等于最小割的容量</strong>。</p>
-<p>因为根据弱对偶性，对于任意割 $(A,B)$ 我们有：</p>
-<script type="math/tex; mode=display">
-val(f)\leq cap(A,B)</script><p>根据最大流最小割定理3，可得：</p>
-<script type="math/tex; mode=display">
-val(f^*)=cap(A,B)</script><p>因此 $(A,B)$ 一定是容量最小的割，且其容量等于最大流的值。</p>
-</div><div class="tags"><a href="/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/"><i class="fa fa-tag"></i>网络流</a></div><div class="post-nav"><a class="pre" href="/2020/10/29/%E7%BD%91%E7%BB%9C%E6%B5%81II/">网络流II：Capacity-scaling 算法</a><a class="next" href="/2020/09/07/%E7%A8%B3%E5%AE%9A%E5%8C%B9%E9%85%8D/">稳定匹配</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%A5%E9%94%99/">报错</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%80%9A%E4%BF%A1/">通信</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/%E8%B4%AA%E5%BF%83/" style="font-size: 15px;">贪心</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 15px;">动态规划</a> <a href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" style="font-size: 15px;">生成模型</a> <a href="/tags/MIR/" style="font-size: 15px;">MIR</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 15px;">分治</a> <a href="/tags/%E5%9B%9E%E6%BA%AF/" style="font-size: 15px;">回溯</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 15px;">神经网络</a> <a href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" style="font-size: 15px;">目标检测</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/" style="font-size: 15px;">网络流</a> <a href="/tags/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">论文学习</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" style="font-size: 15px;">计算机视觉</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91/" style="font-size: 15px;">无线网</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/03/27/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E5%85%A5%E9%97%A8%E2%80%94%E2%80%94%E6%9C%AF%E8%AF%AD%E7%AF%87/">目标检测入门——术语篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/26/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0-SongMASS/">论文学习: SongMASS</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/25/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0%EF%BC%9AThe-Capacity-of-Wireless-Networks/">论文学习：The Capacity of Wireless Networks</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/17/Conditional-GAN/">Conditional GAN</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/15/An-introduction-to-the-generative-model/">生成模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/10/%E8%AE%A4%E8%AE%A4%E7%9C%9F%E7%9C%9F%E5%86%99%E4%B8%80%E7%AF%87LSTM/">认认真真写一篇LSTM</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/09/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0-Conditional-LSTM-GAN-for-Melody-Generation-from-Lyrics/">论文学习 Conditional LSTM-GAN for Melody Generation from Lyrics</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/01/%E4%BB%8A%E5%A4%A9%E5%AD%A6%E4%B9%A0-RNN/">今天学习 RNN</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/01/09/Leetcode327-%E5%8C%BA%E9%97%B4%E5%92%8C%E7%9A%84%E4%B8%AA%E6%95%B0/">Leetcode327 区间和的个数</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/23/OS9-Main-Memory/">OS9 Main Memory</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Links</i></div><ul></ul><a href="https://github.com/hotelll/" title="gitHub" target="_blank">gitHub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">Hotel's Blog | </a><a rel="nofollow" target="_blank" href="http://beian.miit.gov.cn"> 鄂ICP备 19017407号-1 </a> | &nbsp;<img class="nofancybox" src="//cdn.foreversfj.com/image/blog/20190728/N0BTF6mJ1Ilb.png" style="margin-bottom: -4px;"/><a rel="nofollow" target="_blank" href="http://www.beian.gov.cn">&nbsp;鄂公网安备 42011102003450号</a><br/><span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>var now = new Date();
+    &amp;=\sum_{e\ \mathrm{out\ of}\ A}f(e)-\sum_{e\ \mathrm{in\ to}\ A}f(e)\\
+    &amp;=\sum_{e\ \mathrm{out\ of}\ A}c(e)\\
+    &amp;=cap(A,B)
+\end{aligned}
+\]</span></p>
+<p>事实上，最大流最小割定理就证明了：<strong>最大流的值等于最小割的容量</strong>。</p>
+<p>因为根据弱对偶性，对于任意割 <span class="math inline">\((A,B)\)</span> 我们有： <span class="math display">\[
+val(f)\leq cap(A,B)
+\]</span> 根据最大流最小割定理3，可得： <span class="math display">\[
+val(f^*)=cap(A,B)
+\]</span></p>
+<p>因此 <span class="math inline">\((A,B)\)</span> 一定是容量最小的割，且其容量等于最大流的值。</p>
+</div><div class="tags"><a href="/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/"><i class="fa fa-tag"></i>网络流</a></div><div class="post-nav"><a class="pre" href="/2020/10/29/%E7%BD%91%E7%BB%9C%E6%B5%81II/">网络流II：Capacity-scaling 算法</a><a class="next" href="/2020/09/07/%E7%A8%B3%E5%AE%9A%E5%8C%B9%E9%85%8D/">稳定匹配</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%A5%E9%94%99/">报错</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%80%9A%E4%BF%A1/">通信</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" style="font-size: 15px;">生成模型</a> <a href="/tags/%E8%B4%AA%E5%BF%83/" style="font-size: 15px;">贪心</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 15px;">动态规划</a> <a href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" style="font-size: 15px;">目标检测</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 15px;">神经网络</a> <a href="/tags/MIR/" style="font-size: 15px;">MIR</a> <a href="/tags/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">论文学习</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 15px;">分治</a> <a href="/tags/%E5%9B%9E%E6%BA%AF/" style="font-size: 15px;">回溯</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" style="font-size: 15px;">计算机视觉</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/" style="font-size: 15px;">网络流</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91/" style="font-size: 15px;">无线网</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/04/08/The-Vanishing-and-Exploding-Gradient-Problem/">梯度消失和梯度爆炸问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/03/27/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E5%85%A5%E9%97%A8%E2%80%94%E2%80%94%E6%9C%AF%E8%AF%AD%E7%AF%87/">目标检测入门——术语篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/26/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0-SongMASS/">论文学习: SongMASS</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/25/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0%EF%BC%9AThe-Capacity-of-Wireless-Networks/">论文学习：The Capacity of Wireless Networks</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/17/Conditional-GAN/">Conditional GAN</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/15/An-introduction-to-the-generative-model/">生成模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/10/%E8%AE%A4%E8%AE%A4%E7%9C%9F%E7%9C%9F%E5%86%99%E4%B8%80%E7%AF%87LSTM/">认认真真写一篇LSTM</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/09/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0-Conditional-LSTM-GAN-for-Melody-Generation-from-Lyrics/">论文学习 Conditional LSTM-GAN for Melody Generation from Lyrics</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/01/%E4%BB%8A%E5%A4%A9%E5%AD%A6%E4%B9%A0-RNN/">今天学习 RNN</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/01/09/Leetcode327-%E5%8C%BA%E9%97%B4%E5%92%8C%E7%9A%84%E4%B8%AA%E6%95%B0/">Leetcode327 区间和的个数</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Links</i></div><ul></ul><a href="https://github.com/hotelll/" title="gitHub" target="_blank">gitHub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">Hotel's Blog | </a><a rel="nofollow" target="_blank" href="http://beian.miit.gov.cn"> 鄂ICP备 19017407号-1 </a> | &nbsp;<img class="nofancybox" src="//cdn.foreversfj.com/image/blog/20190728/N0BTF6mJ1Ilb.png" style="margin-bottom: -4px;"/><a rel="nofollow" target="_blank" href="http://www.beian.gov.cn">&nbsp;鄂公网安备 42011102003450号</a><br/><span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>var now = new Date();
 function createtime() {
 var grt= new Date("07/09/2018 12:49:00");
 now.setTime(now.getTime()+250);

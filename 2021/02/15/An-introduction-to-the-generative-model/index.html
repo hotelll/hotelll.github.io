@@ -1,106 +1,120 @@
-<!DOCTYPE html><html lang="en"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>生成模型 | Hotel's Blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/normalize.css/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 5.3.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">生成模型</h1><a id="logo" href="/.">Hotel's Blog</a><p class="description">Knowledge, Tech and Life</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">生成模型</h1><div class="post-meta">2021-02-15<span> | </span><span class="category"><a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></span><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span><span class="post-time"><span class="post-meta-item-text"> | </span><span class="post-meta-item-icon"><i class="fa fa-keyboard-o"></i><span class="post-count"> 2.3k</span><span class="post-meta-item-text"> Words</span></span></span><span class="post-time"> | <span class="post-meta-item-icon"><i class="fa fa-clock-o"></i><span class="post-count"> 9</span><span class="post-meta-item-text"> Minutes</span></span></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">Contents</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E5%88%86%E7%B1%BB"><span class="toc-number">1.</span> <span class="toc-text">生成模型分类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Pixel"><span class="toc-number">1.1.</span> <span class="toc-text">Pixel</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%A8%E5%8F%AF%E8%A7%81%E7%BD%AE%E4%BF%A1%E7%BD%91%E7%BB%9C"><span class="toc-number">1.1.1.</span> <span class="toc-text">全可见置信网络</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PixelRNN"><span class="toc-number">1.1.2.</span> <span class="toc-text">PixelRNN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PixelCNN"><span class="toc-number">1.1.3.</span> <span class="toc-text">PixelCNN</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8"><span class="toc-number">1.2.</span> <span class="toc-text">变分自编码器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8"><span class="toc-number">1.2.1.</span> <span class="toc-text">自编码器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8-1"><span class="toc-number">1.2.2.</span> <span class="toc-text">变分自编码器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9C"><span class="toc-number">1.3.</span> <span class="toc-text">生成对抗网络</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%EF%BC%9A%E5%8F%8C%E4%BA%BA%E6%B8%B8%E6%88%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text">训练：双人游戏</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%AA%E4%BB%A3%E7%A0%81"><span class="toc-number">1.3.2.</span> <span class="toc-text">伪代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E8%A7%A3%E9%87%8A%E5%90%91%E9%87%8F%E6%93%8D%E4%BD%9C"><span class="toc-number">1.3.3.</span> <span class="toc-text">可解释向量操作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="post-content"><p>无监督学习即训练数据无标签，也就是说生成模型解决的是无监督学习中密度估计的问题。在生成模型的世界中，我们可以将任何观测到的数据，记为数据集 $\mathcal{D}$，视为一个在概率 $p_{\mathrm{data}}$ 上的有限采样集。所有生成模型的最终目标就是：给到生成模型观测的数据 $\mathcal{D}$，能够估计概率分布 $p_{\mathrm{data}}$。</p>
-<p>换句话说，我们从分布 $p_{data}(x)$ 中采样一个数据集 $D$，生成模型会学习到一个模拟这一分布的概率分布 $p_{model}(x)$，生成模型的目标是使得 $p_{data}(x)$ 和 $p_{model}(x)$ 尽可能相似。</p>
-<h2 id="生成模型分类"><a href="#生成模型分类" class="headerlink" title="生成模型分类"></a>生成模型分类</h2><p><img src="/2021/02/15/An-introduction-to-the-generative-model/image-20210214103930426.png" alt="image-20210214103930426" style="zoom:80%;"></p>
-<h3 id="Pixel"><a href="#Pixel" class="headerlink" title="Pixel"></a>Pixel</h3><h4 id="全可见置信网络"><a href="#全可见置信网络" class="headerlink" title="全可见置信网络"></a>全可见置信网络</h4><p>显式密度模型：我们可以用链式法则来将完整图片的概率分解成一维的分布：</p>
-<script type="math/tex; mode=display">
-p(x)=\prod_{i=1}^{n}p(x_i|x_1,\cdots,x_{i-1})</script><p>其中 $p(x)$ 是整个图片的概率，$p(x_i|x_1,\cdots,x_{i-1})$ 在给定所有其他像素时，第 $i$ 个像素值的概率。因此，我们需要将图片的像素排序 $i,\cdots,i$。不同的先序依赖关系就得到了不同的实现方式。</p>
-<h4 id="PixelRNN"><a href="#PixelRNN" class="headerlink" title="PixelRNN"></a>PixelRNN</h4><p>在 PixelRNN 中，我们从左上角开始生成图片像素，使用 RNN（LSTM）来决定和前序像素的依赖关系。像素的生成循序如下所示：</p>
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>生成模型 | Hotel's Blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/normalize.css/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 5.3.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">生成模型</h1><a id="logo" href="/.">Hotel's Blog</a><p class="description">Knowledge, Tech and Life</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">生成模型</h1><div class="post-meta">2021-02-15<span> | </span><span class="category"><a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></span><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span><span class="post-time"><span class="post-meta-item-text"> | </span><span class="post-meta-item-icon"><i class="fa fa-keyboard-o"></i><span class="post-count"> 2.3k</span><span class="post-meta-item-text"> Words</span></span></span><span class="post-time"> | <span class="post-meta-item-icon"><i class="fa fa-clock-o"></i><span class="post-count"> 9</span><span class="post-meta-item-text"> Minutes</span></span></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">Contents</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E5%88%86%E7%B1%BB"><span class="toc-number">1.</span> <span class="toc-text">生成模型分类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pixel"><span class="toc-number">1.1.</span> <span class="toc-text">Pixel</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%A8%E5%8F%AF%E8%A7%81%E7%BD%AE%E4%BF%A1%E7%BD%91%E7%BB%9C"><span class="toc-number">1.1.1.</span> <span class="toc-text">全可见置信网络</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pixelrnn"><span class="toc-number">1.1.2.</span> <span class="toc-text">PixelRNN</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pixelcnn"><span class="toc-number">1.1.3.</span> <span class="toc-text">PixelCNN</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8"><span class="toc-number">1.2.</span> <span class="toc-text">变分自编码器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8"><span class="toc-number">1.2.1.</span> <span class="toc-text">自编码器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8-1"><span class="toc-number">1.2.2.</span> <span class="toc-text">变分自编码器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9C"><span class="toc-number">1.3.</span> <span class="toc-text">生成对抗网络</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E5%8F%8C%E4%BA%BA%E6%B8%B8%E6%88%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text">训练：双人游戏</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%AA%E4%BB%A3%E7%A0%81"><span class="toc-number">1.3.2.</span> <span class="toc-text">伪代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E8%A7%A3%E9%87%8A%E5%90%91%E9%87%8F%E6%93%8D%E4%BD%9C"><span class="toc-number">1.3.3.</span> <span class="toc-text">可解释向量操作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="post-content"><script src="\assets\js\APlayer.min.js"> </script><p>无监督学习即训练数据无标签，也就是说生成模型解决的是无监督学习中密度估计的问题。在生成模型的世界中，我们可以将任何观测到的数据，记为数据集 <span class="math inline">\(\mathcal{D}\)</span>，视为一个在概率 <span class="math inline">\(p_{\mathrm{data}}\)</span> 上的有限采样集。所有生成模型的最终目标就是：给到生成模型观测的数据 <span class="math inline">\(\mathcal{D}\)</span>，能够估计概率分布 <span class="math inline">\(p_{\mathrm{data}}\)</span>。</p>
+<p>换句话说，我们从分布 <span class="math inline">\(p_{data}(x)\)</span> 中采样一个数据集 <span class="math inline">\(D\)</span>，生成模型会学习到一个模拟这一分布的概率分布 <span class="math inline">\(p_{model}(x)\)</span>，生成模型的目标是使得 <span class="math inline">\(p_{data}(x)\)</span> 和 <span class="math inline">\(p_{model}(x)\)</span> 尽可能相似。</p>
+<h2 id="生成模型分类">生成模型分类</h2>
+<p><img src="/2021/02/15/An-introduction-to-the-generative-model/image-20210214103930426.png" alt="image-20210214103930426" style="zoom:80%;"></p>
+<h3 id="pixel">Pixel</h3>
+<h4 id="全可见置信网络">全可见置信网络</h4>
+<p>显式密度模型：我们可以用链式法则来将完整图片的概率分解成一维的分布： <span class="math display">\[
+p(x)=\prod_{i=1}^{n}p(x_i|x_1,\cdots,x_{i-1})
+\]</span> 其中 <span class="math inline">\(p(x)\)</span> 是整个图片的概率，<span class="math inline">\(p(x_i|x_1,\cdots,x_{i-1})\)</span> 在给定所有其他像素时，第 <span class="math inline">\(i\)</span> 个像素值的概率。因此，我们需要将图片的像素排序 <span class="math inline">\(i,\cdots,i\)</span>。不同的先序依赖关系就得到了不同的实现方式。</p>
+<h4 id="pixelrnn">PixelRNN</h4>
+<p>在 PixelRNN 中，我们从左上角开始生成图片像素，使用 RNN（LSTM）来决定和前序像素的依赖关系。像素的生成循序如下所示：</p>
 <p><img src="/2021/02/15/An-introduction-to-the-generative-model/image-20210214121828557.png" alt="image-20210214121828557" style="zoom:80%;"></p>
-<h4 id="PixelCNN"><a href="#PixelCNN" class="headerlink" title="PixelCNN"></a>PixelCNN</h4><p>在 PixelCNN 中，我们同样从左上角像素开始生成，当前像素依赖于前序一块区域内的所有像素，并通过 CNN 进行实现，如图：</p>
+<h4 id="pixelcnn">PixelCNN</h4>
+<p>在 PixelCNN 中，我们同样从左上角像素开始生成，当前像素依赖于前序一块区域内的所有像素，并通过 CNN 进行实现，如图：</p>
 <p><img src="/2021/02/15/An-introduction-to-the-generative-model/image-20210214123705267.png" alt="image-20210214123705267" style="zoom:80%;"></p>
 <p>以上两者的训练目标都是最大化训练图像的概率。</p>
 <p>PixelRNN/CNN 的优势在于：</p>
 <ul>
-<li>可以显式地计算图片 $p(x)$</li>
+<li>可以显式地计算图片 <span class="math inline">\(p(x)\)</span></li>
 <li>这种显式的训练数据概率给出了很好的评估度测度</li>
 <li>可以很好地采样</li>
 </ul>
 <p>他们的劣势就是必须串行地生成，这是十分低效的。</p>
-<h3 id="变分自编码器"><a href="#变分自编码器" class="headerlink" title="变分自编码器"></a>变分自编码器</h3><p>变分自编码器（Variational Autoencoder, VAE）中，我们定义一个关于隐变量 $z$ 的可解密度方程：</p>
-<script type="math/tex; mode=display">
-p_{\theta}(x)=\int p_{\theta}(z)p_{\theta}(x|z) \mathrm{d} z</script><h4 id="自编码器"><a href="#自编码器" class="headerlink" title="自编码器"></a>自编码器</h4><p>自编码器（Autoencoder，AE）可以理解为用一种无监督的方法，从无标签训练数据中，学习一个低维的特征表示。假设输入数据为 $x$，自编码器将它编码为一个更低维度的特征向量 $z$。$z$ 中旺旺包括了 $x$ 中最重要的特征维度。通过解码器，我们可以从 $z$ 恢复出一个输出向量 $\hat{x}$。</p>
+<h3 id="变分自编码器">变分自编码器</h3>
+<p>变分自编码器（Variational Autoencoder, VAE）中，我们定义一个关于隐变量 <span class="math inline">\(z\)</span> 的可解密度方程： <span class="math display">\[
+p_{\theta}(x)=\int p_{\theta}(z)p_{\theta}(x|z) \mathrm{d} z
+\]</span></p>
+<h4 id="自编码器">自编码器</h4>
+<p>自编码器（Autoencoder，AE）可以理解为用一种无监督的方法，从无标签训练数据中，学习一个低维的特征表示。假设输入数据为 <span class="math inline">\(x\)</span>，自编码器将它编码为一个更低维度的特征向量 <span class="math inline">\(z\)</span>。<span class="math inline">\(z\)</span> 中往往包括了 <span class="math inline">\(x\)</span> 中最重要的特征维度。通过解码器，我们可以从 <span class="math inline">\(z\)</span> 恢复出一个输出向量 <span class="math inline">\(\hat{x}\)</span>。</p>
 <p><img src="/2021/02/15/An-introduction-to-the-generative-model/image-20210214144717012.png" alt="image-20210214144717012" style="zoom:80%;"></p>
-<p>在训练自编码器的过程中，我们希望解码得到的 $\hat{x}$ 和原来的 $x$ 尽可能相似，因此我们设置损失函数为 L2 损失函数：</p>
-<script type="math/tex; mode=display">
-\mathcal{L}=||x-\hat{x}||^2</script><h4 id="变分自编码器-1"><a href="#变分自编码器-1" class="headerlink" title="变分自编码器"></a>变分自编码器</h4><p>对于数据概率：</p>
-<script type="math/tex; mode=display">
-p_{\theta}(x)=\int p_{\theta}(z)p_{\theta}(x|z)\mathrm{d}z</script><p>其中 $p_{\theta}(z)$ 可以视为简单的高斯先验分布，同时 $p_{\theta}(x|z)$ 也可以从解码器的神经网络中得到的，但是积分这个操作是难以优化 的。</p>
-<p>对于后验密度：</p>
-<script type="math/tex; mode=display">
-p_{\theta}(z|x)=p_{\theta}(x|z)p_{\theta}(z)/p_{\theta}(x)</script><p>其中 $p_{\theta}(x)$ 同样难以得到，因此我们无法直接优化概率公式。</p>
-<p>一个解决方法是：定义一个额外的编码器 $q_{\phi}(z|x)$ 来近似 $p_{\theta}(z|x)$ 。这样，我们可以得到关于数据概率的一个下界，并且它是可解、可优化的。</p>
-<p>因为生成器中，编码器和解码器都是有概率性质的，而任何一个概率都有均值和协方差。因此，我们可以根据编码器和解码器的均值和协方差，创造一个 $p\sim \mathcal{N}(\mu, \sum)$ 的高斯分布进行采样。</p>
+<p>在训练自编码器的过程中，我们希望解码得到的 <span class="math inline">\(\hat{x}\)</span> 和原来的 <span class="math inline">\(x\)</span> 尽可能相似，因此我们设置损失函数为 L2 损失函数： <span class="math display">\[
+\mathcal{L}=||x-\hat{x}||^2
+\]</span></p>
+<h4 id="变分自编码器-1">变分自编码器</h4>
+<p>对于数据概率： <span class="math display">\[
+p_{\theta}(x)=\int p_{\theta}(z)p_{\theta}(x|z)\mathrm{d}z
+\]</span> 其中 <span class="math inline">\(p_{\theta}(z)\)</span> 可以视为简单的高斯先验分布，同时 <span class="math inline">\(p_{\theta}(x|z)\)</span> 也可以从解码器的神经网络中得到的，但是积分这个操作是难以优化 的。</p>
+<p>对于后验密度： <span class="math display">\[
+p_{\theta}(z|x)=p_{\theta}(x|z)p_{\theta}(z)/p_{\theta}(x)
+\]</span> 其中 <span class="math inline">\(p_{\theta}(x)\)</span> 同样难以得到，因此我们无法直接优化概率公式。</p>
+<p>一个解决方法是：定义一个额外的编码器 <span class="math inline">\(q_{\phi}(z|x)\)</span> 来近似 <span class="math inline">\(p_{\theta}(z|x)\)</span> 。这样，我们可以得到关于数据概率的一个下界，并且它是可解、可优化的。</p>
+<p>因为生成器中，编码器和解码器都是有概率性质的，而任何一个概率都有均值和协方差。因此，我们可以根据编码器和解码器的均值和协方差，创造一个 <span class="math inline">\(p\sim \mathcal{N}(\mu, \sum)\)</span> 的高斯分布进行采样。</p>
 <p><img src="/2021/02/15/An-introduction-to-the-generative-model/image-20210214151551531.png" alt="image-20210214151551531" style="zoom:80%;"></p>
-<p>有了上述编码和解码网络，我们可以计算出数据概率：</p>
-<script type="math/tex; mode=display">
+<p>有了上述编码和解码网络，我们可以计算出数据概率： <span class="math display">\[
 \begin{aligned}
     \log p_{\theta}(x^{(j)})
-    &=E_{z\sim q_{\phi}} \left[\log p_{\theta}(x^{(i)})\right]\\
-    &=E_{z}\left[\log \frac{p_{\theta}(x^{(i)}|z)p_{\theta}(z)}{p_{\theta}(z|x^{(i)})}\right]\\
-    &=E_{z}\left[\log \frac{p_{\theta}(x^{(i)}|z)p_{\theta}(z)}{p_{\theta}(z|x^{(i)})}\frac{q_{\phi}(z|x^{(i)})}{q_{\phi}(z|x^{(i)})} \right]\\
-    &=E_{z}\left[\log p_{\theta}(x^{(i)}|z)\right]-E_{z}\left[\log\frac{q_{\phi}(z|x^{(i)})}{p_{\theta}(z)}\right]+E_{z}\left[\log\frac{q_{\phi}(z|x^{(i)})}{p_{\theta}(z|x^{(i)})}\right]\\
-    &=E_z\left[\log p_{\theta}(x^{(i)}|z)\right]-D_{KL}(q_{\phi}(z|x^{(i})||p_{\theta}(z))+D_{KL}(q_{\phi}(z|x^{(i)})||p_{\theta}(z|x^{(i)}))
-    \end{aligned}</script><p>第一项可以通过采样近似得到，第二项（KL散度）有很好的闭式解。第三项虽然难解，但是可以肯定它是非负的，因此第一第二项可以组成一个目标函数的下界，并且它是可优化的。我们定义如下新损失函数：</p>
-<script type="math/tex; mode=display">
-\mathcal{L}(x^{(i)},\theta,\phi)=E_z\left[\log p_{\theta}(x^{(i)}|z)\right]-D_{KL}(q_{\phi}(z|x^{(i})||p_{\theta}(z))</script><p>我们有下界关系：</p>
-<script type="math/tex; mode=display">
-\log p_{\theta}(x^{(i)})\geq \mathcal{L}(x^{(i)},\theta,\phi)</script><p>我们的优化过程就是最大化下界：</p>
-<script type="math/tex; mode=display">
-\theta^*,\phi^*=\arg\max_{\theta,\phi}\sum_{i=1}^{N}\mathcal{L}(x^{(i)},\theta,\phi)</script><p>VAE 的优势在于</p>
+    &amp;=E_{z\sim q_{\phi}} \left[\log p_{\theta}(x^{(i)})\right]\\
+    &amp;=E_{z}\left[\log \frac{p_{\theta}(x^{(i)}|z)p_{\theta}(z)}{p_{\theta}(z|x^{(i)})}\right]\\
+    &amp;=E_{z}\left[\log \frac{p_{\theta}(x^{(i)}|z)p_{\theta}(z)}{p_{\theta}(z|x^{(i)})}\frac{q_{\phi}(z|x^{(i)})}{q_{\phi}(z|x^{(i)})} \right]\\
+    &amp;=E_{z}\left[\log p_{\theta}(x^{(i)}|z)\right]-E_{z}\left[\log\frac{q_{\phi}(z|x^{(i)})}{p_{\theta}(z)}\right]+E_{z}\left[\log\frac{q_{\phi}(z|x^{(i)})}{p_{\theta}(z|x^{(i)})}\right]\\
+    &amp;=E_z\left[\log p_{\theta}(x^{(i)}|z)\right]-D_{KL}(q_{\phi}(z|x^{(i})||p_{\theta}(z))+D_{KL}(q_{\phi}(z|x^{(i)})||p_{\theta}(z|x^{(i)}))
+    \end{aligned}
+\]</span> 第一项可以通过采样近似得到，第二项（KL散度）有很好的闭式解。第三项虽然难解，但是可以肯定它是非负的，因此第一第二项可以组成一个目标函数的下界，并且它是可优化的。我们定义如下新损失函数： <span class="math display">\[
+\mathcal{L}(x^{(i)},\theta,\phi)=E_z\left[\log p_{\theta}(x^{(i)}|z)\right]-D_{KL}(q_{\phi}(z|x^{(i})||p_{\theta}(z))
+\]</span> 我们有下界关系： <span class="math display">\[
+\log p_{\theta}(x^{(i)})\geq \mathcal{L}(x^{(i)},\theta,\phi)
+\]</span> 我们的优化过程就是最大化下界： <span class="math display">\[
+\theta^*,\phi^*=\arg\max_{\theta,\phi}\sum_{i=1}^{N}\mathcal{L}(x^{(i)},\theta,\phi)
+\]</span> VAE 的优势在于</p>
 <ul>
 <li>是生成模型的一种有原则的实现方法</li>
-<li>允许来自 $q(z|x)$ 的干扰，是一种有用的特征表示方法。</li>
+<li>允许来自 <span class="math inline">\(q(z|x)\)</span> 的干扰，是一种有用的特征表示方法。</li>
 </ul>
 <p>VAE 的劣势在于</p>
 <ul>
 <li>最大化概率的下界是一种间接的评价方法，没有 PixelRNN/CNN 的评价来得直接</li>
 <li>和 GAN 相比，VAE 的采样质量更加模糊低劣</li>
 </ul>
-<h3 id="生成对抗网络"><a href="#生成对抗网络" class="headerlink" title="生成对抗网络"></a>生成对抗网络</h3><p>生成对抗网络（Generative Adversarial Networks，GAN）不再使用一个显式的密度函数，而是使用博弈论中一种双方对抗的方式，学习生成。生成模型的问题在于，我们无法直接从复杂高维的训练分布中进行采样。GAN 提供的方法是从简单分布（如随机噪声）中进行采样，然后学习一种将采样变成训练分布的转换器。这个转换器会比较复杂，因此我们使用神经网络来表示它。</p>
-<h4 id="训练：双人游戏"><a href="#训练：双人游戏" class="headerlink" title="训练：双人游戏"></a>训练：双人游戏</h4><p><strong>生成网络：</strong>生成逼真的图片来愚弄鉴别网络</p>
+<h3 id="生成对抗网络">生成对抗网络</h3>
+<p>生成对抗网络（Generative Adversarial Networks，GAN）不再使用一个显式的密度函数，而是使用博弈论中一种双方对抗的方式，学习生成。生成模型的问题在于，我们无法直接从复杂高维的训练分布中进行采样。GAN 提供的方法是从简单分布（如随机噪声）中进行采样，然后学习一种将采样变成训练分布的转换器。这个转换器会比较复杂，因此我们使用神经网络来表示它。</p>
+<h4 id="训练双人游戏">训练：双人游戏</h4>
+<p><strong>生成网络：</strong>生成逼真的图片来愚弄鉴别网络</p>
 <p><strong>鉴别网络：</strong>分辨真实的图片和虚假生成的图片</p>
 <p><img src="/2021/02/15/An-introduction-to-the-generative-model/image-20210215200457439.png" alt="image-20210215200457439" style="zoom:80%;"></p>
-<p>该训练过程的目标函数为：</p>
-<script type="math/tex; mode=display">
-\min_{\theta_g}\max_{\theta_d}\left[E_{x\sim p_{data}}\log D_{\theta_d}(x)+E_{z\sim p(z)}\log(1-D_{\theta_d}(G_{\theta_g}(z)))\right]</script><p>鉴别网络的输出值为 0~1，代表图片的真实程度。其中 $D_{\theta_d}(x)$ 是鉴别网络对真实图片的输出值，$D_{\theta_d}(G_{\theta_g}(z))$ 是鉴别网络对生成图片的输出值。 </p>
+<p>该训练过程的目标函数为： <span class="math display">\[
+\min_{\theta_g}\max_{\theta_d}\left[E_{x\sim p_{data}}\log D_{\theta_d}(x)+E_{z\sim p(z)}\log(1-D_{\theta_d}(G_{\theta_g}(z)))\right]
+\]</span> 鉴别网络的输出值为 0~1，代表图片的真实程度。其中 <span class="math inline">\(D_{\theta_d}(x)\)</span> 是鉴别网络对真实图片的输出值，<span class="math inline">\(D_{\theta_d}(G_{\theta_g}(z))\)</span> 是鉴别网络对生成图片的输出值。</p>
 <p>我们也可以分别写成两个式子：</p>
-<ol>
-<li><p>鉴别器梯度上升：</p>
-<script type="math/tex; mode=display">
-\max_{\theta_d}\left[E_{x\sim p_{data}}\log D_{\theta_d}(x)+E_{z\sim p(z)}\log(1-D_{\theta_d}(G_{\theta_g}(z)))\right]</script></li>
-<li><p>生成器梯度下降：</p>
-<script type="math/tex; mode=display">
-\min_{\theta_g}E_{z\sim p(z)}\log(1-D_{\theta_d}(G_{\theta_g}(z)))</script><p>但是，$\log(1-D_{\theta_d}(G_{\theta_g}(z)))$ 的函数图像，在采样初期（大部分采样为假）时梯度很小，不利于生成器更新，而在采样后期（大部分采样为真）的时候反而梯度很大，这使得整体性能不佳。因此，我们将生成器的目标函数稍加改动：</p>
-<script type="math/tex; mode=display">
-\max_{\theta_g}E_{z\sim p(z)}\log(D_{\theta_d}(G_{\theta_g}(z)))</script><p>也就是将 “使鉴别器鉴定正确的概率最小化” 变成 “使鉴别器鉴定错误的概率最大化”，这个改动没有改变整体的优化目标，却使得目标函数的梯度由大到小变化，但是在实践中性能大大增强。</p>
-</li>
+<ol type="1">
+<li><p>鉴别器梯度上升： <span class="math display">\[
+\max_{\theta_d}\left[E_{x\sim p_{data}}\log D_{\theta_d}(x)+E_{z\sim p(z)}\log(1-D_{\theta_d}(G_{\theta_g}(z)))\right]
+\]</span></p></li>
+<li><p>生成器梯度下降： <span class="math display">\[
+\min_{\theta_g}E_{z\sim p(z)}\log(1-D_{\theta_d}(G_{\theta_g}(z)))
+\]</span> 但是，<span class="math inline">\(\log(1-D_{\theta_d}(G_{\theta_g}(z)))\)</span> 的函数图像，在采样初期（大部分采样为假）时梯度很小，不利于生成器更新，而在采样后期（大部分采样为真）的时候反而梯度很大，这使得整体性能不佳。因此，我们将生成器的目标函数稍加改动： <span class="math display">\[
+\max_{\theta_g}E_{z\sim p(z)}\log(D_{\theta_d}(G_{\theta_g}(z)))
+\]</span> 也就是将 “使鉴别器鉴定正确的概率最小化” 变成 “使鉴别器鉴定错误的概率最大化”，这个改动没有改变整体的优化目标，却使得目标函数的梯度由大到小变化，但是在实践中性能大大增强。</p></li>
 </ol>
-<h4 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h4><p><img src="/2021/02/15/An-introduction-to-the-generative-model/image-20210215204226890.png" alt="image-20210215204226890" style="zoom:80%;"></p>
-<h4 id="可解释向量操作"><a href="#可解释向量操作" class="headerlink" title="可解释向量操作"></a>可解释向量操作</h4><p>事实上，噪音向量 $z$ 的数学操作在一定程度上是可解释的。例如一个人像生成网络可以有如下操作：</p>
+<h4 id="伪代码">伪代码</h4>
+<p><img src="/2021/02/15/An-introduction-to-the-generative-model/image-20210215204226890.png" alt="image-20210215204226890" style="zoom:80%;"></p>
+<h4 id="可解释向量操作">可解释向量操作</h4>
+<p>事实上，噪音向量 <span class="math inline">\(z\)</span> 的数学操作在一定程度上是可解释的。例如一个人像生成网络可以有如下操作：</p>
 <p><img src="/2021/02/15/An-introduction-to-the-generative-model/image-20210215222432940.png" alt="image-20210215222432940" style="zoom:80%;"></p>
-<p>解释一下，如果我们通过噪音向量 A 组生成的都是“微笑女性”的图片，噪音向量 B 组生成的都是“中性女性”的图片，噪音向量 C 组生成的都是“中性男性”的图片，那么我们可以通过 D=A-B+C 获得生成“微笑男性”的噪音向量组 D。这也正是因为噪音向量 $z$ 中不同维度和生成图片特征相对应导致的。</p>
+<p>解释一下，如果我们通过噪音向量 A 组生成的都是“微笑女性”的图片，噪音向量 B 组生成的都是“中性女性”的图片，噪音向量 C 组生成的都是“中性男性”的图片，那么我们可以通过 D=A-B+C 获得生成“微笑男性”的噪音向量组 D。这也正是因为噪音向量 <span class="math inline">\(z\)</span> 中不同维度和生成图片特征相对应导致的。</p>
 <p>GAN 不用显式的密度函数，而是用博弈论方法在双方博弈中训练分布，有很好的采样结果。</p>
 <p>GAN的劣势在于：</p>
 <ul>
 <li>充满技巧性，训练更加不稳定</li>
-<li>不能处理推断查询（inference queries），例如 $p(x)$ 和 $p(z|x)$</li>
+<li>不能处理推断查询（inference queries），例如 <span class="math inline">\(p(x)\)</span> 和 <span class="math inline">\(p(z|x)\)</span></li>
 </ul>
 <p>GAN 的热点研究方向有：</p>
 <ul>
-<li>更好的损失函数设计，更稳定的训练（Wasserstein GAN, LSGAN…）</li>
+<li>更好的损失函数设计，更稳定的训练（Wasserstein GAN, LSGAN...）</li>
 <li>Conditional GANs, GANs 的各种应用</li>
 </ul>
 <p>以下是一些相关的资源。</p>
 <blockquote>
-<p>Pix2pix: <a target="_blank" rel="noopener" href="https://phillipi.github.io/pix2pix/">https://phillipi.github.io/pix2pix/</a></p>
-<p>Gan Zoo: <a target="_blank" rel="noopener" href="https://github.com/hindupuravinash/the-gan-zoo">https://github.com/hindupuravinash/the-gan-zoo</a></p>
-<p>tips &amp; tricks for training GANs: <a target="_blank" rel="noopener" href="https://github.com/soumith/ganhacks">https://github.com/soumith/ganhacks</a></p>
+<p>Pix2pix: https://phillipi.github.io/pix2pix/</p>
+<p>Gan Zoo: https://github.com/hindupuravinash/the-gan-zoo</p>
+<p>tips &amp; tricks for training GANs: https://github.com/soumith/ganhacks</p>
 </blockquote>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>以上是生成模型介绍以及三种最流行的生成模型的简介，图片信息来源于斯坦福大学公开课：</p>
+<h2 id="总结">总结</h2>
+<p>以上是生成模型介绍以及三种最流行的生成模型的简介，图片信息来源于斯坦福大学公开课：</p>
 <blockquote>
-<p>课程链接：<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=5WoItGTWV54">https://www.youtube.com/watch?v=5WoItGTWV54</a></p>
+<p>课程链接：https://www.youtube.com/watch?v=5WoItGTWV54</p>
 </blockquote>
-</div><div class="tags"><a href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/"><i class="fa fa-tag"></i>生成模型</a></div><div class="post-nav"><a class="pre" href="/2021/02/17/Conditional-GAN/">Conditional GAN</a><a class="next" href="/2021/02/10/%E8%AE%A4%E8%AE%A4%E7%9C%9F%E7%9C%9F%E5%86%99%E4%B8%80%E7%AF%87LSTM/">认认真真写一篇LSTM</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%A5%E9%94%99/">报错</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%80%9A%E4%BF%A1/">通信</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/%E8%B4%AA%E5%BF%83/" style="font-size: 15px;">贪心</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 15px;">动态规划</a> <a href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" style="font-size: 15px;">生成模型</a> <a href="/tags/MIR/" style="font-size: 15px;">MIR</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 15px;">分治</a> <a href="/tags/%E5%9B%9E%E6%BA%AF/" style="font-size: 15px;">回溯</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 15px;">神经网络</a> <a href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" style="font-size: 15px;">目标检测</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/" style="font-size: 15px;">网络流</a> <a href="/tags/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">论文学习</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" style="font-size: 15px;">计算机视觉</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91/" style="font-size: 15px;">无线网</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/03/27/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E5%85%A5%E9%97%A8%E2%80%94%E2%80%94%E6%9C%AF%E8%AF%AD%E7%AF%87/">目标检测入门——术语篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/26/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0-SongMASS/">论文学习: SongMASS</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/25/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0%EF%BC%9AThe-Capacity-of-Wireless-Networks/">论文学习：The Capacity of Wireless Networks</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/17/Conditional-GAN/">Conditional GAN</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/15/An-introduction-to-the-generative-model/">生成模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/10/%E8%AE%A4%E8%AE%A4%E7%9C%9F%E7%9C%9F%E5%86%99%E4%B8%80%E7%AF%87LSTM/">认认真真写一篇LSTM</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/09/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0-Conditional-LSTM-GAN-for-Melody-Generation-from-Lyrics/">论文学习 Conditional LSTM-GAN for Melody Generation from Lyrics</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/01/%E4%BB%8A%E5%A4%A9%E5%AD%A6%E4%B9%A0-RNN/">今天学习 RNN</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/01/09/Leetcode327-%E5%8C%BA%E9%97%B4%E5%92%8C%E7%9A%84%E4%B8%AA%E6%95%B0/">Leetcode327 区间和的个数</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/23/OS9-Main-Memory/">OS9 Main Memory</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Links</i></div><ul></ul><a href="https://github.com/hotelll/" title="gitHub" target="_blank">gitHub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">Hotel's Blog | </a><a rel="nofollow" target="_blank" href="http://beian.miit.gov.cn"> 鄂ICP备 19017407号-1 </a> | &nbsp;<img class="nofancybox" src="//cdn.foreversfj.com/image/blog/20190728/N0BTF6mJ1Ilb.png" style="margin-bottom: -4px;"/><a rel="nofollow" target="_blank" href="http://www.beian.gov.cn">&nbsp;鄂公网安备 42011102003450号</a><br/><span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>var now = new Date();
+</div><div class="tags"><a href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/"><i class="fa fa-tag"></i>生成模型</a></div><div class="post-nav"><a class="pre" href="/2021/02/17/Conditional-GAN/">Conditional GAN</a><a class="next" href="/2021/02/10/%E8%AE%A4%E8%AE%A4%E7%9C%9F%E7%9C%9F%E5%86%99%E4%B8%80%E7%AF%87LSTM/">认认真真写一篇LSTM</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%A5%E9%94%99/">报错</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%80%9A%E4%BF%A1/">通信</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" style="font-size: 15px;">生成模型</a> <a href="/tags/%E8%B4%AA%E5%BF%83/" style="font-size: 15px;">贪心</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 15px;">动态规划</a> <a href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" style="font-size: 15px;">目标检测</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 15px;">神经网络</a> <a href="/tags/MIR/" style="font-size: 15px;">MIR</a> <a href="/tags/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">论文学习</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 15px;">分治</a> <a href="/tags/%E5%9B%9E%E6%BA%AF/" style="font-size: 15px;">回溯</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" style="font-size: 15px;">计算机视觉</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/" style="font-size: 15px;">网络流</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91/" style="font-size: 15px;">无线网</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/04/08/The-Vanishing-and-Exploding-Gradient-Problem/">梯度消失和梯度爆炸问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/03/27/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E5%85%A5%E9%97%A8%E2%80%94%E2%80%94%E6%9C%AF%E8%AF%AD%E7%AF%87/">目标检测入门——术语篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/26/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0-SongMASS/">论文学习: SongMASS</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/25/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0%EF%BC%9AThe-Capacity-of-Wireless-Networks/">论文学习：The Capacity of Wireless Networks</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/17/Conditional-GAN/">Conditional GAN</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/15/An-introduction-to-the-generative-model/">生成模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/10/%E8%AE%A4%E8%AE%A4%E7%9C%9F%E7%9C%9F%E5%86%99%E4%B8%80%E7%AF%87LSTM/">认认真真写一篇LSTM</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/09/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0-Conditional-LSTM-GAN-for-Melody-Generation-from-Lyrics/">论文学习 Conditional LSTM-GAN for Melody Generation from Lyrics</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/01/%E4%BB%8A%E5%A4%A9%E5%AD%A6%E4%B9%A0-RNN/">今天学习 RNN</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/01/09/Leetcode327-%E5%8C%BA%E9%97%B4%E5%92%8C%E7%9A%84%E4%B8%AA%E6%95%B0/">Leetcode327 区间和的个数</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Links</i></div><ul></ul><a href="https://github.com/hotelll/" title="gitHub" target="_blank">gitHub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">Hotel's Blog | </a><a rel="nofollow" target="_blank" href="http://beian.miit.gov.cn"> 鄂ICP备 19017407号-1 </a> | &nbsp;<img class="nofancybox" src="//cdn.foreversfj.com/image/blog/20190728/N0BTF6mJ1Ilb.png" style="margin-bottom: -4px;"/><a rel="nofollow" target="_blank" href="http://www.beian.gov.cn">&nbsp;鄂公网安备 42011102003450号</a><br/><span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>var now = new Date();
 function createtime() {
 var grt= new Date("07/09/2018 12:49:00");
 now.setTime(now.getTime()+250);

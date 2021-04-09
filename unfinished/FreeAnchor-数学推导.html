@@ -1,0 +1,127 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>FreeAnchor 数学推导 | Hotel's Blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/normalize.css/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 5.3.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">FreeAnchor 数学推导</h1><a id="logo" href="/.">Hotel's Blog</a><p class="description">Knowledge, Tech and Life</p></div><div id="nav-menu"><a href="/."><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">FreeAnchor 数学推导</h1><div class="post-content"><script src="\assets\js\APlayer.min.js"> </script><p>这篇博客从纯数学的角度，来看待目标检测中 one-stage detector 和 FreeAnchor 技术的理论理论突破。</p>
+<h2 id="变量申明">变量申明</h2>
+<table>
+<colgroup>
+<col style="width: 45%">
+<col style="width: 54%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">变量名</th>
+<th style="text-align: center;">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(I\)</span></td>
+<td style="text-align: center;">输入图片</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(B\)</span></td>
+<td style="text-align: center;">ground-truth，带有正确目标框的图片集合</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(b_i\in B\)</span></td>
+<td style="text-align: center;">一个 ground-truth box（一个正确框出目标的方框）</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(b_i=(b_{i}^{\mathrm{cls}}, b_{i}^{\mathrm{loc}})\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(b_{i}^{\mathrm{cls}}\in R^k\)</span>：分类标签；<span class="math inline">\(b_{i}^{\mathrm{loc}}\in R^4\)</span>：位置</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(C_{ij}\in\{0,1\}\)</span></td>
+<td style="text-align: center;">表示目标 <span class="math inline">\(b_i\)</span> 是否匹配 anchor <span class="math inline">\(a_j\)</span>，匹配则为 1，不匹配则为 0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(A_+\in A\)</span></td>
+<td style="text-align: center;">所有满足 <span class="math inline">\(\sum_{i}C_{i,j}=1\)</span> 的 anchor 的集合</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(A_-\in A\)</span></td>
+<td style="text-align: center;">所有满足 <span class="math inline">\(\sum_{i}C_{i,j}=0\)</span> 的 anchor 的集合</td>
+</tr>
+</tbody>
+</table>
+<h2 id="free-anchor-推导">Free Anchor 推导</h2>
+<h3 id="标准检测器损失函数">1. 标准检测器损失函数</h3>
+<p>直接上公式（<span class="math inline">\(\theta\)</span> 为要学习的网络参数） <span class="math display">\[
+\mathcal{L}(\theta)=\sum_{a_j\in A_+}\sum_{b_i\in B}\ C_{ij}\mathcal{L}_{ij}^{cls}(\theta)+\beta\sum_{a_j\in A_+}\sum_{b_i\in B}\ C_{ij}\mathcal{L}_{ij}^{loc}(\theta)+\sum_{a_j\in A_-}\ \mathcal{L}_{j}^{bg}(\theta)
+\]</span></p>
+<p><span class="math display">\[
+\mathcal{L}_{ij}^{cls}(\theta)=\mathrm{BCE}(a_{j}^{cls}, b_i^{cls}, \theta)
+\]</span></p>
+<p><span class="math display">\[
+\mathcal{L}_{ij}^{loc}(\theta)=\mathrm{SmoothL1}(a_{j}^{loc},b_{i}^{loc}, \theta)
+\]</span></p>
+<p><span class="math display">\[
+\mathcal{L}_{j}^{bg}(\theta)=\mathrm{BCE}(a^{cls}_{j}, \vec{0}, \theta)
+\]</span></p>
+<p>其中，<span class="math inline">\(\beta\)</span> 表示正则化因子，<span class="math inline">\(bg\)</span> 表示背景。</p>
+<h3 id="应用最大似然估计">2. 应用最大似然估计</h3>
+<p>论文首先从 MLE 的角度重新处理了这个损失函数： <span class="math display">\[
+\begin{aligned}
+\mathcal{P}(\theta)&amp;=e^{-\mathcal{L}(\theta)}\\
+&amp;=\prod_{a_j\in A_+}\left(\sum_{b_i\in B}C_{ij}e^{-\mathcal{L}_{ij}^{cls}(\theta)}\right)
+\prod_{a_j\in A_+}\left(\sum_{b_i\in B}C_{ij}e^{-\mathcal{L}_{ij}^{loc}(\theta)}\right)
+\prod_{a_j\in A_-}e^{-\mathcal{L}_{j}^{bg}(\theta)}\\
+&amp;=\prod_{a_j\in A_+}\left(\sum_{b_i\in B}C_{ij}(\theta)\mathcal{P}_{ij}^{cls}(\theta)\right)
+\prod_{a_j\in A_+}\left(\sum_{b_i\in B}C_{ij}(\theta)\mathcal{P}_{ij}^{loc}(\theta)\right)
+\prod_{a_j\in A_-}\mathcal{P}_{j}^{bg}(\theta)
+\end{aligned}
+\]</span> 其中，<span class="math inline">\(\mathcal{P}_{ij}^{cls}(\theta)\)</span> 和 <span class="math inline">\(\mathcal{P}_{j}^{bg}(\theta)\)</span> 表示类别置信度，<span class="math inline">\(\mathcal{P}_{ij}^{loc}(\theta)\)</span> 表示定位置信度。损失函数 <span class="math inline">\(\mathcal{L}(\theta)\)</span> 的最小化等价于似然概率 <span class="math inline">\(\mathcal{P}(\theta)\)</span> 的最大化。<span class="math inline">\(\mathcal{P}\)</span> 从 MLE 的角度严格考虑了 anchor 的分类和定位的优化。然而，它忽略了如何学习匹配矩阵 <span class="math inline">\(C_{ij}\)</span>。现有的基于 CNN 的检测器使用的 IoU 规则通常根据经验分配。</p>
+<h3 id="检测自定义似然">3. 检测自定义似然</h3>
+<p>为了实现 <strong>目标-anchor</strong> 匹配的优化，作者通过引入 <strong>检测自定义似然</strong> 来扩展基于 CNN 的检测框架，在保证召回率和精度的同时，实现与 NMS 的兼容性。</p>
+<p>首先，根据目标的 IoU 选择排名前 <span class="math inline">\(n\)</span> 个 anchors。为每个目标 <span class="math inline">\(b_i\)</span> 构造候选 anchors 集合 <span class="math inline">\(A_i\in A\)</span>。为了优化召回率，对于每个目标 <span class="math inline">\(b_i\in B\)</span>，需要保证至少存在一个 anchor，它的预测 <span class="math inline">\(a_j^{(cls)}\)</span> 和 <span class="math inline">\(a_{j}^{loc}\)</span> 接近 ground-truth，目标函数为： <span class="math display">\[
+\mathcal{P}_{recall}(\theta)=\prod\max_{a_j\in A_i}\left[ \mathcal{P}_{ij}^{cls}(\theta)\mathcal{P}_{ij}^{loc}(\theta) \right]
+\]</span> 为了提高检测精度，检测器需要将定位不良的 anchors 分类为背景类。可通过优化一下目标函数来实现： <span class="math display">\[
+\mathcal{P}_{precision}(\theta)=\prod_{j}\left[1-P\{a_j\in A_-\}(1-\mathcal{P}_{j}^{bg}(\theta))\right]
+\]</span> 其中，<span class="math inline">\(P\{a_j\in A_-\}=1-\max_i P\{a_j\to b_i\}\)</span> 是 <span class="math inline">\(a_j\)</span> 错过所有目标的可能性，<span class="math inline">\(P\{a_j\to b_i\}\)</span> 表示 <span class="math inline">\(a_j\)</span> 正确预测 <span class="math inline">\(b_i\)</span> 的可能性。</p>
+<p>为了与 NMS 算法兼容，<span class="math inline">\(P\{a_j\to b_i\}\)</span> 应当有如下三个属性：</p>
+<ul>
+<li><span class="math inline">\(P\{a_j\to b_i\}\)</span> 是 <span class="math inline">\(IoU_{ij}^{loc}\)</span>（<span class="math inline">\(a_{j}^{loc}\)</span> 和 <span class="math inline">\(b_i\)</span>）的单调递增函数</li>
+<li>当 <span class="math inline">\(IoU_{ij}^{loc}\)</span> 低于阈值 <span class="math inline">\(t\)</span>，<span class="math inline">\(P\{a_j\to b_i\}\)</span> 接近 0</li>
+<li>对于 <span class="math inline">\(b_i\)</span>，仅存在一个 <span class="math inline">\(a_j\)</span> 满足 <span class="math inline">\(P\{a_j\to b_i\}=1\)</span></li>
+</ul>
+<p>我们可以用饱和线性函数描述为： <span class="math display">\[
+\mathrm{Saturated\ linear}(x,t_1,t_2)=
+\left\{
+\begin{array}{lr}
+    0, &amp; x\leq t_1\\
+    \frac{x-t_1}{t_2-t_1}, &amp; t_1&lt;x&lt;t_2\\
+    1, &amp; x\geq t_2
+\end{array}
+\right.
+\]</span> <img src="/unfinished/image-20210331184446490.png" alt="饱和线性函数图像" style="zoom:80%;"></p>
+<p><span class="math inline">\(P\{a_j\to b_i\}=\mathrm{Saturated\ linear}(IoU_{ij}^{loc},t,\max_{i}(IoU_{ij}^{loc}))\)</span>。</p>
+<p>作者定义检测自定义似然为： <span class="math display">\[
+\begin{aligned}
+\mathcal{P}&#39;(\theta)&amp;=\mathcal{P}_{recall}(\theta)\times \mathcal{P}_{precision}(\theta)\\
+&amp;=\prod_{i}\max_{\alpha+i\in A_i}(\mathcal{P}_{ij}^{cls}(\theta)\mathcal{P}_{ij}^{loc}(\theta)\times \prod_{j}\left(1-P\{a_j\in A_-\}(1-\mathcal{P}_{j}^{bg}(\theta))\right)
+\end{aligned}
+\]</span> 通过优化上述似然，我们可以同时使召回率 <span class="math inline">\(P_{recall}(\theta)\)</span> 和精度 <span class="math inline">\(P_{precision}(\theta)\)</span> 最大化，在检测器训练期间实现 “free” 方式的 目标-anchor 匹配。</p>
+<h3 id="anchor-匹配机制">Anchor 匹配机制</h3>
+<p>为了在 CNN 检测框架中实现上述匹配方法，将似然转换为检测自定义匹配损失： <span class="math display">\[
+\begin{aligned}
+\mathcal{L}&#39;(\theta)
+&amp; = -\log \mathcal{P}&#39;(\theta)\\
+&amp; = -\sum_i\log\left(\max_{a_j\in A_i}(\mathcal{P}_{ij}^{cls}(\theta)\mathcal{P}_{ij}^{loc}(\theta))\right)-\sum_j\log\left(1-P\{a_j\in A_-\}(1-\mathcal{P}_{j}^{bg}(\theta))\right)
+\end{aligned}
+\]</span></p>
+<p>其中 <span class="math inline">\(\max\)</span> 函数用于为每个目标选择最佳的 Anchor。在训练期间，</p>
+</div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%A5%E9%94%99/">报错</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%80%9A%E4%BF%A1/">通信</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" style="font-size: 15px;">生成模型</a> <a href="/tags/%E8%B4%AA%E5%BF%83/" style="font-size: 15px;">贪心</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 15px;">动态规划</a> <a href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" style="font-size: 15px;">目标检测</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 15px;">神经网络</a> <a href="/tags/MIR/" style="font-size: 15px;">MIR</a> <a href="/tags/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">论文学习</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 15px;">分治</a> <a href="/tags/%E5%9B%9E%E6%BA%AF/" style="font-size: 15px;">回溯</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" style="font-size: 15px;">计算机视觉</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/" style="font-size: 15px;">网络流</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91/" style="font-size: 15px;">无线网</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/04/08/The-Vanishing-and-Exploding-Gradient-Problem/">梯度消失和梯度爆炸问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/03/27/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E5%85%A5%E9%97%A8%E2%80%94%E2%80%94%E6%9C%AF%E8%AF%AD%E7%AF%87/">目标检测入门——术语篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/26/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0-SongMASS/">论文学习: SongMASS</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/25/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0%EF%BC%9AThe-Capacity-of-Wireless-Networks/">论文学习：The Capacity of Wireless Networks</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/17/Conditional-GAN/">Conditional GAN</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/15/An-introduction-to-the-generative-model/">生成模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/10/%E8%AE%A4%E8%AE%A4%E7%9C%9F%E7%9C%9F%E5%86%99%E4%B8%80%E7%AF%87LSTM/">认认真真写一篇LSTM</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/09/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0-Conditional-LSTM-GAN-for-Melody-Generation-from-Lyrics/">论文学习 Conditional LSTM-GAN for Melody Generation from Lyrics</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/01/%E4%BB%8A%E5%A4%A9%E5%AD%A6%E4%B9%A0-RNN/">今天学习 RNN</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/01/09/Leetcode327-%E5%8C%BA%E9%97%B4%E5%92%8C%E7%9A%84%E4%B8%AA%E6%95%B0/">Leetcode327 区间和的个数</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Links</i></div><ul></ul><a href="https://github.com/hotelll/" title="gitHub" target="_blank">gitHub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">Hotel's Blog | </a><a rel="nofollow" target="_blank" href="http://beian.miit.gov.cn"> 鄂ICP备 19017407号-1 </a> | &nbsp;<img class="nofancybox" src="//cdn.foreversfj.com/image/blog/20190728/N0BTF6mJ1Ilb.png" style="margin-bottom: -4px;"/><a rel="nofollow" target="_blank" href="http://www.beian.gov.cn">&nbsp;鄂公网安备 42011102003450号</a><br/><span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>var now = new Date();
+function createtime() {
+var grt= new Date("07/09/2018 12:49:00");
+now.setTime(now.getTime()+250);
+days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+document.getElementById("timeDate").innerHTML = "运行 "+dnum+" 天 ";
+document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);</script><br/><div><div class="github-badge" style="margin-right: 3px;"><a href="https://hexo.io" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hexo</span></a></div><div class="github-badge"><a href="https://github.com/tufu9441/maupassant-hexo" target="_black" rel="nofollow"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a></div></div></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=1.0.0" async></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=1.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.css"><script type="text/javascript" src="/js/copycode.js" successtext="Copy Successed!"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css"><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script><script type="text/javascript" src="/js/codeblock-resizer.js?v=1.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=1.0.0"></script></div></body></html>

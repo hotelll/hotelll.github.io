@@ -1,12 +1,14 @@
-<!DOCTYPE html><html lang="en"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>从神经网络到VQ-VAE模型 | Hotel's Blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/normalize.css/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 5.3.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">从神经网络到VQ-VAE模型</h1><a id="logo" href="/.">Hotel's Blog</a><p class="description">Knowledge, Tech and Life</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">从神经网络到VQ-VAE模型</h1><div class="post-meta">2020-07-08<span> | </span><span class="category"><a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></span><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span><span class="post-time"><span class="post-meta-item-text"> | </span><span class="post-meta-item-icon"><i class="fa fa-keyboard-o"></i><span class="post-count"> 2.8k</span><span class="post-meta-item-text"> Words</span></span></span><span class="post-time"> | <span class="post-meta-item-icon"><i class="fa fa-clock-o"></i><span class="post-count"> 10</span><span class="post-meta-item-text"> Minutes</span></span></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">Contents</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="toc-number">1.</span> <span class="toc-text">神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A5%9E%E7%BB%8F%E5%85%83"><span class="toc-number">1.1.</span> <span class="toc-text">神经元</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E5%B1%82%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="toc-number">1.2.</span> <span class="toc-text">单层神经网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E5%B1%82%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="toc-number">1.3.</span> <span class="toc-text">多层神经网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83"><span class="toc-number">1.4.</span> <span class="toc-text">训练</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E7%BC%96%E7%A0%81%E5%99%A8-AutoEncoder"><span class="toc-number">2.</span> <span class="toc-text">自动编码器 AutoEncoder</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E5%88%86%E8%87%AA%E5%8A%A8%E7%BC%96%E7%A0%81%E5%99%A8-Variational-AutoEncoder"><span class="toc-number">3.</span> <span class="toc-text">变分自动编码器 Variational AutoEncoder</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A2%E9%87%8F%E9%87%8F%E5%8C%96%E5%8F%98%E5%88%86%E8%87%AA%E5%8A%A8%E7%BC%96%E7%A0%81%E5%99%A8"><span class="toc-number">4.</span> <span class="toc-text">矢量量化变分自动编码器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vector-Quantised-Variational-AutoEncoder"><span class="toc-number">5.</span> <span class="toc-text">Vector Quantised-Variational AutoEncoder</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E9%82%BB%E8%BF%91%E9%87%8D%E6%9E%84"><span class="toc-number">5.1.</span> <span class="toc-text">最邻近重构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E8%A1%8C%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D"><span class="toc-number">5.2.</span> <span class="toc-text">自行梯度下降</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%B4%E6%8A%A4%E7%BC%96%E7%A0%81%E8%A1%A8"><span class="toc-number">5.3.</span> <span class="toc-text">维护编码表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%9F%E5%90%88%E7%BC%96%E7%A0%81%E5%88%86%E5%B8%83"><span class="toc-number">5.4.</span> <span class="toc-text">拟合编码分布</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="post-content"><p>这是一篇介绍从神经网络（Neural Network）开始谈起，依次介绍自动编码器（AutoEncoder）、变分自动编码器 （VAE）和矢量量化变分自动编码器（VQ-VAE）的文章。</p>
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content=""><title>从神经网络到VQ-VAE模型 | Hotel's Blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=1.0.0"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/normalize.css/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.css"><meta name="generator" content="Hexo 5.3.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">从神经网络到VQ-VAE模型</h1><a id="logo" href="/.">Hotel's Blog</a><p class="description">Knowledge, Tech and Life</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">从神经网络到VQ-VAE模型</h1><div class="post-meta">2020-07-08<span> | </span><span class="category"><a href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></span><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span><span class="post-time"><span class="post-meta-item-text"> | </span><span class="post-meta-item-icon"><i class="fa fa-keyboard-o"></i><span class="post-count"> 2.8k</span><span class="post-meta-item-text"> Words</span></span></span><span class="post-time"> | <span class="post-meta-item-icon"><i class="fa fa-clock-o"></i><span class="post-count"> 10</span><span class="post-meta-item-text"> Minutes</span></span></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">Contents</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="toc-number">1.</span> <span class="toc-text">神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A5%9E%E7%BB%8F%E5%85%83"><span class="toc-number">1.1.</span> <span class="toc-text">神经元</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E5%B1%82%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="toc-number">1.2.</span> <span class="toc-text">单层神经网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E5%B1%82%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="toc-number">1.3.</span> <span class="toc-text">多层神经网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83"><span class="toc-number">1.4.</span> <span class="toc-text">训练</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E7%BC%96%E7%A0%81%E5%99%A8-autoencoder"><span class="toc-number">2.</span> <span class="toc-text">自动编码器 AutoEncoder</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E5%88%86%E8%87%AA%E5%8A%A8%E7%BC%96%E7%A0%81%E5%99%A8-variational-autoencoder"><span class="toc-number">3.</span> <span class="toc-text">变分自动编码器 Variational AutoEncoder</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A2%E9%87%8F%E9%87%8F%E5%8C%96%E5%8F%98%E5%88%86%E8%87%AA%E5%8A%A8%E7%BC%96%E7%A0%81%E5%99%A8"><span class="toc-number">4.</span> <span class="toc-text">矢量量化变分自动编码器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vector-quantised-variational-autoencoder"><span class="toc-number">5.</span> <span class="toc-text">Vector Quantised-Variational AutoEncoder</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E9%82%BB%E8%BF%91%E9%87%8D%E6%9E%84"><span class="toc-number">5.1.</span> <span class="toc-text">最邻近重构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E8%A1%8C%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D"><span class="toc-number">5.2.</span> <span class="toc-text">自行梯度下降</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%B4%E6%8A%A4%E7%BC%96%E7%A0%81%E8%A1%A8"><span class="toc-number">5.3.</span> <span class="toc-text">维护编码表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%9F%E5%90%88%E7%BC%96%E7%A0%81%E5%88%86%E5%B8%83"><span class="toc-number">5.4.</span> <span class="toc-text">拟合编码分布</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="post-content"><script src="\assets\js\APlayer.min.js"> </script><p>这是一篇介绍从神经网络（Neural Network）开始谈起，依次介绍自动编码器（AutoEncoder）、变分自动编码器 （VAE）和矢量量化变分自动编码器（VQ-VAE）的文章。</p>
 <a id="more"></a>
 <p>因为本人刚刚入门机器学习领域，又在项目中遇到了 VQ-VAE 模型的应用。在学习模型的时候又不断地遇到更基础的问题，于是一步步递归地进行学习，就产生了一条这样的学习路径。这篇博客的目的也是记录本周的学习进展，同时介绍以下本人对各个概念与模型的初步认识，之后可能会加入更详细的数学推导与代码实现。</p>
-<h2 id="神经网络"><a href="#神经网络" class="headerlink" title="神经网络"></a>神经网络</h2><blockquote>
-<p>参考博客：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/subconscious/p/5058741.html">https://www.cnblogs.com/subconscious/p/5058741.html</a></p>
+<h2 id="神经网络">神经网络</h2>
+<blockquote>
+<p>参考博客：https://www.cnblogs.com/subconscious/p/5058741.html</p>
 </blockquote>
 <p>神经网络是一门重要的机器学习技术，也是深度学习的基础。下面我们按照从部分到整体的顺序来介绍神经网络的基本概念。</p>
-<h3 id="神经元"><a href="#神经元" class="headerlink" title="神经元"></a>神经元</h3><p>神经元是组成神经网络的基本单元，具有以下属性：</p>
-<ol>
+<h3 id="神经元">神经元</h3>
+<p>神经元是组成神经网络的基本单元，具有以下属性：</p>
+<ol type="1">
 <li>包含多个<strong>输入</strong>；</li>
 <li>结构中的箭头称为<strong>连接</strong>；</li>
 <li>在每个输入的连接上会赋对应的<strong>权值</strong>，权值就是神经网络的训练目标；</li>
@@ -15,92 +17,122 @@
 <li>输出的端口数量不定，但是所有端口的值是<strong>固定</strong>的。</li>
 </ol>
 <p>下图为神经元模型：</p>
-<p><img src="/2020/07/08/From-NN-to-VQ-VAE/unit.jpg" alt="神经元模型"></p>
+<figure>
+<img src="/2020/07/08/From-NN-to-VQ-VAE/unit.jpg" alt="神经元模型"><figcaption aria-hidden="true">神经元模型</figcaption>
+</figure>
 <p>神经元之间通过相互连接形成神经网络。</p>
-<h3 id="单层神经网络"><a href="#单层神经网络" class="headerlink" title="单层神经网络"></a>单层神经网络</h3><p>神经网络层数指的是网络中有计算操作的层次，简称<strong>计算层</strong>。单层神经网络又称为<strong>感知器</strong>，只有输入层和输出层。一个3输入2输出的感知器结构如下：</p>
-<p><img src="/2020/07/08/From-NN-to-VQ-VAE/perceptron.jpg" alt="感知器结构"></p>
-<p>这里权值 $w_{i,j}$ 意思是从第 $i$ 个输入到第 $j$ 个输出的权值。</p>
-<p>如果我们把输入记作向量 $\mathbf{a}=[a_1,a_2,a_3]^\mathrm{T}$，权值记作 $2\times 3$ 的矩阵 $\mathbf{W}$，输出公式可以写成：</p>
-<script type="math/tex; mode=display">
-z = g(\mathbf{W*a})</script><p>感知器可以完成简单的线性分类的任务，如下所示：</p>
-<p><img src="/2020/07/08/From-NN-to-VQ-VAE/classifier.png" alt="线性分类图示"></p>
-<h3 id="多层神经网络"><a href="#多层神经网络" class="headerlink" title="多层神经网络"></a>多层神经网络</h3><p>随着算力的提升以及解决更复杂问题的需求，科学家将多个感知器组成了多层感知器，也就是多层神经网络。一个 3-2-2 的两层神经网络结构如下：</p>
-<p><img src="/2020/07/08/From-NN-to-VQ-VAE/multiNN.jpg" alt="两层神经网络结构"></p>
+<h3 id="单层神经网络">单层神经网络</h3>
+<p>神经网络层数指的是网络中有计算操作的层次，简称<strong>计算层</strong>。单层神经网络又称为<strong>感知器</strong>，只有输入层和输出层。一个3输入2输出的感知器结构如下：</p>
+<figure>
+<img src="/2020/07/08/From-NN-to-VQ-VAE/perceptron.jpg" alt="感知器结构"><figcaption aria-hidden="true">感知器结构</figcaption>
+</figure>
+<p>这里权值 <span class="math inline">\(w_{i,j}\)</span> 意思是从第 <span class="math inline">\(i\)</span> 个输入到第 <span class="math inline">\(j\)</span> 个输出的权值。</p>
+<p>如果我们把输入记作向量 <span class="math inline">\(\mathbf{a}=[a_1,a_2,a_3]^\mathrm{T}\)</span>，权值记作 <span class="math inline">\(2\times 3\)</span> 的矩阵 <span class="math inline">\(\mathbf{W}\)</span>，输出公式可以写成： <span class="math display">\[
+z = g(\mathbf{W*a})
+\]</span> 感知器可以完成简单的线性分类的任务，如下所示：</p>
+<figure>
+<img src="/2020/07/08/From-NN-to-VQ-VAE/classifier.png" alt="线性分类图示"><figcaption aria-hidden="true">线性分类图示</figcaption>
+</figure>
+<h3 id="多层神经网络">多层神经网络</h3>
+<p>随着算力的提升以及解决更复杂问题的需求，科学家将多个感知器组成了多层感知器，也就是多层神经网络。一个 3-2-2 的两层神经网络结构如下：</p>
+<figure>
+<img src="/2020/07/08/From-NN-to-VQ-VAE/multiNN.jpg" alt="两层神经网络结构"><figcaption aria-hidden="true">两层神经网络结构</figcaption>
+</figure>
 <p>结构中，有如下注意点：</p>
-<ol>
+<ol type="1">
 <li>在输入层和输出层之间加入了<strong>中间层</strong>，又称<strong>隐藏层</strong>，隐藏层的结点数是任意的，好的结点数设置可以优化神经网络的效果；</li>
-<li>这里加入了新的概念：<strong>偏置</strong>。偏置节点的值永远为+1，特点是节点无输入，偏置大小由向量 $\mathbf{b}$ 决定；</li>
-<li>由于包含多层，$\mathbf{W}^{(k)}$代表的是第 k 层的权值矩阵，定义输入层后为第一层。</li>
+<li>这里加入了新的概念：<strong>偏置</strong>。偏置节点的值永远为+1，特点是节点无输入，偏置大小由向量 <span class="math inline">\(\mathbf{b}\)</span> 决定；</li>
+<li>由于包含多层，<span class="math inline">\(\mathbf{W}^{(k)}\)</span>代表的是第 k 层的权值矩阵，定义输入层后为第一层。</li>
 </ol>
-<p>这样，上图结构中的运算式可表达为：</p>
-<script type="math/tex; mode=display">
-g(\mathbf{W}^{(1)}*\mathbf{a}^{(1)}+\mathbf{b}^{(1)})=\mathbf{a}^{(2)}</script><script type="math/tex; mode=display">
-g(\mathbf{W}^{(2)}*\mathbf{a}^{(2)}+\mathbf{b}^{(2)})=\mathbf{z}</script><h3 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h3><p>机器学习的目的，就是使得参数尽可能逼近真实的模型。具体方法是给神经网络的所有参数（权值）赋随机值来进行初始化，来预测训练数据中的样本。假设样本预测目标为 $y_p$，真实目标为 $y$，我们定义损失 loss 如下：</p>
-<script type="math/tex; mode=display">
-\mathrm{loss} = (y_p-y)^2</script><p>训练目标是让 loss 最小。因此训练的问题变成了：</p>
+<p>这样，上图结构中的运算式可表达为： <span class="math display">\[
+g(\mathbf{W}^{(1)}*\mathbf{a}^{(1)}+\mathbf{b}^{(1)})=\mathbf{a}^{(2)}
+\]</span></p>
+<p><span class="math display">\[
+g(\mathbf{W}^{(2)}*\mathbf{a}^{(2)}+\mathbf{b}^{(2)})=\mathbf{z}
+\]</span></p>
+<h3 id="训练">训练</h3>
+<p>机器学习的目的，就是使得参数尽可能逼近真实的模型。具体方法是给神经网络的所有参数（权值）赋随机值来进行初始化，来预测训练数据中的样本。假设样本预测目标为 <span class="math inline">\(y_p\)</span>，真实目标为 <span class="math inline">\(y\)</span>，我们定义损失 loss 如下： <span class="math display">\[
+\mathrm{loss} = (y_p-y)^2
+\]</span> 训练目标是让 loss 最小。因此训练的问题变成了：</p>
 <blockquote>
 <p>如何通过改变参数（权值），让损失函数的值最小化。</p>
 </blockquote>
 <p>一般解这个优化问题的方法是<strong>梯度下降</strong>法，即每次计算参数当前的梯度，然后让参数沿梯度下降的方向变化一定距离，经过多次迭代，直到梯度接近零为止。</p>
 <p>由于每次计算所有参数的梯度代价很大，我们还需要<strong>反向传播</strong>算法，从后往前。对于上面的例子，计算梯度的顺序为：输出层 —&gt; 参数矩阵2 —&gt; 中间层 —&gt; 参数矩阵1 —&gt; 输入层。这样就获得了所有参数的梯度。</p>
-<h2 id="自动编码器-AutoEncoder"><a href="#自动编码器-AutoEncoder" class="headerlink" title="自动编码器 AutoEncoder"></a>自动编码器 AutoEncoder</h2><blockquote>
-<p>参考博客：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/68903857">https://zhuanlan.zhihu.com/p/68903857</a></p>
+<h2 id="自动编码器-autoencoder">自动编码器 AutoEncoder</h2>
+<blockquote>
+<p>参考博客：https://zhuanlan.zhihu.com/p/68903857</p>
 </blockquote>
 <p><strong>自动编码器</strong>是神经网络中的一类模型。它的结构如下所示。</p>
-<p><img src="/2020/07/08/From-NN-to-VQ-VAE/AntoEncoder.jpg" alt="自动编码器"></p>
-<p>自动编码器框架由<strong>编码过程</strong>和<strong>解码过程</strong>组成。首先，通过 encoder g 将输入样本 x 映射到特征空间z；之后，再通过 decoder f 将抽象特征 z 映射回原始空间得到重构样本 x’。</p>
+<figure>
+<img src="/2020/07/08/From-NN-to-VQ-VAE/AntoEncoder.jpg" alt="自动编码器"><figcaption aria-hidden="true">自动编码器</figcaption>
+</figure>
+<p>自动编码器框架由<strong>编码过程</strong>和<strong>解码过程</strong>组成。首先，通过 encoder g 将输入样本 x 映射到特征空间z；之后，再通过 decoder f 将抽象特征 z 映射回原始空间得到重构样本 x'。</p>
 <p>在编码过程，神经网络逐层降低神经元个数来对数据进行<strong>压缩</strong>；在解码过程，神经网络基于数据的抽象表示，逐层提升神经元数量，来实现对输入样本的<strong>重构</strong>。</p>
 <p>在训练过程中不需要样本的 label，因为它本质上是把输入同时作为输入和输出，输出是和输入相比较的，因此是一种<strong>无监督学习</strong>的方法。</p>
-<h2 id="变分自动编码器-Variational-AutoEncoder"><a href="#变分自动编码器-Variational-AutoEncoder" class="headerlink" title="变分自动编码器 Variational AutoEncoder"></a>变分自动编码器 Variational AutoEncoder</h2><blockquote>
-<p>参考博客：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/34998569">https://zhuanlan.zhihu.com/p/34998569</a></p>
-<p>​                  <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/91434658">https://zhuanlan.zhihu.com/p/91434658</a></p>
-<p>相关论文：<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1606.05908.pdf">https://arxiv.org/pdf/1606.05908.pdf</a></p>
+<h2 id="变分自动编码器-variational-autoencoder">变分自动编码器 Variational AutoEncoder</h2>
+<blockquote>
+<p>参考博客：https://zhuanlan.zhihu.com/p/34998569</p>
+<p>​ https://zhuanlan.zhihu.com/p/91434658</p>
+<p>相关论文：https://arxiv.org/pdf/1606.05908.pdf</p>
 </blockquote>
-<p>VAE是一类强大的生成模型。VAE的一个交大的不同点在于，它假设了样本 x 的抽象特征 z 服从 $(\mu,\ \sigma^2)$ 的高斯分布（一般会假设为标准正态分布 $\mathcal{N}(0,1)$）。这样做的优势是，训练结束后，我们可以抛弃 Encoder 部分，而直接从高斯分布中采样一个 z，然后根据 z 来生成一个 x，这是将是一个很棒的生成模型。VAE模型的示意图如下：</p>
-<p><img src="/2020/07/08/From-NN-to-VQ-VAE/VAE.jpg" alt="VAE结构"></p>
-<p>VAE模型中，针对每个 $X_k$，通过神经网络训练出一个专属于 $X_k$ 的正态分布 $p(Z|X_k)$ 的均值和方差。这样，我们就得到了一个生成器 $\hat{X}_k=g(Z_k)$。总结来说，VAE为每个样本构造专属的正态分布，之后进行采样来重构。</p>
-<p>在训练的过程中，我们希望最小化 $D(\hat{X}_k,X_k)^2$。 同时，VAE让所有的 $p(Z|X)$ 向标准正态分布$\mathcal{N}(0,1)$看齐。这样就防止了方差（噪声）为零时 VAE 退化为 AE 的情况，保证了模型的生成能力。</p>
+<p>VAE是一类强大的生成模型。VAE较大的不同点在于，它假设了样本 x 的抽象特征 z 服从 <span class="math inline">\((\mu,\ \sigma^2)\)</span> 的高斯分布（一般会假设为标准正态分布 <span class="math inline">\(\mathcal{N}(0,1)\)</span>）。这样做的优势是，训练结束后，我们可以抛弃 Encoder 部分，而直接从高斯分布中采样一个 z，然后根据 z 来生成一个 x，这是将是一个很棒的生成模型。VAE模型的示意图如下：</p>
+<figure>
+<img src="/2020/07/08/From-NN-to-VQ-VAE/VAE.jpg" alt="VAE结构"><figcaption aria-hidden="true">VAE结构</figcaption>
+</figure>
+<p>VAE模型中，针对每个 <span class="math inline">\(X_k\)</span>，通过神经网络训练出一个专属于 <span class="math inline">\(X_k\)</span> 的正态分布 <span class="math inline">\(p(Z|X_k)\)</span> 的均值和方差。这样，我们就得到了一个生成器 <span class="math inline">\(\hat{X}_k=g(Z_k)\)</span>。总结来说，VAE为每个样本构造专属的正态分布，之后进行采样来重构。</p>
+<p>在训练的过程中，我们希望最小化 <span class="math inline">\(D(\hat{X}_k,X_k)^2\)</span>。 同时，VAE让所有的 <span class="math inline">\(p(Z|X)\)</span> 向标准正态分布<span class="math inline">\(\mathcal{N}(0,1)\)</span>看齐。这样就防止了方差（噪声）为零时 VAE 退化为 AE 的情况，保证了模型的生成能力。</p>
 <p>在 VAE 中，有两个 encoder，分别用来计算均值和方差。</p>
 <p>VAE 本质上是在常规的自编码器的基础上，对 encoder 的结果（在 VAE 中对应计算均值的神经网络）加入高斯噪声，从而使 decoder 结果对噪声具有鲁棒性。</p>
-<p>在实际情况中，我们需要在模型的准确率上与隐含向量服从标准正态分布之间做一个权衡。原论文中直接采用各<strong>一般正态分布</strong>与<strong>标准正态分布</strong>的KL散度作为 loss 来进行计算：</p>
-<script type="math/tex; mode=display">
-KL[\mathcal{N}(\mu,\sigma^2)\ ||\ \mathcal{N}(0,I)]</script><p>计算的结果如下：</p>
-<script type="math/tex; mode=display">
-L_{\mu,\sigma^2}=\frac{1}{2}\sum_{i=1}^d(\mu_{(i)}^2+\sigma_{(i)}^2-\log\sigma_{(i)}^{2}-1)</script><p>此处的 $d$ 是隐变量 Z 的维度，$\mu<em>{(i)}$ 和 $\sigma</em>{(i)}^2$ 分别代表一般正态分布的均值向量和方差向量的第 $i$ 个分量。这个综合的式子帮我们考虑了均值损失和方差损失之间的协调问题。</p>
-<h2 id="矢量量化变分自动编码器"><a href="#矢量量化变分自动编码器" class="headerlink" title="矢量量化变分自动编码器"></a>矢量量化变分自动编码器</h2><h2 id="Vector-Quantised-Variational-AutoEncoder"><a href="#Vector-Quantised-Variational-AutoEncoder" class="headerlink" title="Vector Quantised-Variational AutoEncoder"></a>Vector Quantised-Variational AutoEncoder</h2><blockquote>
-<p>参考博客：<a target="_blank" rel="noopener" href="https://kexue.fm/archives/6760">https://kexue.fm/archives/6760</a></p>
-<p>​                  <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/91434658">https://zhuanlan.zhihu.com/p/91434658</a></p>
+<p>在实际情况中，我们需要在模型的准确率上与隐含向量服从标准正态分布之间做一个权衡。原论文中直接采用各<strong>一般正态分布</strong>与<strong>标准正态分布</strong>的KL散度作为 loss 来进行计算： <span class="math display">\[
+KL[\mathcal{N}(\mu,\sigma^2)\ ||\ \mathcal{N}(0,I)]
+\]</span> 计算的结果如下： <span class="math display">\[
+L_{\mu,\sigma^2}=\frac{1}{2}\sum_{i=1}^d(\mu_{(i)}^2+\sigma_{(i)}^2-\log\sigma_{(i)}^{2}-1)
+\]</span> 此处的 <span class="math inline">\(d\)</span> 是隐变量 Z 的维度，<span class="math inline">\(\mu_{(i)}\)</span> 和 <span class="math inline">\(\sigma_{(i)}^2\)</span> 分别代表一般正态分布的均值向量和方差向量的第 <span class="math inline">\(i\)</span> 个分量。这个综合的式子帮我们考虑了均值损失和方差损失之间的协调问题。</p>
+<h2 id="矢量量化变分自动编码器">矢量量化变分自动编码器</h2>
+<h2 id="vector-quantised-variational-autoencoder">Vector Quantised-Variational AutoEncoder</h2>
+<blockquote>
+<p>参考博客：https://kexue.fm/archives/6760</p>
+<p>​ https://zhuanlan.zhihu.com/p/91434658</p>
 </blockquote>
 <p>VQ-VAE的特点是编码出的编码向量是离散的（向量的每个元素都是整数）。其总体结构如下：</p>
-<p><img src="/2020/07/08/From-NN-to-VQ-VAE/VQVAE.jpg" alt="VQ-VAE结构"></p>
-<h3 id="最邻近重构"><a href="#最邻近重构" class="headerlink" title="最邻近重构"></a>最邻近重构</h3><p>最邻近重构是将输入编码成为离散向量的方法。输入向量 $\mathbf{x}$ 传入 encoder 后得到的应是连续的 $d$ 维向量 $\mathbf{z}$。同时，VQ-VAE 模型会维护一个 编码表（codebook），记为：</p>
-<script type="math/tex; mode=display">
-E=[e_1,e_2,...,e_K]</script><p>其中，每个 $e_i$ 都是一个大小为 $d$ 的向量。VQ-VAE 模型通过最邻近搜索，将 $\mathbf{z}$ 映射为这 K 个向量中最邻近的一个：</p>
-<script type="math/tex; mode=display">
-z\to e_k,\quad k=\arg\min_{j}||z-e_j||_2</script><p>我们将 $\mathbf{z}$ 对应的离散向量记为 $\mathbf{z}_q$ 。因为每个 $\mathbf{z}_q$ 对应着编码表中的一个索引编号，因此 VQ-VAE 将输入编码成为 $1,2,…,K$ 中的一个整数。</p>
-<p>最后，我们将 $\mathbf{z}_q$ 传入一个 decoder，希望重构原图 $\hat{x}=decoder(\mathbf{z_q})$。</p>
-<p>整个流程如下：</p>
-<script type="math/tex; mode=display">
+<figure>
+<img src="/2020/07/08/From-NN-to-VQ-VAE/VQVAE.jpg" alt="VQ-VAE结构"><figcaption aria-hidden="true">VQ-VAE结构</figcaption>
+</figure>
+<h3 id="最邻近重构">最邻近重构</h3>
+<p>最邻近重构是将输入编码成为离散向量的方法。输入向量 <span class="math inline">\(\mathbf{x}\)</span> 传入 encoder 后得到的应是连续的 <span class="math inline">\(d\)</span> 维向量 <span class="math inline">\(\mathbf{z}\)</span>。同时，VQ-VAE 模型会维护一个 编码表（codebook），记为： <span class="math display">\[
+E=[e_1,e_2,...,e_K]
+\]</span> 其中，每个 <span class="math inline">\(e_i\)</span> 都是一个大小为 <span class="math inline">\(d\)</span> 的向量。VQ-VAE 模型通过最邻近搜索，将 <span class="math inline">\(\mathbf{z}\)</span> 映射为这 K 个向量中最邻近的一个： <span class="math display">\[
+z\to e_k,\quad k=\arg\min_{j}||z-e_j||_2
+\]</span> 我们将 <span class="math inline">\(\mathbf{z}\)</span> 对应的离散向量记为 <span class="math inline">\(\mathbf{z}_q\)</span> 。因为每个 <span class="math inline">\(\mathbf{z}_q\)</span> 对应着编码表中的一个索引编号，因此 VQ-VAE 将输入编码成为 <span class="math inline">\(1,2,...,K\)</span> 中的一个整数。</p>
+<p>最后，我们将 <span class="math inline">\(\mathbf{z}_q\)</span> 传入一个 decoder，希望重构原图 <span class="math inline">\(\hat{x}=decoder(\mathbf{z_q})\)</span>。</p>
+<p>整个流程如下： <span class="math display">\[
 \mathbf{x}\stackrel{encoder}\longrightarrow
 \mathbf{z} \stackrel{最邻近}\longrightarrow
 \mathbf{z}_q \stackrel{decoder}\longrightarrow
-\hat{\mathbf{x}}</script><p>在实际情况中，为了避免重构失真，通常通过多层卷积将 $\mathbf{x}$ 编码为 $m\times m$ 个大小为 $d$ 的向量，因此最终相当于将 $\mathbf{x}$ 编码成为 $z_q$，也就是一个 $m\times m$ 的整数矩阵。 </p>
-<h3 id="自行梯度下降"><a href="#自行梯度下降" class="headerlink" title="自行梯度下降"></a>自行梯度下降</h3><p>对于一个普通的自编码器，损失函数为：</p>
-<script type="math/tex; mode=display">
-||x-decoder(z)||_2^2</script><p>但是在 VQ-VAE 中，损失函数应当是：</p>
-<script type="math/tex; mode=display">
-||x-decoder(z_q)||_2^2</script><p>但是由于 $z_q$ 在构建的时候有取最小值操作，$\arg\min$ 是没有梯度的，因此难以更新 encoder。</p>
-<p>VQ-VAE 使用了<strong>直通估计</strong>（Straight-Through Estimator）的方法，在前向传播的时候使用真正的损失函数，而在反向传播的时候，可以使用自己设计的梯度来对 encoder 进行优化。根据这个思想所设计出的目标函数为：</p>
-<script type="math/tex; mode=display">
-||x-decoder(z+sg[z_q-z])||_2^2</script><p>其中 $sg$ 代表不计算其梯度。在此情况下，前向传播时的目标函数为 $\left|x-decoder(z_q)\right|_2^2$，反向传播的目标函数为 $\left|x-decoder(z)\right|_2^2$。</p>
-<h3 id="维护编码表"><a href="#维护编码表" class="headerlink" title="维护编码表"></a>维护编码表</h3><p>根据 VQ-VAE 的最邻近搜索的设计，我们期望 $z_q$ 和 $z$ 尽可能接近。因此在损失函数中，我们可以直接加入相关项一起进行优化：</p>
-<script type="math/tex; mode=display">
-||x-decoder(z+sg[z_q-z])||_2^2+\beta||z-z_q||_2^2</script><p>严谨来说，模型应当尽量让 $z_q$ 去靠近 $z$，而不是让 $z$ 去接近 $z_q$。因此最终的 loss 设计如下：</p>
-<script type="math/tex; mode=display">
-\mathrm{loss}=||x-decoder(z+sg[z_q-z])||_2^2+\beta||sg[z]-z_q||_2^2+\gamma||z-sg[z_q]||_2^2</script><p>其中 $\beta$ 的项代表固定 $z$，让 $z_q$ 去靠近 $z$；$\gamma$ 的项代表固定 $z_q$，让 $z$ 去靠近 $z_q$。通过令 $\gamma &lt; \beta$ 表示我们重视前者甚于后者。</p>
-<h3 id="拟合编码分布"><a href="#拟合编码分布" class="headerlink" title="拟合编码分布"></a>拟合编码分布</h3><p>对于一个编码后的 $m\times m$ 的整数矩阵，利用自回归模型，如 PixelCNN （这里没有再做了解）对其进行拟合，得到编码分布，并根据分布可以生成一个新的编码矩阵。将编码矩阵根据编码表映射为矩阵 $z_q$，再经过 decoder 既可得到新的生成。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>以上就是本周的学习进展，总体来说是比较磕磕碰碰的，“万事开头难”。因为主要是通过博客学习，本人的基础和理解能力也有限，可能会有理解不到位或表达不周之处，也欢迎大家指出。</p>
-</div><div class="tags"><a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"><i class="fa fa-tag"></i>神经网络</a></div><div class="post-nav"><a class="pre" href="/2020/07/24/Google-Jukebox-%E9%A1%B9%E7%9B%AE%E5%A4%8D%E7%8E%B0/">Google Jukebox 项目复现</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%A5%E9%94%99/">报错</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%80%9A%E4%BF%A1/">通信</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/%E8%B4%AA%E5%BF%83/" style="font-size: 15px;">贪心</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 15px;">动态规划</a> <a href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" style="font-size: 15px;">生成模型</a> <a href="/tags/MIR/" style="font-size: 15px;">MIR</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 15px;">分治</a> <a href="/tags/%E5%9B%9E%E6%BA%AF/" style="font-size: 15px;">回溯</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 15px;">神经网络</a> <a href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" style="font-size: 15px;">目标检测</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/" style="font-size: 15px;">网络流</a> <a href="/tags/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">论文学习</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" style="font-size: 15px;">计算机视觉</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91/" style="font-size: 15px;">无线网</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/03/27/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E5%85%A5%E9%97%A8%E2%80%94%E2%80%94%E6%9C%AF%E8%AF%AD%E7%AF%87/">目标检测入门——术语篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/26/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0-SongMASS/">论文学习: SongMASS</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/25/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0%EF%BC%9AThe-Capacity-of-Wireless-Networks/">论文学习：The Capacity of Wireless Networks</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/17/Conditional-GAN/">Conditional GAN</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/15/An-introduction-to-the-generative-model/">生成模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/10/%E8%AE%A4%E8%AE%A4%E7%9C%9F%E7%9C%9F%E5%86%99%E4%B8%80%E7%AF%87LSTM/">认认真真写一篇LSTM</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/09/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0-Conditional-LSTM-GAN-for-Melody-Generation-from-Lyrics/">论文学习 Conditional LSTM-GAN for Melody Generation from Lyrics</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/01/%E4%BB%8A%E5%A4%A9%E5%AD%A6%E4%B9%A0-RNN/">今天学习 RNN</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/01/09/Leetcode327-%E5%8C%BA%E9%97%B4%E5%92%8C%E7%9A%84%E4%B8%AA%E6%95%B0/">Leetcode327 区间和的个数</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/23/OS9-Main-Memory/">OS9 Main Memory</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Links</i></div><ul></ul><a href="https://github.com/hotelll/" title="gitHub" target="_blank">gitHub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">Hotel's Blog | </a><a rel="nofollow" target="_blank" href="http://beian.miit.gov.cn"> 鄂ICP备 19017407号-1 </a> | &nbsp;<img class="nofancybox" src="//cdn.foreversfj.com/image/blog/20190728/N0BTF6mJ1Ilb.png" style="margin-bottom: -4px;"/><a rel="nofollow" target="_blank" href="http://www.beian.gov.cn">&nbsp;鄂公网安备 42011102003450号</a><br/><span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>var now = new Date();
+\hat{\mathbf{x}}
+\]</span> 在实际情况中，为了避免重构失真，通常通过多层卷积将 <span class="math inline">\(\mathbf{x}\)</span> 编码为 <span class="math inline">\(m\times m\)</span> 个大小为 <span class="math inline">\(d\)</span> 的向量，因此最终相当于将 <span class="math inline">\(\mathbf{x}\)</span> 编码成为 <span class="math inline">\(z_q\)</span>，也就是一个 <span class="math inline">\(m\times m\)</span> 的整数矩阵。</p>
+<h3 id="自行梯度下降">自行梯度下降</h3>
+<p>对于一个普通的自编码器，损失函数为： <span class="math display">\[
+||x-decoder(z)||_2^2
+\]</span> 但是在 VQ-VAE 中，损失函数应当是： <span class="math display">\[
+||x-decoder(z_q)||_2^2
+\]</span></p>
+<p>但是由于 <span class="math inline">\(z_q\)</span> 在构建的时候有取最小值操作，<span class="math inline">\(\arg\min\)</span> 是没有梯度的，因此难以更新 encoder。</p>
+<p>VQ-VAE 使用了<strong>直通估计</strong>（Straight-Through Estimator）的方法，在前向传播的时候使用真正的损失函数，而在反向传播的时候，可以使用自己设计的梯度来对 encoder 进行优化。根据这个思想所设计出的目标函数为： <span class="math display">\[
+||x-decoder(z+sg[z_q-z])||_2^2
+\]</span> 其中 <span class="math inline">\(sg\)</span> 代表不计算其梯度。在此情况下，前向传播时的目标函数为 <span class="math inline">\(\left\|x-decoder(z_q)\right\|_2^2\)</span>，反向传播的目标函数为 <span class="math inline">\(\left\|x-decoder(z)\right\|_2^2\)</span>。</p>
+<h3 id="维护编码表">维护编码表</h3>
+<p>根据 VQ-VAE 的最邻近搜索的设计，我们期望 <span class="math inline">\(z_q\)</span> 和 <span class="math inline">\(z\)</span> 尽可能接近。因此在损失函数中，我们可以直接加入相关项一起进行优化： <span class="math display">\[
+||x-decoder(z+sg[z_q-z])||_2^2+\beta||z-z_q||_2^2
+\]</span> 严谨来说，模型应当尽量让 <span class="math inline">\(z_q\)</span> 去靠近 <span class="math inline">\(z\)</span>，而不是让 <span class="math inline">\(z\)</span> 去接近 <span class="math inline">\(z_q\)</span>。因此最终的 loss 设计如下： <span class="math display">\[
+\mathrm{loss}=||x-decoder(z+sg[z_q-z])||_2^2+\beta||sg[z]-z_q||_2^2+\gamma||z-sg[z_q]||_2^2
+\]</span> 其中 <span class="math inline">\(\beta\)</span> 的项代表固定 <span class="math inline">\(z\)</span>，让 <span class="math inline">\(z_q\)</span> 去靠近 <span class="math inline">\(z\)</span>；<span class="math inline">\(\gamma\)</span> 的项代表固定 <span class="math inline">\(z_q\)</span>，让 <span class="math inline">\(z\)</span> 去靠近 <span class="math inline">\(z_q\)</span>。通过令 <span class="math inline">\(\gamma &lt; \beta\)</span> 表示我们重视前者甚于后者。</p>
+<h3 id="拟合编码分布">拟合编码分布</h3>
+<p>对于一个编码后的 <span class="math inline">\(m\times m\)</span> 的整数矩阵，利用自回归模型，如 PixelCNN （这里没有再做了解）对其进行拟合，得到编码分布，并根据分布可以生成一个新的编码矩阵。将编码矩阵根据编码表映射为矩阵 <span class="math inline">\(z_q\)</span>，再经过 decoder 既可得到新的生成。</p>
+<h2 id="总结">总结</h2>
+<p>以上就是本周的学习进展，总体来说是比较磕磕碰碰的，“万事开头难”。因为主要是通过博客学习，本人的基础和理解能力也有限，可能会有理解不到位或表达不周之处，也欢迎大家指出。</p>
+</div><div class="tags"><a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"><i class="fa fa-tag"></i>神经网络</a></div><div class="post-nav"><a class="pre" href="/2020/07/24/Google-Jukebox-%E9%A1%B9%E7%9B%AE%E5%A4%8D%E7%8E%B0/">Google Jukebox 项目复现</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%A5%E9%94%99/">报错</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%80%9A%E4%BF%A1/">通信</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/" style="font-size: 15px;">生成模型</a> <a href="/tags/%E8%B4%AA%E5%BF%83/" style="font-size: 15px;">贪心</a> <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" style="font-size: 15px;">动态规划</a> <a href="/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" style="font-size: 15px;">目标检测</a> <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" style="font-size: 15px;">神经网络</a> <a href="/tags/MIR/" style="font-size: 15px;">MIR</a> <a href="/tags/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">论文学习</a> <a href="/tags/%E5%88%86%E6%B2%BB/" style="font-size: 15px;">分治</a> <a href="/tags/%E5%9B%9E%E6%BA%AF/" style="font-size: 15px;">回溯</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" style="font-size: 15px;">计算机视觉</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/" style="font-size: 15px;">网络流</a> <a href="/tags/%E6%97%A0%E7%BA%BF%E7%BD%91/" style="font-size: 15px;">无线网</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/04/08/The-Vanishing-and-Exploding-Gradient-Problem/">梯度消失和梯度爆炸问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/03/27/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E5%85%A5%E9%97%A8%E2%80%94%E2%80%94%E6%9C%AF%E8%AF%AD%E7%AF%87/">目标检测入门——术语篇</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/26/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0-SongMASS/">论文学习: SongMASS</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/25/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0%EF%BC%9AThe-Capacity-of-Wireless-Networks/">论文学习：The Capacity of Wireless Networks</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/17/Conditional-GAN/">Conditional GAN</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/15/An-introduction-to-the-generative-model/">生成模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/10/%E8%AE%A4%E8%AE%A4%E7%9C%9F%E7%9C%9F%E5%86%99%E4%B8%80%E7%AF%87LSTM/">认认真真写一篇LSTM</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/09/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0-Conditional-LSTM-GAN-for-Melody-Generation-from-Lyrics/">论文学习 Conditional LSTM-GAN for Melody Generation from Lyrics</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/01/%E4%BB%8A%E5%A4%A9%E5%AD%A6%E4%B9%A0-RNN/">今天学习 RNN</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/01/09/Leetcode327-%E5%8C%BA%E9%97%B4%E5%92%8C%E7%9A%84%E4%B8%AA%E6%95%B0/">Leetcode327 区间和的个数</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Links</i></div><ul></ul><a href="https://github.com/hotelll/" title="gitHub" target="_blank">gitHub</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">Hotel's Blog | </a><a rel="nofollow" target="_blank" href="http://beian.miit.gov.cn"> 鄂ICP备 19017407号-1 </a> | &nbsp;<img class="nofancybox" src="//cdn.foreversfj.com/image/blog/20190728/N0BTF6mJ1Ilb.png" style="margin-bottom: -4px;"/><a rel="nofollow" target="_blank" href="http://www.beian.gov.cn">&nbsp;鄂公网安备 42011102003450号</a><br/><span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script>var now = new Date();
 function createtime() {
 var grt= new Date("07/09/2018 12:49:00");
 now.setTime(now.getTime()+250);
