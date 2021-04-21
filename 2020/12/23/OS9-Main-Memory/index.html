@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="OS9 Main Memory"><meta name="keywords" content=""><meta name="author" content="Hotel"><meta name="copyright" content="Hotel"><title>OS9 Main Memory | Hotel's Blog</title><link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="OS9 Main Memory"><meta name="keywords" content=""><meta name="author" content="Hotel"><meta name="copyright" content="Hotel"><title>OS9 Main Memory | Hotel's Blog</title><link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
   root: '/',
   algolia: undefined,
   localSearch: {"path":"search.xml","languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
@@ -9,79 +9,80 @@
   },
   hexoVersion: '5.3.0'
 } </script><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Hotel's Blog" type="application/atom+xml">
-</head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="false"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#objective"><span class="toc-number">1.</span> <span class="toc-text">Objective</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#background"><span class="toc-number">2.</span> <span class="toc-text">Background</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#protection"><span class="toc-number">3.</span> <span class="toc-text">Protection</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#hardware-address-protection"><span class="toc-number">3.0.1.</span> <span class="toc-text">Hardware Address Protection</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#address-binding"><span class="toc-number">3.0.2.</span> <span class="toc-text">Address Binding</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#binding-of-instructions-and-data-to-memory"><span class="toc-number">3.0.3.</span> <span class="toc-text">Binding of Instructions and Data to Memory</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#logical-vs.-physical-address-space"><span class="toc-number">3.0.4.</span> <span class="toc-text">Logical vs. Physical Address Space</span></a></li></ol></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://i.loli.net/2021/04/18/Cs9Y38JQDfpjega.jpg"></div><div class="author-info__name text-center">Hotel</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">30</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">11</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">5</span></a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Hotel's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> Search</span></a></span></div><div id="post-info"><div id="post-title">OS9 Main Memory</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-12-23</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a><div class="post-meta-wordcount"><span>Word count: </span><span class="word-count">495</span><span class="post-meta__separator">|</span><span>Reading time: 3 min</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><script src="\assets\js\APlayer.min.js"> </script><p>This is the note for Chapter 9 in Operating System Concepts.</p>
+</head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="false"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Objective"><span class="toc-number">1.</span> <span class="toc-text">Objective</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Background"><span class="toc-number">2.</span> <span class="toc-text">Background</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Protection"><span class="toc-number">3.</span> <span class="toc-text">Protection</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Hardware-Address-Protection"><span class="toc-number">3.0.1.</span> <span class="toc-text">Hardware Address Protection</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Address-Binding"><span class="toc-number">3.0.2.</span> <span class="toc-text">Address Binding</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Binding-of-Instructions-and-Data-to-Memory"><span class="toc-number">3.0.3.</span> <span class="toc-text">Binding of Instructions and Data to Memory</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Logical-vs-Physical-Address-Space"><span class="toc-number">3.0.4.</span> <span class="toc-text">Logical vs. Physical Address Space</span></a></li></ol></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://i.loli.net/2021/04/18/Cs9Y38JQDfpjega.jpg"></div><div class="author-info__name text-center">Hotel</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">29</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">11</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">5</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://i.loli.net/2021/04/20/N3GCFnILoATjJdm.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Hotel's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> Search</span></a></span></div><div id="post-info"><div id="post-title">OS9 Main Memory</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-12-23</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a><div class="post-meta-wordcount"><span>Word count: </span><span class="word-count">493</span><span class="post-meta__separator">|</span><span>Reading time: 3 min</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><script src="\assets\js\APlayer.min.js"> </script><p>This is the note for Chapter 9 in Operating System Concepts.</p>
 <a id="more"></a>
-<h2 id="objective">Objective</h2>
-<ul>
+<h2 id="Objective"><a href="#Objective" class="headerlink" title="Objective"></a>Objective</h2><ul>
 <li>To provide a detailed description of various ways of organizing memory hardware</li>
 <li>To discuss various memory-management techniques</li>
 <li>To provide a detailed description of the Intel Pentium, which supports both pure segmentation and segmentation with paging</li>
 </ul>
-<h2 id="background">Background</h2>
-<ul>
-<li><p>Program must be brought (from disk) into memory and placed within a process for it to be run</p></li>
-<li><p>Main memory and registers are only storage CPU can access directly</p></li>
+<h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><ul>
+<li>Program must be brought (from disk) into memory and placed within a process for it to be run</li>
+<li>Main memory and registers are only storage CPU can access directly</li>
 <li><p>Memory unit only sees a stream of:</p>
 <ul>
 <li>addresses + read requests, or</li>
 <li>address + data and write requests</li>
-</ul></li>
-<li><p>Register access is done in one CPU clock (or less)</p></li>
-<li><p>Main memory can take many cycles, causing a <strong>stall</strong></p></li>
-<li><p><strong>Cache</strong> sits between main memory and CPU registers</p></li>
-<li><p>Protection of memory required to ensure correct operation</p></li>
 </ul>
-<h2 id="protection">Protection</h2>
-<ul>
+</li>
+<li><p>Register access is done in one CPU clock (or less)</p>
+</li>
+<li><p>Main memory can take many cycles, causing a <strong>stall</strong></p>
+</li>
+<li><strong>Cache</strong> sits between main memory and CPU registers</li>
+<li>Protection of memory required to ensure correct operation</li>
+</ul>
+<h2 id="Protection"><a href="#Protection" class="headerlink" title="Protection"></a>Protection</h2><ul>
 <li>Need to censure that a process can only access those addresses in its address space</li>
 <li>We can provide this protection by using a pair of base and limit registers define the logical address space of a process</li>
 </ul>
-<div data-align="center">
-<img src="/2020/12/23/OS9-Main-Memory/image-20201223134756480.png" alt="image-20201223134756480" style="zoom:50%;">
-</div>
-<h4 id="hardware-address-protection">Hardware Address Protection</h4>
-<ul>
+<div align="center"><img src="/2020/12/23/OS9-Main-Memory/image-20201223134756480.png" alt="image-20201223134756480" style="zoom:50%;"></div>
+
+<h4 id="Hardware-Address-Protection"><a href="#Hardware-Address-Protection" class="headerlink" title="Hardware Address Protection"></a>Hardware Address Protection</h4><ul>
 <li><p>CPU must check every memory access generated in user mode to be sure it is between base and limit for that user</p>
-<div data-align="center">
-<img src="/2020/12/23/OS9-Main-Memory/image-20201223134921614.png" alt="image-20201223134921614" style="zoom:50%;">
-</div></li>
-<li><p>the instructions to loading the base and limit registers are privileged</p></li>
+<div align="center"><img src="/2020/12/23/OS9-Main-Memory/image-20201223134921614.png" alt="image-20201223134921614" style="zoom:50%;"></div>
+</li>
+<li><p>the instructions to loading the base and limit registers are privileged</p>
+</li>
 </ul>
-<h4 id="address-binding">Address Binding</h4>
-<ul>
-<li>Programs on disk, ready to be brought into memory to execute form an input queue
+<h4 id="Address-Binding"><a href="#Address-Binding" class="headerlink" title="Address Binding"></a>Address Binding</h4><ul>
+<li><p>Programs on disk, ready to be brought into memory to execute form an input queue</p>
 <ul>
 <li>Without support, must be loaded into address 0000</li>
-</ul></li>
-<li>Inconvenient to have first user process physical address always at 0000
+</ul>
+</li>
+<li><p>Inconvenient to have first user process physical address always at 0000</p>
 <ul>
 <li>How can it not be?</li>
-</ul></li>
-<li>Addresses represented in different ways at different stages of a program's life</li>
+</ul>
+</li>
+<li><p>Addresses represented in different ways at different stages of a program’s life</p>
+</li>
 <li>Source code addresses bind to relocated addresses</li>
-<li>Compiled code addresses bind to relocatable addresses
+<li><p>Compiled code addresses bind to relocatable addresses</p>
 <ul>
-<li>i.e. "14 bytes from beginning of this module"</li>
-</ul></li>
-<li>Link or loader will bind relocatable addresses to absolute addresses
+<li>i.e. “14 bytes from beginning of this module”</li>
+</ul>
+</li>
+<li><p>Link or loader will bind relocatable addresses to absolute addresses</p>
 <ul>
 <li>i.e. 74014</li>
-</ul></li>
-<li>Each binding maps one address space to another</li>
 </ul>
-<h4 id="binding-of-instructions-and-data-to-memory">Binding of Instructions and Data to Memory</h4>
-<p>Address binding of instructions and data to memory addresses can happen at three different stages</p>
+</li>
+<li><p>Each binding maps one address space to another</p>
+</li>
+</ul>
+<h4 id="Binding-of-Instructions-and-Data-to-Memory"><a href="#Binding-of-Instructions-and-Data-to-Memory" class="headerlink" title="Binding of Instructions and Data to Memory"></a>Binding of Instructions and Data to Memory</h4><p>Address binding of instructions and data to memory addresses can happen at three different stages</p>
 <ul>
 <li>Compile time: If memory location known a priori, absolute code can be generated; must recompile code if starting location changes</li>
 <li>Load time: Must generate relocated code if memory location is not known at compile time</li>
-<li>Execution time: Binding delayed until run time if the process can be moved during its execution from one memory segment to another
-<ul>
+<li>Execution time: Binding delayed until run time if the process can be moved during its execution from one memory segment to another<ul>
 <li>Need hardware support for address maps(e.g. base and limit registers)</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <p><img src="/2020/12/23/OS9-Main-Memory/image-20201223140335485.png" alt="image-20201223140335485" style="zoom:80%;"></p>
-<h4 id="logical-vs.-physical-address-space">Logical vs. Physical Address Space</h4>
-<p>The concept of a logical address space that is bound to a separate physical address space is central to proper memory management.</p>
+<h4 id="Logical-vs-Physical-Address-Space"><a href="#Logical-vs-Physical-Address-Space" class="headerlink" title="Logical vs. Physical Address Space"></a>Logical vs. Physical Address Space</h4><p>The concept of a logical address space that is bound to a separate physical address space is central to proper memory management.</p>
 <ul>
 <li>Logical address - generated by the CPU; also referred to as virtual address</li>
 <li>Physical address - address seen by the memory unit</li>
@@ -89,7 +90,16 @@
 <p>Logical and physical addresses are the same in compile-time and load-time address-binding schemes; logical(virtual) and physical addresses differ in execution-time address-binding scheme</p>
 <p>Logical address space is the set of all logical addresses generated by a program</p>
 <p>Physical address space is the set of all physical addresses generated by a program</p>
-</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">Hotel</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://hotelll.github.io/2020/12/23/OS9-Main-Memory/">http://hotelll.github.io/2020/12/23/OS9-Main-Memory/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2021/02/01/%E4%BB%8A%E5%A4%A9%E5%AD%A6%E4%B9%A0-RNN/"><i class="fa fa-chevron-left">  </i><span>今天学习 RNN</span></a></div><div class="next-post pull-right"><a href="/2020/12/22/reprint-Career-advice-for-recent-Computer-Science-graduates/"><span>[reprint]Career advice for recent Computer Science graduates</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2018 - 2021 By Hotel</div><div class="framework-info"><span>Driven - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">Hotel</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://hotelll.github.io/2020/12/23/OS9-Main-Memory/">http://hotelll.github.io/2020/12/23/OS9-Main-Memory/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2021/02/01/%E4%BB%8A%E5%A4%A9%E5%AD%A6%E4%B9%A0-RNN/"><i class="fa fa-chevron-left">  </i><span>今天学习 RNN</span></a></div><div class="next-post pull-right"><a href="/2020/12/22/reprint-Career-advice-for-recent-Computer-Science-graduates/"><span>[reprint]Career advice for recent Computer Science graduates</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: '2b64b7ca35602fec41d8',
+  clientSecret: '6fe28fb08347adc5421a75f89b1b5578a8ecfe8a',
+  repo: 'hotelll.github.io',
+  owner: 'hotelll',
+  admin: 'hotelll',
+  id: md5(decodeURI(location.pathname)),
+  language: 'en'
+})
+gitalk.render('gitalk-container')</script></div></div><footer class="footer-bg" style="background-image: url(https://i.loli.net/2021/04/20/N3GCFnILoATjJdm.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2018 - 2021 By Hotel</div><div class="framework-info"><span>Driven - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
   tex2jax: {
     inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
     processEscapes: true,

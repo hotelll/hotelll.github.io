@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="OS8 Deadlocks"><meta name="keywords" content=""><meta name="author" content="Hotel"><meta name="copyright" content="Hotel"><title>OS8 Deadlocks | Hotel's Blog</title><link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="OS8 Deadlocks"><meta name="keywords" content=""><meta name="author" content="Hotel"><meta name="copyright" content="Hotel"><title>OS8 Deadlocks | Hotel's Blog</title><link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
   root: '/',
   algolia: undefined,
   localSearch: {"path":"search.xml","languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
@@ -9,29 +9,27 @@
   },
   hexoVersion: '5.3.0'
 } </script><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Hotel's Blog" type="application/atom+xml">
-</head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="false"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#objectives"><span class="toc-number">1.</span> <span class="toc-text">Objectives</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#system-model"><span class="toc-number">2.</span> <span class="toc-text">System Model</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#deadlock"><span class="toc-number">3.</span> <span class="toc-text">Deadlock</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#livelock"><span class="toc-number">4.</span> <span class="toc-text">Livelock</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#deadlock-characterization"><span class="toc-number">5.</span> <span class="toc-text">Deadlock Characterization</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#necessary-conditions"><span class="toc-number">5.1.</span> <span class="toc-text">Necessary Conditions</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#resource-allocation-graph"><span class="toc-number">6.</span> <span class="toc-text">Resource-Allocation Graph</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#methods-for-handling-deadlocks"><span class="toc-number">7.</span> <span class="toc-text">Methods for Handling Deadlocks</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#deadlock-prevention"><span class="toc-number">7.1.</span> <span class="toc-text">Deadlock Prevention</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#mutual-exclusion"><span class="toc-number">7.1.1.</span> <span class="toc-text">Mutual Exclusion</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#hold-and-wait"><span class="toc-number">7.1.2.</span> <span class="toc-text">Hold and Wait</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#no-preemption"><span class="toc-number">7.1.3.</span> <span class="toc-text">No Preemption</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#circular-wait"><span class="toc-number">7.1.4.</span> <span class="toc-text">Circular Wait</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#deadlock-avoidance"><span class="toc-number">8.</span> <span class="toc-text">Deadlock Avoidance</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#safe-state"><span class="toc-number">9.</span> <span class="toc-text">Safe State</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#resource-allocation-graph-algorithm"><span class="toc-number">10.</span> <span class="toc-text">Resource-Allocation-Graph Algorithm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bankers-algorithm"><span class="toc-number">11.</span> <span class="toc-text">Banker&#39;s Algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#safety-algorithm"><span class="toc-number">11.1.</span> <span class="toc-text">Safety Algorithm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#resource-request-algorithm"><span class="toc-number">11.2.</span> <span class="toc-text">Resource-Request Algorithm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#deadlock-detection"><span class="toc-number">11.3.</span> <span class="toc-text">Deadlock Detection</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#resource-allocation-graph-and-wait-for-graph"><span class="toc-number">11.3.1.</span> <span class="toc-text">Resource-Allocation Graph and Wait-for Graph</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#several-instances-of-a-resource-type"><span class="toc-number">11.3.2.</span> <span class="toc-text">Several Instances of a Resource Type</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#detection-algorithm"><span class="toc-number">11.3.3.</span> <span class="toc-text">Detection Algorithm</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#recovery-from-deadlock-process-termination"><span class="toc-number">11.3.4.</span> <span class="toc-text">Recovery from Deadlock: Process Termination</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#recovery-from-deadlock-resource-preemption"><span class="toc-number">11.3.5.</span> <span class="toc-text">Recovery from Deadlock: Resource Preemption</span></a></li></ol></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://i.loli.net/2021/04/18/Cs9Y38JQDfpjega.jpg"></div><div class="author-info__name text-center">Hotel</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">30</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">11</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">5</span></a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Hotel's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> Search</span></a></span></div><div id="post-info"><div id="post-title">OS8 Deadlocks</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-12-09</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a><div class="post-meta-wordcount"><span>Word count: </span><span class="word-count">1.8k</span><span class="post-meta__separator">|</span><span>Reading time: 11 min</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><script src="\assets\js\APlayer.min.js"> </script><p>This is the note of Chapter 8 in "Operating System Concepts".</p>
+</head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="false"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Objectives"><span class="toc-number">1.</span> <span class="toc-text">Objectives</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#System-Model"><span class="toc-number">2.</span> <span class="toc-text">System Model</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Deadlock"><span class="toc-number">3.</span> <span class="toc-text">Deadlock</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Livelock"><span class="toc-number">4.</span> <span class="toc-text">Livelock</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Deadlock-Characterization"><span class="toc-number">5.</span> <span class="toc-text">Deadlock Characterization</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Necessary-Conditions"><span class="toc-number">5.1.</span> <span class="toc-text">Necessary Conditions</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Resource-Allocation-Graph"><span class="toc-number">6.</span> <span class="toc-text">Resource-Allocation Graph</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Methods-for-Handling-Deadlocks"><span class="toc-number">7.</span> <span class="toc-text">Methods for Handling Deadlocks</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Deadlock-Prevention"><span class="toc-number">7.1.</span> <span class="toc-text">Deadlock Prevention</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Mutual-Exclusion"><span class="toc-number">7.1.1.</span> <span class="toc-text">Mutual Exclusion</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Hold-and-Wait"><span class="toc-number">7.1.2.</span> <span class="toc-text">Hold and Wait</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#No-Preemption"><span class="toc-number">7.1.3.</span> <span class="toc-text">No Preemption</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Circular-Wait"><span class="toc-number">7.1.4.</span> <span class="toc-text">Circular Wait</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Deadlock-Avoidance"><span class="toc-number">8.</span> <span class="toc-text">Deadlock Avoidance</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Safe-State"><span class="toc-number">9.</span> <span class="toc-text">Safe State</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Resource-Allocation-Graph-Algorithm"><span class="toc-number">10.</span> <span class="toc-text">Resource-Allocation-Graph Algorithm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Banker%E2%80%99s-Algorithm"><span class="toc-number">11.</span> <span class="toc-text">Banker’s Algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Safety-Algorithm"><span class="toc-number">11.1.</span> <span class="toc-text">Safety Algorithm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Resource-Request-Algorithm"><span class="toc-number">11.2.</span> <span class="toc-text">Resource-Request Algorithm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deadlock-Detection"><span class="toc-number">11.3.</span> <span class="toc-text">Deadlock Detection</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Resource-Allocation-Graph-and-Wait-for-Graph"><span class="toc-number">11.3.1.</span> <span class="toc-text">Resource-Allocation Graph and Wait-for Graph</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Several-Instances-of-a-Resource-Type"><span class="toc-number">11.3.2.</span> <span class="toc-text">Several Instances of a Resource Type</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Detection-Algorithm"><span class="toc-number">11.3.3.</span> <span class="toc-text">Detection Algorithm</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Recovery-from-Deadlock-Process-Termination"><span class="toc-number">11.3.4.</span> <span class="toc-text">Recovery from Deadlock: Process Termination</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Recovery-from-Deadlock-Resource-Preemption"><span class="toc-number">11.3.5.</span> <span class="toc-text">Recovery from Deadlock: Resource Preemption</span></a></li></ol></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="https://i.loli.net/2021/04/18/Cs9Y38JQDfpjega.jpg"></div><div class="author-info__name text-center">Hotel</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">29</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">11</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">5</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://i.loli.net/2021/04/20/N3GCFnILoATjJdm.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Hotel's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> Search</span></a></span></div><div id="post-info"><div id="post-title">OS8 Deadlocks</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-12-09</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a><div class="post-meta-wordcount"><span>Word count: </span><span class="word-count">1.8k</span><span class="post-meta__separator">|</span><span>Reading time: 11 min</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><script src="\assets\js\APlayer.min.js"> </script><p>This is the note of Chapter 8 in “Operating System Concepts”.</p>
 <a id="more"></a>
-<h2 id="objectives">Objectives</h2>
-<ul>
+<h2 id="Objectives"><a href="#Objectives" class="headerlink" title="Objectives"></a>Objectives</h2><ul>
 <li>Illustrate how deadlock can occur when mutex locks are used</li>
 <li>Define the four necessary conditions that characterize deadlock</li>
 <li>Identify a deadlock situation in a resource allocation graph</li>
 <li>Evaluate the four different approaches for preventing deadlocks</li>
-<li>Apply the banker's algorithm for deadlock avoidance</li>
+<li>Apply the banker’s algorithm for deadlock avoidance</li>
 <li>Apply the deadlock detection algorithm</li>
 <li>Evaluation approaches for recovering from deadlock</li>
 </ul>
-<h2 id="system-model">System Model</h2>
-<p>System consists of resources. For example, there are resource types <span class="math inline">\(R_1,R_2,\cdots,R_m\)</span> such as:</p>
+<h2 id="System-Model"><a href="#System-Model" class="headerlink" title="System Model"></a>System Model</h2><p>System consists of resources. For example, there are resource types $R_1,R_2,\cdots,R_m$ such as:</p>
 <ul>
 <li>CPU cycles</li>
 <li>memory space</li>
 <li>I/O devices</li>
 </ul>
-<p>Each resource type <span class="math inline">\(R_i\)</span> has <span class="math inline">\(W_i\)</span> instances.</p>
+<p>Each resource type $R_i$ has $W_i$ instances.</p>
 <p>A thread may utilize a resource in the following sequence:</p>
 <ul>
-<li><strong>Request.</strong> The thread requests the resource. If the request cannot be granted immediately, then the requesting thread must wait until it can acquire the resource.</li>
+<li><strong>Request.</strong> The thread requests the resource. If the request cannot be granted immediately, then the requesting thread must wait until it can acquire the resource. </li>
 <li><strong>Use.</strong> The thread can operate on the resource.</li>
 <li><strong>Release.</strong> The thread releases the resource.</li>
 </ul>
@@ -43,169 +41,166 @@
 </blockquote>
 <p><strong>Mutex lock</strong> and <strong>semaphores</strong> can also do this work.</p>
 <p>A <strong>system table</strong> records whether each resource is free or allocated.</p>
-<h2 id="deadlock">Deadlock</h2>
-<p>When every thread in the set is waiting for an event that can be caused only by another thread in the set.</p>
-<h2 id="livelock">Livelock</h2>
-<p>Livelock is similar to deadlock, both prevent threads from proceeding, but the threads are unable to proceed for different reasons. Livelock occurs when a thread continuously attempts an action that fails.</p>
+<h2 id="Deadlock"><a href="#Deadlock" class="headerlink" title="Deadlock"></a>Deadlock</h2><p>When every thread in the set is waiting for an event that can be caused only by another thread in the set.</p>
+<h2 id="Livelock"><a href="#Livelock" class="headerlink" title="Livelock"></a>Livelock</h2><p>Livelock is similar to deadlock, both prevent threads from proceeding, but the threads are unable to proceed for different reasons. Livelock occurs when a thread continuously attempts an action that fails.</p>
 <blockquote>
-<p>In a livelock, threads aren't blocked, but they aren't making any progress.</p>
+<p>In a livelock, threads aren’t blocked, but they aren’t making any progress.</p>
 </blockquote>
 <p>We can avoid livelock by having each thread retry the failing operation at random times or backoff a random period of time before attempting to transmit again.</p>
-<h2 id="deadlock-characterization">Deadlock Characterization</h2>
-<h3 id="necessary-conditions">Necessary Conditions</h3>
-<ol type="1">
+<h2 id="Deadlock-Characterization"><a href="#Deadlock-Characterization" class="headerlink" title="Deadlock Characterization"></a>Deadlock Characterization</h2><h3 id="Necessary-Conditions"><a href="#Necessary-Conditions" class="headerlink" title="Necessary Conditions"></a>Necessary Conditions</h3><ol>
 <li>Mutual exclusion. At least one resource must be held in a non-sharable mode. That is, only one thread at a time can use the resource.</li>
 <li>Hold and wait. A thread must be holding at least one resource and waiting to acquire additional resources that are currently being held by other threads.</li>
 <li>No preemption. Resources cannot be preempted.</li>
-<li>Circular wait. A set <span class="math inline">\(\{ T_0,T_1,\cdots,T_n\}\)</span> of waiting threads where <span class="math inline">\(T_0\)</span> waits for <span class="math inline">\(T_1\)</span>, <span class="math inline">\(\cdots\)</span> <span class="math inline">\(T_n\)</span> waits for <span class="math inline">\(T_0\)</span>.</li>
+<li>Circular wait. A set ${ T_0,T_1,\cdots,T_n}$ of waiting threads where $T_0$ waits for $T_1$, $\cdots$ $T_n$ waits for $T_0$.</li>
 </ol>
-<h2 id="resource-allocation-graph">Resource-Allocation Graph</h2>
-<p>Deadlocks can be described by a system resource-allocation graph. In the graph, there are two different types of nodes: <span class="math inline">\(T=\{T_1,T_2,\cdots,T_n\}\)</span> consisting of all the active threads in the system, and <span class="math inline">\(R=\{R_1,R_2,\cdots,R_m\}\)</span>, consisting of all resource types in the system.</p>
-<p>A directed edge <span class="math inline">\(T_i\to R_j\)</span> is called a <strong>request edge</strong>, which means thread <span class="math inline">\(T_i\)</span> has requested an instance of resource type <span class="math inline">\(R_j\)</span> and is currently waiting for that resource.</p>
-<p>A directed edge <span class="math inline">\(R_j\to T_i\)</span> is called an <strong>assignment edge</strong>, which means an instance of resource type <span class="math inline">\(R_j\)</span> has been allocated to thread <span class="math inline">\(T_i\)</span>.</p>
-<h2 id="methods-for-handling-deadlocks">Methods for Handling Deadlocks</h2>
-<p>We can deal with the deadlock problem in one of three ways:</p>
+<h2 id="Resource-Allocation-Graph"><a href="#Resource-Allocation-Graph" class="headerlink" title="Resource-Allocation Graph"></a>Resource-Allocation Graph</h2><p>Deadlocks can be described by a system resource-allocation graph. In the graph, there are two different types of nodes: $T={T_1,T_2,\cdots,T_n}$ consisting of all the active threads in the system, and $R={R_1,R_2,\cdots,R_m}$, consisting of all resource types in the system.</p>
+<p>A directed edge $T_i\to R_j$ is called a <strong>request edge</strong>, which means thread $T_i$ has requested an instance of resource type $R_j$ and is currently waiting for that resource.</p>
+<p>A directed edge $R_j\to T_i$ is called an <strong>assignment edge</strong>, which means an instance of resource type $R_j$ has been allocated to thread $T_i$.</p>
+<h2 id="Methods-for-Handling-Deadlocks"><a href="#Methods-for-Handling-Deadlocks" class="headerlink" title="Methods for Handling Deadlocks"></a>Methods for Handling Deadlocks</h2><p>We can deal with the deadlock problem in one of three ways:</p>
 <ul>
-<li><p>We can ignore the problem altogether and pretend that deadlocks never occur in the system.</p></li>
-<li><p>We can use a protocol to prevent or avoid deadlocks, ensuring that the system will never enter a deadlocked state.</p></li>
-<li><p>We can allow the system to enter a deadlocked state, detect it, and recover.</p></li>
+<li>We can ignore the problem altogether and pretend that deadlocks never occur in the system.</li>
+<li><p>We can use a protocol to prevent or avoid deadlocks, ensuring that the system will never enter a deadlocked state.</p>
+</li>
+<li><p>We can allow the system to enter a deadlocked state, detect it, and recover.</p>
+</li>
 </ul>
-<h3 id="deadlock-prevention">Deadlock Prevention</h3>
-<p>We can prevent the occurrence of a deadlock by invalidating one of the four necessary conditions separately.</p>
-<h4 id="mutual-exclusion">Mutual Exclusion</h4>
-<p>It is not required for sharable resources; It must hold for non-sharable resources</p>
-<h4 id="hold-and-wait">Hold and Wait</h4>
-<p>The system must guarantee that whenever a process requests a resource, it does not hold any other resources</p>
+<h3 id="Deadlock-Prevention"><a href="#Deadlock-Prevention" class="headerlink" title="Deadlock Prevention"></a>Deadlock Prevention</h3><p>We can prevent the occurrence of a deadlock by invalidating one of the four necessary conditions separately.</p>
+<h4 id="Mutual-Exclusion"><a href="#Mutual-Exclusion" class="headerlink" title="Mutual Exclusion"></a>Mutual Exclusion</h4><p>It is not required for sharable resources; It must hold for non-sharable resources</p>
+<h4 id="Hold-and-Wait"><a href="#Hold-and-Wait" class="headerlink" title="Hold and Wait"></a>Hold and Wait</h4><p>The system must guarantee that whenever a process requests a resource, it does not hold any other resources</p>
 <ul>
 <li>Require process to request and be allocated all its resources before it begins execution, or allow process to request resources only when the process has none allocated to it.</li>
 <li>Low resource utilization; starvation possible.</li>
 </ul>
-<h4 id="no-preemption">No Preemption</h4>
-<ul>
+<h4 id="No-Preemption"><a href="#No-Preemption" class="headerlink" title="No Preemption"></a>No Preemption</h4><ul>
 <li>If a process that is holding some resources requests another resource that cannot be immediately allocated to it, then all resources the thread is currently holding are released.</li>
 <li>Preempted resources are added to the list of resources for which the process is waiting.</li>
 <li>Process will be restarted only when it can regain its old resources, as well as the new ones that it is requesting.</li>
 </ul>
-<h4 id="circular-wait">Circular Wait</h4>
-<p>We impose a total ordering of all resource types, and require that each process requests resources in an increasing order of enumeration.</p>
+<h4 id="Circular-Wait"><a href="#Circular-Wait" class="headerlink" title="Circular Wait"></a>Circular Wait</h4><p>We impose a total ordering of all resource types, and require that each process requests resources in an increasing order of enumeration.</p>
 <p>Actually, it is most common to invalidate the circular wait. We can simply assign each resource a unique number and resources must be acquired in order.</p>
-<h2 id="deadlock-avoidance">Deadlock Avoidance</h2>
-<p>An alternative method for avoiding deadlocks is to require additional priori information about how resources are to be requested. We can design a deadlock-avoidance algorithm which ensures that the system will never enter a deadlocked state given the priori information.</p>
-<h2 id="safe-state">Safe State</h2>
-<p>A state is <strong>safe</strong> if the system can allocate resources to each thread in some order and still avoid a deadlock. The order is called a <strong>safe sequence</strong>. If no such sequence exists, then the system state is said to be <strong>unsafe</strong>.</p>
+<h2 id="Deadlock-Avoidance"><a href="#Deadlock-Avoidance" class="headerlink" title="Deadlock Avoidance"></a>Deadlock Avoidance</h2><p>An alternative method for avoiding deadlocks is to require additional priori information about how resources are to be requested. We can design a deadlock-avoidance algorithm which ensures that the system will never enter a deadlocked state given the priori information.</p>
+<h2 id="Safe-State"><a href="#Safe-State" class="headerlink" title="Safe State"></a>Safe State</h2><p>A state is <strong>safe</strong> if the system can allocate resources to each thread in some order and still avoid a deadlock. The order is called a <strong>safe sequence</strong>. If no such sequence exists, then the system state is said to be <strong>unsafe</strong>.</p>
 <p>A system can go from a safe state to an unsafe state. The idea of avoidance algorithms is to ensure that the system will always remain in a safe state.</p>
-<p>Initially, the system is in a safe state. Whenever a thread requests a resource that is currently available, the system must decide whether the resource can be allocated immediately or the thread must wait.</p>
-<h2 id="resource-allocation-graph-algorithm">Resource-Allocation-Graph Algorithm</h2>
-<p>XXX</p>
-<h2 id="bankers-algorithm">Banker's Algorithm</h2>
-<p>When a new thread enters the system, it must declare the maximum number of instances of each resource type that it may need. This number may not exceed the total number of resources in the system. When a user requests a set of resources, the system must determine whether the allocation of these resources will leave the system in a safe state. If it will, the resources are allocated; otherwise, the thread must wait until some other thread releases enough resources.</p>
-<p>We maintain the following data structures, where <span class="math inline">\(n\)</span> is the number of threads in the system and <span class="math inline">\(m\)</span> is the number of resource types.</p>
+<p>Initially, the system is in a safe state. Whenever a thread requests a resource that is currently available, the system must decide whether the resource can be allocated immediately or the thread must wait. </p>
+<h2 id="Resource-Allocation-Graph-Algorithm"><a href="#Resource-Allocation-Graph-Algorithm" class="headerlink" title="Resource-Allocation-Graph Algorithm"></a>Resource-Allocation-Graph Algorithm</h2><p>XXX</p>
+<h2 id="Banker’s-Algorithm"><a href="#Banker’s-Algorithm" class="headerlink" title="Banker’s Algorithm"></a>Banker’s Algorithm</h2><p>When a new thread enters the system, it must declare the maximum number of instances of each resource type that it may need. This number may not exceed the total number of resources in the system. When a user requests a set of resources, the system must determine whether the allocation of these resources will leave the system in a safe state. If it will, the resources are allocated; otherwise, the thread must wait until some other thread releases enough resources.</p>
+<p>We maintain the following data structures, where $n$ is the number of threads in the system and $m$ is the number of resource types.</p>
 <ul>
-<li><p><strong>Available.</strong> A vector of length <span class="math inline">\(m\)</span> indicates the number of available resources of each type. If <span class="math inline">\(Available[j]\)</span> equals <span class="math inline">\(k\)</span>, then <span class="math inline">\(k\)</span> instances of resource type <span class="math inline">\(R_j\)</span> are available.</p></li>
-<li><p><strong>Max.</strong> An <span class="math inline">\(n\times m\)</span> matrix defines the maximum demand of each thread. If <span class="math inline">\(Max[i][j]\)</span> equals <span class="math inline">\(k\)</span>, then thread <span class="math inline">\(T_i\)</span> may request at most <span class="math inline">\(k\)</span> instances of resource type <span class="math inline">\(R_j\)</span>.</p></li>
-<li><p><strong>Allocation.</strong> An <span class="math inline">\(n\times m\)</span> matric defines the number of resources of each type currently allocated to each thread. If <span class="math inline">\(Allocation[i][j]\)</span> equals <span class="math inline">\(k\)</span>, then thread <span class="math inline">\(T_j\)</span> is currently allocated <span class="math inline">\(k\)</span> instances of resource type <span class="math inline">\(R_j\)</span>.</p></li>
-<li><p><strong>Need.</strong> An <span class="math inline">\(n\times m\)</span> matrix indicates the remaining resource need of each thread. If <span class="math inline">\(Need[i][j]\)</span> equals <span class="math inline">\(k\)</span>, then thread <span class="math inline">\(T_i\)</span> may need <span class="math inline">\(k\)</span> more instances of resource type <span class="math inline">\(R_j\)</span> to complete its task. <span class="math display">\[
-Need[i][j]=Max[i][j]-Allocation[i][j]
-\]</span></p></li>
+<li><p><strong>Available.</strong> A vector of length $m$ indicates the number of available resources of each type. If $Available[j]$ equals $k$, then $k$ instances of resource type $R_j$ are available.</p>
+</li>
+<li><p><strong>Max.</strong> An $n\times m$ matrix defines the maximum demand of each thread. If $Max[i][j]$ equals $k$, then thread $T_i$ may request at most $k$ instances of resource type $R_j$.</p>
+</li>
+<li><p><strong>Allocation.</strong> An $n\times m$ matric defines the number of resources of each type currently allocated to each thread. If $Allocation[i][j]$ equals $k$, then thread $T_j$ is currently allocated $k$ instances of resource type $R_j$.</p>
+</li>
+<li><p><strong>Need.</strong> An $n\times m$ matrix indicates the remaining resource need of each thread. If $Need[i][j]$ equals $k$, then thread $T_i$ may need $k$ more instances of resource type $R_j$ to complete its task.</p>
+<script type="math/tex; mode=display">
+Need[i][j]=Max[i][j]-Allocation[i][j]</script></li>
 </ul>
-<h3 id="safety-algorithm">Safety Algorithm</h3>
-<p>We can now present the algorithm for finding out whether or not a system is in a safe state. This algorithm can be described as follows:</p>
-<ol type="1">
-<li><p>Let <span class="math inline">\(Work\)</span> and <span class="math inline">\(Finish\)</span> be vectors of length <span class="math inline">\(m\)</span> and <span class="math inline">\(n\)</span>. Initialize <span class="math inline">\(Work=Available\)</span>. Initialize <span class="math inline">\(Work=Available\)</span> and <span class="math inline">\(Finish[i]=false\)</span> for <span class="math inline">\(i=0,1,\cdots,n-1\)</span>.</p></li>
-<li><p>Find an index <span class="math inline">\(i\)</span> such that both</p>
-<ol type="a">
-<li><p><span class="math inline">\(Finish[i]=false\)</span></p></li>
-<li><p><span class="math inline">\(Need_i=Work\)</span></p></li>
+<h3 id="Safety-Algorithm"><a href="#Safety-Algorithm" class="headerlink" title="Safety Algorithm"></a>Safety Algorithm</h3><p>We can now present the algorithm for finding out whether or not a system is in a safe state. This algorithm can be described as follows:</p>
+<ol>
+<li><p>Let $Work$ and $Finish$ be vectors of length $m$ and $n$. Initialize $Work=Available$. Initialize $Work=Available$ and $Finish[i]=false$ for $i=0,1,\cdots,n-1$.</p>
+</li>
+<li><p>Find an index $i$ such that both</p>
+<p>a. $Finish[i]=false$</p>
+<p>b. $Need_i=Work$</p>
+<p>If no such $i$ exists, go to step 4.</p>
+</li>
+<li><p>$Work=Work+Allocation_i$</p>
+<p>$Finish[i]=true$</p>
+<p>Go to step 2.</p>
+</li>
+<li><p>If $Finish[i] == true$ for all $i$, then the system is in a safe state.</p>
+</li>
 </ol>
-<p>If no such <span class="math inline">\(i\)</span> exists, go to step 4.</p></li>
-<li><p><span class="math inline">\(Work=Work+Allocation_i\)</span></p>
-<p><span class="math inline">\(Finish[i]=true\)</span></p>
-<p>Go to step 2.</p></li>
-<li><p>If <span class="math inline">\(Finish[i] == true\)</span> for all <span class="math inline">\(i\)</span>, then the system is in a safe state.</p></li>
+<h3 id="Resource-Request-Algorithm"><a href="#Resource-Request-Algorithm" class="headerlink" title="Resource-Request Algorithm"></a>Resource-Request Algorithm</h3><p>Now we describe the algorithm for determining whether requests can be safely granted. Let $Request_i$ be the request vector for thread $T_i$. If $Request_i[j]==k$, then thread $T_i$ wants $k$ instances of resource type $R_j$. When a request for resources is made by thread $T_i$, the following action are taken:</p>
+<ol>
+<li><p>If $Request_i\leq Need_i$, go to step 2. Otherwise, raise an error condition, since the thread has exceeded its maximum claim.</p>
+</li>
+<li><p>If $Request_i\leq Available$, go to step 3. Otherwise, $T_i$ must wait, since the resources are not available.</p>
+</li>
+<li><p>Have the system pretend to have allocated the requested resources to thread $T_i$ by modifying the state as follows:</p>
+<script type="math/tex; mode=display">
+Available=Available-Request_i</script><script type="math/tex; mode=display">
+Allocation_i=Allocation_i+Request_i</script><script type="math/tex; mode=display">
+Need_i=Need_i-Request_i</script><p>If the resulting resource-allocation state is safe, the transaction is completed, and thread $T_i$ is allocated its resources. However, if the new state is unsafe, then $T_i$ must wait for $Request_i$, and the old resource-allocation state is restored. (Try to practice more.)</p>
+</li>
 </ol>
-<h3 id="resource-request-algorithm">Resource-Request Algorithm</h3>
-<p>Now we describe the algorithm for determining whether requests can be safely granted. Let <span class="math inline">\(Request_i\)</span> be the request vector for thread <span class="math inline">\(T_i\)</span>. If <span class="math inline">\(Request_i[j]==k\)</span>, then thread <span class="math inline">\(T_i\)</span> wants <span class="math inline">\(k\)</span> instances of resource type <span class="math inline">\(R_j\)</span>. When a request for resources is made by thread <span class="math inline">\(T_i\)</span>, the following action are taken:</p>
-<ol type="1">
-<li><p>If <span class="math inline">\(Request_i\leq Need_i\)</span>, go to step 2. Otherwise, raise an error condition, since the thread has exceeded its maximum claim.</p></li>
-<li><p>If <span class="math inline">\(Request_i\leq Available\)</span>, go to step 3. Otherwise, <span class="math inline">\(T_i\)</span> must wait, since the resources are not available.</p></li>
-<li><p>Have the system pretend to have allocated the requested resources to thread <span class="math inline">\(T_i\)</span> by modifying the state as follows: <span class="math display">\[
-Available=Available-Request_i
-\]</span></p>
-<p><span class="math display">\[
-Allocation_i=Allocation_i+Request_i
-\]</span></p>
-<p><span class="math display">\[
-Need_i=Need_i-Request_i
-\]</span></p>
-<p>If the resulting resource-allocation state is safe, the transaction is completed, and thread <span class="math inline">\(T_i\)</span> is allocated its resources. However, if the new state is unsafe, then <span class="math inline">\(T_i\)</span> must wait for <span class="math inline">\(Request_i\)</span>, and the old resource-allocation state is restored. (Try to practice more.)</p></li>
-</ol>
-<h3 id="deadlock-detection">Deadlock Detection</h3>
-<ul>
+<h3 id="Deadlock-Detection"><a href="#Deadlock-Detection" class="headerlink" title="Deadlock Detection"></a>Deadlock Detection</h3><ul>
 <li>Allow system to enter deadlock state</li>
 <li>Detection algorithm</li>
 <li>Recovery scheme</li>
-<li>Maintain wait-for graph
+<li><p>Maintain wait-for graph</p>
 <ul>
 <li>Nodes are processes</li>
-<li><span class="math inline">\(P_i\to P_j\)</span> if <span class="math inline">\(P_i\)</span> is waiting for <span class="math inline">\(P_j\)</span></li>
-</ul></li>
-<li>Periodically invoke an algorithm that searches for a cycle in the graph. If there is a cycle, there exists a deadlock</li>
-<li>An algorithm to detect a cycle in a graph requires an order of <span class="math inline">\(n^2\)</span> operations, where <span class="math inline">\(n\)</span> is the number of vertices in the graph</li>
+<li>$P_i\to P_j$ if $P_i$ is waiting for $P_j$</li>
 </ul>
-<h4 id="resource-allocation-graph-and-wait-for-graph">Resource-Allocation Graph and Wait-for Graph</h4>
-<div data-align="center">
-<img src="/2020/12/09/OS8-Deadlocks/image-20201223112650061.png" alt="1" style="zoom:60%;">
-</div>
-<h4 id="several-instances-of-a-resource-type">Several Instances of a Resource Type</h4>
-<ul>
-<li>Available: A vector of length <span class="math inline">\(m\)</span> indicates the number of available resources of each type</li>
-<li>Allocation: An <span class="math inline">\(n\times m\)</span> matrix defines the number of resources of each type currently allocated to each process</li>
-<li>Request: An <span class="math inline">\(n\times m\)</span> matrix indicates the current request of each process. If <span class="math inline">\(Request[i][j]=k\)</span>, then process <span class="math inline">\(P_i\)</span> is requesting <span class="math inline">\(k\)</span> more instances of resource type <span class="math inline">\(R_j\)</span>.</li>
+</li>
+<li><p>Periodically invoke an algorithm that searches for a cycle in the graph. If there is a cycle, there exists a deadlock</p>
+</li>
+<li>An algorithm to detect a cycle in a graph requires an order of $n^2$ operations, where $n$ is the number of vertices in the graph</li>
 </ul>
-<h4 id="detection-algorithm">Detection Algorithm</h4>
-<ol type="1">
+<h4 id="Resource-Allocation-Graph-and-Wait-for-Graph"><a href="#Resource-Allocation-Graph-and-Wait-for-Graph" class="headerlink" title="Resource-Allocation Graph and Wait-for Graph"></a>Resource-Allocation Graph and Wait-for Graph</h4><div align="center"><img src="/2020/12/09/OS8-Deadlocks/image-20201223112650061.png" alt="1" style="zoom:60%;"></div>
+
+<h4 id="Several-Instances-of-a-Resource-Type"><a href="#Several-Instances-of-a-Resource-Type" class="headerlink" title="Several Instances of a Resource Type"></a>Several Instances of a Resource Type</h4><ul>
+<li>Available: A vector of length $m$ indicates the number of available resources of each type</li>
+<li>Allocation: An $n\times m$ matrix defines the number of resources of each type currently allocated to each process</li>
+<li>Request: An $n\times m$ matrix indicates the current request of each process. If $Request[i][j]=k$, then process $P_i$ is requesting $k$ more instances of resource type $R_j$.</li>
+</ul>
+<h4 id="Detection-Algorithm"><a href="#Detection-Algorithm" class="headerlink" title="Detection Algorithm"></a>Detection Algorithm</h4><ol>
 <li><p>Let Work and Finish be vectors of length m and n,</p>
 <p>respectively Initialize:</p>
-<ol type="1">
+<ol>
 <li>Work = Available</li>
-<li>For <span class="math inline">\(i=1,2,\cdots,n\)</span>, if <span class="math inline">\(Allocation_i \neq 0\)</span>, then <span class="math inline">\(Finish[i]=false\)</span>; otherwise, <span class="math inline">\(Finish[i]=true\)</span></li>
-</ol></li>
-<li><p>Find an index <span class="math inline">\(i\)</span> such that both:</p>
-<ol type="1">
-<li><p><span class="math inline">\(Finish[i]==false\)</span></p></li>
-<li><p><span class="math inline">\(Request_i\leq Work\)</span></p>
-<p>If no such <span class="math inline">\(i\)</span> exists, go to step 4</p></li>
-</ol></li>
-<li><p><span class="math inline">\(Work=Work+Allocation_i\)</span></p>
-<p><span class="math inline">\(Finish[i]=true\)</span></p>
-<p>go to step 2</p></li>
-<li><p>If <span class="math inline">\(Finish[i]==false\)</span>, for some <span class="math inline">\(i\)</span>, <span class="math inline">\(1\leq i\leq n\)</span>, then the system is in deadlock state. Moreover, if <span class="math inline">\(Finish[i]==false\)</span>, then <span class="math inline">\(P_i\)</span> is deadlocked.</p></li>
+<li>For $i=1,2,\cdots,n$, if $Allocation_i \neq 0$, then $Finish[i]=false$; otherwise, $Finish[i]=true$</li>
 </ol>
-<p>Algorithm requires an order of <span class="math inline">\(O(m\times n^2)\)</span> operations to detect whether the system is in deadlocked state.</p>
-<div data-align="center">
-<img src="/2020/12/09/OS8-Deadlocks/image-20201223114143950.png" alt="image-20201223114143950" style="zoom:67%;">
-</div>
-<h4 id="recovery-from-deadlock-process-termination">Recovery from Deadlock: Process Termination</h4>
-<ul>
+</li>
+<li><p>Find an index $i$ such that both:</p>
+<ol>
+<li><p>$Finish[i]==false$</p>
+</li>
+<li><p>$Request_i\leq Work$</p>
+<p>If no such $i$ exists, go to step 4</p>
+</li>
+</ol>
+</li>
+<li><p>$Work=Work+Allocation_i$</p>
+<p>$Finish[i]=true$</p>
+<p>go to step 2</p>
+</li>
+<li><p>If $Finish[i]==false$, for some $i$, $1\leq i\leq n$, then the system is in deadlock state. Moreover, if $Finish[i]==false$, then $P_i$ is deadlocked.</p>
+</li>
+</ol>
+<p>Algorithm requires an order of $O(m\times n^2)$ operations to detect whether the system is in deadlocked state.</p>
+<div align="center"><img src="/2020/12/09/OS8-Deadlocks/image-20201223114143950.png" alt="image-20201223114143950" style="zoom:67%;"></div>
+
+<h4 id="Recovery-from-Deadlock-Process-Termination"><a href="#Recovery-from-Deadlock-Process-Termination" class="headerlink" title="Recovery from Deadlock: Process Termination"></a>Recovery from Deadlock: Process Termination</h4><ul>
 <li>Abort all deadlocked processes</li>
 <li>Abort one process at a time until the deadlock cycle is eliminated</li>
-<li>In which order should we choose to abort?
-<ol type="1">
+<li>In which order should we choose to abort?<ol>
 <li>Priority of the process</li>
 <li>How long process has computed, and how much longer to completion</li>
 <li>Resources the process has used</li>
 <li>Resources process needs to complete</li>
 <li>How many processes will need to be terminated</li>
 <li>Is process interactive or batch?</li>
-</ol></li>
+</ol>
+</li>
 </ul>
-<h4 id="recovery-from-deadlock-resource-preemption">Recovery from Deadlock: Resource Preemption</h4>
-<ul>
+<h4 id="Recovery-from-Deadlock-Resource-Preemption"><a href="#Recovery-from-Deadlock-Resource-Preemption" class="headerlink" title="Recovery from Deadlock: Resource Preemption"></a>Recovery from Deadlock: Resource Preemption</h4><ul>
 <li><strong>Selecting a victim</strong> - minimize cost</li>
 <li><strong>Rollback</strong> - return to some safe state, restart process for that state</li>
 <li><strong>Starvation</strong> - same process may always be picked as victim, including number of rollback in cost factor</li>
 </ul>
-</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">Hotel</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://hotelll.github.io/2020/12/09/OS8-Deadlocks/">http://hotelll.github.io/2020/12/09/OS8-Deadlocks/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2020/12/22/reprint-Career-advice-for-recent-Computer-Science-graduates/"><i class="fa fa-chevron-left">  </i><span>[reprint]Career advice for recent Computer Science graduates</span></a></div><div class="next-post pull-right"><a href="/2020/12/09/OS7-Synchronization-Examples/"><span>OS7 Synchronization Examples</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2018 - 2021 By Hotel</div><div class="framework-info"><span>Driven - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">Hotel</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://hotelll.github.io/2020/12/09/OS8-Deadlocks/">http://hotelll.github.io/2020/12/09/OS8-Deadlocks/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2020/12/22/reprint-Career-advice-for-recent-Computer-Science-graduates/"><i class="fa fa-chevron-left">  </i><span>[reprint]Career advice for recent Computer Science graduates</span></a></div><div class="next-post pull-right"><a href="/2020/12/09/OS7-Synchronization-Examples/"><span>OS7 Synchronization Examples</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: '2b64b7ca35602fec41d8',
+  clientSecret: '6fe28fb08347adc5421a75f89b1b5578a8ecfe8a',
+  repo: 'hotelll.github.io',
+  owner: 'hotelll',
+  admin: 'hotelll',
+  id: md5(decodeURI(location.pathname)),
+  language: 'en'
+})
+gitalk.render('gitalk-container')</script></div></div><footer class="footer-bg" style="background-image: url(https://i.loli.net/2021/04/20/N3GCFnILoATjJdm.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2018 - 2021 By Hotel</div><div class="framework-info"><span>Driven - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
   tex2jax: {
     inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
     processEscapes: true,
