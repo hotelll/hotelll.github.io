@@ -7,72 +7,65 @@
     error: 'Copy error',
     noSupport: 'The browser does not support'
   },
-  hexoVersion: '5.3.0'
-} </script><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Hotel's Blog" type="application/atom+xml">
-</head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="false"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text">算法分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%95%AA%E5%A4%96%EF%BC%9A%E6%B0%B4%E5%B9%B3%E5%9B%BE-Level-graph"><span class="toc-number">1.1.</span> <span class="toc-text">番外：水平图 Level graph</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">Hotel</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">29</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">11</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">5</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://i.loli.net/2021/04/20/N3GCFnILoATjJdm.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Hotel's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> Search</span></a></span></div><div id="post-info"><div id="post-title">网络流III：Edmonds-Karp 算法</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-11-16</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><div class="post-meta-wordcount"><span>Word count: </span><span class="word-count">1.3k</span><span class="post-meta__separator">|</span><span>Reading time: 4 min</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><script src="\assets\js\APlayer.min.js"> </script><p>上一章提到，Ford-Fulkerson 算法效率的突破点就在于寻找更好的增广路径。上一章中提到的 Capacity-scaling 算法选择的是瓶颈容量最大的增广路径。这一章中，我们将选择<strong>边数最小</strong>的增广路径。基于这种选择的 Ford-Fulkerson 算法称为 Edmonds-Karp 算法。</p>
+  hexoVersion: '5.4.0'
+} </script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Hotel's Blog" type="application/atom+xml">
+</head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="false"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text">算法分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%95%AA%E5%A4%96%E6%B0%B4%E5%B9%B3%E5%9B%BE-level-graph"><span class="toc-number">1.1.</span> <span class="toc-text">番外：水平图 Level graph</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">Hotel</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">29</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">11</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">5</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://i.loli.net/2021/04/20/N3GCFnILoATjJdm.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Hotel's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> Search</span></a></span></div><div id="post-info"><div id="post-title">网络流III：Edmonds-Karp 算法</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-11-16</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><div class="post-meta-wordcount"><span>Word count: </span><span class="word-count">1.3k</span><span class="post-meta__separator">|</span><span>Reading time: 4 min</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><script src="\assets\js\APlayer.min.js"> </script><p>上一章提到，Ford-Fulkerson 算法效率的突破点就在于寻找更好的增广路径。上一章中提到的 Capacity-scaling 算法选择的是瓶颈容量最大的增广路径。这一章中，我们将选择<strong>边数最小</strong>的增广路径。基于这种选择的 Ford-Fulkerson 算法称为 Edmonds-Karp 算法。</p>
 <a id="more"></a>
 <p>Edmonds-Karp 算法就是在 Ford-Fulkerson 方法的基础上，将每条边上权重视为1的情况下，寻找最短增广路径，也就是边数最少的路径。我们可以很自然地想到利用<strong>广度优先搜索</strong>（BFS）的方法来寻找边数最小的增广路径，算法伪代码如下：</p>
-<div align="center"><img src="/2020/11/16/%E7%BD%91%E7%BB%9C%E6%B5%81III/bfs.png" style="zoom:90%;"></div>
-
-<h2 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h2><p><strong>引理：</strong>如果 Edmonds-Karp 算法运行在流网络 $G=(V,E)$ 上，该网络的源点为 $s$，汇点为 $t$。则对于所有结点 $v\in V-{s,t}$，残存网络 $G_f$ 中从结点 $u$ 到结点 $v$ 的最短路径距离（<strong>边权均为1</strong>）$\delta_f(u,v)$ 随着每次流量的递增而<strong>单调递增</strong>。</p>
+<div data-align="center">
+<img src="/2020/11/16/%E7%BD%91%E7%BB%9C%E6%B5%81III/bfs.png" style="zoom:90%;">
+</div>
+<h2 id="算法分析">算法分析</h2>
+<p><strong>引理：</strong>如果 Edmonds-Karp 算法运行在流网络 <span class="math inline">\(G=(V,E)\)</span> 上，该网络的源点为 <span class="math inline">\(s\)</span>，汇点为 <span class="math inline">\(t\)</span>。则对于所有结点 <span class="math inline">\(v\in V-\{s,t\}\)</span>，残存网络 <span class="math inline">\(G_f\)</span> 中从结点 <span class="math inline">\(u\)</span> 到结点 <span class="math inline">\(v\)</span> 的最短路径距离（<strong>边权均为1</strong>）<span class="math inline">\(\delta_f(u,v)\)</span> 随着每次流量的递增而<strong>单调递增</strong>。</p>
 <p>证明（反证法）</p>
 <ul>
-<li><p>假设对于结点 $v$，存在一个流量递增操作，导致从源点 $s$ 到结点 $v$ 的最短路径距离减少。</p>
-</li>
-<li><p>设 $f$ 为第一个这样的流量操作之前的流量，$f’$ 是该操作之后的流量。</p>
-</li>
-<li><p>设 $v$ 是所有流量递增操作下最短路径被减少的结点中，$\delta<em>{f’}(s,v)$ 最小的结点，可得 $\delta</em>{f’}(s,v)&lt;\delta_{f}(s,v)$。</p>
-</li>
-<li><p>设 $p=s\to (u,v)$ 是残存网络 $G<em>{f’}$ 中从源点 $s$ 到结点 $v$ 的一条最短路径，因此，$(u,v)\in E</em>{f’}$，且</p>
-<script type="math/tex; mode=display">
-\delta_{f'}(s,u)=\delta_{f'}(s,v)-1</script></li>
-<li><p>因为无论如何选择结点 $v$，我们知道从源点 $s$ 到结点 $u$ 的距离并没有减少（因为 $s\to v$ 是减少的路径中最短的一条），即</p>
-<script type="math/tex; mode=display">
-\delta_{f'}(s,u)\geq \delta_{f}(s,u)</script></li>
-<li><p>我们断言 $(u,v)\notin E_f$。因为如果有 $(u,v)\in E_f$，则</p>
-<script type="math/tex; mode=display">
-\delta_{f}(s,v)\leq \delta_{f}(s,u)+1\leq \delta_{f'}(s,u)+1=\delta_{f'}(s,v)</script><p>此结果与我们假设的 $\delta_{f’}(s,v)&lt;\delta_f(s,v)$ 矛盾。</p>
-</li>
-<li><p>也就是说，$(u,v)\notin E$ 且 $(u,v)\in E_{f’}$，由此可以推断，流量递增操作一定增加了从结点 $v$ 到结点 $u$ 的流量。</p>
-</li>
-<li><p>所以残存网络 $G_f$ 中从源点 $s$ 到结点 $u$ 的最短路径上的最后一条边是 $(v,u)$。因此</p>
-<script type="math/tex; mode=display">
-\delta_{f}(s,v)=\delta_f(s,u)-1\leq \delta_{f'}(s,u)-1=\delta_{f'}(s,v)-2</script><p>此结论与假设 $\delta_{f’}(s,v)&lt;\delta_f(s,v)$ 矛盾，因此不存在这样的结点 $v$，证毕。</p>
-</li>
+<li><p>假设对于结点 <span class="math inline">\(v\)</span>，存在一个流量递增操作，导致从源点 <span class="math inline">\(s\)</span> 到结点 <span class="math inline">\(v\)</span> 的最短路径距离减少。</p></li>
+<li><p>设 <span class="math inline">\(f\)</span> 为第一个这样的流量操作之前的流量，<span class="math inline">\(f&#39;\)</span> 是该操作之后的流量。</p></li>
+<li><p>设 <span class="math inline">\(v\)</span> 是所有流量递增操作下最短路径被减少的结点中，<span class="math inline">\(\delta_{f&#39;}(s,v)\)</span> 最小的结点，可得 <span class="math inline">\(\delta_{f&#39;}(s,v)&lt;\delta_{f}(s,v)\)</span>。</p></li>
+<li><p>设 <span class="math inline">\(p=s\to (u,v)\)</span> 是残存网络 <span class="math inline">\(G_{f&#39;}\)</span> 中从源点 <span class="math inline">\(s\)</span> 到结点 <span class="math inline">\(v\)</span> 的一条最短路径，因此，<span class="math inline">\((u,v)\in E_{f&#39;}\)</span>，且 <span class="math display">\[
+\delta_{f&#39;}(s,u)=\delta_{f&#39;}(s,v)-1
+\]</span></p></li>
+<li><p>因为无论如何选择结点 <span class="math inline">\(v\)</span>，我们知道从源点 <span class="math inline">\(s\)</span> 到结点 <span class="math inline">\(u\)</span> 的距离并没有减少（因为 <span class="math inline">\(s\to v\)</span> 是减少的路径中最短的一条），即 <span class="math display">\[
+\delta_{f&#39;}(s,u)\geq \delta_{f}(s,u)
+\]</span></p></li>
+<li><p>我们断言 <span class="math inline">\((u,v)\notin E_f\)</span>。因为如果有 <span class="math inline">\((u,v)\in E_f\)</span>，则 <span class="math display">\[
+\delta_{f}(s,v)\leq \delta_{f}(s,u)+1\leq \delta_{f&#39;}(s,u)+1=\delta_{f&#39;}(s,v)
+\]</span> 此结果与我们假设的 <span class="math inline">\(\delta_{f&#39;}(s,v)&lt;\delta_f(s,v)\)</span> 矛盾。</p></li>
+<li><p>也就是说，<span class="math inline">\((u,v)\notin E\)</span> 且 <span class="math inline">\((u,v)\in E_{f&#39;}\)</span>，由此可以推断，流量递增操作一定增加了从结点 <span class="math inline">\(v\)</span> 到结点 <span class="math inline">\(u\)</span> 的流量。</p></li>
+<li><p>所以残存网络 <span class="math inline">\(G_f\)</span> 中从源点 <span class="math inline">\(s\)</span> 到结点 <span class="math inline">\(u\)</span> 的最短路径上的最后一条边是 <span class="math inline">\((v,u)\)</span>。因此 <span class="math display">\[
+\delta_{f}(s,v)=\delta_f(s,u)-1\leq \delta_{f&#39;}(s,u)-1=\delta_{f&#39;}(s,v)-2
+\]</span> 此结论与假设 <span class="math inline">\(\delta_{f&#39;}(s,v)&lt;\delta_f(s,v)\)</span> 矛盾，因此不存在这样的结点 <span class="math inline">\(v\)</span>，证毕。</p></li>
 </ul>
-<p><strong>定理：</strong>如果 Edmonds-Karp 算法运行在源点为 $s$ 且汇点为 $t$ 的流网络 $G=(V,E)$ 上，则该算法所执行的流量增加操作的总次数为 $O(VE)$。</p>
+<p><strong>定理：</strong>如果 Edmonds-Karp 算法运行在源点为 <span class="math inline">\(s\)</span> 且汇点为 <span class="math inline">\(t\)</span> 的流网络 <span class="math inline">\(G=(V,E)\)</span> 上，则该算法所执行的流量增加操作的总次数为 <span class="math inline">\(O(VE)\)</span>。</p>
 <p><strong>证明：</strong></p>
 <ul>
-<li><p>残存网络 $G_f$ 中，如果一条路径 $p$ 的残存容量是该路径上边 $(u,v)$ 的残存容量，则称 $(u,v)$ 为<strong>关键边</strong>。</p>
-</li>
-<li><p>沿一条增广路径增加流后，该条路径上的所有关键边都会从 $G_f$ 中消失，且每条增广路径至少有一条关键边。</p>
-</li>
-<li><p>假设边 $(u,v)$，其第一次成为关键边时，我们有</p>
-<script type="math/tex; mode=display">
-\delta_{f}(s,v)=\delta_{f}(s,u)+1</script></li>
-<li><p>一旦增加流后，$(u,v)$ 将从 $G_f$ 中消失，以后也不能出现在另一条增广路径上，直到从 $u$ 到 $v$ 的网络流减小，并且 $(u,v)$ 出现在增广路径上。假设这一事件发生时流为 $f’$，则</p>
-<script type="math/tex; mode=display">
-\delta_{f'}(s,u)=\delta_{f'}(s,v)+1</script></li>
-<li><p>根据引理，我们可知 $\delta<em>{f}(s,v)\leq \delta</em>{f’}(s,v)$，因此有</p>
-<script type="math/tex; mode=display">
-\delta_{f'}(s,u)=\delta_{f'}(s,v)+1\geq \delta_{f}(s,v)+1=\delta_{f}(s,u)+2</script></li>
-<li><p>因此，$(u,v)$ 在两次成为关键边的间隔中，从 $s$ 到 $u$ 的距离至少增加 2 个单位，且距离最初至少为零。同时，从 $s$ 到 $u$ 的最短路径上中间结点不可能包括 $s$，$u$ 和 $t$，因此距离最多增加至 $|V|-2$。所以一条边最多成为关键边 $|V|/2$ 次。</p>
-</li>
-<li><p>由于一共有 $|E|$ 条边，因此在 Edmonds-Karp 算法过程中关键边的总数为 $O(VE)$。</p>
-</li>
-<li><p>因为每条增广路径至少有一条关键边，因此流量增加操作总次数（增广路径数）为 $O(VE)$。</p>
-</li>
+<li><p>残存网络 <span class="math inline">\(G_f\)</span> 中，如果一条路径 <span class="math inline">\(p\)</span> 的残存容量是该路径上边 <span class="math inline">\((u,v)\)</span> 的残存容量，则称 <span class="math inline">\((u,v)\)</span> 为<strong>关键边</strong>。</p></li>
+<li><p>沿一条增广路径增加流后，该条路径上的所有关键边都会从 <span class="math inline">\(G_f\)</span> 中消失，且每条增广路径至少有一条关键边。</p></li>
+<li><p>假设边 <span class="math inline">\((u,v)\)</span>，其第一次成为关键边时，我们有 <span class="math display">\[
+\delta_{f}(s,v)=\delta_{f}(s,u)+1
+\]</span></p></li>
+<li><p>一旦增加流后，<span class="math inline">\((u,v)\)</span> 将从 <span class="math inline">\(G_f\)</span> 中消失，以后也不能出现在另一条增广路径上，直到从 <span class="math inline">\(u\)</span> 到 <span class="math inline">\(v\)</span> 的网络流减小，并且 <span class="math inline">\((u,v)\)</span> 出现在增广路径上。假设这一事件发生时流为 <span class="math inline">\(f&#39;\)</span>，则 <span class="math display">\[
+\delta_{f&#39;}(s,u)=\delta_{f&#39;}(s,v)+1
+\]</span></p></li>
+<li><p>根据引理，我们可知 <span class="math inline">\(\delta_{f}(s,v)\leq \delta_{f&#39;}(s,v)\)</span>，因此有 <span class="math display">\[
+\delta_{f&#39;}(s,u)=\delta_{f&#39;}(s,v)+1\geq \delta_{f}(s,v)+1=\delta_{f}(s,u)+2
+\]</span></p></li>
+<li><p>因此，<span class="math inline">\((u,v)\)</span> 在两次成为关键边的间隔中，从 <span class="math inline">\(s\)</span> 到 <span class="math inline">\(u\)</span> 的距离至少增加 2 个单位，且距离最初至少为零。同时，从 <span class="math inline">\(s\)</span> 到 <span class="math inline">\(u\)</span> 的最短路径上中间结点不可能包括 <span class="math inline">\(s\)</span>，<span class="math inline">\(u\)</span> 和 <span class="math inline">\(t\)</span>，因此距离最多增加至 <span class="math inline">\(|V|-2\)</span>。所以一条边最多成为关键边 <span class="math inline">\(|V|/2\)</span> 次。</p></li>
+<li><p>由于一共有 <span class="math inline">\(|E|\)</span> 条边，因此在 Edmonds-Karp 算法过程中关键边的总数为 <span class="math inline">\(O(VE)\)</span>。</p></li>
+<li><p>因为每条增广路径至少有一条关键边，因此流量增加操作总次数（增广路径数）为 <span class="math inline">\(O(VE)\)</span>。</p></li>
 </ul>
-<p>由于 Ford-Fulkerson 算法的每次迭代可以在 $O(E)$ 时间内完成，因此 Edmonds-Karp 算法总运行时间为 $O(VE^2)$。</p>
-<h3 id="番外：水平图-Level-graph"><a href="#番外：水平图-Level-graph" class="headerlink" title="番外：水平图 Level graph"></a>番外：水平图 Level graph</h3><p>给定一个有向图 $G=(V,E)$，源点为 $s$，则它的水平图 $L_G=(V,E_G)$ 定义为：</p>
+<p>由于 Ford-Fulkerson 算法的每次迭代可以在 <span class="math inline">\(O(E)\)</span> 时间内完成，因此 Edmonds-Karp 算法总运行时间为 <span class="math inline">\(O(VE^2)\)</span>。</p>
+<h3 id="番外水平图-level-graph">番外：水平图 Level graph</h3>
+<p>给定一个有向图 <span class="math inline">\(G=(V,E)\)</span>，源点为 <span class="math inline">\(s\)</span>，则它的水平图 <span class="math inline">\(L_G=(V,E_G)\)</span> 定义为：</p>
 <ul>
-<li>$l(v)=$ 从 $s$ 到 $v$ 的最短路径的边的数量。</li>
-<li>$L_G=(V,E_G)$ 是 $G$ 的子图，只包含满足 $l(w)=l(v)+1$ 的边 $(v,w)\in E$。</li>
+<li><span class="math inline">\(l(v)=\)</span> 从 <span class="math inline">\(s\)</span> 到 <span class="math inline">\(v\)</span> 的最短路径的边的数量。</li>
+<li><span class="math inline">\(L_G=(V,E_G)\)</span> 是 <span class="math inline">\(G\)</span> 的子图，只包含满足 <span class="math inline">\(l(w)=l(v)+1\)</span> 的边 <span class="math inline">\((v,w)\in E\)</span>。</li>
 </ul>
-<div align="center"><img src="/2020/11/16/%E7%BD%91%E7%BB%9C%E6%B5%81III/level_graph.png" style="zoom:70%;"></div>
-
-<p>我们可以通过运行 BFS 在 $O(m+n)$ 的时间内计算出水平图。</p>
-<p><strong>性质：</strong>$P$ 是 $G$ 中 $s\to v$ 的一条最短路径，当且仅当 $P$ 是 $L_G$ 中 $s\to v$ 的一条路径。</p>
+<div data-align="center">
+<img src="/2020/11/16/%E7%BD%91%E7%BB%9C%E6%B5%81III/level_graph.png" style="zoom:70%;">
+</div>
+<p>我们可以通过运行 BFS 在 <span class="math inline">\(O(m+n)\)</span> 的时间内计算出水平图。</p>
+<p><strong>性质：</strong><span class="math inline">\(P\)</span> 是 <span class="math inline">\(G\)</span> 中 <span class="math inline">\(s\to v\)</span> 的一条最短路径，当且仅当 <span class="math inline">\(P\)</span> 是 <span class="math inline">\(L_G\)</span> 中 <span class="math inline">\(s\to v\)</span> 的一条路径。</p>
 </div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">Hotel</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://hotelll.github.io/2020/11/16/网络流III/">http://hotelll.github.io/2020/11/16/网络流III/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/">网络流</a></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2020/11/22/%E6%B5%B7/"><i class="fa fa-chevron-left">  </i><span>海</span></a></div><div class="next-post pull-right"><a href="/2020/11/14/Floyd-Warshall-%E7%AE%97%E6%B3%95/"><span>Floyd-Warshall 算法</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
   clientID: '47e8e8f4175a9596b6be',
   clientSecret: 'c79e55744fbe30e6069137a7f8883b71d9b352a0',
@@ -104,7 +97,7 @@ gitalk.render('gitalk-container')</script></div></div><footer class="footer-bg" 
     all[i].SourceElement().parentNode.className += ' has-jax';
   }
 });
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script src="/js/search/local-search.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><script src="/js/search/local-search.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
   $('#nav').addClass('is-mobile')
   $('footer').addClass('is-mobile')
   $('#top-container').addClass('is-mobile')

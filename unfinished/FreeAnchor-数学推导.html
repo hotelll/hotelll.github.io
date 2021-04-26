@@ -7,102 +7,118 @@
     error: 'Copy error',
     noSupport: 'The browser does not support'
   },
-  hexoVersion: '5.3.0'
-} </script><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Hotel's Blog" type="application/atom+xml">
+  hexoVersion: '5.4.0'
+} </script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Hotel's Blog" type="application/atom+xml">
 </head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="false"><div class="author-info"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">Hotel</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">29</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">11</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">5</span></a></div></div></div><nav id="nav" style="background-image: url(https://i.loli.net/2021/04/20/N3GCFnILoATjJdm.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Hotel's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> Search</span></a></span></div><div id="site-info"><div id="site-title">Hotel's Blog</div><div id="site-sub-title">Knowledge, Tech and Life</div><div id="site-social-icons"><a class="social-icon" href="https://github.com/hotelll" target="_blank" rel="noreferrer noopener nofollow"><i class="fa-github fa"></i></a><a class="social-icon" href="mailto:hetianyao@sjtu.edu.cn" target="_blank" rel="noreferrer noopener nofollow"><i class="fa-envelope fa"></i></a></div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><article id="page"><h1>FreeAnchor 数学推导</h1><div class="article-container"><script src="\assets\js\APlayer.min.js"> </script><p>这篇博客从纯数学的角度，来看待目标检测中 one-stage detector 和 FreeAnchor 技术的理论理论突破。</p>
-<h2 id="变量申明"><a href="#变量申明" class="headerlink" title="变量申明"></a>变量申明</h2><div class="table-container">
+<h2 id="变量申明">变量申明</h2>
 <table>
+<colgroup>
+<col style="width: 45%">
+<col style="width: 54%">
+</colgroup>
 <thead>
-<tr>
-<th style="text-align:center">变量名</th>
-<th style="text-align:center">解释</th>
+<tr class="header">
+<th style="text-align: center;">变量名</th>
+<th style="text-align: center;">解释</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:center">$I$</td>
-<td style="text-align:center">输入图片</td>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(I\)</span></td>
+<td style="text-align: center;">输入图片</td>
 </tr>
-<tr>
-<td style="text-align:center">$B$</td>
-<td style="text-align:center">ground-truth，带有正确目标框的图片集合</td>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(B\)</span></td>
+<td style="text-align: center;">ground-truth，带有正确目标框的图片集合</td>
 </tr>
-<tr>
-<td style="text-align:center">$b_i\in B$</td>
-<td style="text-align:center">一个 ground-truth box（一个正确框出目标的方框）</td>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(b_i\in B\)</span></td>
+<td style="text-align: center;">一个 ground-truth box（一个正确框出目标的方框）</td>
 </tr>
-<tr>
-<td style="text-align:center">$b<em>i=(b</em>{i}^{\mathrm{cls}}, b_{i}^{\mathrm{loc}})$</td>
-<td style="text-align:center">$b<em>{i}^{\mathrm{cls}}\in R^k$：分类标签；$b</em>{i}^{\mathrm{loc}}\in R^4$：位置</td>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(b_i=(b_{i}^{\mathrm{cls}}, b_{i}^{\mathrm{loc}})\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(b_{i}^{\mathrm{cls}}\in R^k\)</span>：分类标签；<span class="math inline">\(b_{i}^{\mathrm{loc}}\in R^4\)</span>：位置</td>
 </tr>
-<tr>
-<td style="text-align:center">$C_{ij}\in{0,1}$</td>
-<td style="text-align:center">表示目标 $b_i$ 是否匹配 anchor $a_j$，匹配则为 1，不匹配则为 0</td>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(C_{ij}\in\{0,1\}\)</span></td>
+<td style="text-align: center;">表示目标 <span class="math inline">\(b_i\)</span> 是否匹配 anchor <span class="math inline">\(a_j\)</span>，匹配则为 1，不匹配则为 0</td>
 </tr>
-<tr>
-<td style="text-align:center">$A_+\in A$</td>
-<td style="text-align:center">所有满足 $\sum<em>{i}C</em>{i,j}=1$ 的 anchor 的集合</td>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(A_+\in A\)</span></td>
+<td style="text-align: center;">所有满足 <span class="math inline">\(\sum_{i}C_{i,j}=1\)</span> 的 anchor 的集合</td>
 </tr>
-<tr>
-<td style="text-align:center">$A_-\in A$</td>
-<td style="text-align:center">所有满足 $\sum<em>{i}C</em>{i,j}=0$ 的 anchor 的集合</td>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(A_-\in A\)</span></td>
+<td style="text-align: center;">所有满足 <span class="math inline">\(\sum_{i}C_{i,j}=0\)</span> 的 anchor 的集合</td>
 </tr>
 </tbody>
 </table>
-</div>
-<h2 id="Free-Anchor-推导"><a href="#Free-Anchor-推导" class="headerlink" title="Free Anchor 推导"></a>Free Anchor 推导</h2><h3 id="1-标准检测器损失函数"><a href="#1-标准检测器损失函数" class="headerlink" title="1. 标准检测器损失函数"></a>1. 标准检测器损失函数</h3><p>直接上公式（$\theta$ 为要学习的网络参数）</p>
-<script type="math/tex; mode=display">
-\mathcal{L}(\theta)=\sum_{a_j\in A_+}\sum_{b_i\in B}\ C_{ij}\mathcal{L}_{ij}^{cls}(\theta)+\beta\sum_{a_j\in A_+}\sum_{b_i\in B}\ C_{ij}\mathcal{L}_{ij}^{loc}(\theta)+\sum_{a_j\in A_-}\ \mathcal{L}_{j}^{bg}(\theta)</script><script type="math/tex; mode=display">
-\mathcal{L}_{ij}^{cls}(\theta)=\mathrm{BCE}(a_{j}^{cls}, b_i^{cls}, \theta)</script><script type="math/tex; mode=display">
-\mathcal{L}_{ij}^{loc}(\theta)=\mathrm{SmoothL1}(a_{j}^{loc},b_{i}^{loc}, \theta)</script><script type="math/tex; mode=display">
-\mathcal{L}_{j}^{bg}(\theta)=\mathrm{BCE}(a^{cls}_{j}, \vec{0}, \theta)</script><p>其中，$\beta$ 表示正则化因子，$bg$ 表示背景。</p>
-<h3 id="2-应用最大似然估计"><a href="#2-应用最大似然估计" class="headerlink" title="2. 应用最大似然估计"></a>2. 应用最大似然估计</h3><p>论文首先从 MLE 的角度重新处理了这个损失函数：</p>
-<script type="math/tex; mode=display">
+<h2 id="free-anchor-推导">Free Anchor 推导</h2>
+<h3 id="标准检测器损失函数">1. 标准检测器损失函数</h3>
+<p>直接上公式（<span class="math inline">\(\theta\)</span> 为要学习的网络参数） <span class="math display">\[
+\mathcal{L}(\theta)=\sum_{a_j\in A_+}\sum_{b_i\in B}\ C_{ij}\mathcal{L}_{ij}^{cls}(\theta)+\beta\sum_{a_j\in A_+}\sum_{b_i\in B}\ C_{ij}\mathcal{L}_{ij}^{loc}(\theta)+\sum_{a_j\in A_-}\ \mathcal{L}_{j}^{bg}(\theta)
+\]</span></p>
+<p><span class="math display">\[
+\mathcal{L}_{ij}^{cls}(\theta)=\mathrm{BCE}(a_{j}^{cls}, b_i^{cls}, \theta)
+\]</span></p>
+<p><span class="math display">\[
+\mathcal{L}_{ij}^{loc}(\theta)=\mathrm{SmoothL1}(a_{j}^{loc},b_{i}^{loc}, \theta)
+\]</span></p>
+<p><span class="math display">\[
+\mathcal{L}_{j}^{bg}(\theta)=\mathrm{BCE}(a^{cls}_{j}, \vec{0}, \theta)
+\]</span></p>
+<p>其中，<span class="math inline">\(\beta\)</span> 表示正则化因子，<span class="math inline">\(bg\)</span> 表示背景。</p>
+<h3 id="应用最大似然估计">2. 应用最大似然估计</h3>
+<p>论文首先从 MLE 的角度重新处理了这个损失函数： <span class="math display">\[
 \begin{aligned}
-\mathcal{P}(\theta)&=e^{-\mathcal{L}(\theta)}\\
-&=\prod_{a_j\in A_+}\left(\sum_{b_i\in B}C_{ij}e^{-\mathcal{L}_{ij}^{cls}(\theta)}\right)
+\mathcal{P}(\theta)&amp;=e^{-\mathcal{L}(\theta)}\\
+&amp;=\prod_{a_j\in A_+}\left(\sum_{b_i\in B}C_{ij}e^{-\mathcal{L}_{ij}^{cls}(\theta)}\right)
 \prod_{a_j\in A_+}\left(\sum_{b_i\in B}C_{ij}e^{-\mathcal{L}_{ij}^{loc}(\theta)}\right)
 \prod_{a_j\in A_-}e^{-\mathcal{L}_{j}^{bg}(\theta)}\\
-&=\prod_{a_j\in A_+}\left(\sum_{b_i\in B}C_{ij}(\theta)\mathcal{P}_{ij}^{cls}(\theta)\right)
+&amp;=\prod_{a_j\in A_+}\left(\sum_{b_i\in B}C_{ij}(\theta)\mathcal{P}_{ij}^{cls}(\theta)\right)
 \prod_{a_j\in A_+}\left(\sum_{b_i\in B}C_{ij}(\theta)\mathcal{P}_{ij}^{loc}(\theta)\right)
 \prod_{a_j\in A_-}\mathcal{P}_{j}^{bg}(\theta)
-\end{aligned}</script><p>其中，$\mathcal{P}<em>{ij}^{cls}(\theta)$ 和 $\mathcal{P}</em>{j}^{bg}(\theta)$ 表示类别置信度，$\mathcal{P}<em>{ij}^{loc}(\theta)$ 表示定位置信度。损失函数 $\mathcal{L}(\theta)$ 的最小化等价于似然概率 $\mathcal{P}(\theta)$ 的最大化。$\mathcal{P}$ 从 MLE 的角度严格考虑了 anchor 的分类和定位的优化。然而，它忽略了如何学习匹配矩阵 $C</em>{ij}$。现有的基于 CNN 的检测器使用的 IoU 规则通常根据经验分配。</p>
-<h3 id="3-检测自定义似然"><a href="#3-检测自定义似然" class="headerlink" title="3. 检测自定义似然"></a>3. 检测自定义似然</h3><p>为了实现 <strong>目标-anchor</strong> 匹配的优化，作者通过引入 <strong>检测自定义似然</strong> 来扩展基于 CNN 的检测框架，在保证召回率和精度的同时，实现与 NMS 的兼容性。</p>
-<p>首先，根据目标的 IoU 选择排名前 $n$ 个 anchors。为每个目标 $b<em>i$ 构造候选 anchors 集合 $A_i\in A$。为了优化召回率，对于每个目标 $b_i\in B$，需要保证至少存在一个 anchor，它的预测 $a_j^{(cls)}$ 和 $a</em>{j}^{loc}$ 接近 ground-truth，目标函数为：</p>
-<script type="math/tex; mode=display">
-\mathcal{P}_{recall}(\theta)=\prod\max_{a_j\in A_i}\left[ \mathcal{P}_{ij}^{cls}(\theta)\mathcal{P}_{ij}^{loc}(\theta) \right]</script><p>为了提高检测精度，检测器需要将定位不良的 anchors 分类为背景类。可通过优化一下目标函数来实现：</p>
-<script type="math/tex; mode=display">
-\mathcal{P}_{precision}(\theta)=\prod_{j}\left[1-P\{a_j\in A_-\}(1-\mathcal{P}_{j}^{bg}(\theta))\right]</script><p>其中，$P{a<em>j\in A</em>-}=1-\max_i P{a_j\to b_i}$ 是 $a_j$ 错过所有目标的可能性，$P{a_j\to b_i}$ 表示 $a_j$ 正确预测 $b_i$ 的可能性。</p>
-<p>为了与 NMS 算法兼容，$P{a_j\to b_i}$ 应当有如下三个属性：</p>
+\end{aligned}
+\]</span> 其中，<span class="math inline">\(\mathcal{P}_{ij}^{cls}(\theta)\)</span> 和 <span class="math inline">\(\mathcal{P}_{j}^{bg}(\theta)\)</span> 表示类别置信度，<span class="math inline">\(\mathcal{P}_{ij}^{loc}(\theta)\)</span> 表示定位置信度。损失函数 <span class="math inline">\(\mathcal{L}(\theta)\)</span> 的最小化等价于似然概率 <span class="math inline">\(\mathcal{P}(\theta)\)</span> 的最大化。<span class="math inline">\(\mathcal{P}\)</span> 从 MLE 的角度严格考虑了 anchor 的分类和定位的优化。然而，它忽略了如何学习匹配矩阵 <span class="math inline">\(C_{ij}\)</span>。现有的基于 CNN 的检测器使用的 IoU 规则通常根据经验分配。</p>
+<h3 id="检测自定义似然">3. 检测自定义似然</h3>
+<p>为了实现 <strong>目标-anchor</strong> 匹配的优化，作者通过引入 <strong>检测自定义似然</strong> 来扩展基于 CNN 的检测框架，在保证召回率和精度的同时，实现与 NMS 的兼容性。</p>
+<p>首先，根据目标的 IoU 选择排名前 <span class="math inline">\(n\)</span> 个 anchors。为每个目标 <span class="math inline">\(b_i\)</span> 构造候选 anchors 集合 <span class="math inline">\(A_i\in A\)</span>。为了优化召回率，对于每个目标 <span class="math inline">\(b_i\in B\)</span>，需要保证至少存在一个 anchor，它的预测 <span class="math inline">\(a_j^{(cls)}\)</span> 和 <span class="math inline">\(a_{j}^{loc}\)</span> 接近 ground-truth，目标函数为： <span class="math display">\[
+\mathcal{P}_{recall}(\theta)=\prod\max_{a_j\in A_i}\left[ \mathcal{P}_{ij}^{cls}(\theta)\mathcal{P}_{ij}^{loc}(\theta) \right]
+\]</span> 为了提高检测精度，检测器需要将定位不良的 anchors 分类为背景类。可通过优化一下目标函数来实现： <span class="math display">\[
+\mathcal{P}_{precision}(\theta)=\prod_{j}\left[1-P\{a_j\in A_-\}(1-\mathcal{P}_{j}^{bg}(\theta))\right]
+\]</span> 其中，<span class="math inline">\(P\{a_j\in A_-\}=1-\max_i P\{a_j\to b_i\}\)</span> 是 <span class="math inline">\(a_j\)</span> 错过所有目标的可能性，<span class="math inline">\(P\{a_j\to b_i\}\)</span> 表示 <span class="math inline">\(a_j\)</span> 正确预测 <span class="math inline">\(b_i\)</span> 的可能性。</p>
+<p>为了与 NMS 算法兼容，<span class="math inline">\(P\{a_j\to b_i\}\)</span> 应当有如下三个属性：</p>
 <ul>
-<li>$P{a<em>j\to b_i}$ 是 $IoU</em>{ij}^{loc}$（$a_{j}^{loc}$ 和 $b_i$）的单调递增函数</li>
-<li>当 $IoU_{ij}^{loc}$ 低于阈值 $t$，$P{a_j\to b_i}$ 接近 0</li>
-<li>对于 $b_i$，仅存在一个 $a_j$ 满足 $P{a_j\to b_i}=1$</li>
+<li><span class="math inline">\(P\{a_j\to b_i\}\)</span> 是 <span class="math inline">\(IoU_{ij}^{loc}\)</span>（<span class="math inline">\(a_{j}^{loc}\)</span> 和 <span class="math inline">\(b_i\)</span>）的单调递增函数</li>
+<li>当 <span class="math inline">\(IoU_{ij}^{loc}\)</span> 低于阈值 <span class="math inline">\(t\)</span>，<span class="math inline">\(P\{a_j\to b_i\}\)</span> 接近 0</li>
+<li>对于 <span class="math inline">\(b_i\)</span>，仅存在一个 <span class="math inline">\(a_j\)</span> 满足 <span class="math inline">\(P\{a_j\to b_i\}=1\)</span></li>
 </ul>
-<p>我们可以用饱和线性函数描述为：</p>
-<script type="math/tex; mode=display">
+<p>我们可以用饱和线性函数描述为： <span class="math display">\[
 \mathrm{Saturated\ linear}(x,t_1,t_2)=
 \left\{
 \begin{array}{lr}
-    0, & x\leq t_1\\
-    \frac{x-t_1}{t_2-t_1}, & t_1<x<t_2\\
-    1, & x\geq t_2
+    0, &amp; x\leq t_1\\
+    \frac{x-t_1}{t_2-t_1}, &amp; t_1&lt;x&lt;t_2\\
+    1, &amp; x\geq t_2
 \end{array}
-\right.</script><p><img src="/unfinished/image-20210331184446490.png" alt="饱和线性函数图像" style="zoom:80%;"></p>
-<p>$P{a<em>j\to b_i}=\mathrm{Saturated\ linear}(IoU</em>{ij}^{loc},t,\max<em>{i}(IoU</em>{ij}^{loc}))$。</p>
-<p>作者定义检测自定义似然为：</p>
-<script type="math/tex; mode=display">
+\right.
+\]</span> <img src="/unfinished/image-20210331184446490.png" alt="饱和线性函数图像" style="zoom:80%;"></p>
+<p><span class="math inline">\(P\{a_j\to b_i\}=\mathrm{Saturated\ linear}(IoU_{ij}^{loc},t,\max_{i}(IoU_{ij}^{loc}))\)</span>。</p>
+<p>作者定义检测自定义似然为： <span class="math display">\[
 \begin{aligned}
-\mathcal{P}'(\theta)&=\mathcal{P}_{recall}(\theta)\times \mathcal{P}_{precision}(\theta)\\
-&=\prod_{i}\max_{\alpha+i\in A_i}(\mathcal{P}_{ij}^{cls}(\theta)\mathcal{P}_{ij}^{loc}(\theta)\times \prod_{j}\left(1-P\{a_j\in A_-\}(1-\mathcal{P}_{j}^{bg}(\theta))\right)
-\end{aligned}</script><p>通过优化上述似然，我们可以同时使召回率 $P<em>{recall}(\theta)$ 和精度 $P</em>{precision}(\theta)$ 最大化，在检测器训练期间实现 “free” 方式的 目标-anchor 匹配。</p>
-<h3 id="Anchor-匹配机制"><a href="#Anchor-匹配机制" class="headerlink" title="Anchor 匹配机制"></a>Anchor 匹配机制</h3><p>为了在 CNN 检测框架中实现上述匹配方法，将似然转换为检测自定义匹配损失：</p>
-<script type="math/tex; mode=display">
+\mathcal{P}&#39;(\theta)&amp;=\mathcal{P}_{recall}(\theta)\times \mathcal{P}_{precision}(\theta)\\
+&amp;=\prod_{i}\max_{\alpha+i\in A_i}(\mathcal{P}_{ij}^{cls}(\theta)\mathcal{P}_{ij}^{loc}(\theta)\times \prod_{j}\left(1-P\{a_j\in A_-\}(1-\mathcal{P}_{j}^{bg}(\theta))\right)
+\end{aligned}
+\]</span> 通过优化上述似然，我们可以同时使召回率 <span class="math inline">\(P_{recall}(\theta)\)</span> 和精度 <span class="math inline">\(P_{precision}(\theta)\)</span> 最大化，在检测器训练期间实现 “free” 方式的 目标-anchor 匹配。</p>
+<h3 id="anchor-匹配机制">Anchor 匹配机制</h3>
+<p>为了在 CNN 检测框架中实现上述匹配方法，将似然转换为检测自定义匹配损失： <span class="math display">\[
 \begin{aligned}
-\mathcal{L}'(\theta)
-& = -\log \mathcal{P}'(\theta)\\
-& = -\sum_i\log\left(\max_{a_j\in A_i}(\mathcal{P}_{ij}^{cls}(\theta)\mathcal{P}_{ij}^{loc}(\theta))\right)-\sum_j\log\left(1-P\{a_j\in A_-\}(1-\mathcal{P}_{j}^{bg}(\theta))\right)
-\end{aligned}</script><p>其中 $\max$ 函数用于为每个目标选择最佳的 Anchor。在训练期间，</p>
+\mathcal{L}&#39;(\theta)
+&amp; = -\log \mathcal{P}&#39;(\theta)\\
+&amp; = -\sum_i\log\left(\max_{a_j\in A_i}(\mathcal{P}_{ij}^{cls}(\theta)\mathcal{P}_{ij}^{loc}(\theta))\right)-\sum_j\log\left(1-P\{a_j\in A_-\}(1-\mathcal{P}_{j}^{bg}(\theta))\right)
+\end{aligned}
+\]</span></p>
+<p>其中 <span class="math inline">\(\max\)</span> 函数用于为每个目标选择最佳的 Anchor。在训练期间，</p>
 </div></article><nav id="pagination"><div class="pagination"></div></nav><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
   clientID: '47e8e8f4175a9596b6be',
   clientSecret: 'c79e55744fbe30e6069137a7f8883b71d9b352a0',
@@ -134,7 +150,7 @@ gitalk.render('gitalk-container')</script></div></div><footer class="footer-bg" 
     all[i].SourceElement().parentNode.className += ' has-jax';
   }
 });
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script src="/js/search/local-search.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><script src="/js/search/local-search.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
   $('#nav').addClass('is-mobile')
   $('footer').addClass('is-mobile')
   $('#top-container').addClass('is-mobile')

@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://hotelll.github.io/2020/07/24/Google-Jukebox-%E9%A1%B9%E7%9B%AE%E5%A4%8D%E7%8E%B0/</loc>
+    <lastmod>2021-04-25</lastmod>
+  </url>
+  <url>
+    <loc>http://hotelll.github.io/2021/02/01/%E4%BB%8A%E5%A4%A9%E5%AD%A6%E4%B9%A0-RNN/</loc>
+    <lastmod>2021-04-25</lastmod>
+  </url>
+  <url>
+    <loc>http://hotelll.github.io/2021/02/15/An-introduction-to-the-generative-model/</loc>
+    <lastmod>2021-04-25</lastmod>
+  </url>
+  <url>
     <loc>http://hotelll.github.io/2021/04/08/The-Vanishing-and-Exploding-Gradient-Problem/</loc>
     <lastmod>2021-04-21</lastmod>
   </url>
@@ -9,16 +21,8 @@
     <lastmod>2021-04-18</lastmod>
   </url>
   <url>
-    <loc>http://hotelll.github.io/2021/02/15/An-introduction-to-the-generative-model/</loc>
-    <lastmod>2021-04-18</lastmod>
-  </url>
-  <url>
     <loc>http://hotelll.github.io/2020/12/23/OS9-Main-Memory/</loc>
     <lastmod>2021-04-18</lastmod>
-  </url>
-  <url>
-    <loc>http://hotelll.github.io/2021/02/01/%E4%BB%8A%E5%A4%A9%E5%AD%A6%E4%B9%A0-RNN/</loc>
-    <lastmod>2021-04-17</lastmod>
   </url>
   <url>
     <loc>http://hotelll.github.io/2021/02/10/%E8%AE%A4%E8%AE%A4%E7%9C%9F%E7%9C%9F%E5%86%99%E4%B8%80%E7%AF%87LSTM/</loc>
@@ -26,10 +30,6 @@
   </url>
   <url>
     <loc>http://hotelll.github.io/2021/03/27/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E5%85%A5%E9%97%A8%E2%80%94%E2%80%94%E6%9C%AF%E8%AF%AD%E7%AF%87/</loc>
-    <lastmod>2021-04-17</lastmod>
-  </url>
-  <url>
-    <loc>http://hotelll.github.io/2020/07/24/Google-Jukebox-%E9%A1%B9%E7%9B%AE%E5%A4%8D%E7%8E%B0/</loc>
     <lastmod>2021-04-17</lastmod>
   </url>
   <url>

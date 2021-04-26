@@ -7,111 +7,120 @@
     error: 'Copy error',
     noSupport: 'The browser does not support'
   },
-  hexoVersion: '5.3.0'
-} </script><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Hotel's Blog" type="application/atom+xml">
-</head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="false"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E8%B5%B7%E6%BA%90"><span class="toc-number">1.</span> <span class="toc-text">问题起源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E6%98%93%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">简易问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="toc-number">2.1.</span> <span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E7%BE%8E%E5%8C%B9%E9%85%8D"><span class="toc-number">2.2.</span> <span class="toc-text">完美匹配</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8C%B9%E9%85%8D"><span class="toc-number">2.2.1.</span> <span class="toc-text">匹配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%8C%E7%BE%8E%E5%8C%B9%E9%85%8D-1"><span class="toc-number">2.2.2.</span> <span class="toc-text">完美匹配</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E7%A8%B3%E5%AE%9A%E5%AF%B9"><span class="toc-number">2.3.</span> <span class="toc-text">不稳定对</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A8%B3%E5%AE%9A%E5%8C%B9%E9%85%8D"><span class="toc-number">2.4.</span> <span class="toc-text">稳定匹配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A8%B3%E5%AE%9A%E5%8C%B9%E9%85%8D%E9%97%AE%E9%A2%98"><span class="toc-number">2.5.</span> <span class="toc-text">稳定匹配问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">2.6.</span> <span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Gale-Shapley-%E7%AE%97%E6%B3%95"><span class="toc-number">2.7.</span> <span class="toc-text">Gale-Shapley 算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-number">2.8.</span> <span class="toc-text">算法分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E7%89%B9%E5%BE%81"><span class="toc-number">2.8.1.</span> <span class="toc-text">算法特征</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%89%E7%A9%B7%E6%80%A7%EF%BC%9A%E7%AE%97%E6%B3%95%E6%9C%80%E5%A4%9A%E5%9C%A8-n-2-%E6%AC%A1-while-%E8%BF%AD%E4%BB%A3%E5%90%8E%E4%B8%80%E5%AE%9A%E4%BC%9A%E7%BB%93%E6%9D%9F%E3%80%82"><span class="toc-number">2.8.2.</span> <span class="toc-text">有穷性：算法最多在 $n^2$ 次 while 迭代后一定会结束。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%8C%E7%BE%8E%E6%80%A7%EF%BC%9A%E7%AE%97%E6%B3%95%E4%B8%AD%E6%89%80%E6%9C%89%E7%94%B7%E6%80%A7%E5%92%8C%E5%A5%B3%E6%80%A7%E9%83%BD%E5%8C%B9%E9%85%8D%E5%AE%8C%E6%AF%95%E3%80%82"><span class="toc-number">2.8.3.</span> <span class="toc-text">完美性：算法中所有男性和女性都匹配完毕。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A8%B3%E5%AE%9A%E6%80%A7%EF%BC%9A%E7%AE%97%E6%B3%95%E4%BA%A7%E7%94%9F%E7%9A%84%E5%8C%B9%E9%85%8D%E4%B8%AD%EF%BC%8C%E4%B8%8D%E4%BC%9A%E6%9C%89%E4%B8%8D%E7%A8%B3%E5%AE%9A%E5%AF%B9"><span class="toc-number">2.8.4.</span> <span class="toc-text">稳定性：算法产生的匹配中，不会有不稳定对</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A3%E5%BD%93%E9%85%8D%E5%81%B6-Valid-Partner"><span class="toc-number">2.8.5.</span> <span class="toc-text">正当配偶 Valid Partner</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%B7%E6%80%A7%E6%9C%80%E4%BD%B3%E5%88%86%E9%85%8D-Man-optimal-Assignment"><span class="toc-number">2.8.6.</span> <span class="toc-text">男性最佳分配 Man-optimal Assignment</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A5%B3%E6%80%A7%E6%9C%80%E5%8A%A3%E5%88%86%E9%85%8D"><span class="toc-number">2.8.7.</span> <span class="toc-text">女性最劣分配</span></a></li></ol></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">Hotel</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">29</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">11</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">5</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://i.loli.net/2021/04/20/N3GCFnILoATjJdm.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Hotel's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> Search</span></a></span></div><div id="post-info"><div id="post-title">稳定匹配</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-09-07</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><div class="post-meta-wordcount"><span>Word count: </span><span class="word-count">1.3k</span><span class="post-meta__separator">|</span><span>Reading time: 4 min</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><script src="\assets\js\APlayer.min.js"> </script><h2 id="问题起源"><a href="#问题起源" class="headerlink" title="问题起源"></a>问题起源</h2><p>在1962年，经济学家 David Gale 和 Lloyd Shapley 提出：能否设计一个高校录取过程，能够<strong>自我执行</strong>（self-enforcing）形成一个最佳的匹配效果。</p>
+  hexoVersion: '5.4.0'
+} </script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Hotel's Blog" type="application/atom+xml">
+</head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="false"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E8%B5%B7%E6%BA%90"><span class="toc-number">1.</span> <span class="toc-text">问题起源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E6%98%93%E9%97%AE%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">简易问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="toc-number">2.1.</span> <span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E7%BE%8E%E5%8C%B9%E9%85%8D"><span class="toc-number">2.2.</span> <span class="toc-text">完美匹配</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8C%B9%E9%85%8D"><span class="toc-number">2.2.1.</span> <span class="toc-text">匹配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%8C%E7%BE%8E%E5%8C%B9%E9%85%8D-1"><span class="toc-number">2.2.2.</span> <span class="toc-text">完美匹配</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E7%A8%B3%E5%AE%9A%E5%AF%B9"><span class="toc-number">2.3.</span> <span class="toc-text">不稳定对</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A8%B3%E5%AE%9A%E5%8C%B9%E9%85%8D"><span class="toc-number">2.4.</span> <span class="toc-text">稳定匹配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A8%B3%E5%AE%9A%E5%8C%B9%E9%85%8D%E9%97%AE%E9%A2%98"><span class="toc-number">2.5.</span> <span class="toc-text">稳定匹配问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">2.6.</span> <span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gale-shapley-%E7%AE%97%E6%B3%95"><span class="toc-number">2.7.</span> <span class="toc-text">Gale-Shapley 算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-number">2.8.</span> <span class="toc-text">算法分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E7%89%B9%E5%BE%81"><span class="toc-number">2.8.1.</span> <span class="toc-text">算法特征</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%89%E7%A9%B7%E6%80%A7%E7%AE%97%E6%B3%95%E6%9C%80%E5%A4%9A%E5%9C%A8-n2-%E6%AC%A1-while-%E8%BF%AD%E4%BB%A3%E5%90%8E%E4%B8%80%E5%AE%9A%E4%BC%9A%E7%BB%93%E6%9D%9F"><span class="toc-number">2.8.2.</span> <span class="toc-text">有穷性：算法最多在 \(n^2\) 次 while 迭代后一定会结束。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%8C%E7%BE%8E%E6%80%A7%E7%AE%97%E6%B3%95%E4%B8%AD%E6%89%80%E6%9C%89%E7%94%B7%E6%80%A7%E5%92%8C%E5%A5%B3%E6%80%A7%E9%83%BD%E5%8C%B9%E9%85%8D%E5%AE%8C%E6%AF%95"><span class="toc-number">2.8.3.</span> <span class="toc-text">完美性：算法中所有男性和女性都匹配完毕。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A8%B3%E5%AE%9A%E6%80%A7%E7%AE%97%E6%B3%95%E4%BA%A7%E7%94%9F%E7%9A%84%E5%8C%B9%E9%85%8D%E4%B8%AD%E4%B8%8D%E4%BC%9A%E6%9C%89%E4%B8%8D%E7%A8%B3%E5%AE%9A%E5%AF%B9"><span class="toc-number">2.8.4.</span> <span class="toc-text">稳定性：算法产生的匹配中，不会有不稳定对</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A3%E5%BD%93%E9%85%8D%E5%81%B6-valid-partner"><span class="toc-number">2.8.5.</span> <span class="toc-text">正当配偶 Valid Partner</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%B7%E6%80%A7%E6%9C%80%E4%BD%B3%E5%88%86%E9%85%8D-man-optimal-assignment"><span class="toc-number">2.8.6.</span> <span class="toc-text">男性最佳分配 Man-optimal Assignment</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A5%B3%E6%80%A7%E6%9C%80%E5%8A%A3%E5%88%86%E9%85%8D"><span class="toc-number">2.8.7.</span> <span class="toc-text">女性最劣分配</span></a></li></ol></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">Hotel</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">29</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">11</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">5</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://i.loli.net/2021/04/20/N3GCFnILoATjJdm.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Hotel's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> Search</span></a></span></div><div id="post-info"><div id="post-title">稳定匹配</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-09-07</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><div class="post-meta-wordcount"><span>Word count: </span><span class="word-count">1.3k</span><span class="post-meta__separator">|</span><span>Reading time: 4 min</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><script src="\assets\js\APlayer.min.js"> </script><h2 id="问题起源">问题起源</h2>
+<p>在1962年，经济学家 David Gale 和 Lloyd Shapley 提出：能否设计一个高校录取过程，能够<strong>自我执行</strong>（self-enforcing）形成一个最佳的匹配效果。</p>
 <a id="more"></a>
 <blockquote>
-<p>算法的 C++ 实现代码请移步 Github：<a target="_blank" rel="noopener" href="https://github.com/hotelll/CS222Note/tree/master/StableMatching">https://github.com/hotelll/CS222Note/tree/master/StableMatching</a></p>
+<p>算法的 C++ 实现代码请移步 Github：https://github.com/hotelll/CS222Note/tree/master/StableMatching</p>
 </blockquote>
-<h2 id="简易问题"><a href="#简易问题" class="headerlink" title="简易问题"></a>简易问题</h2><h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>给出一个 $n$ 个男性的集合 $M$ 和 $n$ 个女性的集合 $W$，找到一个“稳定”匹配。</p>
+<h2 id="简易问题">简易问题</h2>
+<h3 id="问题描述">问题描述</h3>
+<p>给出一个 <span class="math inline">\(n\)</span> 个男性的集合 <span class="math inline">\(M\)</span> 和 <span class="math inline">\(n\)</span> 个女性的集合 <span class="math inline">\(W\)</span>，找到一个“稳定”匹配。</p>
 <ul>
 <li>每位男性根据对女性的心仪程度从高至低进行排名；</li>
 <li>每位女性根据对男性的心仪程度从高至低进行排名。</li>
 </ul>
-<h3 id="完美匹配"><a href="#完美匹配" class="headerlink" title="完美匹配"></a>完美匹配</h3><h4 id="匹配"><a href="#匹配" class="headerlink" title="匹配"></a>匹配</h4><p>匹配 $S$ 是一个包含有序数对 $m-w$ 的集合，其中 $m\in M$ 且 $w\in W$，其中：</p>
+<h3 id="完美匹配">完美匹配</h3>
+<h4 id="匹配">匹配</h4>
+<p>匹配 <span class="math inline">\(S\)</span> 是一个包含有序数对 <span class="math inline">\(m-w\)</span> 的集合，其中 <span class="math inline">\(m\in M\)</span> 且 <span class="math inline">\(w\in W\)</span>，其中：</p>
 <ul>
 <li>每个男性最多出现在一个数对中；</li>
 <li>每个女性最多出现在一个数对中。</li>
 </ul>
-<h4 id="完美匹配-1"><a href="#完美匹配-1" class="headerlink" title="完美匹配"></a>完美匹配</h4><p>如果$|S|=|M|=|W|=n$，则匹配 $S$ 是完美匹配。</p>
-<h3 id="不稳定对"><a href="#不稳定对" class="headerlink" title="不稳定对"></a>不稳定对</h3><p>给出一个完美匹配 $S$，男性 $m$ 和女性 $w$ 是不稳定的，如果同时满足下列条件：</p>
+<h4 id="完美匹配-1">完美匹配</h4>
+<p>如果<span class="math inline">\(|S|=|M|=|W|=n\)</span>，则匹配 <span class="math inline">\(S\)</span> 是完美匹配。</p>
+<h3 id="不稳定对">不稳定对</h3>
+<p>给出一个完美匹配 <span class="math inline">\(S\)</span>，男性 <span class="math inline">\(m\)</span> 和女性 <span class="math inline">\(w\)</span> 是不稳定的，如果同时满足下列条件：</p>
 <ul>
-<li>$m$ 相比起当前配偶，更喜欢 $w$;</li>
-<li>$w$ 相比起当前配偶，更喜欢 $m$。</li>
+<li><span class="math inline">\(m\)</span> 相比起当前配偶，更喜欢 <span class="math inline">\(w\)</span>;</li>
+<li><span class="math inline">\(w\)</span> 相比起当前配偶，更喜欢 <span class="math inline">\(m\)</span>。</li>
 </ul>
-<h3 id="稳定匹配"><a href="#稳定匹配" class="headerlink" title="稳定匹配"></a>稳定匹配</h3><p>一个不包含不稳定对的完美匹配。</p>
-<h3 id="稳定匹配问题"><a href="#稳定匹配问题" class="headerlink" title="稳定匹配问题"></a>稳定匹配问题</h3><p>给出 $n$ 个男性和 $n$ 个女性的喜好列表，寻找一个稳定匹配。</p>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>稳定匹配不一定存在，同时也不一定是唯一的。</p>
-<h3 id="Gale-Shapley-算法"><a href="#Gale-Shapley-算法" class="headerlink" title="Gale-Shapley 算法"></a>Gale-Shapley 算法</h3><p><img src="/2020/09/07/%E7%A8%B3%E5%AE%9A%E5%8C%B9%E9%85%8D/GS_algorithm.png" alt="G-S"></p>
-<h3 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h3><h4 id="算法特征"><a href="#算法特征" class="headerlink" title="算法特征"></a>算法特征</h4><ul>
-<li><p>男性根据喜好降序向女性求婚；</p>
-</li>
-<li><p>一旦一位女性找到配偶，她将不会再单身，只会替换成更好的。</p>
-</li>
-</ul>
-<h4 id="有穷性：算法最多在-n-2-次-while-迭代后一定会结束。"><a href="#有穷性：算法最多在-n-2-次-while-迭代后一定会结束。" class="headerlink" title="有穷性：算法最多在 $n^2$ 次 while 迭代后一定会结束。"></a>有穷性：算法最多在 $n^2$ 次 while 迭代后一定会结束。</h4><p><strong>证明</strong></p>
-<p>while 循环中每次男性向一位女性求婚，最多只有 $n^2$ 次求婚。</p>
-<h4 id="完美性：算法中所有男性和女性都匹配完毕。"><a href="#完美性：算法中所有男性和女性都匹配完毕。" class="headerlink" title="完美性：算法中所有男性和女性都匹配完毕。"></a>完美性：算法中所有男性和女性都匹配完毕。</h4><p><strong>证明（反证法）</strong></p>
+<h3 id="稳定匹配">稳定匹配</h3>
+<p>一个不包含不稳定对的完美匹配。</p>
+<h3 id="稳定匹配问题">稳定匹配问题</h3>
+<p>给出 <span class="math inline">\(n\)</span> 个男性和 <span class="math inline">\(n\)</span> 个女性的喜好列表，寻找一个稳定匹配。</p>
+<h3 id="注意事项">注意事项</h3>
+<p>稳定匹配不一定存在，同时也不一定是唯一的。</p>
+<h3 id="gale-shapley-算法">Gale-Shapley 算法</h3>
+<figure>
+<img src="/2020/09/07/%E7%A8%B3%E5%AE%9A%E5%8C%B9%E9%85%8D/GS_algorithm.png" alt="G-S"><figcaption aria-hidden="true">G-S</figcaption>
+</figure>
+<h3 id="算法分析">算法分析</h3>
+<h4 id="算法特征">算法特征</h4>
 <ul>
-<li><p>假设：存在男性 Z 在算法终止后仍然未匹配到女性</p>
-</li>
-<li><p>由此可知，一定有一位女性，假设为 A，也没有匹配到男性</p>
-</li>
-<li><p>根据算法，一位单身女性一定会同意向她求婚的男性，且女性一旦有配偶就不会再次单身（特征2），所以女性 A 一定没有被求过婚</p>
-</li>
-<li><p>根据算法 while 循环条件，男性 Z 一定向所有女性求过婚算法才会终止</p>
-</li>
-<li><p>因此男性 Z 向女性 A 求过婚</p>
-</li>
-<li><p>3与5产生矛盾，假设不成立，证明完毕</p>
-</li>
+<li><p>男性根据喜好降序向女性求婚；</p></li>
+<li><p>一旦一位女性找到配偶，她将不会再单身，只会替换成更好的。</p></li>
 </ul>
-<h4 id="稳定性：算法产生的匹配中，不会有不稳定对"><a href="#稳定性：算法产生的匹配中，不会有不稳定对" class="headerlink" title="稳定性：算法产生的匹配中，不会有不稳定对"></a>稳定性：算法产生的匹配中，不会有不稳定对</h4><p><strong>证明</strong></p>
+<h4 id="有穷性算法最多在-n2-次-while-迭代后一定会结束">有穷性：算法最多在 <span class="math inline">\(n^2\)</span> 次 while 迭代后一定会结束。</h4>
+<p><strong>证明</strong></p>
+<p>while 循环中每次男性向一位女性求婚，最多只有 <span class="math inline">\(n^2\)</span> 次求婚。</p>
+<h4 id="完美性算法中所有男性和女性都匹配完毕">完美性：算法中所有男性和女性都匹配完毕。</h4>
+<p><strong>证明（反证法）</strong></p>
 <ul>
-<li><p>假设：GS 匹配 $S^*$ 不包含数对 A-Z</p>
-</li>
+<li><p>假设：存在男性 Z 在算法终止后仍然未匹配到女性</p></li>
+<li><p>由此可知，一定有一位女性，假设为 A，也没有匹配到男性</p></li>
+<li><p>根据算法，一位单身女性一定会同意向她求婚的男性，且女性一旦有配偶就不会再次单身（特征2），所以女性 A 一定没有被求过婚</p></li>
+<li><p>根据算法 while 循环条件，男性 Z 一定向所有女性求过婚算法才会终止</p></li>
+<li><p>因此男性 Z 向女性 A 求过婚</p></li>
+<li><p>3与5产生矛盾，假设不成立，证明完毕</p></li>
+</ul>
+<h4 id="稳定性算法产生的匹配中不会有不稳定对">稳定性：算法产生的匹配中，不会有不稳定对</h4>
+<p><strong>证明</strong></p>
+<ul>
+<li><p>假设：GS 匹配 <span class="math inline">\(S^*\)</span> 不包含数对 A-Z</p></li>
 <li><p>情况1：Z 从未向 A 求婚</p>
 <ul>
 <li>Z 比起 A 更喜欢 GS 算法得到的配偶 B</li>
 <li>A-Z 是稳定对</li>
-</ul>
-</li>
+</ul></li>
 <li><p>情况2：Z 向 A 求过婚</p>
 <ul>
 <li>A 拒绝了或抛弃了 Z</li>
 <li>A 比起 Z，更喜欢 GS 算法得到的配偶 Y</li>
 <li>A-Z 是稳定对</li>
+</ul></li>
+<li><p>因此 GS 匹配中不包含的对一定是稳定的，即GS匹配中没有不稳定对</p></li>
 </ul>
-</li>
-<li><p>因此 GS 匹配中不包含的对一定是稳定的，即GS匹配中没有不稳定对</p>
-</li>
-</ul>
-<h4 id="正当配偶-Valid-Partner"><a href="#正当配偶-Valid-Partner" class="headerlink" title="正当配偶 Valid Partner"></a>正当配偶 Valid Partner</h4><p>定义：如果存在一个稳定匹配中男性 $m$ 和女性 $w$ 匹配在一起，则称女性 $w$ 是男性 $m$ 的正当配偶。</p>
-<h4 id="男性最佳分配-Man-optimal-Assignment"><a href="#男性最佳分配-Man-optimal-Assignment" class="headerlink" title="男性最佳分配 Man-optimal Assignment"></a>男性最佳分配 Man-optimal Assignment</h4><p>GS 算法中每个男性都能分配到最佳的正当配偶，所以 GS 算法得到的分配一定是男性最佳分配。</p>
+<h4 id="正当配偶-valid-partner">正当配偶 Valid Partner</h4>
+<p>定义：如果存在一个稳定匹配中男性 <span class="math inline">\(m\)</span> 和女性 <span class="math inline">\(w\)</span> 匹配在一起，则称女性 <span class="math inline">\(w\)</span> 是男性 <span class="math inline">\(m\)</span> 的正当配偶。</p>
+<h4 id="男性最佳分配-man-optimal-assignment">男性最佳分配 Man-optimal Assignment</h4>
+<p>GS 算法中每个男性都能分配到最佳的正当配偶，所以 GS 算法得到的分配一定是男性最佳分配。</p>
 <p><strong>证明</strong></p>
 <ul>
 <li>假设：一位男性与一位女性匹配，该女性不是最佳正当配偶</li>
-<li>因为男性根据喜好降序求婚<ul>
+<li>因为男性根据喜好降序求婚
+<ul>
 <li>所以有男性在 GS 算法中被正当配偶拒绝</li>
-</ul>
-</li>
+</ul></li>
 <li>令 Y 是第一个这样的男性，同时令 A 是第一个拒绝他的正当配偶</li>
-<li>令 $S$ 是一个包含 A-Y 的稳定匹配</li>
-<li>在 GS 中，当 Y 被 A 拒绝时，A 与男性 Z 配对<ul>
+<li>令 <span class="math inline">\(S\)</span> 是一个包含 A-Y 的稳定匹配</li>
+<li>在 GS 中，当 Y 被 A 拒绝时，A 与男性 Z 配对
+<ul>
 <li><u>所以，A 比起 Y 更喜欢 Z</u></li>
-</ul>
-</li>
-<li>在 $S$ 中令 B 是 Z 的配偶</li>
+</ul></li>
+<li>在 <span class="math inline">\(S\)</span> 中令 B 是 Z 的配偶</li>
 <li>GS 中，Z 在 Y 被 A 拒绝的时候，还没有被任何正当配偶拒绝（因为我们令 Y 和 A 是第一对这样的男女）</li>
 <li>A-Z 和 B-Z 都是正当配偶，现在已知在 GS 中 Z 与 A 配对</li>
 <li>如果 Z 在向 A 求婚时，如果已经向 B 求过婚，一定被拒绝了，上上条矛盾</li>
-<li>因此，当 Z 向 A 求婚时，他还没有向 B 求过婚<ul>
+<li>因此，当 Z 向 A 求婚时，他还没有向 B 求过婚
+<ul>
 <li><u>所以，Z 比起 B 更喜欢 A</u></li>
-</ul>
-</li>
-<li>因此，A-Z 在 $S$ 中是不稳定的。</li>
+</ul></li>
+<li>因此，A-Z 在 <span class="math inline">\(S\)</span> 中是不稳定的。</li>
 <li>因此假设不成立，GS 算法是男性最佳策略</li>
 </ul>
-<h4 id="女性最劣分配"><a href="#女性最劣分配" class="headerlink" title="女性最劣分配"></a>女性最劣分配</h4><p>GS 算法中女性一定分配到的是最差的正当配偶。</p>
+<h4 id="女性最劣分配">女性最劣分配</h4>
+<p>GS 算法中女性一定分配到的是最差的正当配偶。</p>
 <p><strong>证明</strong></p>
 <ul>
-<li>假设： A-Z 在稳定匹配 $S^*$ 中匹配，但是 Z 不是 A 的最差正当配偶</li>
-<li>那么，存在稳定匹配 $S$，其中 A 与 Y 配对，且 Y 是更差的正当配偶</li>
+<li>假设： A-Z 在稳定匹配 <span class="math inline">\(S^*\)</span> 中匹配，但是 Z 不是 A 的最差正当配偶</li>
+<li>那么，存在稳定匹配 <span class="math inline">\(S\)</span>，其中 A 与 Y 配对，且 Y 是更差的正当配偶</li>
 <li>所以 A 比起 Y 更喜欢 Z</li>
-<li>在 $S$ 中，令 B 是 Z 的配偶，根据男性最优性，A 是 Z 的最佳正当配偶</li>
+<li>在 <span class="math inline">\(S\)</span> 中，令 B 是 Z 的配偶，根据男性最优性，A 是 Z 的最佳正当配偶</li>
 <li>所以 Z 比起 B 更喜欢 A</li>
-<li>因此，A-Z 在 $S$ 中是不稳定对，存在矛盾</li>
+<li>因此，A-Z 在 <span class="math inline">\(S\)</span> 中是不稳定对，存在矛盾</li>
 </ul>
 <p><strong>关键：主动发起求婚的一方总是获得优势。</strong></p>
 </div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">Hotel</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://hotelll.github.io/2020/09/07/稳定匹配/">http://hotelll.github.io/2020/09/07/稳定匹配/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="post-meta__tag-list"></div><nav id="pagination"><div class="prev-post pull-left"><a href="/2020/10/28/%E7%BD%91%E7%BB%9C%E6%B5%81I/"><i class="fa fa-chevron-left">  </i><span>网络流I：详解最大流最小割</span></a></div><div class="next-post pull-right"><a href="/2020/07/29/%E5%A6%82%E4%BD%95%E9%98%85%E8%AF%BB%E8%AE%BA%E6%96%87/"><span>如何阅读论文</span><i class="fa fa-chevron-right"></i></a></div></nav><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
@@ -145,7 +154,7 @@ gitalk.render('gitalk-container')</script></div></div><footer class="footer-bg" 
     all[i].SourceElement().parentNode.className += ' has-jax';
   }
 });
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script src="/js/search/local-search.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><script src="/js/search/local-search.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
   $('#nav').addClass('is-mobile')
   $('footer').addClass('is-mobile')
   $('#top-container').addClass('is-mobile')

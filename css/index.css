@@ -21,7 +21,7 @@ body {
   min-height: 100%;
   background: #fff;
   color: #4c4948;
-  font-size: 14px;
+  font-size: 16px;
   font-family: Lato, Helvetica Neue For Number, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif;
   line-height: 2;
 }
@@ -144,7 +144,7 @@ table td {
   vertical-align: top;
 }
 *::selection {
-  background: #00c4b6;
+  background: #0048b3;
   color: #f7f7f7;
 }
 .text-center {
@@ -173,7 +173,7 @@ table td {
   padding-top: 1.4rem;
   background: #263238;
   color: #eff;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 20px;
 }
 figure.highlight {
@@ -194,7 +194,7 @@ blockquote {
   background: rgba(27,31,35,0.05);
   color: #1f2d3d;
   word-wrap: break-word;
-  font-size: 14px;
+  font-size: 16px;
 }
 .article-container pre code {
   padding: 0;
@@ -1066,7 +1066,7 @@ footer.is-mobile {
   cursor: pointer;
 }
 #pagination .page-number.current {
-  background: #00c4b6;
+  background: #0048b3;
   color: #fff;
   cursor: default;
 }
@@ -1645,7 +1645,7 @@ a.fancybox:focus {
   transition: all 0.2s ease-in-out;
 }
 #sidebar .toggle-sidebar-info span:hover {
-  background: #00c4b6;
+  background: #0048b3;
 }
 #sidebar .author-info {
   margin-left: -0.25rem;
@@ -1726,10 +1726,10 @@ a.fancybox:focus {
   content: "";
 }
 #sidebar .author-info-articles .article-meta:hover {
-  background: #00ddcd;
+  background: #0053cd;
 }
 #sidebar .author-info-articles .article-meta:hover .pull-right {
-  color: #00c4b6;
+  color: #0048b3;
 }
 #sidebar .author-info-links__title {
   margin-bottom: 0.4rem;
@@ -1791,15 +1791,15 @@ a.fancybox:focus {
   transition: all 0.2s ease-in-out;
 }
 #sidebar .sidebar-toc .toc-link.active {
-  border-right-color: #009d92;
-  background: #00c4b6;
+  border-right-color: #003a8f;
+  background: #0048b3;
   color: #fff;
 }
 #sidebar .sidebar-toc__progress {
   position: relative;
   margin-top: -0.3rem;
   padding-left: 0.6rem;
-  color: #00c4b6;
+  color: #0048b3;
 }
 #sidebar .sidebar-toc__progress .progress-notice {
   margin-right: 0.4rem;
@@ -1811,7 +1811,7 @@ a.fancybox:focus {
 #sidebar .sidebar-toc__progress-bar {
   width: 0;
   height: 1px;
-  background: #00c4b6;
+  background: #0048b3;
 }
 .search-dialog {
   position: fixed;
