@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://hotelll.github.io/2020/12/22/reprint-Career-advice-for-recent-Computer-Science-graduates/</loc>
+    <lastmod>2021-04-26</lastmod>
+  </url>
+  <url>
     <loc>http://hotelll.github.io/2020/07/24/Google-Jukebox-%E9%A1%B9%E7%9B%AE%E5%A4%8D%E7%8E%B0/</loc>
     <lastmod>2021-04-25</lastmod>
   </url>
@@ -18,10 +22,6 @@
   </url>
   <url>
     <loc>http://hotelll.github.io/2021/02/26/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0-SongMASS/</loc>
-    <lastmod>2021-04-18</lastmod>
-  </url>
-  <url>
-    <loc>http://hotelll.github.io/2020/12/23/OS9-Main-Memory/</loc>
     <lastmod>2021-04-18</lastmod>
   </url>
   <url>
@@ -70,50 +70,6 @@
   </url>
   <url>
     <loc>http://hotelll.github.io/2020/11/10/Ubuntu%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/</loc>
-    <lastmod>2021-03-29</lastmod>
-  </url>
-  <url>
-    <loc>http://hotelll.github.io/2020/12/22/reprint-Career-advice-for-recent-Computer-Science-graduates/</loc>
-    <lastmod>2021-03-29</lastmod>
-  </url>
-  <url>
-    <loc>http://hotelll.github.io/2020/12/01/OS-II-Operating-System-Structures/</loc>
-    <lastmod>2021-03-29</lastmod>
-  </url>
-  <url>
-    <loc>http://hotelll.github.io/2020/11/27/OS-Chapter-I-Introduction/</loc>
-    <lastmod>2021-03-29</lastmod>
-  </url>
-  <url>
-    <loc>http://hotelll.github.io/2020/12/09/OS8-Deadlocks/</loc>
-    <lastmod>2021-03-29</lastmod>
-  </url>
-  <url>
-    <loc>http://hotelll.github.io/2020/12/09/OS7-Synchronization-Examples/</loc>
-    <lastmod>2021-03-29</lastmod>
-  </url>
-  <url>
-    <loc>http://hotelll.github.io/2020/12/06/OS6-Synchronization-Tools/</loc>
-    <lastmod>2021-03-29</lastmod>
-  </url>
-  <url>
-    <loc>http://hotelll.github.io/2020/12/08/Leetcode842-SplitArrayToFib/</loc>
-    <lastmod>2021-03-29</lastmod>
-  </url>
-  <url>
-    <loc>http://hotelll.github.io/2020/12/04/Leetcode659-%E5%88%86%E5%89%B2%E6%95%B0%E7%BB%84%E4%B8%BA%E8%BF%9E%E7%BB%AD%E5%AD%90%E5%BA%8F%E5%88%97/</loc>
-    <lastmod>2021-03-29</lastmod>
-  </url>
-  <url>
-    <loc>http://hotelll.github.io/2020/12/05/Leetcode621-%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6%E5%99%A8/</loc>
-    <lastmod>2021-03-29</lastmod>
-  </url>
-  <url>
-    <loc>http://hotelll.github.io/2020/12/09/Leetcode-62-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84/</loc>
-    <lastmod>2021-03-29</lastmod>
-  </url>
-  <url>
-    <loc>http://hotelll.github.io/2020/12/02/321-%E6%8B%BC%E6%8E%A5%E6%9C%80%E5%A4%A7%E6%95%B0/</loc>
     <lastmod>2021-03-29</lastmod>
   </url>
   <url>
