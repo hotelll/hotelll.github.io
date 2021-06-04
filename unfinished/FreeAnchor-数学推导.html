@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="数学不好还想做好人工智能，做梦呢？"><meta name="keywords" content=""><meta name="author" content="Hotel"><meta name="copyright" content="Hotel"><title>FreeAnchor 数学推导 | Hotel's Blog</title><link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="数学不好还想做好人工智能，做梦呢？"><meta name="keywords" content=""><meta name="author" content="Hotel"><meta name="copyright" content="Hotel"><title>【论文学习】FreeAnchor | Hotel's Blog</title><link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
   root: '/',
   algolia: undefined,
   localSearch: {"path":"search.xml","languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
@@ -9,8 +9,19 @@
   },
   hexoVersion: '5.4.0'
 } </script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Hotel's Blog" type="application/atom+xml">
-</head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="false"><div class="author-info"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">Hotel</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">18</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">9</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">4</span></a></div></div></div><nav id="nav" style="background-image: url(https://i.loli.net/2021/04/20/N3GCFnILoATjJdm.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Hotel's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> Search</span></a></span></div><div id="site-info"><div id="site-title">Hotel's Blog</div><div id="site-sub-title">Knowledge, Tech and Life</div><div id="site-social-icons"><a class="social-icon" href="https://github.com/hotelll" target="_blank" rel="noreferrer noopener nofollow"><i class="fa-github fa"></i></a><a class="social-icon" href="mailto:hetianyao@sjtu.edu.cn" target="_blank" rel="noreferrer noopener nofollow"><i class="fa-envelope fa"></i></a></div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><article id="page"><h1>FreeAnchor 数学推导</h1><div class="article-container"><script src="\assets\js\APlayer.min.js"> </script><p>这篇博客从纯数学的角度，来看待目标检测中 one-stage detector 和 FreeAnchor 技术的理论理论突破。</p>
-<h2 id="变量申明">变量申明</h2>
+</head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="false"><div class="author-info"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">Hotel</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">20</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">10</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">5</span></a></div></div></div><nav id="nav" style="background-image: url(https://i.loli.net/2021/04/20/N3GCFnILoATjJdm.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Hotel's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> Search</span></a></span></div><div id="site-info"><div id="site-title">Hotel's Blog</div><div id="site-sub-title">Knowledge, Tech and Life</div><div id="site-social-icons"><a class="social-icon" href="https://github.com/hotelll" target="_blank" rel="noreferrer noopener nofollow"><i class="fa-github fa"></i></a><a class="social-icon" href="mailto:hetianyao@sjtu.edu.cn" target="_blank" rel="noreferrer noopener nofollow"><i class="fa-envelope fa"></i></a></div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><article id="page"><h1>【论文学习】FreeAnchor</h1><div class="article-container"><script src="\assets\js\APlayer.min.js"> </script><p>目标检测中以往使用 IoU 将 anchor 分配给 ground-truth 对象。FreeAnchor 抛弃了手工的 IoU 判定方法，将检测器训练转化为一个最大似然估计（MLE）的方法，从而使得匹配过程更加自由。</p>
+<span id="more"></span>
+<h2 id="动机">动机</h2>
+<p>手工的 IoU 算法很难处理好非中心，细长，或拥挤目标的情况。FreeAnchor 方法旨在通过学习的方法，得到最佳表示目标的特征（根据分类和定位）。FreeAnchor 的目标是：</p>
+<ol type="1">
+<li>高召回率：因此要保证每个目标有至少一个 anchor 预测与 ground-truth 接近。</li>
+<li>高准确率：因此检测器要将没定位好（i.e. bounding box regression 误差大）的 anchors 归为背景。</li>
+<li>anchor 的预测结果与 NMS 算法兼容：也就是说，分类分数越高，定位也越精确。</li>
+</ol>
+<h2 id="思路">思路</h2>
+<p>FreeAnchor 将 目标-anchor 匹配问题，转化成了一个 MLE 过程。FreeAnchor 中每个目标对应一包（a bag of）anchors，算法从 bag 中选择最具代表性的那个 anchor，并将每个 anchor bag 的似然概率定义为 bag 中最大的那个置信度。最大化这个似然概率，可以保证一定存在至少一个分类与定位置信度高的 anchor。同时，分类或定位误差很大的 anchor 被归为背景。在训练中，似然概率被转化为损失函数，驱动 CNN 检测器和 anchor 匹配的进行。</p>
+<h2 id="数学推导">数学推导</h2>
+<h3 id="变量申明">变量申明</h3>
 <table>
 <colgroup>
 <col style="width: 45%">
@@ -40,35 +51,46 @@
 <td style="text-align: center;"><span class="math inline">\(b_{i}^{\mathrm{cls}}\in R^k\)</span>：分类标签；<span class="math inline">\(b_{i}^{\mathrm{loc}}\in R^4\)</span>：位置</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(C_{ij}\in\{0,1\}\)</span></td>
-<td style="text-align: center;">表示目标 <span class="math inline">\(b_i\)</span> 是否匹配 anchor <span class="math inline">\(a_j\)</span>，匹配则为 1，不匹配则为 0</td>
+<td style="text-align: center;"><span class="math inline">\(a_i\in A\)</span></td>
+<td style="text-align: center;">anchor</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><span class="math inline">\(A_+\in A\)</span></td>
-<td style="text-align: center;">所有满足 <span class="math inline">\(\sum_{i}C_{i,j}=1\)</span> 的 anchor 的集合</td>
+<td style="text-align: center;"><span class="math inline">\(a_j^{cls}\in \mathcal{R}^k\)</span></td>
+<td style="text-align: center;">前向传播中 anchor 得到的 class 预测</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(A_-\in A\)</span></td>
-<td style="text-align: center;">所有满足 <span class="math inline">\(\sum_{i}C_{i,j}=0\)</span> 的 anchor 的集合</td>
+<td style="text-align: center;"><span class="math inline">\(a_j^{loc}=\{x,y,w,h\}\)</span></td>
+<td style="text-align: center;">bounding box regression 后得到的位置预测</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(C_{ij}\in\{0,1\}\)</span></td>
+<td style="text-align: center;">表示目标 <span class="math inline">\(b_i\)</span> 和 anchor <span class="math inline">\(a_j\)</span> 是否匹配</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(A_+\subseteq A\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\{a_j|\sum_i C_{ij}=1\}\)</span>，所有匹配上的 anchor 的集合</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(A_-\subseteq A\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\{a_j|\sum_i C_{ij}=0\}\)</span>，所有未匹配上的 anchor 的集合（背景集合）</td>
 </tr>
 </tbody>
 </table>
-<h2 id="free-anchor-推导">Free Anchor 推导</h2>
-<h3 id="标准检测器损失函数">1. 标准检测器损失函数</h3>
-<p>直接上公式（<span class="math inline">\(\theta\)</span> 为要学习的网络参数） <span class="math display">\[
+<h3 id="free-anchor-推导">Free Anchor 推导</h3>
+<h4 id="标准检测器损失函数">1. 标准检测器损失函数</h4>
+<p>损失函数 = 匹配anchor的分类损失 + 匹配anchor的定位损失 + 背景anchor的损失： <span class="math display">\[
 \mathcal{L}(\theta)=\sum_{a_j\in A_+}\sum_{b_i\in B}\ C_{ij}\mathcal{L}_{ij}^{cls}(\theta)+\beta\sum_{a_j\in A_+}\sum_{b_i\in B}\ C_{ij}\mathcal{L}_{ij}^{loc}(\theta)+\sum_{a_j\in A_-}\ \mathcal{L}_{j}^{bg}(\theta)
 \]</span></p>
-<p><span class="math display">\[
+<p>其中，<span class="math inline">\(\beta\)</span> 表示正则化因子，<span class="math inline">\(bg\)</span> 表示背景，<span class="math inline">\(b_i\)</span> 与 <span class="math inline">\(a_j\)</span> 匹配的分类损失为： <span class="math display">\[
 \mathcal{L}_{ij}^{cls}(\theta)=\mathrm{BCE}(a_{j}^{cls}, b_i^{cls}, \theta)
 \]</span></p>
-<p><span class="math display">\[
+<p>其中 BCE 为二值化交叉熵函数， <span class="math display">\[
 \mathcal{L}_{ij}^{loc}(\theta)=\mathrm{SmoothL1}(a_{j}^{loc},b_{i}^{loc}, \theta)
 \]</span></p>
 <p><span class="math display">\[
 \mathcal{L}_{j}^{bg}(\theta)=\mathrm{BCE}(a^{cls}_{j}, \vec{0}, \theta)
 \]</span></p>
-<p>其中，<span class="math inline">\(\beta\)</span> 表示正则化因子，<span class="math inline">\(bg\)</span> 表示背景。</p>
-<h3 id="应用最大似然估计">2. 应用最大似然估计</h3>
+<h4 id="应用最大似然估计">2. 应用最大似然估计</h4>
 <p>论文首先从 MLE 的角度重新处理了这个损失函数： <span class="math display">\[
 \begin{aligned}
 \mathcal{P}(\theta)&amp;=e^{-\mathcal{L}(\theta)}\\
@@ -80,7 +102,7 @@
 \prod_{a_j\in A_-}\mathcal{P}_{j}^{bg}(\theta)
 \end{aligned}
 \]</span> 其中，<span class="math inline">\(\mathcal{P}_{ij}^{cls}(\theta)\)</span> 和 <span class="math inline">\(\mathcal{P}_{j}^{bg}(\theta)\)</span> 表示类别置信度，<span class="math inline">\(\mathcal{P}_{ij}^{loc}(\theta)\)</span> 表示定位置信度。损失函数 <span class="math inline">\(\mathcal{L}(\theta)\)</span> 的最小化等价于似然概率 <span class="math inline">\(\mathcal{P}(\theta)\)</span> 的最大化。<span class="math inline">\(\mathcal{P}\)</span> 从 MLE 的角度严格考虑了 anchor 的分类和定位的优化。然而，它忽略了如何学习匹配矩阵 <span class="math inline">\(C_{ij}\)</span>。现有的基于 CNN 的检测器使用的 IoU 规则通常根据经验分配。</p>
-<h3 id="检测自定义似然">3. 检测自定义似然</h3>
+<h4 id="检测自定义似然">3. 检测自定义似然</h4>
 <p>为了实现 <strong>目标-anchor</strong> 匹配的优化，作者通过引入 <strong>检测自定义似然</strong> 来扩展基于 CNN 的检测框架，在保证召回率和精度的同时，实现与 NMS 的兼容性。</p>
 <p>首先，根据目标的 IoU 选择排名前 <span class="math inline">\(n\)</span> 个 anchors。为每个目标 <span class="math inline">\(b_i\)</span> 构造候选 anchors 集合 <span class="math inline">\(A_i\in A\)</span>。为了优化召回率，对于每个目标 <span class="math inline">\(b_i\in B\)</span>，需要保证至少存在一个 anchor，它的预测 <span class="math inline">\(a_j^{(cls)}\)</span> 和 <span class="math inline">\(a_{j}^{loc}\)</span> 接近 ground-truth，目标函数为： <span class="math display">\[
 \mathcal{P}_{recall}(\theta)=\prod\max_{a_j\in A_i}\left[ \mathcal{P}_{ij}^{cls}(\theta)\mathcal{P}_{ij}^{loc}(\theta) \right]
@@ -102,7 +124,7 @@
     1, &amp; x\geq t_2
 \end{array}
 \right.
-\]</span> <img src="/unfinished/image-20210331184446490.png" alt="饱和线性函数图像" style="zoom:80%;"></p>
+\]</span> <img src="/unfinished/FreeAnchor-%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC.htm/image-20210331184446490.png" alt="饱和线性函数图像" style="zoom:80%;"></p>
 <p><span class="math inline">\(P\{a_j\to b_i\}=\mathrm{Saturated\ linear}(IoU_{ij}^{loc},t,\max_{i}(IoU_{ij}^{loc}))\)</span>。</p>
 <p>作者定义检测自定义似然为： <span class="math display">\[
 \begin{aligned}
@@ -110,7 +132,7 @@
 &amp;=\prod_{i}\max_{\alpha+i\in A_i}(\mathcal{P}_{ij}^{cls}(\theta)\mathcal{P}_{ij}^{loc}(\theta)\times \prod_{j}\left(1-P\{a_j\in A_-\}(1-\mathcal{P}_{j}^{bg}(\theta))\right)
 \end{aligned}
 \]</span> 通过优化上述似然，我们可以同时使召回率 <span class="math inline">\(P_{recall}(\theta)\)</span> 和精度 <span class="math inline">\(P_{precision}(\theta)\)</span> 最大化，在检测器训练期间实现 “free” 方式的 目标-anchor 匹配。</p>
-<h3 id="anchor-匹配机制">Anchor 匹配机制</h3>
+<h4 id="anchor-匹配机制">Anchor 匹配机制</h4>
 <p>为了在 CNN 检测框架中实现上述匹配方法，将似然转换为检测自定义匹配损失： <span class="math display">\[
 \begin{aligned}
 \mathcal{L}&#39;(\theta)

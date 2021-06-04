@@ -9,12 +9,12 @@
   },
   hexoVersion: '5.4.0'
 } </script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Hotel's Blog" type="application/atom+xml">
-</head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="false"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">Hotel</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">18</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">9</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">4</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://i.loli.net/2021/04/20/N3GCFnILoATjJdm.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Hotel's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> Search</span></a></span></div><div id="post-info"><div id="post-title">目标检测入门——术语篇</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-03-27</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a><div class="post-meta-wordcount"><span>Word count: </span><span class="word-count">354</span><span class="post-meta__separator">|</span><span>Reading time: 1 min</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><script src="\assets\js\APlayer.min.js"> </script><p>这篇博客记录着目标检测领域下常见的专业术语。</p>
-<a id="more"></a>
+</head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="false"><div class="toggle-sidebar-info text-center"><span data-toggle="Toggle article">Toggle site</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">Hotel</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">20</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">10</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">5</span></a></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://i.loli.net/2021/04/20/N3GCFnILoATjJdm.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Hotel's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> Search</span></a></span></div><div id="post-info"><div id="post-title">目标检测入门——术语篇</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2021-03-27</time><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">人工智能</a><div class="post-meta-wordcount"><span>Word count: </span><span class="word-count">436</span><span class="post-meta__separator">|</span><span>Reading time: 1 min</span></div></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><script src="\assets\js\APlayer.min.js"> </script><p>这篇博客记录着目标检测领域下常见的专业术语。</p>
+<span id="more"></span>
 <table>
 <colgroup>
-<col style="width: 25%">
-<col style="width: 75%">
+<col style="width: 21%">
+<col style="width: 78%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -45,35 +45,43 @@
 </tr>
 <tr class="even">
 <td>ROI</td>
-<td>感兴趣区域，往往是需要检测的目标。</td>
+<td>Region of Interest，有很大可能性包含检测目标的区域。</td>
 </tr>
 <tr class="odd">
-<td>Hard negative mining</td>
-<td>难检测负样本挖掘。</td>
+<td>Anchor</td>
+<td>预先设定在图像上的密集方框，用于后续检测标记。</td>
 </tr>
 <tr class="even">
-<td>Anchor</td>
-<td>锚点，由机器学习得到的方框。</td>
-</tr>
-<tr class="odd">
 <td>Region Proposals</td>
 <td>建议区域，经过 Region Proposal Network(RPN) 得到一个 region 的 <span class="math inline">\(p\geq 0.5\)</span>，则这个 region 中可能具有目标，这些选出来的区域被称为 ROI（Region of Interests）。RPN 同时会在 feature map 上框定 ROI 大致位置，输出 Bounding-box。</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>one-stage</td>
 <td>一步检测器，指从图片到检测结果一步到位。（e.g. YOLO, SSD）</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>two-stage</td>
 <td>两步检测器，指分两步走，先从图片提取 ROI，再进行检测。（e.g. RCNN, FPN, etc.）</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>skeleton</td>
 <td>骨骼点，常见于行为检测数据集，标记人体几个重要位置的数据。</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Re-ID</td>
 <td>行人重识别，利用计算机视觉技术判断图像或者视频序列中是否存在特定人的技术。</td>
+</tr>
+<tr class="odd">
+<td>backbone</td>
+<td>图像特征提取器，往往是目标检测的第一步，常用 ResNet</td>
+</tr>
+<tr class="even">
+<td>head</td>
+<td>分类+定位器</td>
+</tr>
+<tr class="odd">
+<td>neck</td>
+<td>插在 backbone 和 detection head 之间的模块，使网络更好地融合/提取 backbone 给出的特征，提高网络性能，例如：FPN，NAS-FPN，PAN，ASFF，RFB，SPP。这部分是科研的主攻点。</td>
 </tr>
 </tbody>
 </table>
