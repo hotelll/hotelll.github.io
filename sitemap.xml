@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://hotelll.github.io/2021/06/04/%E7%A0%94%E7%A9%B6%E4%B8%80%E4%B8%8BGAN/</loc>
+    
+    <lastmod>2021-06-04</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://hotelll.github.io/2021/04/27/%E5%8F%98%E5%88%86%E6%8E%A8%E6%96%AD/</loc>
+    
+    <lastmod>2021-05-06</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://hotelll.github.io/2021/05/01/%E5%BA%94%E7%94%A8%E5%B1%82%E5%8D%8F%E8%AE%AE/</loc>
+    
+    <lastmod>2021-05-05</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://hotelll.github.io/2020/07/08/From-NN-to-VQ-VAE/</loc>
+    
+    <lastmod>2021-05-01</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://hotelll.github.io/2020/09/07/%E7%A8%B3%E5%AE%9A%E5%8C%B9%E9%85%8D/</loc>
     
     <lastmod>2021-05-01</lastmod>
@@ -58,13 +86,6 @@
   </url>
   
   <url>
-    <loc>http://hotelll.github.io/2020/07/08/From-NN-to-VQ-VAE/</loc>
-    
-    <lastmod>2021-05-01</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://hotelll.github.io/2021/02/15/An-introduction-to-the-generative-model/</loc>
     
     <lastmod>2021-05-01</lastmod>
@@ -82,13 +103,6 @@
     <loc>http://hotelll.github.io/unfinished/FreeAnchor-%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC.html</loc>
     
     <lastmod>2021-04-30</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hotelll.github.io/2021/04/27/%E5%8F%98%E5%88%86%E6%8E%A8%E6%96%AD/</loc>
-    
-    <lastmod>2021-04-27</lastmod>
     
   </url>
   
@@ -207,7 +221,7 @@
 
   <url>
     <loc>http://hotelll.github.io/</loc>
-    <lastmod>2021-05-01</lastmod>
+    <lastmod>2021-06-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -215,70 +229,77 @@
   
   <url>
     <loc>http://hotelll.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</loc>
-    <lastmod>2021-05-01</lastmod>
+    <lastmod>2021-06-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://hotelll.github.io/tags/%E7%94%9F%E6%88%90/</loc>
-    <lastmod>2021-05-01</lastmod>
+    <lastmod>2021-06-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://hotelll.github.io/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</loc>
-    <lastmod>2021-05-01</lastmod>
+    <lastmod>2021-06-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://hotelll.github.io/tags/%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B/</loc>
-    <lastmod>2021-05-01</lastmod>
+    <lastmod>2021-06-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://hotelll.github.io/tags/MIR/</loc>
-    <lastmod>2021-05-01</lastmod>
+    <lastmod>2021-06-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://hotelll.github.io/tags/%E8%AE%BA%E6%96%87%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2021-05-01</lastmod>
+    <lastmod>2021-06-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://hotelll.github.io/tags/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/</loc>
-    <lastmod>2021-05-01</lastmod>
+    <lastmod>2021-06-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://hotelll.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/</loc>
-    <lastmod>2021-05-01</lastmod>
+    <lastmod>2021-06-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://hotelll.github.io/tags/%E7%BD%91%E7%BB%9C%E6%B5%81/</loc>
-    <lastmod>2021-05-01</lastmod>
+    <lastmod>2021-06-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://hotelll.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</loc>
-    <lastmod>2021-05-01</lastmod>
+    <lastmod>2021-06-04</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://hotelll.github.io/tags/%E5%8F%98%E5%88%86%E6%8E%A8%E6%96%AD/</loc>
+    <lastmod>2021-06-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -287,35 +308,35 @@
   
   <url>
     <loc>http://hotelll.github.io/categories/%E7%AE%97%E6%B3%95/</loc>
-    <lastmod>2021-05-01</lastmod>
+    <lastmod>2021-06-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://hotelll.github.io/categories/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/</loc>
-    <lastmod>2021-05-01</lastmod>
+    <lastmod>2021-06-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://hotelll.github.io/categories/%E6%8A%A5%E9%94%99/</loc>
-    <lastmod>2021-05-01</lastmod>
+    <lastmod>2021-06-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://hotelll.github.io/categories/%E7%94%9F%E6%B4%BB/</loc>
-    <lastmod>2021-05-01</lastmod>
+    <lastmod>2021-06-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://hotelll.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/</loc>
-    <lastmod>2021-05-01</lastmod>
+    <lastmod>2021-06-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
