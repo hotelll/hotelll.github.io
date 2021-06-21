@@ -1,0 +1,103 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Have e deep insight into GAN!"><meta name="keywords" content=""><meta name="author" content="Hotel"><meta name="copyright" content="Hotel"><title>研究一下GAN | Hotel's Blog</title><link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.9.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.9.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script><script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.10.0/js/md5.min.js"></script><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"We didn't find any results for the search: ${query}"}},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  hexoVersion: '5.3.0'
+} </script><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="Hotel's Blog" type="application/atom+xml">
+</head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="false"><div class="author-info"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">Hotel</div><div class="author-info__description text-center"></div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">Articles</span><span class="pull-right">17</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">Tags</span><span class="pull-right">9</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">Categories</span><span class="pull-right">3</span></a></div></div></div><nav id="nav" style="background-image: url(https://i.loli.net/2021/04/20/N3GCFnILoATjJdm.jpg)"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Hotel's Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"><a class="site-page social-icon search"><i class="fa fa-search"></i><span> Search</span></a></span></div><div id="site-info"><div id="site-title">Hotel's Blog</div><div id="site-sub-title">Knowledge, Tech and Life</div><div id="site-social-icons"><a class="social-icon" href="https://github.com/hotelll" target="_blank" rel="noreferrer noopener nofollow"><i class="fa-github fa"></i></a><a class="social-icon" href="mailto:hetianyao@sjtu.edu.cn" target="_blank" rel="noreferrer noopener nofollow"><i class="fa-envelope fa"></i></a></div></div></nav><div id="content-outer"><div class="layout" id="content-inner"><article id="page"><h1>研究一下GAN</h1><div class="article-container"><script src="\assets\js\APlayer.min.js"> </script><p>记录一下GAN的一些资源和待研究的问题。</p>
+<a id="more"></a>
+<h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><ul>
+<li>celebA：名人头像照片</li>
+<li>CUB200_2011：200种鸟类图片</li>
+</ul>
+<h2 id="已有模型"><a href="#已有模型" class="headerlink" title="已有模型"></a>已有模型</h2><h3 id="pytorch-GAN（包含20多种不同的GAN）"><a href="#pytorch-GAN（包含20多种不同的GAN）" class="headerlink" title="pytorch GAN（包含20多种不同的GAN）"></a>pytorch GAN（包含20多种不同的GAN）</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/hotelll/PyTorch-GAN">PyTorch-GAN</a></p>
+</blockquote>
+<h3 id="FineGAN"><a href="#FineGAN" class="headerlink" title="FineGAN"></a>FineGAN</h3><blockquote>
+<p> <a target="_blank" rel="noopener" href="https://github.com/kkanshul/finegan">FineGAN</a></p>
+</blockquote>
+<h2 id="值得研究的问题"><a href="#值得研究的问题" class="headerlink" title="值得研究的问题"></a>值得研究的问题</h2><blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/110707801">一篇文章弄懂GAN网络</a>（后半部分）</p>
+</blockquote>
+<h3 id="1-为什么GAN这么难训练"><a href="#1-为什么GAN这么难训练" class="headerlink" title="1. 为什么GAN这么难训练"></a>1. 为什么GAN这么难训练</h3><blockquote>
+<p>参考论文：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1701.04862">Towards Principled Methods for Training Generative Adversarial Networks</a></p>
+</blockquote>
+<p>因为 GAN 的目标函数存在理论缺陷。在最早的 GAN 中，GoodFellow 把 GAN 的目标函数设置为：</p>
+<script type="math/tex; mode=display">
+\min_{G}\max_{D}V(D,G)=E_{x\sim p_{data}(x)}[\log D(x)]+E_{z\sim p_{z}(z)}[\log (1-D(G(z)))]</script><p>论文证明，在固定 $G$ 时，最优的 $D$ 是：</p>
+<script type="math/tex; mode=display">
+D^*_{G}(x)=\frac{p_{data}(x)}{p_{data}(x)+p_{g}(x)}</script><p>在最优 $D$ 下，$G$ 的优化目标就变成了：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+C(G)
+&=\max_{D}V(G,D)\\
+&=E_{x\sim p_{data}}\left[\log\frac{p_{data}(x)}{p_{data}(x)+p_{g}(x)}\right]+E_{x\sim p_g}\left[\log\frac{p_g(x)}{p_{data}(x)+p_g(x)}\right]
+\end{aligned}</script><p>我们可以简写该公式为 JS 散度：</p>
+<script type="math/tex; mode=display">
+C(G)=-\log(4)+2\cdot JSD(p_{data}||p_g)</script><p>该文主要证明了有关 JS 散度的目标函数会带来<strong>梯度消失</strong>的问题。如果 $D$ 训练的太好（曲线趋于平缓），$G$ 就没有足够明显的梯度来进一步优化；如果 $D$ 训练的太弱，则它能提供的指导作用就不一定好，同样不能让 $G$ 有效训练。</p>
+<p>因此，GAN 的训练问题归根结底是一个 $G$ 和 $D$ 如何<strong>相互平衡，共同进步</strong>的问题。</p>
+<blockquote>
+<p>此处补充实验：看 generator 得到的梯度大小</p>
+</blockquote>
+<h3 id="缺少合理的评价指标"><a href="#缺少合理的评价指标" class="headerlink" title="缺少合理的评价指标"></a>缺少合理的评价指标</h3><h4 id="图片质量"><a href="#图片质量" class="headerlink" title="图片质量"></a>图片质量</h4><h4 id="图片多样性"><a href="#图片多样性" class="headerlink" title="图片多样性"></a>图片多样性</h4><p>可以做的实验：用不同的GAN看图片多样性（人眼看 / 客观评价标准）</p>
+<p>已有结论：DCGAN 有很好的多样性</p>
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="http://www.comp.hkbu.edu.hk/~csgcmai/papers/MaiCaoYuenJain_Face_Reconstruction.pdf">对应论文</a></p>
+</blockquote>
+<h4 id="评价指标"><a href="#评价指标" class="headerlink" title="评价指标"></a>评价指标</h4><ul>
+<li>Inception Score</li>
+<li>MRE</li>
+<li>FID</li>
+</ul>
+<h3 id="Model-Collapse"><a href="#Model-Collapse" class="headerlink" title="Model Collapse"></a>Model Collapse</h3><p>Model Collapse 指的是生成器最终生成的都是很相似的图片，因为这些图片更容易骗过鉴别器。</p>
+<p>如何实验？</p>
+<blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://machinelearningmastery.com/practical-guide-to-gan-failure-modes/">practical-guide-to-gan-failure-modes</a></p>
+<p>参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/36410443">从泛化性到Mode Collapse：关于GAN的一些思考</a></p>
+</blockquote>
+<h3 id="梯度衰减"><a href="#梯度衰减" class="headerlink" title="梯度衰减"></a>梯度衰减</h3><p>简而言之，就是鉴别器 D 训练得太过成功，导致 D Loss 很快下降至 0 梯度消失，使得 生成器 G 学不到东西。</p>
+<p>解决办法：WGAN (有源代码)</p>
+<blockquote>
+<p>更深入探究可参考：<a target="_blank" rel="noopener" href="https://spaces.ac.cn/archives/8244">WGAN的成功，可能跟Wasserstein距离没啥关系</a></p>
+</blockquote>
+<h3 id="模型振荡不收敛问题"><a href="#模型振荡不收敛问题" class="headerlink" title="模型振荡不收敛问题"></a>模型振荡不收敛问题</h3><h3 id="过拟合"><a href="#过拟合" class="headerlink" title="过拟合"></a>过拟合</h3><h3 id="对超参很敏感"><a href="#对超参很敏感" class="headerlink" title="对超参很敏感"></a>对超参很敏感</h3></div></article><nav id="pagination"><div class="pagination"></div></nav><div id="gitalk-container"></div><script>var gitalk = new Gitalk({
+  clientID: '47e8e8f4175a9596b6be',
+  clientSecret: 'c79e55744fbe30e6069137a7f8883b71d9b352a0',
+  repo: 'hotelll.github.io',
+  owner: '',
+  admin: '',
+  id: md5(decodeURI(location.pathname)),
+  language: 'en'
+})
+gitalk.render('gitalk-container')</script></div></div><footer class="footer-bg" style="background-image: url(https://i.loli.net/2021/04/20/N3GCFnILoATjJdm.jpg)"><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2021 By Hotel</div><div class="framework-info"><span>Driven - </span><a target="_blank" rel="noopener" href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>Theme - </span><a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/hexo-theme-melody"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_site_uv"><i class="fa fa-user"></i><span id="busuanzi_value_site_uv"></span><span></span></span><span class="footer-separator">|</span><span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i><span id="busuanzi_value_site_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.9.0"></script><script src="/js/fancybox.js?version=1.9.0"></script><script src="/js/sidebar.js?version=1.9.0"></script><script src="/js/copy.js?version=1.9.0"></script><script src="/js/fireworks.js?version=1.9.0"></script><script src="/js/transition.js?version=1.9.0"></script><script src="/js/scroll.js?version=1.9.0"></script><script src="/js/head.js?version=1.9.0"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "HTML-CSS": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  },
+  "SVG": { 
+    linebreaks: { automatic: true, width: "90% container" }
+  }
+});
+</script><script type="text/x-mathjax-config">MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for (i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><script src="/js/search/local-search.js"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">Local search</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>Powered by</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
