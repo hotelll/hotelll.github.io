@@ -8,7 +8,7 @@ export async function getStaticPaths({ paginate }) {
   items.sort((a, b) => b.data.updatedDate.valueOf() - a.data.updatedDate.valueOf());
   return paginate(items, { pageSize: 10 });
 }
-const { page } = Astro.props;
+const { page } = Astro.props as any;
 ---
 
 <BaseLayout title="Store" sideBarActiveItemID="store">

@@ -10,7 +10,8 @@ export async function getStaticPaths({ paginate }) {
   return paginate(posts, { pageSize: 10 });
 }
 
-const { page } = Astro.props;
+type Props = any
+const { page } = Astro.props as Props
 ---
 
 <BaseLayout title="Blog" sideBarActiveItemID="blog">
@@ -26,7 +27,7 @@ const { page } = Astro.props;
       </div>
     ) : (
       <ul>
-        {page.data.map((post) => (
+        {page.data.map((post: any) => (
           <>
             <HorizontalCard
               title={post.data.title}
