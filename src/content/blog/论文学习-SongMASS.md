@@ -3,7 +3,7 @@ title: "论文学习: SongMASS"
 description: "由微软亚研院提出的自动作曲工作。"
 pubDate: "Feb 26 2021"
 layout: "/src/layouts/MarkdownLyaout.astro"
-heroImage: "/src/content/blog/论文学习-SongMASS/aaai-2021-18.png"
+heroImage: "/blog/论文学习-SongMASS/aaai-2021-18.png"
 tags: ["生成模型", "音乐", "人工智能"]
 ---
 
@@ -29,15 +29,15 @@ tags: ["生成模型", "音乐", "人工智能"]
 
 SongMASS 采用了编码器-解码器（Encoder-Decoder）的框架，并且提出了一种针对歌曲的**序列到序列**学习和对齐约束。由于歌词和旋律之间的差异性较大，研究员们对各个模态（歌词属于文本序列，旋律属于音符序列）分别使用了单独的编码器和解码器。对于相同模态的编码器和解码器，研究员们使用了基于掩码的序列到序列学习（Masked Sequence-to-Sequence Learning）来学习无标签数据的知识。对于不同模态的编码器和解码器，他们则在标记好的歌词-旋律配对数据上，使用标准的序列到序列学习，来拉近不同模态之间的语义距离。
 
-<img src="\src\content\blog\论文学习-SongMASS\aaai-2021-18.png" alt="img" style="zoom:80%;" />
+<img src="\blog\论文学习-SongMASS\aaai-2021-18.png" alt="img" style="zoom:80%;" />
 
 由于一首歌的长度较长，通常由多句话构成。因此，在相同模态的预训练过程中可以采用句子级的掩码策略（在每句内分别使用基于掩码的序列到序列学习）来学习歌词或者旋律的表征。掩码的设计如图所示。
 
-<img src="\src\content\blog\论文学习-SongMASS\aaai-2021-19.png" alt="Song-Level MASS pre-training" style="zoom:80%;" />
+<img src="\blog\论文学习-SongMASS\aaai-2021-19.png" alt="Song-Level MASS pre-training" style="zoom:80%;" />
 
 同时，为了能够学习到歌词与旋律的对齐语义，研究员们又在监督数据的训练上添加了句子级和单词级的注意力约束，限制每句歌词只能对齐到对应的旋律上来确保句子级上的约束。其设计如图所示。
 
-<img src="\src\content\blog\论文学习-SongMASS\aaai-2021-20.png" alt="歌词和旋律的句子级约束" style="zoom:80%;" />
+<img src="\blog\论文学习-SongMASS\aaai-2021-20.png" alt="歌词和旋律的句子级约束" style="zoom:80%;" />
 
 而在单词级上，研究员则希望每个单词 $y_i$ 和对应的音符 $x_j$ 之间的注意力权重最大。而这个期望权重设置如下：
 $$

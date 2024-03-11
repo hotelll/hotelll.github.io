@@ -3,7 +3,7 @@ title: "Google Jukebox 项目复现"
 description: "OpenAI 的项目 Jukebox 所实现的功能是：输入艺术家、曲风以及歌词，生成一首歌曲。在本周，笔者成功跑通了 Sample 部分的代码来生成音乐。写下这篇博文主要是大致记录整个过程，以及踩过的坑，希望能够帮助到有相同需求的朋友。"
 pubDate: "Jul 24 2020"
 layout: "/src/layouts/MarkdownLyaout.astro"
-heroImage: "/src/content/blog/Jukebox/jukebox.png"
+heroImage: "/blog/Jukebox/jukebox.png"
 tags: ["生成模型", "音乐"]
 ---
 
@@ -107,7 +107,7 @@ python jukebox/sample.py --model=5b_lyrics --name=sample_5b --levels=3 --mode=co
 
 
 **艺术家**：Alan Jackson	**曲风**：Country 
-<iframe width=200 height=60 src="\src\content\blog\Jukebox\item_0.wav" sandbox></iframe>
+<iframe width=200 height=60 src="\blog\Jukebox\item_0.wav" sandbox></iframe>
 
 **歌词**：
 
@@ -124,7 +124,7 @@ And wrinkled lip, and sneer of cold command
 
 
 **艺术家**：Joe Bonamassa	**曲风**：Blues Rock 
-<iframe width=200 height=60 src="\src\content\blog\Jukebox\item_1.wav" sandbox></iframe>
+<iframe width=200 height=60 src="\blog\Jukebox\item_1.wav" sandbox></iframe>
 
 **歌词**： 
 
@@ -138,7 +138,7 @@ Ohh, it's hot tub time!
 
 
 **艺术家**：Céline Dion	**曲风**：Pop 
-<iframe width=200 height=60 src="\src\content\blog\Jukebox\item_2.wav" sandbox></iframe>
+<iframe width=200 height=60 src="\blog\Jukebox\item_2.wav" sandbox></iframe>
 
 **歌词**： 
 

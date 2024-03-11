@@ -3,7 +3,7 @@ title: "今天学习RNN"
 description: 如何处理序列型数据？RNN！
 pubDate: "Feb 1 2021"
 layout: "/src/layouts/MarkdownLyaout.astro"
-heroImage: "/src/content/blog/今天学习-RNN/N2M.jpg"
+heroImage: "/blog/今天学习-RNN/N2M.jpg"
 tags: ["人工智能", "神经网络"]
 ---
 
@@ -24,15 +24,15 @@ $$
 
 对于序列型数据，原始的神经网络无法处理，因此我们引入 RNN 对序列问题进行建模。RNN 引入了隐状态 $h$ （hidden state）的概念， $h$ 可以对序列型数据提取特征后再转换为输出，如下图从 $h_1$ 开始。
 
-<img src="\src\content\blog\今天学习-RNN\one_step.jpg" alt="one step" style="zoom:70%;"/>
+<img src="\blog\今天学习-RNN\one_step.jpg" alt="one step" style="zoom:70%;"/>
 
 接着向前一步到 $h_2$。注意每一步中的参数 $U$，$W$，$b$ 是共享的，这是 RNN 的重要特点。
 
-<img src="\src\content\blog\今天学习-RNN\step_forwards.jpg" alt="one step forwards" style="zoom:80%;" />
+<img src="\blog\今天学习-RNN\step_forwards.jpg" alt="one step forwards" style="zoom:80%;" />
 
 不断地向前移步，我们可以处理整个序列。之后我们需要输出，输出的方法就是直接通过 $h$ 进行计算：
 
-<img src="\src\content\blog\今天学习-RNN\rnn_output.jpg" alt="rnn output" style="zoom: 65%;" />
+<img src="\blog\今天学习-RNN\rnn_output.jpg" alt="rnn output" style="zoom: 65%;" />
 
 ## RNN 变体结构
 
@@ -49,7 +49,7 @@ $$
 
 有时候，我们需要处理的问题是输入一个序列，输出一个单独的值。这种情况下，我们可以只在最后一个 $h$ 上进行输出变换即可。
 
-<img src="\src\content\blog\今天学习-RNN\output_single.jpg" alt="single output" style="zoom: 18%;" />
+<img src="\blog\今天学习-RNN\output_single.jpg" alt="single output" style="zoom: 18%;" />
 
 这种结构常用于处理序列分类的问题，例如：
 
@@ -63,11 +63,11 @@ $$
 
 #### 只在序列开始进行输入计算
 
-<img src="\src\content\blog\今天学习-RNN\1Nfirst.jpg" alt="first type of 1 to N" style="zoom: 60%;" />
+<img src="\blog\今天学习-RNN\1Nfirst.jpg" alt="first type of 1 to N" style="zoom: 60%;" />
 
 #### 把输入信息作为每个阶段的输入
 
-<img src="\src\content\blog\今天学习-RNN\1Nsecond.jpg" alt="second type of 1 to N" style="zoom: 18%;" />
+<img src="\blog\今天学习-RNN\1Nsecond.jpg" alt="second type of 1 to N" style="zoom: 18%;" />
 
 这种 1 $\to$ N 的结构可以处理的任务有：
 
@@ -80,17 +80,17 @@ $N\to M$ 是 RNN 最重要的一个变种。这种结构又被称为**编码器-
 
 Encoder-Decoder 结构将 RNN 拆解为编码器和解码器两个部分。编码器部分将输入数据编码成一个上下文向量 $c$：
 
-<img src="\src\content\blog\今天学习-RNN\NMencoder.jpg" alt="N to M: encoder" style="zoom:80%;" />
+<img src="\blog\今天学习-RNN\NMencoder.jpg" alt="N to M: encoder" style="zoom:80%;" />
 
 得到 $c$ 的方式很多，上图展示的是最简单的方法：将编码器的最后一个隐状态赋值给 $c$。还可以对左后的隐状态做一个变换得到 $c$，也可以对所有隐状态做变换。
 
 得到编码 $c$ 后，我们用另一个 RNN 进行解码，这个 RNN 称为解码器。具体做法是将 $c$ 作为初始状态 $h_0$ 输入到解码器中：
 
-<img src="\src\content\blog\今天学习-RNN\N2M.jpg" alt="N to M" style="zoom:90%;" />
+<img src="\blog\今天学习-RNN\N2M.jpg" alt="N to M" style="zoom:90%;" />
 
 或者我们也可以将 $c$ 作为每一步的输入：
 
-<img src="\src\content\blog\今天学习-RNN\N2M2.jpg" alt="N to M 2" style="zoom:90%;" />
+<img src="\blog\今天学习-RNN\N2M2.jpg" alt="N to M 2" style="zoom:90%;" />
 
 编码器-解码器结构不限制输入和输出的序列长度，因此应用的范围非常广泛，比如：
 

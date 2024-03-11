@@ -3,7 +3,7 @@ title: "基于条件的GAN生成"
 description: "我们如何将条件信息加入GAN？"
 pubDate: "Feb 17 2021"
 layout: "/src/layouts/MarkdownLyaout.astro"
-heroImage: "/src/content/blog/Conditional-GAN/cGAN_results.png"
+heroImage: "/blog/Conditional-GAN/cGAN_results.png"
 tags: ["生成模型", "人工智能"]
 ---
 
@@ -23,7 +23,7 @@ $$
 $$
 \min_{G}\max_{D} V(D,G)=E_{x\sim p_{data}(x)}\left[\log D(x|y)\right]+E_{z\sim p_z(z)}\left[\log(1-D(G(z|y)))\right]
 $$
-<img src="/src/content/blog/Conditional-GAN/cGAN_structure.png" alt="cGAN-structure" style="max-width: 600px" />
+<img src="/blog/Conditional-GAN/cGAN_structure.png" alt="cGAN-structure" style="max-width: 600px" />
 
 ## 实验
 
@@ -31,7 +31,7 @@ $$
 
 在 cGAN 的帮助下，针对 MNIST 数据集，我们能够通过额外信息 $y$（分类标签 0~9）来指定生成器输出的数字。下面是实验结果：
 
-<img src="/src/content/blog/Conditional-GAN/cGAN_results.png" alt="Generated Results" style="max-width: 600px" />
+<img src="/blog/Conditional-GAN/cGAN_results.png" alt="Generated Results" style="max-width: 600px" />
 
 我们可以看到生成的结果是有序排列的，而普通的 GAN 只能生成无序随机数字。
 

@@ -3,7 +3,7 @@ title: "网络流III：Edmonds-Karp 算法"
 description: 这一章中，我们将选择**边数最小**的增广路径。基于这种选择的 Ford-Fulkerson 算法称为 Edmonds-Karp 算法。
 pubDate: "Nov 16 2020"
 layout: "/src/layouts/MarkdownLyaout.astro"
-heroImage: "/src/content/blog/网络流I/head.png"
+heroImage: "/blog/网络流I/head.png"
 tags: ["算法", "网络流"]
 ---
 
@@ -11,7 +11,7 @@ tags: ["算法", "网络流"]
 
 Edmonds-Karp 算法就是在 Ford-Fulkerson 方法的基础上，将每条边上权重视为1的情况下，寻找最短增广路径，也就是边数最少的路径。我们可以很自然地想到利用**广度优先搜索**（BFS）的方法来寻找边数最小的增广路径，算法伪代码如下：
 
-<img src="\src\content\blog\网络流III\bfs.png" alt="bfs" style="max-width: 600px" />
+<img src="\blog\网络流III\bfs.png" alt="bfs" style="max-width: 600px" />
 
 
 ## 算法分析
@@ -91,7 +91,7 @@ Edmonds-Karp 算法就是在 Ford-Fulkerson 方法的基础上，将每条边上
 - $l(v)=$ 从 $s$ 到 $v$ 的最短路径的边的数量。
 - $L_G=(V,E_G)$ 是 $G$ 的子图，只包含满足 $l(w)=l(v)+1$ 的边 $(v,w)\in E$。
 
-<img src="\src\content\blog\网络流III\level_graph.png" alt="level_graph" style="max-width: 600px" />
+<img src="\blog\网络流III\level_graph.png" alt="level_graph" style="max-width: 600px" />
 
 
 我们可以通过运行 BFS 在 $O(m+n)$ 的时间内计算出水平图。

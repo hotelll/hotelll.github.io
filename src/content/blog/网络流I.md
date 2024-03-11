@@ -3,7 +3,7 @@ title: "网络流I：详解最大流最小割"
 description: 网络流(Network-Flows)是一种类比水流的解决问题方法，是图论中的热门问题。网络流部分充满复杂的概念、算法以及奇妙的证明，对于初学者很不友好。因此本博客的目标是总结和梳理网络流的基础知识。
 pubDate: "Oct 28 2020"
 layout: "/src/layouts/MarkdownLyaout.astro"
-heroImage: "/src/content/blog/网络流I/head.png"
+heroImage: "/blog/网络流I/head.png"
 tags: ["算法", "网络流"]
 ---
 
@@ -12,7 +12,7 @@ tags: ["算法", "网络流"]
 ## 最大流和最小割
 
 ### 网络流图的概念
-<img src="\src\content\blog\网络流I\1.png" alt="网络流I-1" style="max-width: 600px" />
+<img src="\blog\网络流I\1.png" alt="网络流I-1" style="max-width: 600px" />
 
 网络流图（Flow Network）是对于物质流动的一种抽象。它的定义如下：
 
@@ -23,7 +23,7 @@ tags: ["算法", "网络流"]
 
 ### 最小割问题
 
-<img src="\src\content\blog\网络流I\2.png" alt="网络流I-2" style="max-width: 600px" />
+<img src="\blog\网络流I\2.png" alt="网络流I-2" style="max-width: 600px" />
 
 **割：**割（Cut）是对图上节点的分割 $(A,B)$，其中 $s\in A$ 且 $t\in B$。
 
@@ -51,14 +51,14 @@ $$
 \sum_{e\ \mathrm{into}\ v}f(e)=\sum_{e\ \mathrm{out\ of}\ v}f(e)​
 $$
 
-<img src="\src\content\blog\网络流I\3.png" alt="网络流I-3" style="max-width: 600px" />
+<img src="\blog\网络流I\3.png" alt="网络流I-3" style="max-width: 600px" />
 
 **流的值：**从源点流出的流量总和。
 $$
 val(f)=\sum_{e\ \mathrm{out\ of}\ s}f(e)
 $$
 
-<img src="\src\content\blog\网络流I\4.png" alt="网络流I-4" style="max-width: 600px" />
+<img src="\blog\网络流I\4.png" alt="网络流I-4" style="max-width: 600px" />
 
 **最大流问题：**找到**值最大**的流函数。
 
@@ -75,20 +75,20 @@ $$
 - 沿着路径 $P$ 在每条边上添加流。
 - 重复此过程直到找不到满足条件的路径 $P$。
 
-<img src="\src\content\blog\网络流I\greedyDemo1.png" alt="greedyDemo1" style="max-width: 600px" />
+<img src="\blog\网络流I\greedyDemo1.png" alt="greedyDemo1" style="max-width: 600px" />
 
-<img src="\src\content\blog\网络流I\greedyDemo2.png" alt="greedyDemo2" style="max-width: 600px" />
+<img src="\blog\网络流I\greedyDemo2.png" alt="greedyDemo2" style="max-width: 600px" />
 
-<img src="\src\content\blog\网络流I\greedyDemo3.png" alt="greedyDemo3" style="max-width: 600px" />
+<img src="\blog\网络流I\greedyDemo3.png" alt="greedyDemo3" style="max-width: 600px" />
 
-<img src="\src\content\blog\网络流I\greedyDemo4.png" alt="greedyDemo4" style="max-width: 600px" />
+<img src="\blog\网络流I\greedyDemo4.png" alt="greedyDemo4" style="max-width: 600px" />
 
-<img src="\src\content\blog\网络流I\greedyDemo5.png" alt="greedyDemo5" style="max-width: 600px" />
+<img src="\blog\网络流I\greedyDemo5.png" alt="greedyDemo5" style="max-width: 600px" />
 
 
 通过贪心算法得到的最大流的值为16，但是我们发现最大流的值可以达到19，如下图所示。
 
-<img src="\src\content\blog\网络流I\answer.png" alt="answer" style="max-width: 600px" />
+<img src="\blog\网络流I\answer.png" alt="answer" style="max-width: 600px" />
 
 事实上，单纯的贪心算法无法解决最大流问题，因为贪心算法中的每一个选择是无法回退的，很可能使算法达不到最优解。
 
@@ -98,11 +98,11 @@ $$
 
 既然贪心算法无法回退，那么我们就在图上增加回退的边，构成一张新的网络——残存网络。对于网络中的每条边 $e=(u,v)$，添加一条反向边 $e^R=(v,u)$。残存网络 $G_f$ 中各边的容量称为**残存容量**（Residual capacity），残存容量的大小定义为：
 
-<img src="\src\content\blog\网络流I\residual.png" alt="residual" style="max-width: 600px" />
+<img src="\blog\网络流I\residual.png" alt="residual" style="max-width: 600px" />
 
 下图展示了残边的生成过程。
 
-<img src="\src\content\blog\网络流I\residualEdge.png" alt="residualEdge" style="max-width: 600px" />
+<img src="\blog\网络流I\residualEdge.png" alt="residualEdge" style="max-width: 600px" />
 
 **关键性质：**$f'$ 是残存网络 $G_f$ 的流函数$\iff$ $f+f'$ 是原网络 $G$ 的流函数。
 
@@ -128,7 +128,7 @@ $$
 
 算法伪代码：
 
-<img src="\src\content\blog\网络流I\FF.png" alt="FF" style="max-width: 600px" />
+<img src="\blog\网络流I\FF.png" alt="FF" style="max-width: 600px" />
 
 算法流程：
 
@@ -140,11 +140,11 @@ $$
 下面展示一个 Ford-Fulkerson 算法运行的 demo：
 
 
-<img src="\src\content\blog\网络流I\F12.png" alt="F12" style="max-width: 600px" />
+<img src="\blog\网络流I\F12.png" alt="F12" style="max-width: 600px" />
 
-<img src="\src\content\blog\网络流I\F34.png" alt="F34" style="max-width: 600px" />
+<img src="\blog\网络流I\F34.png" alt="F34" style="max-width: 600px" />
 
-<img src="\src\content\blog\网络流I\F56.png" alt="F56" style="max-width: 600px" />
+<img src="\blog\网络流I\F56.png" alt="F56" style="max-width: 600px" />
 
 
 
@@ -231,7 +231,7 @@ $$
 
 结论的示意图如下：
 
-<img src="\src\content\blog\网络流I\proof3to1.png" alt="proof3to1" style="max-width: 600px" />
+<img src="\blog\网络流I\proof3to1.png" alt="proof3to1" style="max-width: 600px" />
 
 由此进行推导即可证明：
 $$

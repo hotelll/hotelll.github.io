@@ -3,7 +3,7 @@ title: "从神经网络到VQ-VAE模型"
 description: "这是一篇介绍从神经网络（Neural Network）开始谈起，依次介绍自编码器（AutoEncoder）、变分自编码器 （VAE）和矢量量化变分自编码器（VQ-VAE）的文章。"
 pubDate: "Jul 8 2020"
 layout: "/src/layouts/MarkdownLyaout.astro"
-heroImage: "/src/content/blog/From-NN-to-VQ-VAE/Head.png"
+heroImage: "/blog/From-NN-to-VQ-VAE/Head.png"
 tags: ["生成模型", "人工智能"]
 ---
 
@@ -32,7 +32,7 @@ tags: ["生成模型", "人工智能"]
 
 下图为神经元模型：
 
-<img src="\src\content\blog\From-NN-to-VQ-VAE\unit.jpg" alt="神经元模型" style="max-width: 600px" />
+<img src="\blog\From-NN-to-VQ-VAE\unit.jpg" alt="神经元模型" style="max-width: 600px" />
 
 神经元之间通过相互连接形成神经网络。
 
@@ -40,7 +40,7 @@ tags: ["生成模型", "人工智能"]
 
 神经网络层数指的是网络中有计算操作的层次，简称**计算层**。单层神经网络又称为**感知器**，只有输入层和输出层。一个3输入2输出的感知器结构如下：
 
-<img src="\src\content\blog\From-NN-to-VQ-VAE\perceptron.jpg" alt="感知器结构" style="max-width: 600px" />
+<img src="\blog\From-NN-to-VQ-VAE\perceptron.jpg" alt="感知器结构" style="max-width: 600px" />
 
 这里权值 $w_{i,j}$ 意思是从第 $i$ 个输入到第 $j$ 个输出的权值。
 
@@ -56,7 +56,7 @@ $$
 
 随着算力的提升以及解决更复杂问题的需求，科学家将多个感知器组成了多层感知器，也就是多层神经网络。一个 3-2-2 的两层神经网络结构如下：
 
-<img src="\src\content\blog\From-NN-to-VQ-VAE\multiNN.jpg" alt="两层神经网络结构" style="max-width: 600px" />
+<img src="\blog\From-NN-to-VQ-VAE\multiNN.jpg" alt="两层神经网络结构" style="max-width: 600px" />
 
 结构中，有如下注意点：
 
@@ -97,7 +97,7 @@ $$
 
 **自编码器**是神经网络中的一类模型。它的结构如下所示。
 
-<img src="\src\content\blog\From-NN-to-VQ-VAE\AntoEncoder.jpg" alt="自编码器" style="max-width: 600px" />
+<img src="\blog\From-NN-to-VQ-VAE\AntoEncoder.jpg" alt="自编码器" style="max-width: 600px" />
 
 自编码器框架由**编码过程**和**解码过程**组成。首先，通过 encoder g 将输入样本 x 映射到特征空间z；之后，再通过 decoder f 将抽象特征 z 映射回原始空间得到重构样本 x'。
 
@@ -117,7 +117,7 @@ $$
 
 VAE是一类强大的生成模型。VAE较大的不同点在于，它假设了样本 x 的抽象特征 z 服从 $(\mu,\ \sigma^2)$ 的高斯分布（一般会假设为标准正态分布 $\mathcal{N}(0,1)$）。这样做的优势是，训练结束后，我们可以抛弃 Encoder 部分，而直接从高斯分布中采样一个 z，然后根据 z 来生成一个 x，这是将是一个很棒的生成模型。VAE模型的示意图如下：
 
-<img src="\src\content\blog\From-NN-to-VQ-VAE\VAE.jpg" alt="VAE结构" style="max-width: 600px" />
+<img src="\blog\From-NN-to-VQ-VAE\VAE.jpg" alt="VAE结构" style="max-width: 600px" />
 
 VAE模型中，针对每个 $X_k$，通过神经网络训练出一个专属于 $X_k$ 的正态分布 $p(Z|X_k)$ 的均值和方差。这样，我们就得到了一个生成器 $\hat{X}_k=g(Z_k)$。总结来说，VAE为每个样本构造专属的正态分布，之后进行采样来重构。
 
@@ -149,7 +149,7 @@ $$
 
 VQ-VAE的特点是编码出的编码向量是离散的（向量的每个元素都是整数）。其总体结构如下：
 
-<img src="\src\content\blog\From-NN-to-VQ-VAE\VQVAE.jpg" alt="VQ-VAE结构" style="max-width: 600px" />
+<img src="\blog\From-NN-to-VQ-VAE\VQVAE.jpg" alt="VQ-VAE结构" style="max-width: 600px" />
 
 ### 最邻近重构
 

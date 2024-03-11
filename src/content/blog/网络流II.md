@@ -3,7 +3,7 @@ title: "网络流II：Capacity-scaling 算法"
 description: 这是网络流的第二部分。在网络流 I 中我们讨论了最大流最小割的定义、求解方法以及定理证明。在第二部分中，我们将讨论一种优化 Ford-Fulkerson 算法时间复杂度的方法——Capacity-scaling 算法。
 pubDate: "Oct 29 2020"
 layout: "/src/layouts/MarkdownLyaout.astro"
-heroImage: "/src/content/blog/网络流I/head.png"
+heroImage: "/blog/网络流I/head.png"
 tags: ["算法", "网络流"]
 ---
 
@@ -55,7 +55,7 @@ tags: ["算法", "网络流"]
 在 Capacity-Scaling 算法中，我们记录一个缩放参数 $\Delta$，在每次迭代中，我们不关注整个 $G_f$，只关注 $G_f(\Delta)$。$G_f(\Delta)$ 是 $G_f$ 的子图，只包括 $G_f$ 中残存容量 $\geq\Delta$ 的边。我们初始化 $\Delta$ 为不大于最大容量 $C$ 的最大2次幂，且在每轮迭代中缩小 $\Delta$ 为 $\Delta /2$。
 
 ### 算法伪代码
-<img src="\src\content\blog\网络流II\CSalgorithm.png" alt="CSalgorithm" style="max-width: 600px" />
+<img src="\blog\网络流II\CSalgorithm.png" alt="CSalgorithm" style="max-width: 600px" />
 
 ### 算法正确性与复杂性分析
 
@@ -87,7 +87,7 @@ tags: ["算法", "网络流"]
   - 对于任意边 $e=(v,w)$，$v\in B$ 且 $w\in A$，有 $f(e)<\Delta$。
   - 对于任意边 $e=(v,w)$，$v\in A$ 且 $w\in B$，有 $f(e)>c(e)-\Delta$。
 
-<img src="\src\content\blog\网络流II\algorithm_val.png" alt="algorithm_val" style="max-width: 600px" />
+<img src="\blog\网络流II\algorithm_val.png" alt="algorithm_val" style="max-width: 600px" />
 
 ##### 引理3：流的值在每个 Scaling 阶段最多增加 $2m$ 次。
 
