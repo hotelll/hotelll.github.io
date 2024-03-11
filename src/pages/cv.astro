@@ -5,66 +5,106 @@ import TimeLineElement from "../components/cv/TimeLine.astro";
 
 <BaseLayout title="Resume" sideBarActiveItemID="cv">
   <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Profile</div>
+    <div class="text-3xl w-full font-bold">个人信息</div>
   </div>
 
   <div class="mb-10 text-justify">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-    aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    我是何天尧，正在上海交通大学电子系攻读硕士学位，从事<b>视频理解</b>，<b>多模态分析</b>，<b>计算机视觉</b>等领域的研究，师从媒体信息网络研究所的林巍峣教授。
+    <a href="public/何天尧_上海交通大学_简历.pdf" style="color:#0000FF;">[个人简历]</a>
   </div>
 
   <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Education</div>
+    <div class="text-3xl w-full font-bold">教育 📚</div>
   </div>
 
   <div class="time-line-container grid gap-4 mb-10">
     <TimeLineElement
-      title="Title Name"
-      subtitle="[start year] to [end year] at [Study Center Name], [City], [Country]"
+      title="硕士 上海交通大学 信息与通信工程 2022-至今"
+      subtitle="GPA: 3.93/4.0 (10%)  相关课程：视觉计算理论与工程实践/3D感知与数据处理技术/应用随机过程/图与网络/现代信号处理"
+      
     />
     <TimeLineElement
-      title="Title Name"
-      subtitle="[start year] to [end year] at [Study Center Name], [City], [Country]"
+      title="本科 上海交通大学 IEEE试点班（计算机科学方向）2018-2022"
+      subtitle="GPA: 3.64/4.0 (30%)  相关课程：程序设计/数据结构/概率论/算法设计与分析/人工智能/计算机系统工程/机器学习/计算机网络"
     />
   </div>
 
   <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Experience</div>
+    <div class="text-3xl w-full font-bold">科研 🔬</div>
   </div>
 
   <div class="time-line-container mb-10">
     <TimeLineElement
-      title="Job Title at Project or Company Name"
-      subtitle="From [Start Date] to [End Date] at [Company], [City], [Country]"
+      title="具备步骤感知能力的复杂视频理解"
+      subtitle="第一作者 AAAI 2024，专利申请，扩展期刊审稿中"
     >
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+    与联想AI Lab合作，针对复杂的多步骤视频理解任务（如：实验操作、跳水&体操、装配视频等），现有方法在缺乏步骤标注时性能较差。团队利用视频之间的内在步骤一致性，实现了弱监督下具备步骤感知能力的复杂视频相关性分析，在三项任务上取得最佳效果。
+    <a href="https://arxiv.org/abs/2312.11024" style="color:#0000FF;" target="_blank">[paper]</a>
+    <a href="https://github.com/hotelll/Collaborative_Procedure_Alignment" style="color:#0000FF;" target="_blank">[code]</a>
     </TimeLineElement>
     <TimeLineElement
-      title="Job Title at Project or Company Name"
-      subtitle="From [Start Date] to [End Date] at [Company], [City], [Country]"
+      title="音乐抄袭检测数据集构建以及算法研究 "
+      subtitle="第二作者 ACM MM 2023"
     >
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+    针对音乐抄袭的问题，构建了大规模的模拟 & 真实抄袭案例数据集，并提出基于二分图匹配的音乐抄袭检测算法，取得目前最佳效果。
+    <a href="https://dl.acm.org/doi/abs/10.1145/3581783.3611831" style="color:#0000FF;" target="_blank">[paper]</a>
+    <a href="https://github.com/xuan301/BMMDet_MPDSet" style="color:#0000FF;" target="_blank">[code]</a>
     </TimeLineElement>
     <TimeLineElement
-      title="Job Title at Project or Company Name"
-      subtitle="From [Start Date] to [End Date] at [Company], [City], [Country]"
+      title="密集遮挡场景下的目标检测技术"
+      subtitle="第三作者 IJCV在投"
     >
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+    目前目标检测技术在密集遮挡的场景下（如人群检测）性能表现不佳，针对这一问题，不同于传统直接预测目标框的方法，团队采用变分推断的思想，推断目标位置的概率分布，将目标遮挡这一不确定度建模在方法中进行优化，设计即插即用模块并在多个方法上实现提升。
     </TimeLineElement>
   </div>
 
   <div class="mb-5">
-    <div class="text-3xl w-full font-bold">Certifications</div>
+    <div class="text-3xl w-full font-bold">竞赛 🏅</div>
+  </div>
+
+  <div class="time-line-container mb-10">
+    <TimeLineElement
+      title="PTZ摄像机高精度告警定位-挑战杯“揭榜挂帅”专项赛 全国擂主"
+      subtitle="团队负责人 2023年03月 - 2023年11月"
+    >
+    与“中国铁塔”合作，利用铁塔上的PTZ摄像机，实现单目摄像机的千米级目标地理位置定位。团队结合计算机视觉、AI大模型和地理信息技术，提出了视频相机标定算法、AI地表位置推断以及地形定位模型三大创新点，提升了50%以上的定位精度。
+    <a href="https://news.sjtu.edu.cn/jdyw/20231101/189936.html" style="color:#0000FF;" target="_blank">[相关报道]</a>
+    </TimeLineElement>
+    <TimeLineElement
+      title="逼真智能数字人生成技术-挑战杯“揭榜挂帅”专项赛 全国一等奖"
+      subtitle="团队负责人 2023年03月 - 2023年9月"
+    >
+    与“中国联通”合作，实现高保真的智能数字人技术。团队构建大规模、高质量说话人视频帧数据集，并设计显示参数实现数字人的可控生成和细粒度编辑，在智能客服、旅游向导、网课教学场景实现丰富应用。
+    <a href="https://mp.weixin.qq.com/s/ksaxTyDHLxTnz39KYkgFdQ" style="color:#0000FF;" target="_blank">[相关报道]</a>
+    
+    </TimeLineElement>
+    <TimeLineElement
+      title="“中科星图杯”国际高分遥感图像解译大赛-高分辨率光学卫星视频中多目标跟踪赛道 第1名"
+      subtitle="团队成员 2023年1月 - 2023年3月"
+    >
+    竞赛针对卫星遥感拍摄的海上视频，要求检测和跟踪飞机和船等小目标。团队进行跨数据集增强，并且考虑了性能和效率的平衡，采用 Yolo-v5m + 最优二分匹配的策略，在所有团队中给出了最佳性能和效率，夺得第一。
+    </TimeLineElement>
+  </div>
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">荣誉 🏆</div>
   </div>
 
   <ul class="list-disc mx-6 mb-10 grid gap-2">
     <li>
-      <a href="#" target="_blank"> Certification Name (with link)</a>
+      2023年“榜样的力量”上海交大年度优秀学生
     </li>
     <li>
-      <a href="#" target="_blank"> Certification Name (with link)</a>
+      2023年度研究生学业奖学金 一等奖（10%）
+    </li>
+    <li>
+      2022年度研究生学业奖学金 一等奖（10%）
+    </li>
+    <li>
+      2021年度收钱吧·陈灏校友奖学金（全系2人）
+    </li>
+    <li>
+      2020上海交通大学进步奖学金（5%）
     </li>
   </ul>
 
@@ -73,20 +113,11 @@ import TimeLineElement from "../components/cv/TimeLine.astro";
   </div>
 
   <ul class="list-disc md:columns-5 columns-2 mx-6">
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
-    <li>Skill Name</li>
+    <li>Python</li>
+    <li>C++</li>
+    <li>LaTeX</li>
+    <li>绘画设计</li>
+    <li>音乐演奏</li>
+    <li>游泳</li>
   </ul>
 </BaseLayout>
