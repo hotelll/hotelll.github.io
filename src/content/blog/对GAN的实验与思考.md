@@ -3,7 +3,7 @@ title: "对GAN的实验与思考"
 description: "GAN 的目标和行为的本质是什么？它的缺陷和改进方向又是什么？本文中笔者通过一些介绍，分析和实验来更加深入地探讨一下这个神奇的生成模型。"
 pubDate: "Sep 15 2022"
 layout: "/src/layouts/MarkdownLyaout.astro"
-heroImage: "/post_img.webp"
+heroImage: "/blog/对GAN的实验与思考/cub.png"
 tags: ["生成模型", "人工智能"]
 ---
 
@@ -147,14 +147,14 @@ Vanilla GAN，也就是最传统的 GAN，通过最简单的全连接层来实�
 
 > 冷知识：Vanilla 原义为香草。因为香草味是冰淇淋最传统基本的口味，所以计算机领域常用 Vanilla 表示没有**任何改变的，最传统的**版本，例如 Vanilla GAN, Vanilla VAE。
 
-<img src="/src/content/blog/对GAN的实验与思考/vanilla-gan.png" alt="Vanilla GAN" style="max-width: 600px" />
+<img src="/blog/对GAN的实验与思考/vanilla-gan.png" alt="Vanilla GAN" style="max-width: 600px" />
 
 
 ### DCGAN
 
 DCGAN 在传统 GAN 的思想上，用更强力的卷积层代替了 Vanilla GAN 的全连接层。其结构如下（此处用 $64\times 64$ 图片为例）：
 
-<img src="/src/content/blog/对GAN的实验与思考/DCGAN.png" alt="DCGAN" style="max-width: 600px" />
+<img src="/blog/对GAN的实验与思考/DCGAN.png" alt="DCGAN" style="max-width: 600px" />
 
 
 
@@ -162,9 +162,9 @@ DCGAN 在传统 GAN 的思想上，用更强力的卷积层代替了 Vanilla GAN
 
 我在 CelebA 人脸数据集和 CUB200_2011 鸟类数据集上测试了 DCGAN 的生成能力，我们一起来看一下生成结果。
 
-<img src="/src/content/blog/对GAN的实验与思考/celebA.png" alt="celebA生成结果"  />
+<img src="/blog/对GAN的实验与思考/celebA.png" alt="celebA生成结果"  />
 
-<img src="/src/content/blog/对GAN的实验与思考/cub.png" alt="CUB200_2011生成结果"  />
+<img src="/blog/对GAN的实验与思考/cub.png" alt="CUB200_2011生成结果"  />
 
 由于算力有限，算法性能不是我们关注的重点，生成的结果虽有明显瑕疵，但不影响我们的学习实验。
 
@@ -178,7 +178,7 @@ GAN 采用的是一种对抗式训练，对抗的双方（鉴别器和生成器�
 
 实验主要通过调整鉴别器学习率 $lr_{D}$​​ 和生成器学习率 $lr_{G}$​​ 来实现。首先，我设置了相同的学习率 $lr_{D}=lr_{G}=1\times 10^{-4}$​​，并绘制了 $D$​​ 和 $G$​​ 损失函数的曲线（下图最左）。我们可以观察得到，在第10轮左右，鉴别器的损失函数几乎归零，发生梯度消失的现象，导致生成器的损失值开始明显上升。
 
-<img src="/src/content/blog/对GAN的实验与思考/balances.png" alt="不同学习率下的损失函数曲线"  />
+<img src="/blog/对GAN的实验与思考/balances.png" alt="不同学习率下的损失函数曲线"  />
 
 由此现象，我们可以归纳出以下两点：
 
@@ -201,7 +201,7 @@ $$
 $$
 因此，理想的损失函数曲线中，鉴别器应该大致收敛于0.69左右的位置。在理论支撑下，我尝试了更多的学习率，但是始终没有调出理想的鉴别器曲线（见下图）。
 
-<img src="/src/content/blog/对GAN的实验与思考/trains.png" alt="展示了多种学习率设置下的损失曲线"  />
+<img src="/blog/对GAN的实验与思考/trains.png" alt="展示了多种学习率设置下的损失曲线"  />
 
 可能要保持 $G$ 和 $D$​ 在整个训练过程中平衡几乎是不可能完成的任务。对于某一特定任务的调参尚且如此困难，这让我明白，GAN的改进仅用调参来优化是乏力低效的，必须从理论层面进行突破。不只是GAN，机器学习的研究皆是如此。
 
@@ -217,13 +217,13 @@ $$
 
 我们采用对比实验，首先我们使用一个训练较好的 GAN 的鉴别器，输入256张来自真实数据集的图片和256张由生成器生成的图片。对于鉴别器的每一层卷积层，我们提取其输出特征，用 PCA 和 t-SNE 降至三维进行可视化，如图所示。
 
-<img src="/src/content/blog/对GAN的实验与思考/pca.png" alt="训练成功的GAN鉴别器各层特征输出（三维可视化）"  />
+<img src="/blog/对GAN的实验与思考/pca.png" alt="训练成功的GAN鉴别器各层特征输出（三维可视化）"  />
 
 观察可得，真实图片（红点）和生成图片（蓝点）完全没有区分开混作一团，这为鉴别器无法区分真假图片提供了有力支撑。
 
 同时，我们使用我们之前训练失败的GAN进行同样的实验（这个GAN的鉴别器训练超前于生成器），得到如下图所示的结果。
 
-<img src="/src/content/blog/对GAN的实验与思考/pca_failed.png" alt="训练失败的GAN鉴别器各层特征输出（三维可视化）"  />
+<img src="/blog/对GAN的实验与思考/pca_failed.png" alt="训练失败的GAN鉴别器各层特征输出（三维可视化）"  />
 
 观察可得，正负样本在图中被很好的区分开了，这证明了在鉴别器训练超前的失败案例中，鉴别器能够很好区分真假图片。
 
@@ -237,7 +237,7 @@ $$
 
 本实验中，我们随机从正态分布中采样两个隐藏变量（10维），分别作为开始值 $h_{\mathrm{start}}$ 和结束值 $h_{\mathrm{end}}$。我在二者之间均匀取100个插值输入 $G$ 生成对应图片。我们一共进行了三组实验，如下图所示。
 
-<img src="/src/content/blog/对GAN的实验与思考/cont_latent.png" alt="隐变量的连续变化对应生成图片的连续变化"  />
+<img src="/blog/对GAN的实验与思考/cont_latent.png" alt="隐变量的连续变化对应生成图片的连续变化"  />
 
 我们可以观察到：隐变量的连续变化引起了生成图片的连续变化，说明隐空间到生成图像域是一种**连续映射**（continuous mapping）。
 
@@ -247,7 +247,7 @@ $$
 
 在这个实验中，我们随机采样初始隐变量，改变其中一个维度在 $[-2,2]$​ 之间均匀变化，由此来看每个维度是否决定图片的某些特性。实验结果如下图，其中每一维度我们只展示了 $-2, -0.7, 0.7, 2$ 对应的结果。
 
-<img src="/src/content/blog/对GAN的实验与思考/1dchange.png" alt="维度改变对于生成结果的影响"  />
+<img src="/blog/对GAN的实验与思考/1dchange.png" alt="维度改变对于生成结果的影响"  />
 
 从结果可知，虽然我们可以发现某些维度的改变引起了生成图片的一些语义的变化，如性别，发型，肤色，姿态等，但是并没有表现出明显的语义特征。想要维度单独控制特定语义特征，我们需要能够解耦维度的GAN技术。
 
@@ -257,7 +257,7 @@ $$
 
 我经常看待对GAN隐变量的加减操作后生成的图片呈现神奇的语义特征，因此我也想尝试。在本实验中，我首先取了微笑的人脸图片对应的隐变量 $h_1$ 以及一些无表情人脸图片对应的隐变量 $h_2$，将$h=h_1+h_2$ 进行生成，得到的实验结果如下所示。
 
-<img src="latent_operation.png" alt="隐变量加法操作对应丰富语义信息" style="zoom: 67%;" />
+<img src="/blog/对GAN的实验与思考/latent_operation.png" alt="隐变量加法操作对应丰富语义信息" style="zoom: 67%;" />
 
 观察可得，$h$ 生成的图片保留了 $h_1$ 包含的微笑特征和 $h_2$​ 包含的姿态特征（正视 or 侧视），一定程度上体现了隐变量包含着丰富的语义信息。
 
@@ -277,7 +277,7 @@ $$
 
 我也用 FID score 来验证了下我的生成模型在每一轮的性能，如下图所示。实验方法是每一轮让模型生成100张图片，进行 FID score 的计算。
 
-<img src="FIDcurve.png" alt="每一轮对应的FID score曲线" style="zoom: 67%;" />
+<img src="/blog/对GAN的实验与思考/FIDcurve.png" alt="每一轮对应的FID score曲线" style="zoom: 67%;" />
 
 可以看到，我们的模型在训练过程中，性能确实呈现变好的趋势。
 
