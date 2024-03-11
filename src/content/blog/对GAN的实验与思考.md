@@ -3,7 +3,7 @@ title: "对GAN的实验与思考"
 description: "GAN 的目标和行为的本质是什么？它的缺陷和改进方向又是什么？本文中笔者通过一些介绍，分析和实验来更加深入地探讨一下这个神奇的生成模型。"
 pubDate: "Sep 15 2022"
 layout: "/src/layouts/MarkdownLyaout.astro"
-heroImage: "/src/content/blog/对GAN的实验与思考/cub.png"
+heroImage: "/post_img.webp"
 tags: ["生成模型", "人工智能"]
 ---
 
